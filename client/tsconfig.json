@@ -17,6 +17,6 @@
     "experimentalDecorators": true,
     "suppressImplicitAnyIndexErrors": true
   },
-  "include": ["src"],
+  "include": ["src", "../dump/JSX/Explore copy.jsx", "../dump/JSX/NftMinter copy.jsx"],
   "exclude": ["node_modules", "build"]
 }

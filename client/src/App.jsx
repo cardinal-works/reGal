@@ -6,6 +6,8 @@ import Landing from './Pages/Landing';
 import Explore from './Pages/Explore';
 import Profile from './Pages/Profile';
 import NftMinter from './Pages/NftMinter';
+import Create from './Pages/Create';
+import AuctionHouse from './Pages/AuctionHouse'
 import DetailedView from "./Pages/DetailedView";
 import ProfileSettings from "./Pages/ProfileSettings"
 import ComponentWrapper from './Components/ComponentWrapper';
@@ -24,6 +26,10 @@ const App = ({web3}) => {
                 <Route exact path='/profile' component={Profile}/>
                 <Route exact path='/explore'>
                     <Explore web3={web3} />
+                </Route>
+                <Route exact path='/create' component={Create}/>
+                <Route exact path='/auction-house'>
+                    <AuctionHouse web3={web3} />
                 </Route>
                 <Route exact path='/dashboard' component={ProfileSettings} />
                 <Route exact path='/whitepaper' component={Whitepaper} />

@@ -14,6 +14,10 @@ contract AuctionRepository {
 
     // Mapping from auction index to user bids
     mapping(uint256 => Bid[]) public auctionBids;
+    //  [
+    //  {id 1: [{from, $},{from, $}]}, 
+    //  {id 2: [{from, $},{from, $}]},
+    //  ]
 
     // Mapping from owner to a list of owned auctions
     mapping(address => uint[]) public auctionOwner;
@@ -228,7 +232,7 @@ contract AuctionRepository {
         // if there are no bids cancel
         if(bidsLength == 0) {
             cancelAuction(_auctionId);
-        }else{
+        } else {
 
             // 2. the money goes to the auction owner
             Bid memory lastBid = auctionBids[_auctionId][bidsLength - 1];

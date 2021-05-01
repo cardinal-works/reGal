@@ -1,5 +1,5 @@
 //Modules
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, Fragment } from "react";
 import {
   Container,
   Row,
@@ -22,8 +22,8 @@ const _dbMetadata = {
   title: "",
   creator: "@artistName",
   nft_description: "",
-  nft_id: Date.now() + 1,
-  thumbnail_image: null,
+  nft_id: "",
+  thumbnail_image: "",
   raw_image: null,
   date_mint: Date.now(),
   tags: [],
@@ -41,7 +41,7 @@ const _dbMetadata = {
 
 const NftMinter = ({web3}) => {
 
-  const contractAddr = "0x9fe60bdE9c9673D6cf04e3f7f9333D8fb2f6aa91";
+  const contractAddr = "0x1a9127b29180DA82C6072b7ef2F855c955ef2fF1";
   const DeedRepositoryContract = new web3.eth.Contract(DeedRepository, contractAddr);
   const userStore = useContext(UserStore);
   const [userChanges, setUserChanges] = useState({})
@@ -71,11 +71,20 @@ const NftMinter = ({web3}) => {
     const _bcStringified = JSON.stringify(_bcMetadata)
     const result = await ipfs.add(_bcStringified);
     const ipfsLink = "https://gateway.ipfs.io/ipfs/" + result.path;
-    
+
+    const dbCopy = dbMetaData
+
+    const tokenId = await DeedRepositoryContract.methods
+      .getTotalNFTCount()
+      .call({ from: window.ethereum.selectedAddress })
+      .then(setDbMetaData({...dbCopy, ["nft_id"]: tokenId}));
+      console.log(Number(tokenId) + 1);
+      
     const mdResult = await DeedRepositoryContract.methods
-      .registerDeed(_dbMetadata["date_mint"] + 1, ipfsLink)
-      .send({ from: window.ethereum.selectedAddress });
-      console.log(result);
+      .registerDeed(Number(tokenId) + 1, ipfsLink)
+      .send({ from: window.ethereum.selectedAddress })
+      .then(updateUser({...user, collection: dbMetaData}))
+      .then((res) => console.log(res))
   };
 
   const handleInputChange = (event) => {
@@ -130,7 +139,7 @@ const NftMinter = ({web3}) => {
   return (
     <Container className="minter-container">
       <Row className="user-profile-data text-center">
-              <Col md={6} lg={12}>
+             {dbMetaData.thumbnail_image.length == 0 ? <Fragment><Col md={6} lg={12}>
                 <Image
                   className="profile-image"
                   src={user ? user.profile_image : null}
@@ -152,7 +161,7 @@ const NftMinter = ({web3}) => {
                       user.wallet_id.slice(-3)
                     : null}
                 </span>
-              </Col>
+              </Col></Fragment> : null}
       </Row>
       <Row className="nft-upload-form justify-content-md-center">
         <Col md={12}>
