@@ -243,20 +243,20 @@ const Profile = () => {
             <Col className="mt-3">
               <Col md={6} lg={12}>
                 <Image
-                  className="profile-image"
+                  className="profile-image "
                   src={user ? user.profile_image : null}
                   width="150px"
                   height="150px"
                 ></Image>
               </Col>
               <Col md={6} lg={12} className=" mt-3">
-                <span className="text-majesti text-white user-profile-name font-secondary">
+                <span className="text-majesti text-white user-profile-name font-secondary ">
                   {" "}
                   {user ? "@" + user.display_name : "@displayname"}{" "}
                 </span>{" "}
               </Col>
-              <Col md={6} lg={12} className="mt-1">
-                <span className="text-primary">
+              <Col md={6} lg={12} className="mt-1 ml-1">
+                <span className="text-primary text-center">
                   {user
                     ? user.wallet_id.slice(0, 3) +
                       "..." +
@@ -264,7 +264,7 @@ const Profile = () => {
                     : null}
                 </span>
               </Col>
-              <Col md={6} lg={12} className="mt-4">
+              <Col md={6} lg={12} className="mt-4 ml-1">
                 <p className="text-start text-white user-profile-bio">
                   {" "}
                   {user ? user.bio : null}{" "}
@@ -272,7 +272,7 @@ const Profile = () => {
               </Col>
               <Col md={6} lg={12} className="text-start">
                 <Button
-                  className="btn-regal mt-2 mb-3 mr-1 ml-1"
+                  className="btn-regal mt-2 mb-3 mr-1"
                   onClick={() => setEditMode(!editMode)}
                 >
                   EDIT
@@ -285,11 +285,12 @@ const Profile = () => {
               </Col>
             </Col>
           ) : (
+            <Col lg={3} className="">
             <Form>
               <Form.Group>
-                <Col lg={3}>
+                <Col lg={12} >
                   <Image
-                    className="profile-image mb-2"
+                    className="profile-image mb-2 "
                     src={
                       userChanges.profile_image.length > 1
                         ? userChanges.profile_image
@@ -309,7 +310,7 @@ const Profile = () => {
                 </Col>
               </Form.Group>
               <Form.Group controlId="formDisplayName">
-                <Col md={4} lg={3} className="mt-3">
+                <Col md={12} lg={12} className="mt-3">
                   <Form.Label className="text-white">DISPLAY NAME</Form.Label>
                   <Form.Control
                     type="text"
@@ -319,7 +320,7 @@ const Profile = () => {
                 </Col>
               </Form.Group>
               <Form.Group controlId="formWalletId">
-                <Col md={4} className="mt-1">
+                <Col md={12} lg={12} className="mt-1">
                   <span className="text-primary">
                     {user
                       ? user.wallet_id.slice(0, 3) +
@@ -330,7 +331,7 @@ const Profile = () => {
                 </Col>
               </Form.Group>
               <Form.Group controlId="formBio">
-                <Col lg={3} md={12} className="mt-1">
+                <Col lg={12} md={12} className="mt-1">
                   <Form.Label className="text-white">ARTIST BIO</Form.Label>
                   <Form.Control
                     as="textarea"
@@ -341,7 +342,7 @@ const Profile = () => {
                   />
                 </Col>
               </Form.Group>
-              <Col lg={3} md={12} className="text-start">
+              <Col lg={12} md={12} className="text-start">
                 <div>
                   <Button
                     className="btn-regal mt-2 mb-3 mr-1"
@@ -361,9 +362,10 @@ const Profile = () => {
                 </div>
               </Col>
             </Form>
+            </Col> 
           )}
           {/*  */}
-          <Col lg={8} className="featured-nft">
+          <Col lg={9} className="featured-nft">
             <Col className="profile-featured-nft" >
               <div style={{position: "relative"}}>
             <CornerRibbon

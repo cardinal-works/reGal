@@ -1,5 +1,5 @@
 //Modules
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Row,
@@ -12,7 +12,6 @@ import {
   FormControl,
 } from "react-bootstrap";
 import ipfs from "../../ipfs";
-import UserStore from "../../Stores/UserStore";
 var Buffer = require("buffer/").Buffer;
 
 const initialState = {
@@ -26,9 +25,6 @@ const initialState = {
 };
 
 const NftMinter = ({web3}) => {
-  const userStore = useContext(UserStore);
-  const [userChanges, setUserChanges] = useState({})
-  const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
   const [
     { nftName, nftArtist, nftDescription, nftRawFile, nftThumbnail, accounts },
     setState,
@@ -38,7 +34,6 @@ const NftMinter = ({web3}) => {
 
   useEffect(() => {
     console.log(web3);
-      loadUser(window.ethereum.selectedAddress).then((res) => setUserChanges(res))
   }, []);
 
   const getAllAuctions = () => {
@@ -125,31 +120,27 @@ const NftMinter = ({web3}) => {
   };
 
   return (
-    <Container className="minter-container">
-      <Row className="user-profile-data text-center">
-              <Col md={6} lg={12}>
-                <Image
-                  className="profile-image"
-                  src={user ? user.profile_image : null}
-                  width="150px"
-                  height="150px"
-                ></Image>
-              </Col>
-              <Col md={6} lg={12} className=" mt-3">
-                <span className="text-majesti text-white user-profile-name font-secondary ">
-                  {" "}
-                  {user ? "@" + user.display_name : "@displayname"}{" "}
-                </span>{" "}
-              </Col>
-              <Col md={6} lg={12} className="mt-1 ml-1">
-                <span className="text-primary text-center">
-                  {user
-                    ? user.wallet_id.slice(0, 3) +
-                      "..." +
-                      user.wallet_id.slice(-3)
-                    : null}
-                </span>
-              </Col>
+    <Container>
+      <Row className="user-profile-data">
+        <Col md={12}>
+          {/* Image will be used in the future..using default circle for testing */}
+          <div className="user-profile-image mx-auto"></div>
+          {/* <Image fluid className="user-profile-image" src={}/> */}
+        </Col>
+        <Col md={12} className="text-center mt-3">
+          <span className="text-majesti text-white user-profile-name">
+            @deffiedeff
+          </span>
+        </Col>
+        <Col md={12} className="text-center mt-1">
+          <span className="text-primary">0xBb...04b8</span>
+        </Col>
+        <Col md={6} className="offset-md-3 mt-4">
+          <p className="pr-5 pl-5 text-center text-white user-profile-bio">
+            This is a bio for this artist. They have the ability to customize
+            this text box up to three lines.
+          </p>
+        </Col>
       </Row>
       <Row className="nft-upload-form justify-content-md-center">
         <Col md={12}>

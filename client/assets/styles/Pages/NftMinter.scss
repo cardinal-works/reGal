@@ -1,4 +1,12 @@
-.container {
+.minter-container {
+
+    .profile-image {
+		border-radius: 7px;
+		height: 150px;
+		object-fit: cover;
+		border: solid 2px white;
+		box-shadow: 0px 0px 20px rgb(97, 97, 97);
+	}
     .user-profile-data {
 
         .user-profile-name {
@@ -10,10 +18,10 @@
     }
     .nft-upload-form {
         .nft-upload-placeholder {
-            height: 500px;
-            max-width: 500px;
-            border: 1px solid $primary;
-            border-radius: 10px;
+            // height: 500px;
+            // max-width: 500px;
+            // border: 1px solid $primary;
+            // border-radius: 10px;
             .place-holder-text {
                 vertical-align: middle;
                 line-height: 500px;
