@@ -64,7 +64,7 @@ const Navigation = () => {
            {user ? 
            <Fragment>
              <Container className="profile-container">
-            <Button as={Link}  to="/minter" className="btn-regal mr-4 mt-3">CREATE
+            <Button as={Link}  to="/create" className="btn-regal mr-4 mt-3">CREATE
            </Button>
              <div className="profile-link-nav">
              <Link to="/profile">
