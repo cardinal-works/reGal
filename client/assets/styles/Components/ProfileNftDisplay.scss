@@ -1,10 +1,12 @@
 .profile-card {
+    width: 100%;
+    border-radius: 2px;
     img {
         padding: 1px;
-        width: 1000px;
         object-fit:cover;
-        height: 250px;  
+        height: 200px;  
         transition: 0.25s ease-in-out;
+        border-radius: 2px !important;
 
         &:hover {
             opacity: 50%;

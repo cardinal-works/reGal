@@ -1,16 +1,25 @@
 //Modules
 import React, { useEffect, useState, Fragment, useContext } from "react";
-import { Container, Row, Col, Image, Button, Form, FormFile  } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import {
+  Container,
+  Row,
+  Col,
+  Image,
+  Button,
+  Form,
+  FormFile,
+} from "react-bootstrap";
+import { Link, Redirect } from "react-router-dom";
 //Contracts
 import ProfileNftDisplay from "../../Components/ProfileNftDisplay";
 import UserStore from "../../Stores/UserStore";
 import { observer } from "mobx-react-lite";
-import { toJS } from 'mobx'
+import { toJS } from "mobx";
+import CornerRibbon from "react-corner-ribbon";
 import ipfs from "../../ipfs";
 var Buffer = require("buffer/").Buffer;
 //Media
-import defaultProfile from "../../../assets/images/default_profile.png"
+import defaultProfile from "../../../assets/images/default_profile.png";
 import demo from "../../../assets/images/demo-art.jpeg";
 import demo2 from "../../../assets/images/nft-1.jpg";
 import demo3 from "../../../assets/images/nft-2.jpg";
@@ -69,11 +78,30 @@ const Profile = () => {
   const userStore = useContext(UserStore);
   const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
   const [editMode, setEditMode] = useState(false);
-  const [userChanges, setUserChanges] = useState(toJS(user) || {
-    profile_image: "",
-    bio: "",
-    display_name: ""
-  })
+  const [redirect, setRedirect] = useState(false);
+  const [userChanges, setUserChanges] = useState(
+    toJS(user) || {
+      profile_image: "",
+      bio: "",
+      display_name: "",
+    }
+  );
+
+  useEffect(() => {
+    if (!window.ethereum.isMetaMask) {
+      setRedirect(true);
+
+    }
+    if (!window.ethereum.selectedAddress) {
+      setRedirect(true);
+
+    }
+
+    loadUser(window.ethereum.selectedAddress).then((res) =>
+      setUserChanges(res)
+    );
+  }, []);
+
   const [nfts, setNfts] = useState([
     {
       id: 1,
@@ -149,7 +177,6 @@ const Profile = () => {
     },
   ]);
 
-
   const handleFileUpload = (file) => {
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
@@ -168,115 +195,184 @@ const Profile = () => {
   };
 
   const handleDisplayName = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let userChange = userChanges;
     setUserChanges({
       ...userChange,
       display_name: e.target.value,
     });
-  }
+  };
 
   const handleBio = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let userChange = userChanges;
     setUserChanges({
       ...userChange,
       bio: e.target.value,
     });
-  }
+  };
 
   const handleUpdateUser = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // console.log('user', user)
     // console.log('js', toJS(user))
     // let proxy = toJS(user)
-    let newUser = { ...user, ...userChanges}
+    if (userChanges.profile_image.length === 0) {
+      setUserChanges({ ...userChanges, profile_image: user.profile_image });
+    }
+    let newUser = { ...user, ...userChanges };
 
     updateUser(newUser)
-    .then((res) => {
-      setEditMode(false)
-    })
-    .catch((err) => console.log(err))
-
-  }
-
+      .then((res) => {
+        setEditMode(false);
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
-    loadUser(window.ethereum.selectedAddress);
-  }, []);
-
-  useEffect(() => {
-    console.log(loadingInitial)
+    console.log(loadingInitial);
   }, [loadingInitial, user]);
-  
 
   return (
     <Fragment>
       <Container className="profile-container">
-        <Row className="nft-display-rows pb-5 mb-5 mt-5">
-          <Col md={4} lg={4}>
+        <Row className="nft-display-rows mb-5 pb-3">
+          {redirect ? <Redirect to="/signup"></Redirect> : null}
           {/*  */}
-          {editMode === false ? 
-          <Fragment>
-              <Col md={6}>
-                  <Image className="profile-image" src={user ? user.profile_image : null} width="150px" height="150px"></Image>
+          {editMode === false ? (
+            <Col className="mt-3">
+              <Col md={6} lg={12}>
+                <Image
+                  className="profile-image"
+                  src={user ? user.profile_image : null}
+                  width="150px"
+                  height="150px"
+                ></Image>
               </Col>
-              <Col md={6} className=" mt-3">
-                  <span className="text-majesti text-white user-profile-name font-secondary">  {user ? "@" + user.display_name : "@displayname"} </span> </Col>
-              <Col md={6} className="mt-1">
-                  <span className="text-primary">{user ? user.wallet_id.slice(0, 3) + "..." + user.wallet_id.slice(-3) : null}</span>
+              <Col md={6} lg={12} className=" mt-3">
+                <span className="text-majesti text-white user-profile-name font-secondary">
+                  {" "}
+                  {user ? "@" + user.display_name : "@displayname"}{" "}
+                </span>{" "}
               </Col>
-              <Col md={6} className="mt-4">
-                  <p className="text-start text-white user-profile-bio"> {user ? user.bio : null} </p>
+              <Col md={6} lg={12} className="mt-1">
+                <span className="text-primary">
+                  {user
+                    ? user.wallet_id.slice(0, 3) +
+                      "..." +
+                      user.wallet_id.slice(-3)
+                    : null}
+                </span>
               </Col>
-              <Col md={6} className="text-start">
-                <Button className="btn-regal mt-2 mb-3" onClick={() => setEditMode(!editMode)}>EDIT</Button>
+              <Col md={6} lg={12} className="mt-4">
+                <p className="text-start text-white user-profile-bio">
+                  {" "}
+                  {user ? user.bio : null}{" "}
+                </p>
+              </Col>
+              <Col md={6} lg={12} className="text-start">
+                <Button
+                  className="btn-regal mt-2 mb-3 mr-1 ml-1"
+                  onClick={() => setEditMode(!editMode)}
+                >
+                  EDIT
+                </Button>
+                <Link to="/dashboard">
+                  <Button className="btn-regal mt-2 mb-3 ml-1 mr-1">
+                    <i class="fas fa-cog"></i>
+                  </Button>
+                </Link>
+              </Col>
             </Col>
-          </Fragment> :
-          <Form>
-                <Form.Group>
-                      <Col md={12} >
-                          <Image className="profile-image mb-2" src={userChanges.profile_image.length > 1 ? userChanges.profile_image : user.profile_image} width="150px" height="150px"></Image>
-          
-                          <Form.File id="exampleFormControlFile1" className="choose-file-button" label={`PROFILE PICTURE UPLOAD (4mb max)`} onChange={(e) => handleFileUpload(e.target.files[0])}/>
-                          <Form.Label className="text-white"></Form.Label>
-                      </Col>
-                </Form.Group>
-                <Form.Group controlId="formDisplayName">
-                      <Col md={12} lg={12} className=" mt-3">
-                      <Form.Label className="text-white">DISPLAY NAME</Form.Label> 
-                      <Form.Control type="text" placeholder={user ? user.display_name : "@displayname"} onChange={(e) => handleDisplayName(e)}/>
-                      </Col>
-                </Form.Group>
-                <Form.Group controlId="formWalletId">
-                      <Col md={12} className="mt-1">
-                          <span className="text-primary">{user ? user.wallet_id.slice(0, 3) + "..." + user.wallet_id.slice(-3) : null}</span>
-                      </Col>
-                </Form.Group>
-                <Form.Group controlId="formBio">
-                      <Col md={12} className="mt-1">
-                      <Form.Label className="text-white">ARTIST BIO</Form.Label> 
-                      <Form.Control as="textarea" rows={3} type="text" placeholder={user ? user.bio : null} onChange={(e) => handleBio(e)}/>
-                      </Col>
-                </Form.Group>
-                <Col lg={12} md={12} className="text-start">   
-                <div>
-                   <Button className="btn-regal mt-2 mb-3 mr-1" onClick={(e) => handleUpdateUser(e)}>
-                     {submitting ? <span className="spinner-border spinner-border-sm"></span> : null}
-                     {submitting ? "Submitting" : "Submit"}
-                  </Button>          
-                   <Button className="btn-regal mt-2 mb-3 ml-1" onClick={() => setEditMode(!editMode)}>CANCEL</Button>   
-                </div>
-                </Col>
-          </Form>}
-          {/*  */}
+          ) : (
+            <Form>
+              <Form.Group>
+                <Col lg={3}>
+                  <Image
+                    className="profile-image mb-2"
+                    src={
+                      userChanges.profile_image.length > 1
+                        ? userChanges.profile_image
+                        : user.profile_image
+                    }
+                    width="150px"
+                    height="150px"
+                  ></Image>
 
-          </Col>
-          <Col className="mt-5">
-            <Col className="h1 gradient text-start">
-              <i>FEATURED</i>
-            </Col>
-            <Col lg={12} md={12} className="profile-featured-nft">
+                  <Form.File
+                    id="exampleFormControlFile1"
+                    className="choose-file-button"
+                    label={`PROFILE PICTURE UPLOAD (4mb max)`}
+                    onChange={(e) => handleFileUpload(e.target.files[0])}
+                  />
+                  <Form.Label className="text-white"></Form.Label>
+                </Col>
+              </Form.Group>
+              <Form.Group controlId="formDisplayName">
+                <Col md={4} lg={3} className="mt-3">
+                  <Form.Label className="text-white">DISPLAY NAME</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder={user ? user.display_name : "@displayname"}
+                    onChange={(e) => handleDisplayName(e)}
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group controlId="formWalletId">
+                <Col md={4} className="mt-1">
+                  <span className="text-primary">
+                    {user
+                      ? user.wallet_id.slice(0, 3) +
+                        "..." +
+                        user.wallet_id.slice(-3)
+                      : null}
+                  </span>
+                </Col>
+              </Form.Group>
+              <Form.Group controlId="formBio">
+                <Col lg={3} md={12} className="mt-1">
+                  <Form.Label className="text-white">ARTIST BIO</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    type="text"
+                    placeholder={user ? user.bio : null}
+                    onChange={(e) => handleBio(e)}
+                  />
+                </Col>
+              </Form.Group>
+              <Col lg={3} md={12} className="text-start">
+                <div>
+                  <Button
+                    className="btn-regal mt-2 mb-3 mr-1"
+                    onClick={(e) => handleUpdateUser(e)}
+                  >
+                    {submitting ? (
+                      <span className="spinner-border spinner-border-sm mr-2 mb-1"></span>
+                    ) : null}
+                    {submitting ? "Submitting" : "Submit"}
+                  </Button>
+                  <Button
+                    className="btn-regal mt-2 mb-3 ml-1"
+                    onClick={() => setEditMode(!editMode)}
+                  >
+                    CANCEL
+                  </Button>
+                </div>
+              </Col>
+            </Form>
+          )}
+          {/*  */}
+          <Col lg={8} className="featured-nft">
+            <Col className="profile-featured-nft" >
+              <div style={{position: "relative"}}>
+            <CornerRibbon
+              position="top-right"
+              fontColor="white"
+              backgroundColor="orange"
+            >
+              Featured
+            </CornerRibbon>
               <ProfileNftDisplay
                 likes={nfts[5].likes}
                 comments={nfts[5].comments}
@@ -289,13 +385,65 @@ const Profile = () => {
                 current={nfts[5].current}
                 previous={nfts[5].previous}
               />
+              </div>
             </Col>
           </Col>
         </Row>
         <Row className="mb-5">
+          <span className="text-white font-secondary">Collection</span>
           {nfts.length &&
             nfts.map((nfts, index) => (
-              <Col lg={2} md={2} sm={12} key={index} className="mt-4">
+              <Col
+                lg={2}
+                md={2}
+                sm={12}
+                key={index}
+                className="nft-collection mt-4"
+              >
+                <ProfileNftDisplay
+                  likes={nfts.likes}
+                  comments={nfts.comments}
+                  image={nfts.image}
+                  id={nfts.id}
+                  bid={nfts.bid}
+                  title={nfts.title}
+                  creator={nfts.creator}
+                  date_mint={nfts.date_mint}
+                  current={nfts.current}
+                  previous={nfts.previous}
+                />
+              </Col>
+            ))}
+          <span className="text-white font-secondary pt-5">Liked</span>
+          {nfts.length &&
+            nfts.map((nfts, index) => (
+              <Col lg={2} md={2} sm={12} key={index} className="nft-liked mt-4">
+                <ProfileNftDisplay
+                  likes={nfts.likes}
+                  comments={nfts.comments}
+                  image={nfts.image}
+                  id={nfts.id}
+                  bid={nfts.bid}
+                  title={nfts.title}
+                  creator={nfts.creator}
+                  date_mint={nfts.date_mint}
+                  current={nfts.current}
+                  previous={nfts.previous}
+                />
+              </Col>
+            ))}
+          <span className="text-white font-secondary pt-5">
+            Recently Viewed
+          </span>
+          {nfts.length &&
+            nfts.map((nfts, index) => (
+              <Col
+                lg={2}
+                md={2}
+                sm={12}
+                key={index}
+                className="nft-viewed mt-4"
+              >
                 <ProfileNftDisplay
                   likes={nfts.likes}
                   comments={nfts.comments}
