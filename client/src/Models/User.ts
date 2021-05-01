@@ -9,11 +9,13 @@ export interface IUser {
   profile_featured_id: number;
   email_list: boolean;
   collection: [
+    _id: string,
     title: string,
     creator: string,
     nft_description: string,
     nft_id: number,
     thumbnail_image: string,
+    raw_image: string,
     date_mint: Date,
     likes: number,
     asking_bid: number,
@@ -25,11 +27,13 @@ export interface IUser {
     tags: [name: string, popularity: number]
   ];
   liked_nfts: [
+    _id: string,
     title: string,
     creator: string,
     nft_description: string,
     nft_id: number,
     thumbnail_image: string,
+    raw_image: string,
     date_mint: Date,
     likes: number,
     asking_bid: number,
@@ -41,11 +45,13 @@ export interface IUser {
     tags: [name: string, popularity: number]
   ];
   recently_viewed_nfts: [
+    _id: string,
     title: string,
     creator: string,
     nft_description: string,
     nft_id: number,
     thumbnail_image: string,
+    raw_image: string,
     date_mint: Date,
     likes: number,
     asking_bid: number,
