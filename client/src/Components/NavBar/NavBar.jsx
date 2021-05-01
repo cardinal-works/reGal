@@ -26,19 +26,13 @@ const Navigation = () => {
   useEffect(() => {
     if (!window.ethereum.isMetaMask) {
       setRedirect(true)
-      return () => {
-        setRedirect(false)
-      }
     };
     if (!window.ethereum.selectedAddress) {
       setRedirect(true)
-      return () => {
-        setRedirect(false)
-      }
     }
 
-    loadUser(window.ethereum.selectedAddress)
-    .then(res => setUserChanges(res))
+    // loadUser(window.ethereum.selectedAddress)
+    // .then(res => setUserChanges(res))
   }, []);
 
   return (

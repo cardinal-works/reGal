@@ -10,6 +10,7 @@ import "./ERC721/ERC721Token.sol";
 contract DeedRepository is ERC721Token {
 
 
+
     /**
     * @dev Created a DeedRepository with a name and symbol
     * @param _name string represents the name of the repository
@@ -17,7 +18,6 @@ contract DeedRepository is ERC721Token {
     */
     constructor(string memory _name, string memory _symbol) 
         public ERC721Token(_name, _symbol) {}
-    
     /**
     * @dev Public function to register a new deed
     * @dev Call the ERC721Token minter
@@ -25,12 +25,14 @@ contract DeedRepository is ERC721Token {
     * @param _uri string containing metadata/uri
     */
     function registerDeed(uint256 _tokenId, string memory _uri) public {
+
         _mint(msg.sender, _tokenId);
         addDeedMetadata(_tokenId, _uri);
         emit DeedRegistered(msg.sender, _tokenId);
     }
 
     /**
+    * , string memory _title, string memory _creator, string memory _name _title, _creator, _name
     * @dev Public function to add metadata to a deed
     * @param _tokenId represents a specific deed
     * @param _uri text which describes the characteristics of a given deed

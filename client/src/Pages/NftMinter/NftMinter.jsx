@@ -13,74 +13,76 @@ import {
 } from "react-bootstrap";
 import ipfs from "../../ipfs";
 import UserStore from "../../Stores/UserStore";
+import { DeedRepository } from "../../../abi/DeedRepository_abi"
 var Buffer = require("buffer/").Buffer;
 
-const initialState = {
-  nftName: "",
-  nftArtist: "@artistName",
-  nftDescription: "",
-  nftRawFile: null,
-  nftThumbnail: null,
-  nftLink: null,
-  accounts: []
+
+
+const _dbMetadata = {
+  title: "",
+  creator: "@artistName",
+  nft_description: "",
+  nft_id: Date.now() + 1,
+  thumbnail_image: null,
+  raw_image: null,
+  date_mint: Date.now(),
+  tags: [],
+  likes: 0,
+  asking_bid: null,
+  previous_sold: null,
+  auction_duration: null,
+  auction_startDate: null,
+  auction_mode: false,
+  auction_started: false,
+  tags: {}
 };
 
+
+
 const NftMinter = ({web3}) => {
+
+  const contractAddr = "0x9fe60bdE9c9673D6cf04e3f7f9333D8fb2f6aa91";
+  const DeedRepositoryContract = new web3.eth.Contract(DeedRepository, contractAddr);
   const userStore = useContext(UserStore);
   const [userChanges, setUserChanges] = useState({})
   const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
-  const [
-    { nftName, nftArtist, nftDescription, nftRawFile, nftThumbnail, accounts },
-    setState,
-  ] = useState(initialState);
-
+  const [dbMetaData, setDbMetaData] = useState(_dbMetadata)
   const [renderInput, setRenderInput] = useState([<div key={"empty"}></div>]);
 
   useEffect(() => {
     console.log(web3);
-      loadUser(window.ethereum.selectedAddress).then((res) => setUserChanges(res))
+      loadUser(window.ethereum.selectedAddress).then(
+        (res) => { 
+          let proxy = dbMetaData;
+          let response = res.display_name
+          setDbMetaData({...proxy, creator: response });
+         })
+      
+
   }, []);
 
-  const getAllAuctions = () => {
-    return new Promise((resolve, reject) => {
-      return AuctionFactory.deployed().allAuctions.call().then(result => {
-          return Promise.all( result.map(auctionAddr => this.getAuction(auctionAddr)) )
-      }).then(auctions => {
-
-          let auctionEventListeners = Object.assign({}, this.state.auctionEventListeners)
-          const unloggedAuctions = auctions.filter(auction => this.state.auctionEventListeners[auction.address] === undefined)
-          for (let auction of unloggedAuctions) {
-              auctionEventListeners[auction.address] = auction.contract.LogBid({ fromBlock: 0, toBlock: 'latest' })
-              auctionEventListeners[auction.address].watch(this.onLogBid)
-          }
-
-          this.setState({ auctions, auctionEventListeners }, resolve)
-      })
-  })
-  }
-
-  const validateMint = () => {
-    if (nftName && nftArtist && nftDescription && nftRawFile && nftThumbnail) {
-      return true;
-    }
-    return false;
-  };
-
   const handleMint = async () => {
+    const _bcMetadata = {
+      title: dbMetaData.title,
+      creator: dbMetaData.creator,
+      nft_id: dbMetaData.nft_id,
+      raw_image: dbMetaData.raw_image,
+    };
+    const _bcStringified = JSON.stringify(_bcMetadata)
+    const result = await ipfs.add(_bcStringified);
+    const ipfsLink = "https://gateway.ipfs.io/ipfs/" + result.path;
     
-    const result = await regalMinterContract.methods
-      .uploadNFT(nftThumbnail, nftName, nftDescription,)
-      .send({ from: '0x0f17dC202D879979b6017243d127F50B3C3075b5' });
+    const mdResult = await DeedRepositoryContract.methods
+      .registerDeed(_dbMetadata["date_mint"] + 1, ipfsLink)
+      .send({ from: window.ethereum.selectedAddress });
       console.log(result);
   };
 
   const handleInputChange = (event) => {
     let name = event.target.name;
     let value = event.target.value;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    let proxy = dbMetaData
+    setDbMetaData({ ...proxy, [name]: value})
   };
   
   const handleNftLink = (e) => {
@@ -108,20 +110,21 @@ const NftMinter = ({web3}) => {
     } else setRenderInput([<div key={"empty"}></div>]);
   };
 
-  const handleFileUpload = (file) => {
+  const handleFileUpload = (file, arg) => {
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
-    reader.onloadend = () => uploadToIPFS(reader);
+    reader.onloadend = () => uploadToIPFS(reader, arg);
   };
 
-  const uploadToIPFS = async (reader) => {
+  const uploadToIPFS = async (reader, arg) => {
+    
     const buffer = await Buffer.from(reader.result);
     const result = await ipfs.add(buffer);
     const ipfsLink = "https://gateway.ipfs.io/ipfs/" + result.path;
-    setState((prevState) => ({
-      ...prevState,
-      nftThumbnail: ipfsLink,
-    }));
+    const metadata = dbMetaData
+    if (arg === null) {
+      setDbMetaData({...metadata, thumbnail_image: ipfsLink})
+    } else setDbMetaData({...metadata, raw_image: ipfsLink})
   };
 
   return (
@@ -155,11 +158,11 @@ const NftMinter = ({web3}) => {
         <Col md={12}>
           <div className="nft-upload-placeholder text-center mx-auto">
               {
-                nftThumbnail && (
+                dbMetaData.thumbnail_image && (
                   <Image
                     className="image-border-box my-auto"
                     loop="infinite"
-                    src={nftThumbnail}
+                    src={dbMetaData.thumbnail_image}
                     alt="Nft thumbnail preview"
                   />
                 )
@@ -172,9 +175,9 @@ const NftMinter = ({web3}) => {
               <Form.Label className="text-white">Name*</Form.Label>
               <Form.Control
                 type="text"
-                name="nftName"
+                name="title"
                 placeholder="NFT Name"
-                value={nftName}
+                value={dbMetaData.title}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -183,9 +186,9 @@ const NftMinter = ({web3}) => {
               <Form.Control
                 type="text"
                 disabled={true}
-                name="nftArtist"
+                name="creator"
                 placeholder="@artistName"
-                value={nftArtist}
+                value={dbMetaData.creator}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -194,9 +197,9 @@ const NftMinter = ({web3}) => {
               <Form.Control
                 as="textarea"
                 row={3}
-                name="nftDescription"
+                name="nft_description"
                 placeholder="NFT Description"
-                value={nftDescription}
+                value={dbMetaData.nft_description || ""}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -204,7 +207,7 @@ const NftMinter = ({web3}) => {
               <Form.File
                 className="text-primary"
                 label="Upload raw file*"
-                name="nftHash"
+                name="nft_thumbnail"
                 onChange={(e) => handleFileUpload(e.target.files[0])}
               />
             </Form.Group>
@@ -212,8 +215,8 @@ const NftMinter = ({web3}) => {
               <Form.File
                 className="text-primary"
                 label="Upload thumbnail*"
-                name="nftThumbnail"
-                onChange={(e) => handleFileUpload(e)}
+                name="nft_uri"
+                onChange={(e) => handleFileUpload(e.target.files[0], null)}
               />
             </Form.Group>
             <Form.Group>
@@ -248,12 +251,12 @@ const NftMinter = ({web3}) => {
               <Button
                 className="mint-submit"
                 onClick={handleMint}
-                disabled={
-                    nftName &&
-                    nftArtist &&
-                    nftDescription &&
-                    nftThumbnail
-                  ? false : true}
+                // disabled={
+                //     dbMetaData.title &&
+                //     dbMetaData.creator &&
+                //     nft_description &&
+                //     nft_uri
+                //   ? false : true}
               >
                 Mint
               </Button>
