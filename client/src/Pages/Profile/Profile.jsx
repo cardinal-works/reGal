@@ -142,13 +142,16 @@ const Profile = () => {
 
 
   useEffect(() => {
-    loadUser(window.ethereum.selectedAddress);
+    if(window.ethereum.selectedAddress) {
+      loadUser(window.ethereum.selectedAddress).then( response => {
+        if(!response) {
+          window.location.href = "/explore"
+        }
+      })
+    } else {
+      window.location.href = "/explore"
+    }
   }, []);
-
-  useEffect(() => {
-    console.log(loadingInitial)
-  }, [loadingInitial]);
-  
 
   return (
     <Fragment>
