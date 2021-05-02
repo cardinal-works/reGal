@@ -372,6 +372,7 @@ const Profile = (props) => {
             >
               Featured
             </CornerRibbon>
+            
               <ProfileNftDisplay
                 likes={nfts[5].likes}
                 comments={nfts[5].comments}
@@ -394,11 +395,12 @@ const Profile = (props) => {
             nfts.map((nfts, index) => (
               <Col
                 lg={2}
-                md={4}
-                sm={12}
+                md={3}
+                sm={6}
                 key={index}
-                className="nft-collection mt-4"
+                className="nft-collection mt-4 mb-3"
               >
+          
                 <ProfileNftDisplay
                   likes={nfts.likes}
                   comments={nfts.comments}
@@ -413,10 +415,12 @@ const Profile = (props) => {
                 />
               </Col>
             ))}
-          <span className="text-white font-secondary pt-5">Liked</span>
+            </Row>
+            <Row>
+          <span className="text-white font-secondary pt-2">Liked</span>
           {nfts.length &&
             nfts.map((nfts, index) => (
-              <Col lg={2} md={4} sm={12} key={index} className="nft-liked mt-4">
+              <Col lg={2} md={3} sm={12} key={index} className="nft-liked mt-4 mb-3">
                 <ProfileNftDisplay
                   likes={nfts.likes}
                   comments={nfts.comments}
@@ -431,6 +435,8 @@ const Profile = (props) => {
                 />
               </Col>
             ))}
+            </Row>
+            <Row>
           <span className="text-white font-secondary pt-5">
             Recently Viewed
           </span>
@@ -438,10 +444,10 @@ const Profile = (props) => {
             nfts.map((nfts, index) => (
               <Col
                 lg={2}
-                md={4}
+                md={3}
                 sm={12}
                 key={index}
-                className="nft-viewed mt-4"
+                className="nft-viewed mt-4 mb-3"
               >
                 <ProfileNftDisplay
                   likes={nfts.likes}

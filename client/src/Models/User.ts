@@ -13,7 +13,7 @@ export interface IUser {
     title: string,
     creator: string,
     nft_description: string,
-    nft_id: number,
+    nft_id: string,
     thumbnail_image: string,
     raw_image: string,
     date_mint: Date,
@@ -25,14 +25,14 @@ export interface IUser {
     auction_mode: boolean,
     auction_started: boolean,
     auction_id: number,
-    tags: [name: string, popularity: number]
+    // tags: [name: string, popularity: number]
   ];
   liked_nfts: [
     _id: string,
     title: string,
     creator: string,
     nft_description: string,
-    nft_id: number,
+    nft_id: string,
     thumbnail_image: string,
     raw_image: string,
     date_mint: Date,
@@ -44,14 +44,14 @@ export interface IUser {
     auction_mode: boolean,
     auction_started: boolean,
     auction_id: number,
-    tags: [name: string, popularity: number]
+    // tags: [name: string, popularity: number]
   ];
   recently_viewed_nfts: [
     _id: string,
     title: string,
     creator: string,
     nft_description: string,
-    nft_id: number,
+    nft_id: string,
     thumbnail_image: string,
     raw_image: string,
     date_mint: Date,
@@ -63,7 +63,7 @@ export interface IUser {
     auction_mode: boolean,
     auction_started: boolean,
     auction_id: number,
-    tags: [name: string, popularity: number]
+    // tags: [name: string, popularity: number]
   ];
   date_created: Date;
 }

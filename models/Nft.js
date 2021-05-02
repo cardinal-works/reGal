@@ -21,7 +21,7 @@ const NftSchema = new Schema({
         required: true
     },
     nft_id: {
-        type: Number,
+        type: String,
         required: true
     },
     thumbnail_image: {
@@ -76,7 +76,7 @@ const NftSchema = new Schema({
         new Schema({
             name: {
                 type: String,
-                required: true
+                required: false
             },
             popularity: {
                 type: Number,

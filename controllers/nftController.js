@@ -25,7 +25,7 @@ module.exports = {
         Nft.create( {...req.body, user_id: req.params.id}, function(err, response) {
             if(err)
             {
-                res.status(500).send({ message: "Something went wrong" });
+                res.status(500).send({ message: "Something went wrong", err });
             } else {
                 res.status(200).send(response);
             }

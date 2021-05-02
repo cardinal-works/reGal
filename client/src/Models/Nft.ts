@@ -3,7 +3,7 @@ export interface INft {
     title: string,
     creator: string,
     nft_description: string,
-    nft_id: number,
+    nft_id: string,
     thumbnail_image: string,
     raw_image: string,
     date_mint: Date,

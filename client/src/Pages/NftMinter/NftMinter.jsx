@@ -27,7 +27,6 @@ const _dbMetadata = {
   nft_id: "",
   thumbnail_image: "",
   raw_image: null,
-  date_mint: Date.now(),
   tags: [],
   likes: 0,
   asking_bid: null,
@@ -80,7 +79,7 @@ const NftMinter = ({web3}) => {
       const tokenId = await DeedRepositoryContract.methods
         .getTotalNFTCount()
         .call({ from: window.ethereum.selectedAddress })
-        .then(setDbMetaData( prevState => ({...prevState, nft_id: tokenId})));
+        setDbMetaData( prevState => ({...prevState, nft_id: tokenId}));
         console.log(Number(tokenId) + 1);
         
       const mdResult = await DeedRepositoryContract.methods
