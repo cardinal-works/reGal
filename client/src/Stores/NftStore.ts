@@ -13,10 +13,10 @@ class NftStore {
         return Array.from(this.nftRegistry.values());
     }
 
-    @action loadNfts = async (payload: any | null) => {
+    @action loadNfts = async (payload: any) => {
         this.loadingInitial = true;
         try {
-            let response = await agent.Nft.getAll(payload);
+            let response = await agent.Nft.getAll();
             runInAction(() => {
                 if(response) {
                     response.forEach( (nft: INft) => {

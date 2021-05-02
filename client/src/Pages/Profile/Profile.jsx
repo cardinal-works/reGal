@@ -307,7 +307,7 @@ const Profile = (props) => {
                 </Col>
               </Form.Group>
               <Form.Group controlId="formDisplayName">
-                <Col md={12} lg={12} className="mt-3">
+                <Col md={12} className="mt-3">
                   <Form.Label className="text-white">DISPLAY NAME</Form.Label>
                   <Form.Control
                     type="text"
@@ -317,7 +317,7 @@ const Profile = (props) => {
                 </Col>
               </Form.Group>
               <Form.Group controlId="formWalletId">
-                <Col md={12} lg={12} className="mt-1">
+                <Col md={12} className="mt-1">
                   <span className="text-primary">
                     {user
                       ? user.wallet_id.slice(0, 3) +
@@ -394,7 +394,7 @@ const Profile = (props) => {
             nfts.map((nfts, index) => (
               <Col
                 lg={2}
-                md={2}
+                md={4}
                 sm={12}
                 key={index}
                 className="nft-collection mt-4"
@@ -416,7 +416,7 @@ const Profile = (props) => {
           <span className="text-white font-secondary pt-5">Liked</span>
           {nfts.length &&
             nfts.map((nfts, index) => (
-              <Col lg={2} md={2} sm={12} key={index} className="nft-liked mt-4">
+              <Col lg={2} md={4} sm={12} key={index} className="nft-liked mt-4">
                 <ProfileNftDisplay
                   likes={nfts.likes}
                   comments={nfts.comments}
@@ -438,7 +438,7 @@ const Profile = (props) => {
             nfts.map((nfts, index) => (
               <Col
                 lg={2}
-                md={2}
+                md={4}
                 sm={12}
                 key={index}
                 className="nft-viewed mt-4"
