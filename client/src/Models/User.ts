@@ -20,10 +20,11 @@ export interface IUser {
     likes: number,
     asking_bid: number,
     previous_sold: [number],
-    auction_duraction: string,
+    auction_duration: string,
     auction_startDate: string,
     auction_mode: boolean,
     auction_started: boolean,
+    auction_id: number,
     tags: [name: string, popularity: number]
   ];
   liked_nfts: [
@@ -38,10 +39,11 @@ export interface IUser {
     likes: number,
     asking_bid: number,
     previous_sold: [number],
-    auction_duraction: string,
+    auction_duration: string,
     auction_startDate: string,
     auction_mode: boolean,
     auction_started: boolean,
+    auction_id: number,
     tags: [name: string, popularity: number]
   ];
   recently_viewed_nfts: [
@@ -56,10 +58,11 @@ export interface IUser {
     likes: number,
     asking_bid: number,
     previous_sold: [number],
-    auction_duraction: string,
+    auction_duration: string,
     auction_startDate: string,
     auction_mode: boolean,
     auction_started: boolean,
+    auction_id: number,
     tags: [name: string, popularity: number]
   ];
   date_created: Date;

@@ -105,6 +105,11 @@ const UserSchema = new Schema({
                 default: false,
                 require: true
             },
+            auction_id: {
+                type: Number,
+                default: null,
+                require: true
+            },
             tags: [
                 new Schema({
                     name: {
@@ -184,6 +189,11 @@ const UserSchema = new Schema({
                 default: false,
                 require: true
             },
+            auction_id: {
+                type: Number,
+                default: null,
+                require: true
+            },
             tags: [
                 new Schema({
                     name: {
@@ -261,6 +271,11 @@ const UserSchema = new Schema({
             auction_started: {
                 type: Boolean,
                 default: false,
+                require: true
+            },
+            auction_id: {
+                type: Number,
+                default: null,
                 require: true
             },
             tags: [

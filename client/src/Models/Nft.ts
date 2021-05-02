@@ -10,9 +10,10 @@ export interface INft {
     likes: number,
     asking_bid: number,
     previous_sold: [number],
-    auction_duraction: string,
+    auction_duration: string,
     auction_startDate: string,
     auction_mode: boolean,
+    auction_id: number,
     auction_started: boolean,
     tags: [name: string, popularity: number]
 }

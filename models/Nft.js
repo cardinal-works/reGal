@@ -8,6 +8,10 @@ const NftSchema = new Schema({
         type: String,
         required: true
     },
+    user_id: {
+        type: String,
+        required: true
+    },
     creator: {
         type: String,
         required: true
@@ -43,7 +47,7 @@ const NftSchema = new Schema({
         defaut: null,
         require: true
     },
-    auction_duraction: {
+    auction_duration: {
         type: String,
         default: null,
         require: true
@@ -58,9 +62,14 @@ const NftSchema = new Schema({
         default: false,
         require: true
     },
-    auction_started: {
+    auction_ended: {
         type: Boolean,
         default: false,
+        require: true
+    },
+    auction_id: {
+        type: Number,
+        default: null,
         require: true
     },
     tags: [

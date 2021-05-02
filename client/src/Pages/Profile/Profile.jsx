@@ -74,11 +74,10 @@ const initialState = {
   ],
 };
 
-const Profile = () => {
+const Profile = (props) => {
   const userStore = useContext(UserStore);
   const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
   const [editMode, setEditMode] = useState(false);
-  const [redirect, setRedirect] = useState(false);
   const [userChanges, setUserChanges] = useState(
     toJS(user) || {
       profile_image: "",
@@ -89,11 +88,10 @@ const Profile = () => {
 
   useEffect(() => {
     if (!window.ethereum.isMetaMask) {
-      setRedirect(true);
-
+      props.history.push("/signup");
     }
     if (!window.ethereum.selectedAddress) {
-      setRedirect(true);
+      props.history.push("/signup")
 
     }
 
@@ -237,7 +235,6 @@ const Profile = () => {
     <Fragment>
       <Container className="profile-container">
         <Row className="nft-display-rows mb-5 pb-3">
-          {redirect ? <Redirect to="/signup"></Redirect> : null}
           {/*  */}
           {editMode === false ? (
             <Col className="mt-3">

@@ -75,8 +75,9 @@ const User = {
 }
 
 const Nft = {
+  getAll: (payload: any | null) => requests.get("/nft/get/all", payload),
   get: (id: number) => requests.get(`/user?id=${id}`),
-  create: (nft: INft) => requests.post("/nft", nft),
+  create: (nft: INft, id: string) => requests.post(`/nft?id=${id}`, nft),
   update: (nft: INft) => requests.put("/nft", nft),
   delete: (id: number) => requests.del(`/user?id=${id}`)
 }
