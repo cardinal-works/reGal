@@ -74,11 +74,10 @@ const initialState = {
   ],
 };
 
-const Profile = () => {
+const Profile = (props) => {
   const userStore = useContext(UserStore);
   const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
   const [editMode, setEditMode] = useState(false);
-  const [redirect, setRedirect] = useState(false);
   const [userChanges, setUserChanges] = useState(
     toJS(user) || {
       profile_image: "",
@@ -89,11 +88,10 @@ const Profile = () => {
 
   useEffect(() => {
     if (!window.ethereum.isMetaMask) {
-      setRedirect(true);
-
+      props.history.push("/signup");
     }
     if (!window.ethereum.selectedAddress) {
-      setRedirect(true);
+      props.history.push("/signup")
 
     }
 
@@ -237,7 +235,6 @@ const Profile = () => {
     <Fragment>
       <Container className="profile-container">
         <Row className="nft-display-rows mb-5 pb-3">
-          {redirect ? <Redirect to="/signup"></Redirect> : null}
           {/*  */}
           {editMode === false ? (
             <Col className="mt-3">
@@ -310,7 +307,7 @@ const Profile = () => {
                 </Col>
               </Form.Group>
               <Form.Group controlId="formDisplayName">
-                <Col md={12} lg={12} className="mt-3">
+                <Col md={12} className="mt-3">
                   <Form.Label className="text-white">DISPLAY NAME</Form.Label>
                   <Form.Control
                     type="text"
@@ -320,7 +317,7 @@ const Profile = () => {
                 </Col>
               </Form.Group>
               <Form.Group controlId="formWalletId">
-                <Col md={12} lg={12} className="mt-1">
+                <Col md={12} className="mt-1">
                   <span className="text-primary">
                     {user
                       ? user.wallet_id.slice(0, 3) +
@@ -375,6 +372,7 @@ const Profile = () => {
             >
               Featured
             </CornerRibbon>
+            
               <ProfileNftDisplay
                 likes={nfts[5].likes}
                 comments={nfts[5].comments}
@@ -397,11 +395,12 @@ const Profile = () => {
             nfts.map((nfts, index) => (
               <Col
                 lg={2}
-                md={2}
-                sm={12}
+                md={3}
+                sm={6}
                 key={index}
-                className="nft-collection mt-4"
+                className="nft-collection mt-4 mb-3"
               >
+          
                 <ProfileNftDisplay
                   likes={nfts.likes}
                   comments={nfts.comments}
@@ -416,10 +415,12 @@ const Profile = () => {
                 />
               </Col>
             ))}
-          <span className="text-white font-secondary pt-5">Liked</span>
+            </Row>
+            <Row>
+          <span className="text-white font-secondary pt-2">Liked</span>
           {nfts.length &&
             nfts.map((nfts, index) => (
-              <Col lg={2} md={2} sm={12} key={index} className="nft-liked mt-4">
+              <Col lg={2} md={3} sm={12} key={index} className="nft-liked mt-4 mb-3">
                 <ProfileNftDisplay
                   likes={nfts.likes}
                   comments={nfts.comments}
@@ -434,6 +435,8 @@ const Profile = () => {
                 />
               </Col>
             ))}
+            </Row>
+            <Row>
           <span className="text-white font-secondary pt-5">
             Recently Viewed
           </span>
@@ -441,10 +444,10 @@ const Profile = () => {
             nfts.map((nfts, index) => (
               <Col
                 lg={2}
-                md={2}
+                md={3}
                 sm={12}
                 key={index}
-                className="nft-viewed mt-4"
+                className="nft-viewed mt-4 mb-3"
               >
                 <ProfileNftDisplay
                   likes={nfts.likes}
