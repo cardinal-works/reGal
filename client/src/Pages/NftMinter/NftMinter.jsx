@@ -15,34 +15,32 @@ import ipfs from "../../ipfs";
 import { Link, Redirect } from "react-router-dom";
 import UserStore from "../../Stores/UserStore";
 import NftStore from "../../Stores/NftStore";
-import { DeedRepository } from "../../../abi/DeedRepository_abi"
+import { DeedRepository } from "../../../abi/DeedRepository_abi";
 var Buffer = require("buffer/").Buffer;
-
-
 
 const _dbMetadata = {
   title: "",
   creator: "@artistName",
   nft_description: "",
-  nft_id: "",
+  nft_id: null,
   thumbnail_image: "",
   raw_image: null,
-  tags: [],
   likes: 0,
+  current_bid: 0,
+  auction_id: 0,
   asking_bid: null,
   previous_sold: null,
   auction_duration: null,
   auction_startDate: null,
   auction_mode: false,
   auction_started: false,
-  tags: {}
+  tags: []
 };
-
-
 
 const NftMinter = ({web3}) => {
 
   const contractAddr = "0x1a9127b29180DA82C6072b7ef2F855c955ef2fF1";
+  // const contractAddr = "0xce863dD3ec9bcDEEE585660Cab63C777E1201876";
   const DeedRepositoryContract = new web3.eth.Contract(DeedRepository, contractAddr);
   const userStore = useContext(UserStore);
   const nftStore = useContext(NftStore);
@@ -50,15 +48,13 @@ const NftMinter = ({web3}) => {
   const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
   const { createNft } = nftStore;
   const [dbMetaData, setDbMetaData] = useState(_dbMetadata)
-  const [renderInput, setRenderInput] = useState([<div key={"empty"}></div>]);
+  const [renderInput, setRenderInput] = useState([<div key={0} ></div>]);
 
   useEffect(() => {
     console.log(web3);
       loadUser(window.ethereum.selectedAddress).then(
         (res) => { 
-          let proxy = dbMetaData;
-          let response = res.display_name
-          setDbMetaData({...proxy, creator: response });
+          setDbMetaData((prevState) => ({...prevState, creator: res.display_name, user_id: res._id }))
          })
       
 
@@ -66,6 +62,7 @@ const NftMinter = ({web3}) => {
 
   const handleMint = async () => {
     if(user._id) {
+      console.log(user._id)
       const _bcMetadata = {
         title: dbMetaData.title,
         creator: dbMetaData.creator,
@@ -79,15 +76,16 @@ const NftMinter = ({web3}) => {
       const tokenId = await DeedRepositoryContract.methods
         .getTotalNFTCount()
         .call({ from: window.ethereum.selectedAddress })
-        setDbMetaData( prevState => ({...prevState, nft_id: tokenId}));
-        console.log(Number(tokenId) + 1);
-        
+        // setDbMetaData( prevState => ({...prevState, nft_id: tokenId}));
+        console.log(Number(tokenId) + 1, tokenId, typeof tokenId);
+
       const mdResult = await DeedRepositoryContract.methods
         .registerDeed(Number(tokenId) + 1, ipfsLink)
         .send({ from: window.ethereum.selectedAddress })
-        .then(createNft(dbMetaData, user._id))
+        .then(createNft({...dbMetaData, nft_id: Number(tokenId) + 1}, dbMetaData.user_id))
         .then((res) => console.log(res))
     } else { return; }
+
   };
 
   const handleInputChange = (event) => {

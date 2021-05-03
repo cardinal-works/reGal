@@ -3,10 +3,10 @@
 
   background: transparent;
   font-family: "Majesti-Banner-BoldItalic", sans-serif;
-  padding: 50px 0px 100px 0px;
+  padding: 5px 40px 30px 40px;
   margin-left: auto;
   margin-right: auto;
-  margin: 0% 8% 0% 8%;
+  margin: 0% 2% 0% 2%;
   animation: fadeIn linear forwards 2s;
     -webkit-animation: fadeIn linear forwards 2s;
     -moz-animation: fadeIn linear forwards 2s;
@@ -17,6 +17,7 @@
 }
 
 .navbar-toggler {
+  justify-content: flex-end;
   margin-left: auto;
   margin-right: auto;
 }
@@ -24,10 +25,9 @@
 .profile-container {
   flex-wrap: none;
   padding: 5px;
-  align-items: flex-start;
+  justify-content: flex-end;
+  align-items: baseline;
   @media (min-width: 760px) { justify-content: space-between; }
-
-  // Extra large devices (large desktops, 1200px and up)
   @media (max-width: 760px) { justify-content: baseline !important; flex-direction: column-reverse !important; align-items: flex-start; }
 }
 
