@@ -40,14 +40,14 @@ const Navigation = () => {
       <Navbar.Brand
         as={Link}
         to="/explore"
-        className="text-majesti mr-3"
+        className="text-majesti mr-3 mt-4"
         style={{ fontSize: "4.5em" }}
       >
         REGAL
       </Navbar.Brand>
       <Navbar.Toggle className="mb-2" aria-controls="responsive-navbar-nav"/>
       <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="nav-top" >
+          <Nav className="nav-top mt-3" >
             <Nav.Link as={Link} to="/explore">explore</Nav.Link>
             <Nav.Link as={Link} to="/profile">profile</Nav.Link>
             <Nav.Link
@@ -64,15 +64,15 @@ const Navigation = () => {
            {user ? 
            <Fragment>
              <Container className="profile-container">
-            <Button as={Link}  to="/create" className="btn-regal mr-4 mt-3">CREATE
+            <Button as={Link}  to="/create" className="btn-regal mr-4 mt-2">CREATE
            </Button>
-             <div className="profile-link-nav">
+             <div className="profile-link-nav ">
              <Link to="/profile">
-           <Image className="nav-profile-image mb-2 " src={user.profile_image} width="70px" height="70px">
+           <Image className="nav-profile-image mb-2" src={user.profile_image} width="70px" height="70px">
            </Image> 
-           <div className="text-center">
-          <span className="user-profile-name text-white">{user ? '@'+ user.display_name : null}</span>
-          </div>
+           {/* <div className="text-center">
+          <span className="user-profile-name text-white mb-5">{user ? '@'+ user.display_name : null}</span>
+          </div> */}
           </Link> 
           </div>
           </Container>

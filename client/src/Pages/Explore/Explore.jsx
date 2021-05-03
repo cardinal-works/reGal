@@ -31,7 +31,7 @@ const Explore = (web3) => {
   const userStore = useContext(UserStore);
   const nftStore = useContext(NftStore);
   const { loadUser, user } = userStore;
-  const { loadNfts } = nftStore;
+  const { loadNfts, getAllNfts } = nftStore;
   const [connected, setConnected] = useState(false)
   const [show, setShow] = useState(false);
 
@@ -39,7 +39,6 @@ const Explore = (web3) => {
   // user accounts that exist in the metamask wallet associated to the window
   useEffect(async ()  => {
     loadNfts()
-    .then((res) => console.log(res));
     let userAddress
     if (window.ethereum) {
       await window.ethereum
@@ -56,79 +55,84 @@ const Explore = (web3) => {
     }
     return;
   }, []);
+
+  useEffect(()  => {
+    console.log(getAllNfts.map(res => res.thumbnail_image))
+
+}, [getAllNfts]);
   //Sample data for testing will be set dynamically in the future;
   //Statically set for testing purposes only;
 
 
   return (
     <div className="gradiant-background">
-      <Parallax className="" y={[-5, 10]} x={[0, 0]} tagOuter="figure" >
-        <Container className="nft-container" >
-           <Row className="mb-5">
-          <span className="text-white font-secondary">Featured</span>
-          {nfts.length &&
-            nfts.map((nfts, index) => (
+      <Parallax className="" y={[0, 0]} x={[0, 0]} tagOuter="figure" >
+        <Container className="nft-container mb-5 pb-5" fluid>
+           <Row className="nft-explore-rows ">
+          {/* <span className="text-white font-secondary text-center pb-3">Featured</span> */}
+          {getAllNfts.length &&
+            getAllNfts.map((nft, index) => (
               <Col
                 lg={2}
                 md={3}
                 sm={6}
                 key={index}
-                className="explore-live-feed mt-4 mb-3"
+                className="explore-live-feed"
               >
           
                 <NftDisplay
-                  likes={nfts.likes}
-                  image={nfts.thumbnail_image}
-                  id={nfts.nft_id}
-                  bid={nfts.current_bid}
-                  title={nfts.title}
-                  creator={nfts.creator}
-                  date_mint={nfts.date_mint}
-                  tags={nfts.tags}
+                  likes={nft.likes}
+                  thumbnail_image={nft.thumbnail_image}
+                  id={nft.nft_id}
+                  current_bid={nft.current_bid}
+                  title={nft.title}
+                  creator={nft.creator}
+                  date_mint={nft.date_mint}
+                  tags={nft.tags}
                 />
               </Col>
             ))}
-                      {nfts.length &&
-            nfts.map((nfts, index) => (
+                      {getAllNfts.length &&
+            getAllNfts.map((nft, index) => (
               <Col
                 lg={2}
                 md={3}
                 sm={6}
                 key={index}
-                className="explore-live-feed mt-4 mb-3"
+                className="explore-live-feed"
               >
           
                 <NftDisplay
-                  likes={nfts.likes}
-                  image={nfts.thumbnail_image}
-                  id={nfts.nft_id}
-                  bid={nfts.current_bid}
-                  title={nfts.title}
-                  creator={nfts.creator}
-                  date_mint={nfts.date_mint}
-                  tags={nfts.tags}
+                  likes={nft.likes}
+                  thumbnail_image={nft.thumbnail_image}
+                  id={nft.nft_id}
+                  current_bid={nft.current_bid}
+                  title={nft.title}
+                  creator={nft.creator}
+                  date_mint={nft.date_mint}
+                  tags={nft.tags}
                 />
               </Col>
             ))}
-                      {nfts.length &&
-            nfts.map((nfts, index) => (
+                      {getAllNfts.length &&
+            getAllNfts.map((nft, index) => (
               <Col
                 lg={2}
                 md={3}
                 sm={6}
                 key={index}
-                className="explore-live-feed mt-4 mb-3"
+                className="explore-live-feed"
               >
           
                 <NftDisplay
-                  likes={nfts.likes}
-                  image={nfts.thumbnail_image}
-                  id={nfts.nft_id}
-                  bid={nfts.current_bid}
-                  title={nfts.title}
-                  creator={nfts.creator}
-                  date_mint={nfts.date_mint}
-                  tags={nfts.tags}
+                  likes={nft.likes}
+                  thumbnail_image={nft.thumbnail_image}
+                  id={nft.nft_id}
+                  current_bid={nft.current_bid}
+                  title={nft.title}
+                  creator={nft.creator}
+                  date_mint={nft.date_mint}
+                  tags={nft.tags}
                 />
               </Col>
             ))}

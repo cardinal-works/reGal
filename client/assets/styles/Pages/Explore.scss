@@ -5,10 +5,15 @@
     rgb(74, 27, 8) 40%,
     rgb(199, 96, 103) 100%
   );
-  padding-bottom: 40px;
+  padding-bottom: 100px;
 
   .nft-container {
 
+    .nft-explore-rows {
+      justify-content: center;
+    }
+
+    padding: 0px 0px 0px 0px !important;
     .explore-live-feed {
       position: relative;
       .nft-display {
@@ -24,7 +29,7 @@
           transition: 0.25s ease-in-out;
           border-radius: 2px !important;
           &:hover {
-            opacity: 50%;
+            opacity: 20%;
             transition: 0.25s ease-in-out;
           }
         }

@@ -22,8 +22,9 @@ class NftStore {
                     response.forEach((nft: INft) => {
                         this.nftRegistry.set(nft._id, nft);
                     })
-                    return response
+                   
                 }
+                return response
             })
         } catch (error) {
             console.log("Error: ", error);

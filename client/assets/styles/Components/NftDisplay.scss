@@ -1,6 +1,7 @@
 .nft-display {
     border-radius: 2px;
     height: 100%;
+    background-color: black;
     img {
       padding: 1px;
       object-fit: cover;
@@ -12,5 +13,10 @@
         opacity: 50%;
         transition: 0.25s ease-in-out;
       }
+    }
+    .overlay-text-explore {
+      position:absolute;
+      padding: 20px;
+
     }
 }

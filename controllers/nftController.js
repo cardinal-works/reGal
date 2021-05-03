@@ -2,7 +2,6 @@ const Nft = require("../models/Nft");
 
 module.exports = {
   getAll: function (req, res, next) {
-    if (req.body) {
       Nft.find(req.body)
       .then((response) => {
         return res.status(200).send(response);
@@ -10,7 +9,6 @@ module.exports = {
       .catch((err) => {
         return res.status(400).send(err);
       })
-    }
   },
   get: function (req, res, next) {
     Nft.findOne({ _id: req.params.id }).then((user) => {
