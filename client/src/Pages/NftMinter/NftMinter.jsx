@@ -26,6 +26,7 @@ const _dbMetadata = {
   thumbnail_image: "",
   raw_image: null,
   likes: 0,
+  current_bid: 0,
   auction_id: 0,
   asking_bid: null,
   previous_sold: null,

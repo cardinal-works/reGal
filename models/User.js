@@ -54,6 +54,11 @@ const UserSchema = new Schema({
                 type: String,
                 required: true
             },
+            current_bid: {
+                type: Number,
+                default: 0,
+                required: true
+            },
             nft_description: {
                 type: String,
                 required: true
@@ -142,6 +147,11 @@ const UserSchema = new Schema({
                 type: String,
                 required: true
             },
+            current_bid: {
+                type: Number,
+                default: 0,
+                required: true
+            },
             nft_description: {
                 type: String,
                 required: true
@@ -228,6 +238,11 @@ const UserSchema = new Schema({
             },
             user_id: {
                 type: String,
+                required: true
+            },
+            current_bid: {
+                type: Number,
+                default: 0,
                 required: true
             },
             nft_description: {

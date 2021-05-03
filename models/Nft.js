@@ -37,6 +37,11 @@ const NftSchema = new Schema({
         default: 0,
         required: true
     },
+    current_bid: {
+        type: Number,
+        default: 0,
+        required: true
+    },
     asking_bid: {
         type: Number,
         default: null,

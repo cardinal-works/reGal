@@ -7,6 +7,7 @@ export interface INft {
     user_id: string,
     thumbnail_image: string,
     raw_image: string,
+    current_bid: number,
     date_mint: Date,
     likes: number,
     asking_bid: number,
