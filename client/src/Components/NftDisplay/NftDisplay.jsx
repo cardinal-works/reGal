@@ -9,32 +9,11 @@ import {
   ListGroupItem,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import UseInterval from "../UseInterval";
 
 import Profile from "../../../assets/images/profile.png";
 import mint from "../../../assets/images/mint.png";
 import portrait from "../../../assets/images/portrait.png";
-
-//USE THIS FOR INTERVALS
-
-// function useInterval(callback, delay) {
-  //   const savedCallback = useRef();
-  
-  //   // Remember the latest callback.
-  //   useEffect(() => {
-  //     savedCallback.current = callback;
-  //   }, [callback]);
-  
-  //   // Set up the interval.
-  //   useEffect(() => {
-  //     function tick() {
-  //       savedCallback.current();
-  //     }
-  //     if (delay !== null) {
-  //       let id = setInterval(tick, delay);
-  //       return () => clearInterval(id);
-  //     }
-  //   }, [delay]);
-  // }
 
 const NftDisplay = ({
   likes,
@@ -59,7 +38,11 @@ const NftDisplay = ({
       seconds: Math.floor((timeLeft % (60000)) / 1000),
     }]);
 
-  const timer = setInterval(function () {
+  // useEffect(() => {
+  //   timer;
+  // }, []);
+
+  UseInterval(() => {
     let timeLeft = new Date(ending).getTime() - new Date().getTime();
     setAuctionTimer([
       {
@@ -69,11 +52,7 @@ const NftDisplay = ({
         seconds: Math.floor((timeLeft % (60000)) / 1000),
       },
     ]);
-  }, 1000);
-
-  useEffect(() => {
-    timer;
-  }, []);
+  }, 1000)
 
   return (
     <Fragment>

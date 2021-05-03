@@ -71,15 +71,15 @@ const User = {
   get: (id: number) => requests.get(`/user/get/${id}`),
   create: (user: IUser) => requests.post("/user/create", user),
   update: (user: IUser) => requests.put(`/user/update`, user),
-  delete: (id: number) => requests.del(`/user/delete?id=${id}`)
+  delete: (id: number) => requests.del(`/user/delete${id}`)
 }
 
 const Nft = {
-  getAll: () => requests.get("/nft/get/all"),
-  get: (id: number) => requests.get(`/user?id=${id}`),
-  create: (nft: INft, id: string) => requests.post(`/nft/create/user?id=${id}`, nft),
+  getAll: (payload?: any) => requests.post(`/nft/get/all`, payload),
+  get: (id: number) => requests.get(`/nft/get/?id=${id}`),
+  create: (nft: INft, id: string) => requests.post(`/nft/create/${id}`, nft),
   update: (nft: INft) => requests.put("/nft", nft),
-  delete: (id: number) => requests.del(`/user?id=${id}`)
+  delete: (id: number) => requests.del(`/${id}`)
 }
 
 export default {

@@ -13,6 +13,7 @@ import { Link, Redirect } from "react-router-dom";
 //Contracts
 import ProfileNftDisplay from "../../Components/ProfileNftDisplay";
 import UserStore from "../../Stores/UserStore";
+import NftStore from "../../Stores/NftStore";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
 import CornerRibbon from "react-corner-ribbon";
@@ -76,7 +77,9 @@ const initialState = {
 
 const Profile = (props) => {
   const userStore = useContext(UserStore);
+  const nftStore = useContext(NftStore);
   const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
+  const { loadNfts, getAllNfts, nftRegistry} = nftStore;
   const [editMode, setEditMode] = useState(false);
   const [userChanges, setUserChanges] = useState(
     toJS(user) || {
@@ -88,16 +91,19 @@ const Profile = (props) => {
 
   useEffect(() => {
     if (!window.ethereum.isMetaMask) {
-      props.history.push("/signup");
+      // props.history.push("/signup");
+      return;
     }
     if (!window.ethereum.selectedAddress) {
-      props.history.push("/signup")
-
+      // props.history.push("/signup")
+      return;
     }
-
-    loadUser(window.ethereum.selectedAddress).then((res) =>
-      setUserChanges(res)
-    );
+    loadUser(window.ethereum.selectedAddress)
+    .then((res) => {
+      loadNfts({ user_id: res._id})
+      setUserChanges(res)}
+  )
+    // .then(console.log("hello", Object.fromEntries(nftRegistry)))
   }, []);
 
   const [nfts, setNfts] = useState([
@@ -212,9 +218,6 @@ const Profile = (props) => {
 
   const handleUpdateUser = (e) => {
     e.preventDefault();
-    // console.log('user', user)
-    // console.log('js', toJS(user))
-    // let proxy = toJS(user)
     if (userChanges.profile_image.length === 0) {
       setUserChanges({ ...userChanges, profile_image: user.profile_image });
     }
@@ -228,8 +231,9 @@ const Profile = (props) => {
   };
 
   useEffect(() => {
-    console.log(loadingInitial);
-  }, [loadingInitial, user]);
+    // console.log(loadingInitial);
+    // console.log(getAllNfts)
+  }, [loadingInitial, user, getAllNfts]);
 
   return (
     <Fragment>
@@ -276,7 +280,7 @@ const Profile = (props) => {
                 </Button>
                 <Link to="/dashboard">
                   <Button className="btn-regal mt-2 mb-3 ml-1 mr-1">
-                    <i class="fas fa-cog"></i>
+                    <i className="fas fa-cog"></i>
                   </Button>
                 </Link>
               </Col>

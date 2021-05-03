@@ -21,7 +21,7 @@ const NftSchema = new Schema({
         required: true
     },
     nft_id: {
-        type: String,
+        type: Number,
         required: true
     },
     thumbnail_image: {

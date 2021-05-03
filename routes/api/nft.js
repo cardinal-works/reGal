@@ -4,7 +4,7 @@ const nftController = require("../../controllers/nftController");
 // @route GET api/nft/get/all
 // @desc Retrieve nft
 // @access Public
-router.route("/get/all").get(nftController.getAll);
+router.route("/get/all").post(nftController.getAll);
 
 // @route GET api/nft/get
 // @desc Retrieve nft
