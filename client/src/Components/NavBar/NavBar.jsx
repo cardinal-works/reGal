@@ -1,6 +1,6 @@
 //Modules
 import React, { useState, useContext, useEffect, Fragment } from 'react';
-import { Nav, Navbar, Image, Container, Button, } from 'react-bootstrap';
+import { Nav, Navbar, Image, Container, Button, Form, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import UserStore from '../../Stores/UserStore';
 import { observer } from 'mobx-react-lite';
@@ -27,24 +27,29 @@ const Navigation = () => {
 			<Navbar.Toggle className="mb-2" aria-controls="responsive-navbar-nav" />
 			<Navbar.Collapse id="responsive-navbar-nav">
 				<Nav className="nav-top mt-3">
-					<Nav.Link as={Link} to="/">explore</Nav.Link>
+					{/* <Form className="search-container" inline>
+						<FormControl type="text" placeholder="Search" className="search-form mr-sm-2" />
+						<Button variant="outline-success" className="search-button">Search</Button>
+					</Form> */}
+					<Nav.Link as={Link} to="/">
+						explore
+					</Nav.Link>
 					<Nav.Link as={Link} to="/profile">
 						profile
 					</Nav.Link>
 					<Nav.Link to="/#">farm</Nav.Link>
-
+					<Nav.Link>
+						<i class="fas fa-search"></i>
+					</Nav.Link>
 				</Nav>
-				<Nav>
-	
-				</Nav>
+				<Nav></Nav>
 				<Nav className="nav-profile-image-link">
 					{user ? (
 						<Fragment>
 							<Container className="profile-container">
 								<Button
 									onClick={() => setModalShow(true)}
-									className="btn-regal mr-4 mb-2"
-									>
+									className="btn-regal mr-4 mb-2">
 									CREATE
 								</Button>
 
