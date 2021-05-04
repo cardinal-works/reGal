@@ -1,12 +1,14 @@
 .footer {
-  background: #c75f67!important;
+  // background: #c75f67!important;
+  background: transparent;
 
 
   .footer-nav {
     align-items: center;
     justify-content: center;
     padding-bottom: 15px;
-    color: black;
+    color: white;
+    background-color: transparent;
     .footer-logo {
       margin-top: 4px;
     }

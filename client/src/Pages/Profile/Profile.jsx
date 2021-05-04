@@ -237,7 +237,7 @@ const Profile = (props) => {
 
   return (
     <Fragment>
-      <Container className="profile-container">
+      <Container className="profile-container" fluid>
         <Row className="nft-display-rows mb-5 pb-3">
           {/*  */}
           {editMode === false ? (

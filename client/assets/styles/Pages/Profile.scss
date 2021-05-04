@@ -1,5 +1,6 @@
 .profile-container {
   margin-top: 30px;
+  padding: 0px 150px 0px 150px;
   .nft-collection {
     position: relative;
     .profile-card {
@@ -79,7 +80,9 @@
   }
 
   .profile-featured-nft {
-    width: 100%;
+    width: 100vh;
+    margin-left: 3%;
+    object-fit: fill;
     position: relative;
 
     .nft-card {

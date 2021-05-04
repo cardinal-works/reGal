@@ -2,38 +2,66 @@
   background: linear-gradient(
     180deg,
     #040404 0%,
-    rgb(74, 27, 8) 40%,
-    rgb(199, 96, 103) 100%
+    rgb(0, 0, 0) 40%,
+    rgb(0, 0, 0) 100%
   );
   padding-bottom: 100px;
 
-  .nft-container {
 
-    .nft-explore-rows {
-      justify-content: center;
+  .featured-nft-nav {
+    display: flex;
+    margin: 0px 3% 0px 3%;
+    .sort-nav {
+      padding: 6px 0px 0px 0px !important;
     }
 
-    padding: 0px 0px 0px 0px !important;
+    .featured-text {
+      padding: 0px !important;
+      margin: 0% 0% 0% 0%;
+    }
+  }
+  .nft-container {
+    padding: 0px 130px 0px 130px !important;
+    .nft-explore-rows {
+      justify-content: flex-start;
+      padding: 0px 0px 0px 0px !important;
+      // align-items: flex-end;
+    }
     .explore-live-feed {
       position: relative;
+      padding: 0px 0px 0px 0px !important;
+      border: solid 5px transparent;
       .nft-display {
         display: block;
         padding-bottom: 100%;
         border-radius: 2px;
         img {
-          padding: 1px;
           position: absolute;
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: 0.25s ease-in-out;
+          transition: 0.3s ease-in-out;
           border-radius: 2px !important;
           &:hover {
-            opacity: 20%;
-            transition: 0.25s ease-in-out;
+            opacity: 12%;
+            transition: 0.3s ease-in-out;
           }
         }
       }
     }
   }
+  
+  .sort-button {
+      border-radius: 10px;
+      margin-top: 18px;
+      margin-left: 8px;
+      padding: 2px 12px 3px 12px;
+      background-color: #ffffff !important;
+      color: black !important;
+      border-color: rgb(45, 45, 45) !important;
+  }
+  .featured-text {
+
+  }
+
 }

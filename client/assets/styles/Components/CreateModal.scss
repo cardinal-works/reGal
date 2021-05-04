@@ -1,0 +1,26 @@
+.create-modal {
+    .text-majesti {
+        color: rgb(203, 203, 203);
+        transition: 0.5s ease-in-out;
+          text-shadow: 
+                     12px 12px 1px #949494, 
+                     12px 12px 1px #3f3f3f; 
+          &:hover {
+            transition: 0.5s ease-in-out;
+            text-shadow: 
+            8px 1px 1px #808080,
+            15px 1px 1px #555555;      
+          }
+    }
+    .modal-content {
+        border: solid 4px rgb(167, 167, 167);
+        border-radius: 10px;
+        background-color: black;
+        color: white;
+    }
+    .create-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
