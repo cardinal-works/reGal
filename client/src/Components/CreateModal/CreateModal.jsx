@@ -1,15 +1,8 @@
 //Modules
-import React, { useEffect, useState, Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
-import { Link, Redirect } from 'react-router-dom';
-//Contracts
-import ProfileNftDisplay from '../ProfileNftDisplay';
-import UserStore from '../../Stores/UserStore';
+import { Link} from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { toJS } from 'mobx';
-import ipfs from '../../ipfs';
-var Buffer = require('buffer/').Buffer;
-//Media
 
 const CreateModal = (props) => {
 	return (
