@@ -21,7 +21,7 @@ const Navigation = () => {
 				as={Link}
 				to="/"
 				className="r-div text-majesti"
-				style={{ fontSize: '7em' }}>
+				style={{ fontSize: '5.0em' }}>
 				Regal
 			</Navbar.Brand>
 			<Navbar.Toggle className="mb-2" aria-controls="responsive-navbar-nav" />
