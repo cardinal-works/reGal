@@ -1,87 +1,109 @@
 //Components
-import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState, useContext, Fragment } from 'react';
+import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Image, Button, ListGroup, Table } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
 import NftStore from '../../Stores/NftStore';
-import { ContextExclusionPlugin } from 'webpack';
-
-
 
 const DetailedView = (props) => {
 	const nftStore = useContext(NftStore);
-    const [params, setParams] = useState(useParams())
-    const [currentEtherPrice, setCurrentEtherPrice] = useState(null)
+	const [params, setParams] = useState(useParams());
+	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
 	const { loadNfts, getAllNfts, nftRegistry } = nftStore;
-    // console.log(useParams())
+	const [detailNft, setDetailNft] = useState(null);
+	// console.log(useParams())
 
 	useEffect(() => {
-        loadNfts({nft_id: Number(params["id"])})
-	}, []);
+		loadNfts({ nft_id: params['id'] });
+	});
 
-    useEffect(() => {
-        fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc')
-        .then((response) => response.json())
-        .then((data) => setCurrentEtherPrice(data[1]['current_price']))
-        .catch((err) => console.log('ERROR: ', err));
-	}, [nftRegistry]);
+	useEffect(() => {
+		fetch(
+			'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc'
+		)
+			.then((response) => response.json())
+			.then((data) => setCurrentEtherPrice(data[1]['current_price']))
+			.catch((err) => console.log('ERROR: ', err));
+		setDetailNft(getAllNfts);
+	}, [getAllNfts]);
 
-   if (getAllNfts === null) {
-       return(<div></div>) }
-       else return (
-        <Container>
-            <Row>
-                <Col md={12} className="nft-title-details">
-                    <h1 className="text-uppercase d-inline-block text-primary font-italic text-md-left text-center">{getAllNfts.title}</h1>
-                    <span className="d-inline-block text-info ml-3 font-italic text-md-left text-center"><span className="fas fa-certificate mr-1"></span>Artist verified</span>
-                    <span className="d-inline-block text-info ml-3 font-italic text-md-left text-center"><span className="fas fa-certificate mr-1"></span>Regal Minted</span>
-                </Col>
-            </Row>
-            <Row>
-                <Col md={4}>
-                    <Image src={getAllNfts.thumbnail_image} fluid/>
-                </Col>
-                <Col md={8}>
-                    <div className="bid-details text-md-left text-center">
-                        <span className="text-white fas fa-circle fa-lg"></span>
-                        <h2 className="text-white d-inline-block ml-2">Top Bid</h2>
-                    </div>
-                    <div className="nft-bids mt-2 text-md-left text-center">
-                        <div className="eth-price d-inline-block">
-                            <span className="fab fa-ethereum text-primary fa-lg"></span>
-                            <span className="text-primary ml-1 currency-value">{getAllNfts.current_bid}</span>
-                        </div>
-                        <div className="usd-price d-inline-block ml-3">
-                            <span className="fas fa-dollar-sign text-green fa-lg"></span>
-                            <span className="text-primary ml-1 text-green currency-value">{getAllNfts.current_bid * currentEtherPrice}</span>
-                        </div>
-                    </div>
-                    <div className="buyer-seller mt-2 text-md-left text-center">
-                        <div>
-                            <span className="text-white">Minter: </span>
-                            <span className="text-info">@{getAllNfts.creator ? getAllNfts.creator : ""}</span>
-                        </div>
-                        <div>
-                            <span className="text-white">Owner: </span>
-                            <span className="text-info">@{getAllNfts.creator ? getAllNfts.creator : ""}</span>
-                        </div>
-                    </div>
-                    {/* <div className="nft-tags mt-4">
+	return (
+		<Container className="detailedview-container" fluid>
+			{detailNft &&
+				detailNft.map((nft) => {
+                if (nft.nft_id === params['id'])
+                (
+					<Fragment>
+						<Row>
+							<Col className="nft-title-details text-md-center mb-2">
+								<h1 className="text-uppercase d-inline-block text-primary font-italic text-md-center text-center">
+									{nft.title}
+								</h1>
+								<span className="d-inline-block text-info ml-3 font-italic text-md-center text-center">
+									<span className="fas fa-certificate mr-1"></span>Artist verified
+								</span>
+								<span className="d-inline-block text-info ml-3 font-italic text-md-center text-center">
+									<span className="fas fa-certificate mr-1"></span>Regal Minted
+								</span>
+							</Col>
+						</Row>
+						<Row>
+							<Col className="thumbnail-image mx-auto" md={6}>
+								<Image src={nft.thumbnail_image} fluid />
+							</Col>
+							<Col className="nft-details mx-auto mt-4" md={12}>
+								<div className="bid-details text-md-center text-center">
+									<span className="text-white fas fa-circle fa-lg"></span>
+									<h2 className="text-white d-inline-block ml-2">Top Bid</h2>
+								</div>
+								<div className="nft-bids mt-2 text-md-center text-center">
+									<div className="eth-price d-inline-block">
+										<span className="fab fa-ethereum text-primary fa-lg"></span>
+										<span className="text-primary ml-1 currency-value">
+											{nft.current_bid}
+										</span>
+									</div>
+									<div className="usd-price d-inline-block ml-3">
+										<span className="fas fa-dollar-sign text-green fa-lg"></span>
+										<span className="text-primary ml-1 text-green currency-value">
+											{nft.current_bid * currentEtherPrice}
+										</span>
+									</div>
+								</div>
+								<div className="buyer-seller mt-2 text-md-center text-center">
+									<div>
+										<span className="text-white">Minter: </span>
+										<span className="text-info">
+											@{nft.creator ? nft.creator : ''}
+										</span>
+									</div>
+									<div>
+										<span className="text-white">Owner: </span>
+										<span className="text-info">
+											@{nft.creator ? nft.creator : ''}
+										</span>
+									</div>
+								</div>
+								{/* <div className="nft-tags mt-4">
                         <ListGroup horizontal className="text-white font-italic">
                             {
-                                loadedgetAllNfts.tags && loadedgetAllNfts.tags.map( (tag, index) => (
+                                loadednft.tags && loadednft.tags.map( (tag, index) => (
                                     <ListGroup.Item key={index}>#{tag}</ListGroup.Item>
                                 ))
                             }
                         </ListGroup>
                     </div> */}
-                    <p className="nft-description text-white mt-3 text-md-left text-center">{getAllNfts.description}</p>
-                    <div className="controls-wrapper text-md-left text-center">
-                        <Button variant="outline-primary" className="btn-fix">Place A Bid</Button>
-                    </div>
-                </Col>
-            </Row>
-            <Row className="mb-5 mt-3">
+								<p className="nft-description text-white mt-3 text-md-center text-center">
+									{nft.description}
+								</p>
+								<div className="controls-wrapper text-md-center text-center mb-5 pb-5">
+									<Button variant="outline-primary" className="btn-fix">
+										Place A Bid
+									</Button>
+								</div>
+							</Col>
+						</Row>
+						{/* <Row className="mb-5 mt-3">
                 <Col md={12}>
                     <Table responsive className="text-white text-center nft-records">
                         <thead>
@@ -93,7 +115,7 @@ const DetailedView = (props) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {
+                           {
                             loadedgetAllNfts.transactionHistory && loadednft.transactionHistory.map((transaction, index) => (
                                 <tr key={index}>
                                     <td>date</td>
@@ -102,16 +124,18 @@ const DetailedView = (props) => {
                                     <td>to</td>
                                 </tr>
                             ))
-                            } */}
+                            } 
                         </tbody>
                     </Table>
-                </Col>
-                {/* <Col md={12} className="text-center mt-3 total-value-summary">
+                </Col> */}
+						{/* <Col md={12} className="text-center mt-3 total-value-summary">
                     <span className="font-italic text-white">Total Value Transferred</span><span className="text-primary font-italic ml-3">${loadedgetAllNfts.totalValue ? loadedgetAllNfts.totalValue : ""}</span>
                 </Col> */}
-            </Row>
-        </Container>
-    )
-}
+						{/* </Row> */}
+					</Fragment>
+				)})}
+		</Container>
+	);
+};
 
 export default observer(DetailedView);

@@ -11,23 +11,16 @@
     display: flex;
     align-items: flex-start;
     // margin: 0px 3% 0px 3%;
-
-    .sort-nav {
-      // padding: 6px 0px 6px 0px !important;
-    }
-
-    .featured-text {
-    }
   }
+
+
   .nft-container {
-    padding: 0px 130px 0px 130px !important;
     .nft-explore-rows {
       padding: 0px 0px 0px 0px !important;
-      // align-items: flex-end;
     }
     .explore-live-feed {
-      width: 500px;
-      height: 500px;
+      width: 450px;
+      height: 450px;
       position: relative;
       padding: 0px 0px 0px 0px !important;
       margin-right: auto;
@@ -51,6 +44,75 @@
         }
       }
     }
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+    padding: 0px 4% 0px 4% !important;
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen 
+and (min-width : 321px) {
+    padding: 0px 4% 0px 4% !important;
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen 
+and (max-width : 320px) {
+    padding: 0px 4% 0px 4% !important;
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+    padding: 0px 3% 0px 3% !important;
+}
+
+/* iPads (landscape) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+    padding: 0px 6% 0px 6% !important;
+}
+
+/* iPads (portrait) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+    padding: 0px 7% 0px 7% !important;
+}
+
+@media only screen 
+and (min-width : 1150px) {
+    padding: 0px 7% 0px 7% !important;
+}
+
+/* Desktops and laptops ----------- */
+@media only screen 
+and (min-width : 1224px) {
+    padding: 0px 6% 0px 6% !important;
+}
+
+@media only screen 
+and (min-width : 1450px) {
+    padding: 0px 6% 0px 6% !important;
+}
+
+@media only screen 
+and (min-width : 1650px) {
+    padding: 0px 8% 0px 8% !important;
+}
+
+/* Large screens ----------- */
+@media only screen 
+and (min-width : 1824px) {
+    padding: 0px 10% 0px 10% !important;
+}
+
   }
   
   .sort-button {
@@ -62,6 +124,4 @@
       color: black !important;
       border-color: rgb(45, 45, 45) !important;
   }
-
-
 }

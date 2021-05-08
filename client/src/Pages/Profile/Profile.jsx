@@ -66,7 +66,7 @@ const initialState = {
 	],
 };
 
-const Profile = () => {
+const Profile = (props) => {
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
@@ -240,8 +240,8 @@ const Profile = () => {
 								<Image
 									className="profile-image "
 									src={user ? user.profile_image : null}
-									width="150px"
-									height="150px"></Image>
+									width="250px"
+									height="250px"></Image>
 							</Col>
 							<Col md={6} lg={12} className=" mt-3">
 								<span className="text-majesti text-white user-profile-name font-secondary ">
@@ -268,7 +268,7 @@ const Profile = () => {
 								<Button
 									className="btn-regal mt-2 mb-3 mr-1"
 									onClick={() => setEditMode(!editMode)}>
-									EDIT
+									Edit
 								</Button>
 								<Button className="btn-regal mt-2 mb-3 ml-1 mr-1">
 									<i className="fas fa-cog"></i>
@@ -287,8 +287,8 @@ const Profile = () => {
 													? userChanges.profile_image
 													: user.profile_image
 											}
-											width="150px"
-											height="150px"></Image>
+											width="250px"
+											height="250px"></Image>
 
 										<Form.File
 											id="exampleFormControlFile1"
@@ -354,14 +354,7 @@ const Profile = () => {
 					)}
 					{/*  */}
 					<Col className="featured-nft">
-						<div style={{ position: 'relative' }}>
-							<CornerRibbon
-								position="top-right"
-								fontColor="white"
-								backgroundColor="orange">
-								Featured
-							</CornerRibbon>
-						</div>
+						<div className="text-white font-primary ml-2">Featured</div>
 						<ProfileNftDisplay
 							likes={nfts[5].likes}
 							comments={nfts[5].comments}
@@ -378,8 +371,8 @@ const Profile = () => {
 				</Row>
 				<Row className="mb-5">
 					<span className="text-white font-secondary">Collection</span>
-					{nfts.length &&
-						nfts.map((nfts, index) => (
+					{getAllNfts.length &&
+						getAllNfts.map((nfts, index) => (
 							<Col
 								lg={2}
 								md={3}
@@ -387,16 +380,7 @@ const Profile = () => {
 								key={index}
 								className="nft-collection mt-3 mb-3">
 								<ProfileNftDisplay
-									likes={nfts.likes}
-									comments={nfts.comments}
-									image={nfts.image}
-									id={nfts.id}
-									bid={nfts.bid}
-									title={nfts.title}
-									creator={nfts.creator}
-									date_mint={nfts.date_mint}
-									current={nfts.current}
-									previous={nfts.previous}
+									image={nfts.thumbnail_image}
 								/>
 							</Col>
 						))}

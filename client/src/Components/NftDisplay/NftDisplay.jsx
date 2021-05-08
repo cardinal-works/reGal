@@ -19,6 +19,7 @@ import mint from '../../../assets/images/mint.png';
 import portrait from '../../../assets/images/portrait.png';
 
 const NftDisplay = ({
+	_id,
 	likes,
 	thumbnail_image,
 	auction_startDate,
@@ -30,6 +31,7 @@ const NftDisplay = ({
 	date_mint,
 	tags,
 }) => {
+
 	// let timeLeft = new Date(ending).getTime() - new Date().getTime();
 	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
 	// const [auctionTimer, setAuctionTimer] = useState([{
@@ -64,7 +66,10 @@ const NftDisplay = ({
 	return (
 		<Fragment>
 			<div className="details-button">
-				<Link to={`/details/${nft_id}`}>
+				<Link to={{
+                pathname: `/details/${nft_id}`,
+                state: { nft_id: Number(nft_id) }}
+              }>
 					<Button className="btn-regal mt-4">details</Button>
 				</Link>
 			</div>

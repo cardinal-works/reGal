@@ -50,7 +50,7 @@ const Navigation = () => {
 								<Button
 									onClick={() => setModalShow(true)}
 									className="btn-regal mr-4 mb-2">
-									CREATE
+									Create
 								</Button>
 
 								<CreateModal show={modalShow} onHide={() => setModalShow(false)} />
@@ -68,7 +68,7 @@ const Navigation = () => {
 					) : (
 						<Container className="profile-container">
 							<Button as={Link} to="/signup" className="btn-regal">
-								CONNECT
+								Connect
 							</Button>
 						</Container>
 					)}

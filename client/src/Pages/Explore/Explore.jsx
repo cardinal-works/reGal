@@ -73,8 +73,9 @@ const Explore = (web3) => {
 						{getAllNfts.length &&
 							getAllNfts.map((nft, index) => {
 								return (
-									<Col lg={2} md={3} sm={6} key={index} className="explore-live-feed">
+									<Col lg={3} md={4} sm={6} key={index} className="explore-live-feed">
 										<NftDisplay
+											_id={nft._id}
 											likes={nft.likes}
 											thumbnail_image={nft.thumbnail_image}
 											nft_id={nft.nft_id}
@@ -90,10 +91,12 @@ const Explore = (web3) => {
 								);
 							})}
 						{getAllNfts.length &&
-							getAllNfts.map((nft, index) => {
+							// getAllNfts.slice(0, 2).map((nft, index) => {
+								getAllNfts.map((nft, index) => {
 								return (
-									<Col lg={2} md={3} sm={6} key={index} className="explore-live-feed">
+									<Col lg={3} md={4} sm={6} key={index} className="explore-live-feed">
 										<NftDisplay
+											_id={nft._id}
 											likes={nft.likes}
 											thumbnail_image={nft.thumbnail_image}
 											nft_id={nft.nft_id}
