@@ -51,7 +51,9 @@ const NftDisplay = ({
 	// }, 1000)
 
 	useEffect(() => {
-		fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc')
+		fetch(
+			'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc'
+		)
 			.then((response) => response.json())
 			.then((data) => setCurrentEtherPrice(data[1]['current_price']))
 			.catch((err) => console.log('ERROR: ', err));
@@ -61,13 +63,18 @@ const NftDisplay = ({
 
 	return (
 		<Fragment>
+			<div className="details-button">
+				<Link to={`/details/${nft_id}`}>
+					<Button className="btn-regal mt-4">details</Button>
+				</Link>
+			</div>
 			<div className="nft-display">
 				<CornerRibbon
-					position="bottom-right" // OPTIONAL, default as "top-right"
+					position="top-right" // OPTIONAL, default as "top-right"
 					fontColor="#000" // OPTIONAL, default as "#f0f0f0"
 					backgroundColor="#fff" // OPTIONAL, default as "#2c7"
 					containerStyle={{}} // OPTIONAL, style of the ribbon
-					style={{ bottom: 0, right: 0 }} // OPTIONAL, style of ribbon content
+					style={{ }} // OPTIONAL, style of ribbon content
 					className="font-tertiary " // OPTIONAL, css class of ribbon
 				>
 					{
@@ -82,7 +89,7 @@ const NftDisplay = ({
 				<div className="overlay-text-explore text-white">
 					<div className="">
 						<i style={{ fontSize: '0.75em' }}>{'current bid: '}</i>
-						<div> Ξ {current_bid}</div> 
+						<div> Ξ {current_bid}</div>
 						<div>{'$ ' + (current_bid * currentEtherPrice).toFixed(2)}</div>
 					</div>
 					<div className="h5 pt-4">{title}</div>
@@ -95,7 +102,7 @@ const NftDisplay = ({
 						<a href="#">@{creator}</a>
 					</div>
 					{console.log(Date.parse(date_mint) + auction_duration)}
-					<Button className="btn-regal mt-4">details</Button>
+					{/* <Link to={`/details/${nft_id}`}><Button className="btn-regal mt-4">details</Button></Link> */}
 				</div>
 				<Image className="explore-card-image" src={thumbnail_image} />
 			</div>

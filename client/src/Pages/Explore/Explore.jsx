@@ -44,14 +44,12 @@ const Explore = (web3) => {
 
 	return (
 		<div className="gradiant-background">
-			<Container className="nft-container mb-5 pb-5" fluid>
-				<Row className="featured-nft-nav mb-4 pt-2">
-					<Col className="featured-text text-end mb-4">
-						<div className="featured-text text-white font-primary mb-1 mr-3 mt-4">
-							Featured
-						</div>
-					</Col>
-					<Col className="sort-nav text-start mt-4">
+			<Container className="nft-container " fluid>
+				<Row className="featured-nft-nav ">
+					<Col className="featured-text text-end featured-text text-white font-primary">
+							Featured				
+						</Col>
+						<Col className="text-start mt-1">
 						<Dropdown>
 							<Dropdown.Toggle
 								variant="danger"
@@ -71,7 +69,6 @@ const Explore = (web3) => {
 						</Dropdown>
 					</Col>
 				</Row>
-				<Parallax className="" y={[5, -5]} tagOuter="figure">
 					<Row className="nft-explore-rows">
 						{getAllNfts.length &&
 							getAllNfts.map((nft, index) => {
@@ -80,7 +77,7 @@ const Explore = (web3) => {
 										<NftDisplay
 											likes={nft.likes}
 											thumbnail_image={nft.thumbnail_image}
-											id={nft.nft_id}
+											nft_id={nft.nft_id}
 											current_bid={nft.current_bid}
 											title={nft.title}
 											auction_startDate={nft.auction_startDate}
@@ -99,7 +96,7 @@ const Explore = (web3) => {
 										<NftDisplay
 											likes={nft.likes}
 											thumbnail_image={nft.thumbnail_image}
-											id={nft.nft_id}
+											nft_id={nft.nft_id}
 											current_bid={nft.current_bid}
 											title={nft.title}
 											auction_startDate={nft.auction_startDate}
@@ -112,7 +109,6 @@ const Explore = (web3) => {
 								);
 							})}
 					</Row>
-				</Parallax>
 			</Container>
 		</div>
 	);

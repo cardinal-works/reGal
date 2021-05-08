@@ -66,7 +66,7 @@ const initialState = {
 	],
 };
 
-const Profile = (props) => {
+const Profile = () => {
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
@@ -97,7 +97,7 @@ const Profile = (props) => {
 	}, []);
 
 	useEffect(() => {
-		console.log(nftRegistry.forEach((nft) => console.log(nft)));
+		console.log(nftRegistry);
 	}, [nftRegistry]);
 
 	const [nfts, setNfts] = useState([

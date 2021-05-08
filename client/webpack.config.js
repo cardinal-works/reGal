@@ -5,7 +5,7 @@ var NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 module.exports = {
   mode: 'development',
   entry: './src/index.js',
-  stats: {warnings:false},
+  stats: { warnings:false },
   output: {
     publicPath: '/',
     path: path.resolve(__dirname + '/build'),

@@ -39,7 +39,7 @@ const Navigation = () => {
 					</Nav.Link>
 					<Nav.Link to="/#">farm</Nav.Link>
 					<Nav.Link>
-						<i class="fas fa-search"></i>
+						<i className="fas fa-search"></i>
 					</Nav.Link>
 				</Nav>
 				<Nav></Nav>
