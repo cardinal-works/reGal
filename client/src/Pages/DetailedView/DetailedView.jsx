@@ -1,10 +1,9 @@
 //Components
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from "react-router-dom";
-import { Container, Row, Col, Image, Button, ListGroup, Table } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Table } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
 import NftStore from '../../Stores/NftStore';
-import { ContextExclusionPlugin } from 'webpack';
 
 
 
