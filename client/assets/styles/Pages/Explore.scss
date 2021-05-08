@@ -7,29 +7,31 @@
   );
   padding-bottom: 100px;
 
-
   .featured-nft-nav {
     display: flex;
-    margin: 0px 3% 0px 3%;
+    align-items: flex-start;
+    // margin: 0px 3% 0px 3%;
+
     .sort-nav {
-      padding: 6px 0px 0px 0px !important;
+      // padding: 6px 0px 6px 0px !important;
     }
 
     .featured-text {
-      padding: 0px !important;
-      margin: 0% 0% 0% 0%;
     }
   }
   .nft-container {
     padding: 0px 130px 0px 130px !important;
     .nft-explore-rows {
-      justify-content: flex-start;
       padding: 0px 0px 0px 0px !important;
       // align-items: flex-end;
     }
     .explore-live-feed {
+      width: 500px;
+      height: 500px;
       position: relative;
       padding: 0px 0px 0px 0px !important;
+      margin-right: auto;
+      margin-left: auto;
       border: solid 5px transparent;
       .nft-display {
         display: block;
@@ -60,8 +62,6 @@
       color: black !important;
       border-color: rgb(45, 45, 45) !important;
   }
-  .featured-text {
 
-  }
 
 }

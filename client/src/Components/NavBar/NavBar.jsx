@@ -22,7 +22,7 @@ const Navigation = () => {
 				as={Link}
 				to="/"
 				className="r-div text-majesti"
-				style={{ fontSize: '7em' }}>
+				style={{ fontSize: '5.0em' }}>
 				Regal
 			</Navbar.Brand>
 			<Navbar.Toggle className="mb-2" aria-controls="responsive-navbar-nav" />
@@ -40,7 +40,7 @@ const Navigation = () => {
 					</Nav.Link>
 					<Nav.Link to="/#">farm</Nav.Link>
 					<Nav.Link>
-						<i class="fas fa-search"></i>
+						<i className="fas fa-search"></i>
 					</Nav.Link>
 				</Nav>
 				<Nav></Nav>
