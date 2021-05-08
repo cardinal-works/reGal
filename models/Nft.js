@@ -21,7 +21,7 @@ const NftSchema = new Schema({
         required: true
     },
     nft_id: {
-        type: String,
+        type: Number,
         required: true
     },
     thumbnail_image: {
@@ -33,6 +33,11 @@ const NftSchema = new Schema({
         default: Date.now
     },
     likes: {
+        type: Number,
+        default: 0,
+        required: true
+    },
+    current_bid: {
         type: Number,
         default: 0,
         required: true

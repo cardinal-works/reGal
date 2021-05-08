@@ -265,7 +265,7 @@ const Explore = () => {
 
 export default observer(Explore);
 
-{
+
   /* <Row className="mb-5 pb-5">
           <Col md={4} className="ml-auto mr-auto mt-5 mb-5 text-center pb-5">
             <div className="footer-cube-text">
@@ -279,4 +279,53 @@ export default observer(Explore);
             </div>
           </Col>
         </Row> */
-}
+
+
+
+     /* {nfts.length &&
+              nfts.map((nft, index) =>
+                nft.featured === true ? (
+                  <Fragment key={'fragment-featured'}>
+                    <Col className="featured-nft-explore mb-2" lg={6} key={index + '_nft-featured'}>
+                    <Parallax className="" y={[10, -10]} x={[0, 0]} tagOuter="figure" key={index + '_parallax-featured'}>
+                      <div style={{ position: "relative" }} key={index + 'feat-div'}>
+                        <CornerRibbon
+                          key={index + '_feat-ribbon'}
+                          position="top-right"
+                          fontColor="white"
+                          backgroundColor="orange"
+                        >
+                          Featured
+                        </CornerRibbon>
+                        <NftDisplay
+                          key={index + '_nft-feat'}
+                          likes={nft.likes}
+                          comments={nft.comments}
+                          image={nft.image}
+                          id={nft.id}
+                          bid={nft.bid}
+                          title={nft.title}
+                          creator={nft.creator}
+                          date_mint={nft.date_mint}
+                          current={nft.current}
+                          previous={nft.previous}
+                          ending={nft.ending}
+                          ended={nft.ending}
+                        />
+                      </div>
+                      </Parallax>
+                    </Col>
+                    
+                    <Col lg={3} className="mb-5" key={index + '_feat-col'}>
+                    <Parallax className="" y={[10, -15]} x={[0, 0]} tagOuter="figure" key={index + '_feat-col-parallax'}>
+                      <p className="text-white font-secondary animate__animated animate__fadeInDown" key={index + '_feat-p-1'}>@{nft.creator}</p>
+                      <p className="text-white animate__animated animate__fadeInDown" key={index + '_feat-p-2'}>
+                     {nft.description || "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quisnostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat. Duis aute irure dolorinreprehenderitin voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, suntin culpa qui officia deserunt mollitanim id est laborum."}
+                      </p>
+                      </Parallax>
+                    </Col>
+                    
+                  </Fragment>
+                ) : null
+              )} */
+              

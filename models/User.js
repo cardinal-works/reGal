@@ -50,12 +50,21 @@ const UserSchema = new Schema({
                 type: String,
                 required: true
             },
+            user_id: {
+                type: String,
+                required: true
+            },
+            current_bid: {
+                type: Number,
+                default: 0,
+                required: true
+            },
             nft_description: {
                 type: String,
                 required: true
             },
             nft_id: {
-                type: String,
+                type: Number,
                 required: true
             },
             thumbnail_image: {
@@ -134,12 +143,21 @@ const UserSchema = new Schema({
                 type: String,
                 required: true
             },
+            user_id: {
+                type: String,
+                required: true
+            },
+            current_bid: {
+                type: Number,
+                default: 0,
+                required: true
+            },
             nft_description: {
                 type: String,
                 required: true
             },
             nft_id: {
-                type: String,
+                type: Number,
                 required: true
             },
             thumbnail_image: {
@@ -218,12 +236,21 @@ const UserSchema = new Schema({
                 type: String,
                 required: true
             },
+            user_id: {
+                type: String,
+                required: true
+            },
+            current_bid: {
+                type: Number,
+                default: 0,
+                required: true
+            },
             nft_description: {
                 type: String,
                 required: true
             },
             nft_id: {
-                type: String,
+                type: Number,
                 required: true
             },
             thumbnail_image: {

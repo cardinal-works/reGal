@@ -1,134 +1,106 @@
-import React, { Fragment, useState, useEffect, useRef } from "react";
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 import {
-  Image,
-  Card,
-  Button,
-  Row,
-  Col,
-  ListGroup,
-  ListGroupItem,
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
-
-import Profile from "../../../assets/images/profile.png";
-import mint from "../../../assets/images/mint.png";
-import portrait from "../../../assets/images/portrait.png";
-
-//USE THIS FOR INTERVALS
-
-// function useInterval(callback, delay) {
-  //   const savedCallback = useRef();
-  
-  //   // Remember the latest callback.
-  //   useEffect(() => {
-  //     savedCallback.current = callback;
-  //   }, [callback]);
-  
-  //   // Set up the interval.
-  //   useEffect(() => {
-  //     function tick() {
-  //       savedCallback.current();
-  //     }
-  //     if (delay !== null) {
-  //       let id = setInterval(tick, delay);
-  //       return () => clearInterval(id);
-  //     }
-  //   }, [delay]);
-  // }
+	Image,
+	Card,
+	Button,
+	Row,
+	Col,
+	Container,
+	ListGroup,
+	ListGroupItem,
+} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import UseInterval from '../UseInterval';
+import CornerRibbon from 'react-corner-ribbon';
+//Media
+import heart from '../../../assets/images/heart.png';
+import Profile from '../../../assets/images/profile.png';
+import mint from '../../../assets/images/mint.png';
+import portrait from '../../../assets/images/portrait.png';
 
 const NftDisplay = ({
-  likes,
-  comments,
-  image,
-  id,
-  bid,
-  title,
-  creator,
-  date_mint,
-  current,
-  previous,
-  ending,
+	likes,
+	thumbnail_image,
+	auction_startDate,
+	auction_duration,
+	nft_id,
+	current_bid,
+	title,
+	creator,
+	date_mint,
+	tags,
 }) => {
+	// let timeLeft = new Date(ending).getTime() - new Date().getTime();
+	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
+	// const [auctionTimer, setAuctionTimer] = useState([{
+	//     days: Math.floor(timeLeft / (86400000)),
+	//     hours: Math.floor((timeLeft % (86400000)) / (3600000)),
+	//     minutes: Math.floor((timeLeft % (3600000)) / (60000)),
+	//     seconds: Math.floor((timeLeft % (60000)) / 1000),
+	//   }]);
+	// UseInterval(() => {
+	// let timeLeft = new Date(ending).getTime() - new Date().getTime();
+	//   setAuctionTimer([
+	//     {
+	//       days: Math.floor(timeLeft / (86400000)),
+	//       hours: Math.floor((timeLeft % (86400000)) / (3600000)),
+	//       minutes: Math.floor((timeLeft % (3600000)) / (60000)),
+	//       seconds: Math.floor((timeLeft % (60000)) / 1000),
+	//     },
+	//   ]);
+	// }, 1000)
 
-  let timeLeft = new Date(ending).getTime() - new Date().getTime();
+	useEffect(() => {
+		fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc')
+			.then((response) => response.json())
+			.then((data) => setCurrentEtherPrice(data[1]['current_price']))
+			.catch((err) => console.log('ERROR: ', err));
 
-  const [auctionTimer, setAuctionTimer] = useState([{
-      days: Math.floor(timeLeft / (86400000)),
-      hours: Math.floor((timeLeft % (86400000)) / (3600000)),
-      minutes: Math.floor((timeLeft % (3600000)) / (60000)),
-      seconds: Math.floor((timeLeft % (60000)) / 1000),
-    }]);
+		return;
+	}, []);
 
-  const timer = setInterval(function () {
-    let timeLeft = new Date(ending).getTime() - new Date().getTime();
-    setAuctionTimer([
-      {
-        days: Math.floor(timeLeft / (86400000)),
-        hours: Math.floor((timeLeft % (86400000)) / (3600000)),
-        minutes: Math.floor((timeLeft % (3600000)) / (60000)),
-        seconds: Math.floor((timeLeft % (60000)) / 1000),
-      },
-    ]);
-  }, 1000);
-
-  useEffect(() => {
-    timer;
-  }, []);
-
-  return (
-    <Fragment>
-      <Card className="nft-display mb-3">
-        <Card.Img className="explore-card-image" src={image} />
-        <Card.Body>
-          <Row className="nft-activity">
-            <Col className="nft-user"></Col>
-          </Row>
-          <Row>
-            <Col
-              lg={12}
-              className="title font-secondary text-center mt-3 text-uppercase text-primary font-italic"
-            >
-              {title}
-            </Col>
-            <Col
-              lg={12}
-              className="creator offset-5 text-center mt-1 mb-4 mr-auto ml-auto h6"
-            >
-              @{creator}{" "}
-            </Col>
-
-            <Col lg={12} className="mt-1 d-flex align-items-center mb-3">
-              <Col className="text-end">
-                <Link to={`/details/${id}`}>
-                  <Button className="btn-regal">Bid</Button>
-                </Link>
-              </Col>
-              <Col className="price-col">
-                {" "}
-                current
-                <div className="price-nft ">Ξ {current}</div>{" "}
-                <div>${current * 2300}</div>
-              </Col>
-            </Col>
-          </Row>
-        </Card.Body>
-        <ListGroup className="time-left text-black text-center">
-          <ListGroupItem>{auctionTimer.map((times, index) => `${times.days + " days"}, ${times.hours} hours, ${times.minutes} minutes, ${times.seconds} seconds`)}</ListGroupItem>
-        </ListGroup>
-        <Card.Footer className="nft-footer mb-2">
-          <div className="pr-3">
-            <div className="fa fa-lg fa-heart-o pr-1"></div>
-            {likes}
-          </div>
-          <div className="pr-3">
-            <div className="fa fa-lg fa-comment-o pr-1"></div>
-            {comments}
-          </div>
-          <span className="">{`Last bid ${bid} mins ago`}</span>
-        </Card.Footer>
-      </Card>
-    </Fragment>
-  );
+	return (
+		<Fragment>
+			<div className="nft-display">
+				<CornerRibbon
+					position="bottom-right" // OPTIONAL, default as "top-right"
+					fontColor="#000" // OPTIONAL, default as "#f0f0f0"
+					backgroundColor="#fff" // OPTIONAL, default as "#2c7"
+					containerStyle={{}} // OPTIONAL, style of the ribbon
+					style={{ bottom: 0, right: 0 }} // OPTIONAL, style of ribbon content
+					className="font-tertiary " // OPTIONAL, css class of ribbon
+				>
+					{
+						<Fragment>
+							<i
+								className="fas fa-heart mx-auto heart pr-1"
+								style={{ color: '#d20000' }}></i>
+							{likes}
+						</Fragment>
+					}
+				</CornerRibbon>
+				<div className="overlay-text-explore text-white">
+					<div className="">
+						<i style={{ fontSize: '0.75em' }}>{'current bid: '}</i>
+						<div> Ξ {current_bid}</div> 
+						<div>{'$ ' + (current_bid * currentEtherPrice).toFixed(2)}</div>
+					</div>
+					<div className="h5 pt-4">{title}</div>
+					<div className="">
+						<i style={{ fontSize: '0.75em' }}>creator: </i>
+						<a href="#">@{creator}</a>
+					</div>
+					<div className="">
+						<i style={{ fontSize: '0.75em' }}>auctioneer: </i>
+						<a href="#">@{creator}</a>
+					</div>
+					{console.log(Date.parse(date_mint) + auction_duration)}
+					<Button className="btn-regal mt-4">details</Button>
+				</div>
+				<Image className="explore-card-image" src={thumbnail_image} />
+			</div>
+		</Fragment>
+	);
 };
 
 export default NftDisplay;

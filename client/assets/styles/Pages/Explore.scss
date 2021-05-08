@@ -1,351 +1,67 @@
 .gradiant-background {
-  scroll-behavior:smooth;
   background: linear-gradient(
     180deg,
     #040404 0%,
-    rgb(74, 27, 8) 40%,
-    rgb(199, 96, 103) 100%
+    rgb(0, 0, 0) 40%,
+    rgb(0, 0, 0) 100%
   );
-  padding-bottom: 40px;
+  padding-bottom: 100px;
 
-  .live-activity {
-    margin: 0 0.5rem;
-    animation: fadeInDown; /* referring directly to the animation's @keyframe declaration */
-    animation-duration: 1s; /* don't forget to set a duration! */
-    // animation-iteration-count: infinite;
-  }
 
-  .card-group {
-    // justify-content: center;
-  }
-
- .live-activity-row {
-  align-items: flex-end !important;
-  // justify-content:space-between;
- .featured-nft-explore {
-   .nft-display {
-     width: unset !important;
-     background-image: -webkit-linear-gradient(
-		90deg,
-		rgb(67, 17, 13) 0%,
-		rgb(46, 13, 24) 35%,
-		rgb(0, 0, 0) 100%
-	  ); /* For Chrome and Safari */
-	  background-image: -moz-linear-gradient(
-		90deg,
-		rgb(67, 17, 13) 0%,
-		rgb(46, 13, 24) 35%,
-		rgb(0, 0, 0) 100%
-	  ); /* For old Fx (3.6 to 15) */
-	  background-image: -ms-linear-gradient(
-		90deg,
-		rgb(67, 17, 13) 0%,
-		rgb(46, 13, 24) 35%,
-		rgb(0, 0, 0) 100%
-	  ); /* For pre-releases of IE 10*/
-	  background-image: -o-linear-gradient(
-		90deg,
-		rgb(67, 17, 13) 0%,
-		rgb(46, 13, 24) 35%,
-		rgb(0, 0, 0) 100%
-	  ); /* For old Opera (11.1 to 12.0) */
-	  background-image: linear-gradient(
-		90deg,
-		rgb(187, 87, 40) 0%,
-		rgb(139, 68, 34) 25%,
-    rgb(136, 65, 32) 75%,
-		rgb(187, 87, 40) 100%
-    );
-    background-color: transparent;
-    box-shadow: none;
-    .title {
-      color: rgb(255, 255, 255) !important;
-
+  .featured-nft-nav {
+    display: flex;
+    margin: 0px 3% 0px 3%;
+    .sort-nav {
+      padding: 6px 0px 0px 0px !important;
     }
-    .explore-card-image {
-      height: 300px !important;
-    }  
-  }
-}
-.nft-explore {
-  .nft-display {
-  background-image: -webkit-linear-gradient(
-   90deg,
-   rgb(255, 255, 255) 0%,
-   rgb(255, 255, 255) 35%,
-   rgb(29, 12, 12) 100%
-   ); /* For Chrome and Safari */
-   background-image: -moz-linear-gradient(
-   90deg,
-   rgb(38, 19, 19) 0%,
-   rgb(29, 11, 17) 35%,
-   rgb(29, 12, 12) 100%
-   ); /* For old Fx (3.6 to 15) */
-   background-image: -ms-linear-gradient(
-   90deg,
-   rgb(38, 19, 19) 0%,
-   rgb(29, 11, 17) 35%,
-   rgb(29, 12, 12) 100%
-   ); /* For pre-releases of IE 10*/
-   background-image: -o-linear-gradient(
-   90deg,
-   rgb(38, 19, 19) 0%,
-   rgb(29, 11, 17) 35%,
-   rgb(29, 12, 12) 100%
-   ); /* For old Opera (11.1 to 12.0) */
-   background-image: linear-gradient(
-   90deg,
-   rgb(0, 0, 0) 0%,
-   #100f0f 35%,
-   rgb(0, 0, 0) 100%
-   );
-  //  color: black;
-  //  .btn-regal {
-  //    color: black;
-  //  }
-  .explore-card-image {
-    height: 300px;
-    width: 100%;
-   }  
-  }
- }
-}
 
-.nft-container {
-    max-width: 75% !important;
- .nft-display-rows {
-   justify-content: flex-end;
- }
- .nft-grid-flex {
-   justify-content: center;
-   align-items: flex-start;
- }
-}
-
-}
-
-  .footer-cube-text {
-      font-family: $primary;
-
-  }
-  #cube-gif {
-    width: 40vw;
-    
-  }
-  .cube-overlay-text {
-    z-index: 2;
-    position: absolute;
-    bottom: 40%;
-    right: 19%; // fix @media
-    font-size: 1.45em;
-    font-weight: 700 !important;
-
-  }
-  .tournament {
-    font-weight: 900;
-    font-size: 2.2em !important;
-    letter-spacing: 5px;
-  }
-  .scroll-container {
-    animation-delay: 5.5s;
-    position: static;
-    z-index: 2;
-    position: absolute;
-    bottom: 1500px; // fix @media
-    right: 1000px; // fix @media
-    h2 {
-      animation-delay: 1.5s;
-      animation-iteration-count: 2;
-      animation-duration: 2s;
+    .featured-text {
+      padding: 0px !important;
+      margin: 0% 0% 0% 0%;
     }
   }
-  .about-container {
-    max-width: 85vw !important;
-    //Section 1
-    .premium-col {
-      opacity: 0;
-      animation: fadeIn linear forwards 1s;
-      -webkit-animation: fadeIn linear forwards 1s;
-      -moz-animation: fadeIn linear forwards 1s;
-      -o-animation: fadeIn linear forwards 1s;
-      -ms-animation: fadeIn linear forwards 1s;
-      border-right: solid 3px white;
-      border-image: linear-gradient(to bottom, #000000, #cb6367, rgba(0, 0, 0, 0)) 1 100%;
-      &.about-section {
-        h1 {
-          font-weight: 800;
-          text-align: right;
-        }
-      }
-      &:nth-child(1) {
-        animation-delay: 1s;
-        color: $light-grey !important;
-      }
-      .premium {
-        font-weight: 900;
-        font-size: 2.2em !important;
-        letter-spacing: 5px;
-      }
-      .btn-regal {
-        // font-size: 26px;
-        margin: 40px 15px 40px 0px;
-      }
+  .nft-container {
+    padding: 0px 130px 0px 130px !important;
+    .nft-explore-rows {
+      justify-content: flex-start;
+      padding: 0px 0px 0px 0px !important;
+      // align-items: flex-end;
     }
-    //Section 2
-    .tournament-col {
-      opacity: 0;
-      animation: fadeIn linear forwards 1s;
-      -webkit-animation: fadeIn linear forwards 1s;
-      -moz-animation: fadeIn linear forwards 1s;
-      -o-animation: fadeIn linear forwards 1s;
-      -ms-animation: fadeIn linear forwards 1s;
-      &:nth-child(2) {
-        animation-delay: 2s;
-      }
-      &.about-section {
-        .regal {
-          font-weight: 800;
-          text-align: right;
-        }
-      }
-    }
-  }
-
-
-
-  .display-container {
-    .featured-parallax {
-      transform: skew(#{$rotationAmt}deg) rotate(#{$rotationAmt}deg);
-      grid-area: text;
-      color: #1d9099;
-      text-shadow: 0.5vmin 0.5vmin 0 #E79C10, -0.5vmin -0.5vmin 0 #D53A33;
-      span {
-        font-family: $primary-font;
-        font-family: 'Sarpanch', sans-serif;
-      }
-
-      .jumbotron {
-        box-shadow: 1vmin 1vmin 0 #E79C10, -1vmin -1vmin 0 #D53A33;
-        position: relative;
-        overflow: hidden;
-        width: 80%;
-        margin-left: 0;
-        opacity: 0;
-        animation: fadeIn linear forwards 1s;
-        -webkit-animation: fadeIn linear forwards 1s;
-        -moz-animation: fadeIn linear forwards 1s;
-        -o-animation: fadeIn linear forwards 1s;
-        -ms-animation: fadeIn linear forwards 1s;
-        border-image: linear-gradient(to bottom, #000000, #cb6367, rgba(0, 0, 0, 0))
-        1 100%;
-
-        // ** media queries to adjust height of featured video on all screens
-        @media (min-width: 300px) { height: 15vh; }
-
-        // Small devices (landscape phones, 576px and up)
-        @media (min-width: 576px) { height: 21vh; }
-      
-        // Medium devices (tablets, 768px and up)
-        @media (min-width: 768px) { height: 27vh; }
-      
-        // Large devices (desktops, 992px and up)
-        @media (min-width: 992px) { height: 35vh;  }
-      
-        // Extra large devices (large desktops, 1200px and up)
-        @media (min-width: 1200px) { height: 40vh; }
-        #feature-video {
+    .explore-live-feed {
+      position: relative;
+      padding: 0px 0px 0px 0px !important;
+      border: solid 5px transparent;
+      .nft-display {
+        display: block;
+        padding-bottom: 100%;
+        border-radius: 2px;
+        img {
           position: absolute;
-          height: auto;
-          width: auto;
-          min-height: 100%;
-          min-width: 100%;
-          left: 50%;
-          top: 50%;
-          -webkit-transform: translate3d(-50%, -50%, 0);
-          transform: translate3d(-50%, -50%, 0);
-          z-index: 1;
-          
-     }
-      
-        &:hover {
-          .video-overlay {
-            // prevent overlay overlap on mobile screens
-            @media (min-width: 300px) { height: -450px; }
-            @media (min-width: 576px) { right: -450px }
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: 0.3s ease-in-out;
+          border-radius: 2px !important;
+          &:hover {
+            opacity: 12%;
+            transition: 0.3s ease-in-out;
           }
         }
-    
-        .video-overlay {
-          z-index: 2;
-          position: absolute;
-          bottom: 10px;
-          right: -450px;
-          background-color: rgba(0, 0, 0, 0.7);
-          padding: 15px;
-          -webkit-transition-duration: 0.3s;
-          -moz-transition-duration: 0.3s;
-          -o-transition-duration: 0.3s;
-          transition-duration: 0.3s;
-      
-          a {
-            text-shadow: none!important;
-            position: relative;
-            z-index: 4;
-            &:hover {
-              color: #fff!important;
-            }
-          }
-      
-          .overlay-values {
-            text-shadow: none!important;
-            font-weight: bold;
-          }
-        }
-    
-        .overlay-text {
-          text-shadow: none!important;
-          color: #ffffff;
-          margin-top: -20px;
-        }
-    
-        h1 {
-          position: relative;
-          z-index: 2;
-
-        }
-    
       }
     }
+  }
+  
+  .sort-button {
+      border-radius: 10px;
+      margin-top: 18px;
+      margin-left: 8px;
+      padding: 2px 12px 3px 12px;
+      background-color: #ffffff !important;
+      color: black !important;
+      border-color: rgb(45, 45, 45) !important;
+  }
+  .featured-text {
 
+  }
 
-
-}
-
-.live {
-  color: rgb(255, 255, 255);
-  transition: 0.5s ease-in-out;
-	text-shadow: 
-         10px 1px 1px #e7bc10,
-			   20px 1px 1px #d5a233, 
-			   30px 1px 1px #d5a233, 
-			   40px 1px 1px #d59433, 
-			   50px 1px 1px #d58733, 
-			   60px 1px 1px #d57133, 
-			   70px 1px 1px #d56333, 
-			   80px 1px 1px #d55e33, 
-			   90px 1px 1px #d54b33;
-    &:hover {
-      transition: 0.5s ease-in-out;
-      text-shadow: 
-      10px 1px 1px #d54b33,
-      20px 1px 1px #d55e32,
-      30px 1px 1px #d56333, 
-      40px 1px 1px #d57133, 
-      50px 1px 1px #d58733, 
-      60px 1px 1px #d59433, 
-      70px 1px 1px #d5a233, 
-      80px 1px 1px #d5a233, 
-      90px 1px 1px #e7bc10,
-
-    }
 }
