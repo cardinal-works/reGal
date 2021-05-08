@@ -8,21 +8,34 @@ import {
   Form,
   Button,
   Modal,
-  FormFile, 
+  FormFile,
 } from "react-bootstrap";
 import MetaMask from "../../../assets/images/metamask.svg";
 import { Link, Redirect } from "react-router-dom";
 import WalletSupport from "../../Components/WalletSupport/WalletSupport";
 import UserStore from "../../Stores/UserStore";
+import { createImportSpecifier } from "typescript";
 
-const SignUp = () => {
+const SignUp = (props) => {
   // CONTEXT FOR STATE MGMT/REST API
   const userStore = useContext(UserStore);
-  const { createUser, user } = userStore;
+  const { loadUser, createUser, user } = userStore;
 
   // STATE FOR USER SIGNUP DATA
   const [userData, setUserData] = useState({});
   const [registered, setRegistered] = useState(false);
+
+  useEffect(() => {
+    // if (!window.ethereum.isMetaMask) {
+    //   props.history.push("/");
+    // }
+    // if (!window.ethereum.selectedAddress) {
+    //   props.history.push("/")
+    // }
+    // loadUser(window.ethereum.selectedAddress).then((res) =>
+    //   setUserChanges(res)
+    // );
+  }, []);
 
   // FUNCTION FOR CREATING USER
   // **************************************************
@@ -45,7 +58,7 @@ const SignUp = () => {
     createUser(userData)
       .then((res) => {
         console.log(res);
-        setRegistered(true)
+        setRegistered(true);
         handleClose();
       })
       .catch((error) => console.log(error));
@@ -71,11 +84,15 @@ const SignUp = () => {
             display_name: res.result[0],
             email_list: false,
           });
-          return handleShow();
-        })
-        .catch((error) => console.log(error));
-    }
-  };
+          loadUser(res.result[0])
+          .then((res) => {
+            !res ? handleShow() : props.history.push("/")
+          })
+          
+          // .catch((err) => console.log(err))
+          });
+        }
+    };
   // **************************************************
 
   // FUNCTIONS FOR UPDATING STATE FOR USER REGISTRATION
@@ -102,7 +119,7 @@ const SignUp = () => {
     <div className="signup-container">
       <Container className="connect-1 pt-3">
         {/* SETS UP REDIRECT WHEN REGISTRATION IS FINISHED */}
-        {registered ? <Redirect to="/profile"/> : null}
+        {registered ? <Redirect to="/profile" /> : null}
         <Row>
           <Col
             className="text-white font-primary text-center mb-2 pb-2 pt-3"
@@ -120,7 +137,7 @@ const SignUp = () => {
               ></Image>
             </Col>
             <Col>
-              <Button className="btn-regal mt-4" onClick={() => ethEnabled()}>
+              <Button className="btn-regal mt-4" onClick={ethEnabled}>
                 Sign Up
               </Button>
             </Col>

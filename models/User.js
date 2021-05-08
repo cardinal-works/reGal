@@ -19,11 +19,13 @@ const UserSchema = new Schema({
     },
     bio: {
         type: String,
-        required: false
+        required: false,
+        default: "Artist bio..."
     },
     profile_image: {
         type: String,
-        required: false
+        required: false,
+        default: "https://gateway.ipfs.io/ipfs/QmVEBTtEo6q7m5KumcfdkaGn91TZiSN4GgZDtmcr7daNZ4"
     },
     profile_bg_color: {
         type: String,
@@ -48,6 +50,15 @@ const UserSchema = new Schema({
                 type: String,
                 required: true
             },
+            user_id: {
+                type: String,
+                required: true
+            },
+            current_bid: {
+                type: Number,
+                default: 0,
+                required: true
+            },
             nft_description: {
                 type: String,
                 required: true
@@ -57,6 +68,10 @@ const UserSchema = new Schema({
                 required: true
             },
             thumbnail_image: {
+                type: String,
+                required: true
+            },
+            raw_image: {
                 type: String,
                 required: true
             },
@@ -99,11 +114,16 @@ const UserSchema = new Schema({
                 default: false,
                 require: true
             },
+            auction_id: {
+                type: Number,
+                default: null,
+                require: true
+            },
             tags: [
                 new Schema({
                     name: {
                         type: String,
-                        required: true
+                        required: false
                     },
                     popularity: {
                         type: Number,
@@ -123,6 +143,15 @@ const UserSchema = new Schema({
                 type: String,
                 required: true
             },
+            user_id: {
+                type: String,
+                required: true
+            },
+            current_bid: {
+                type: Number,
+                default: 0,
+                required: true
+            },
             nft_description: {
                 type: String,
                 required: true
@@ -132,6 +161,10 @@ const UserSchema = new Schema({
                 required: true
             },
             thumbnail_image: {
+                type: String,
+                required: true
+            },
+            raw_image: {
                 type: String,
                 required: true
             },
@@ -174,11 +207,16 @@ const UserSchema = new Schema({
                 default: false,
                 require: true
             },
+            auction_id: {
+                type: Number,
+                default: null,
+                require: true
+            },
             tags: [
                 new Schema({
                     name: {
                         type: String,
-                        required: true
+                        required: false
                     },
                     popularity: {
                         type: Number,
@@ -198,6 +236,15 @@ const UserSchema = new Schema({
                 type: String,
                 required: true
             },
+            user_id: {
+                type: String,
+                required: true
+            },
+            current_bid: {
+                type: Number,
+                default: 0,
+                required: true
+            },
             nft_description: {
                 type: String,
                 required: true
@@ -207,6 +254,10 @@ const UserSchema = new Schema({
                 required: true
             },
             thumbnail_image: {
+                type: String,
+                required: true
+            },
+            raw_image: {
                 type: String,
                 required: true
             },
@@ -249,11 +300,16 @@ const UserSchema = new Schema({
                 default: false,
                 require: true
             },
+            auction_id: {
+                type: Number,
+                default: null,
+                require: true
+            },
             tags: [
                 new Schema({
                     name: {
                         type: String,
-                        required: true
+                        required: false
                     },
                     popularity: {
                         type: Number,

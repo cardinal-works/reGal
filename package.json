@@ -21,6 +21,7 @@
     "@metamask/logo": "^2.5.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "html-webpack-plugin": "^5.3.1",
     "mongoose": "^5.11.15",
     "npm": "^7.8.0",
     "path": "^0.12.7"

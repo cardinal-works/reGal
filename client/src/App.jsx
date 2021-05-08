@@ -5,9 +5,11 @@ import { Route, Switch } from "react-router-dom";
 import Landing from './Pages/Landing';
 import Explore from './Pages/Explore';
 import Profile from './Pages/Profile';
-import ProfileEdit from './Pages/ProfileEdit';
 import NftMinter from './Pages/NftMinter';
+import Create from './Pages/Create';
+import AuctionHouse from './Pages/AuctionHouse'
 import DetailedView from "./Pages/DetailedView";
+import ProfileSettings from "./Pages/ProfileSettings"
 import ComponentWrapper from './Components/ComponentWrapper';
 import Whitepaper from "./Pages/Whitepaper"
 import SignUp from "./Pages/SignUp"
@@ -22,10 +24,14 @@ const App = ({web3}) => {
             <Route exact path='/' component={Explore}/>
                 <Route exact path='/signup' component={SignUp}/>
                 <Route exact path='/profile' component={Profile}/>
-                <Route exact path='/profile-edit' component={ProfileEdit}/>
                 <Route exact path='/explore'>
                     <Explore web3={web3} />
                 </Route>
+                <Route exact path='/create' component={Create}/>
+                <Route exact path='/auction-house'>
+                    <AuctionHouse web3={web3} />
+                </Route>
+                <Route exact path='/dashboard' component={ProfileSettings} />
                 <Route exact path='/whitepaper' component={Whitepaper} />
                 <Route exact path="/details/:id" component={DetailedView} />
                 <Route exact path='/minter'>
