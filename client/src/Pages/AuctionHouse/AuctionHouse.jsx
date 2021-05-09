@@ -1,10 +1,11 @@
 //Modules
 import React, { useEffect, useState, Fragment, useContext } from 'react';
-import { Container, Row, Col, Image, Button, Form, FormFile } from 'react-bootstrap';
+import { Container, Row, Col, Image, Card, Button, Form, FormFile } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 //Contracts
 import ProfileNftDisplay from '../../Components/ProfileNftDisplay';
 import UserStore from '../../Stores/UserStore';
+import NftStore from '../../Stores/NftStore';
 import { observer } from 'mobx-react-lite';
 import { toJS } from 'mobx';
 import ipfs from '../../ipfs';
@@ -34,13 +35,39 @@ const auctionMetaData = {
 
 const AuctionHouse = ({ web3 }) => {
 	const userStore = useContext(UserStore);
+	const nftStore = useContext(NftStore);
+	const { loadNfts, getAllNfts, nftRegistry } = nftStore;
+	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
+	useEffect(() => {
+		console.log(window.ethereum.selectedAddress);
+		loadUser(window.ethereum.selectedAddress).then((res) => loadNfts({ user_id: res._id }));
+	}, []);
 
-	useEffect(() => console.log(web3), []);
+	useEffect(() => {
+		console.log(getAllNfts);
+	}, [getAllNfts]);
 
 	return (
 		<Fragment>
 			<Container className="auction-house-container">
-				<Form>
+      <Row >
+				{getAllNfts.length &&
+					getAllNfts.map((nft, index) => (
+            <Col key={index}>
+							<Card style={{ width: '18rem' }}>
+								<Card.Img variant="top" src={nft.thumbnail_image} />
+								<Card.Body>
+									<Card.Title>{nft.title}</Card.Title>
+									<Card.Text>
+										{nft.nft_description}
+									</Card.Text>
+									<Button variant="primary">Start</Button>
+								</Card.Body>
+							</Card>
+            </Col>
+					))}
+          	</Row>
+				{/* <Form>
 					<Form.Group controlId="formBasicEmail">
 						<Form.Label> </Form.Label>
 						<Form.Control type="email" placeholder="Enter email" />
@@ -59,7 +86,7 @@ const AuctionHouse = ({ web3 }) => {
 					<Button variant="primary" type="submit">
 						Submit
 					</Button>
-				</Form>
+				</Form> */}
 			</Container>
 		</Fragment>
 	);
