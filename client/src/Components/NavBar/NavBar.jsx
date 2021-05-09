@@ -12,7 +12,8 @@ const Navigation = () => {
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
 
 	useEffect(() => {
-		loadUser(window.ethereum.selectedAddress);
+		if(window.ethereum && window.ethereum.selectedAddress)
+			loadUser(window.ethereum.selectedAddress);
 	}, []);
 
 	return (
