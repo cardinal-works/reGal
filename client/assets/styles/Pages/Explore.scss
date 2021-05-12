@@ -19,8 +19,8 @@
       padding: 0px 0px 0px 0px !important;
     }
     .explore-live-feed {
-      width: 525px;
-      height: 525px;
+      width: 500px;
+      height: 500px;
       position: relative;
       padding: 0px 0px 0px 0px !important;
       margin-right: auto;
@@ -83,28 +83,28 @@ and (orientation : landscape) {
 and (min-device-width : 768px) 
 and (max-device-width : 1024px) 
 and (orientation : portrait) {
-    padding: 0px 7% 0px 7% !important;
+    padding: 0px 2% 0px 2% !important;
 }
 
 @media only screen 
 and (min-width : 1150px) {
-    padding: 0px 7% 0px 7% !important;
+    padding: 0px 2% 0px 2% !important;
 }
 
 /* Desktops and laptops ----------- */
 @media only screen 
 and (min-width : 1224px) {
-    padding: 0px 6% 0px 6% !important;
+    padding: 0px 4% 0px 4% !important;
 }
 
 @media only screen 
 and (min-width : 1450px) {
-    padding: 0px 6% 0px 6% !important;
+    padding: 0px 4% 0px 4% !important;
 }
 
 @media only screen 
 and (min-width : 1650px) {
-    padding: 0px 8% 0px 8% !important;
+    padding: 0px 4% 0px 4% !important;
 }
 
 /* Large screens ----------- */

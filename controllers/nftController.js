@@ -11,11 +11,11 @@ module.exports = {
       })
   },
   get: function (req, res, next) {
-    Nft.findOne({ _id: req.params.id }).then((user) => {
-      if (user) {
-        return res.status(200).send(user);
+    Nft.find({ nft_id: req.params.id }).then((nft) => {
+      if (nft) {
+        return res.status(200).send(nft);
       } else {
-        return res.status(400).send({ message: "User not found" });
+        return res.status(400).send({ message: "Nft not found" });
       }
     });
   },

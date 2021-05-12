@@ -4,11 +4,11 @@ module.exports = {
         {
             'title': "Nft 1",
             'creator': "User 1",
-            'asking_bid':null,
-            'previous_sold':null,
+            'asking_bid': null,
+            'previous_sold': null,
             'auction_duration': 86400000,
-            'auction_startDate':null,
-            'auction_mode' :false,
+            'auction_startDate': null,
+            'auction_mode' : true,
             'auction_id': 1,
             'current_bid': 2.6,
             'likes': 32,
@@ -61,7 +61,7 @@ module.exports = {
             'previous_sold':[3.5, 10, 2],
             'auction_duration': 86400000,
             'auction_startDate':null,
-            'auction_mode' :false,
+            'auction_mode' :true,
             'auction_id': 3,
             'current_bid': 1.3,
             'likes': 2324,
@@ -114,7 +114,7 @@ module.exports = {
             'previous_sold':[1.4],
             'auction_duration': 86400000,
             'auction_startDate':null,
-            'auction_mode' :false,
+            'auction_mode' :true,
             'auction_id': 5,
             'current_bid': 2.5,
             'likes': 4321,
@@ -146,7 +146,7 @@ module.exports = {
             'likes': 231,
             'user_id': '608f2ef4fcadfdddad72b46b',
             'nft_description': "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            'nft_id': "5",
+            'nft_id': "6",
             'thumbnail_image': "https://gateway.ipfs.io/ipfs/QmbPpKAtJu5xXvSc3kHase7Gz5ET5dWA7ZdygkX432BcrJ",
             'tags': [
                 {
@@ -172,7 +172,7 @@ module.exports = {
             'likes': 5453,
             'user_id': '608f2ef4fcadfdddad72b46b',
             'nft_description': "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            'nft_id': "6",
+            'nft_id': "7",
             'thumbnail_image': "https://gateway.ipfs.io/ipfs/Qmc646GbQmaKcK7uPeY43ediicNbjw1bNDNzGqH8eSG6vV",
             'tags': [
                 {
@@ -199,7 +199,7 @@ module.exports = {
             'likes': 231,
             'user_id': '6608f2ef4fcadfdddad72b46b',
             'nft_description': "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            'nft_id': "7",
+            'nft_id': "8",
             'thumbnail_image': "https://gateway.ipfs.io/ipfs/QmeYH8JqSG3gnhMKgKwrbs2eWByek1r7RjJ4MHp8TazvQQ",
             'tags': [
                 {
@@ -219,13 +219,13 @@ module.exports = {
             'previous_sold':null,
             'auction_duration': 86400000,
             'auction_startDate':null,
-            'auction_mode' :false,
+            'auction_mode' :true,
             'auction_id': 9,
             'current_bid': 2.3,
             'likes': 456,
             'user_id': '608f2ef4fcadfdddad72b46b',
             'nft_description': "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            'nft_id': "8",
+            'nft_id': "9",
             'thumbnail_image': "https://gateway.ipfs.io/ipfs/QmT2BwrT1owNz8XenssAy4FRxxVLb5Lzib9pCtpUPC8qhj",
             'tags': [
                 {

@@ -9,29 +9,24 @@ const DetailedView = (props) => {
 	const nftStore = useContext(NftStore);
 	const [params, setParams] = useState(useParams());
 	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
-	const { loadNfts, getAllNfts, nftRegistry } = nftStore;
-	const [detailNft, setDetailNft] = useState(null);
+	const { loadNft, nft } = nftStore;
 	// console.log(useParams())
 
 	useEffect(() => {
-		loadNfts({ nft_id: params['id'] });
-	});
-
-	useEffect(() => {
+        loadNft(params['id']);
 		fetch(
 			'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc'
 		)
 			.then((response) => response.json())
 			.then((data) => setCurrentEtherPrice(data[1]['current_price']))
 			.catch((err) => console.log('ERROR: ', err));
-		setDetailNft(getAllNfts);
-	}, [getAllNfts]);
+	}, []);
 
 	return (
 		<Container className="detailedview-container" fluid>
-			{detailNft &&
-				detailNft.map((nft) => {
-                if (nft.nft_id === params['id'])
+			{nft &&
+				nft.map((nft) => 
+
                 (
 					<Fragment>
 						<Row>
@@ -133,7 +128,7 @@ const DetailedView = (props) => {
                 </Col> */}
 						{/* </Row> */}
 					</Fragment>
-				)})}
+				))}
 		</Container>
 	);
 };

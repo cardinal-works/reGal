@@ -49,24 +49,31 @@ const AuctionHouse = ({ web3 }) => {
 
 	return (
 		<Fragment>
-			<Container className="auction-house-container">
-      <Row >
-				{getAllNfts.length &&
-					getAllNfts.map((nft, index) => (
-            <Col key={index}>
-							<Card style={{ width: '18rem' }}>
-								<Card.Img variant="top" src={nft.thumbnail_image} />
-								<Card.Body>
-									<Card.Title>{nft.title}</Card.Title>
-									<Card.Text>
-										{nft.nft_description}
-									</Card.Text>
-									<Button variant="primary">Start</Button>
-								</Card.Body>
-							</Card>
-            </Col>
-					))}
-          	</Row>
+			<Container className="auction-house-container mt-2" fluid>
+				<Row className="d-flex justify-content-center">
+				<div className="font-secondary text-white pr-1 text-center mb-4">Your Collection</div>
+					{getAllNfts.length &&
+						getAllNfts.map((nft, index) => (
+							<Col lg={2} md={3} sm={6} key={index} className="auction-cards">
+								<Card className="card-nft">
+									<Card.Img
+										className="card-nft-image"
+										variant="top"
+										src={nft.thumbnail_image}
+									/>
+									<Card.Body>
+										<Card.Title>{nft.title}</Card.Title>
+										<Card.Text></Card.Text>
+										{nft.auction_mode ? (
+											<Button variant="warning">Cancel</Button>
+										) : (
+											<Button className="primary">Start</Button>
+										)}
+									</Card.Body>
+								</Card>
+							</Col>
+						))}
+				</Row>
 				{/* <Form>
 					<Form.Group controlId="formBasicEmail">
 						<Form.Label> </Form.Label>
