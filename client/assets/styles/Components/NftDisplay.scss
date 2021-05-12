@@ -1,22 +1,45 @@
 .nft-display {
-    border-radius: 2px;
-    height: 100%;
-    background-color: black;
-    img {
-      padding: 1px;
-      object-fit: cover;
-      width: 1000px;
-      transition: 0.25s ease-in-out;
-      border-radius: 2px !important;
+	border-radius: 2px;
+	height: 100%;
+	background-color: black;
+	position: relative;
+	img {
+		object-fit: cover;
+		width: 100%;
+		&:hover {
+			transition: 1s ease-in-out;
+		}
+	}
+	.overlay-text-explore {
+		position: absolute;
+		padding: 20px;
+		font-size: 1.25em;
+		font-weight: 900;
+	}
+	.heart {
+		margin-top: 6px;
+		display: inline-block;
+		margin: 0 0.5rem;
+		animation: bounceIn; /* referring directly to the animation's @keyframe declaration */
+		animation-duration: 2s; /* don't forget to set a duration! */
+	}
+}
 
-      &:hover {
-        opacity: 50%;
-        transition: 0.25s ease-in-out;
-      }
-    }
-    .overlay-text-explore {
-      position:absolute;
-      padding: 20px;
-
-    }
+.details-button {
+	position: relative;
+	bottom: -482px;
+	right: -8px;
+	z-index: 2;
+	.btn-regal {
+		font-size: 1.15em;
+		background-color: black !important;
+		color: white !important;
+		border-color: white !important;
+		transition: 0.35s ease-in-out !important;
+		&:hover {
+			background-color: white !important;
+			color: black !important;
+			transition: 0.35s ease-in-out !important;
+		}
+	}
 }

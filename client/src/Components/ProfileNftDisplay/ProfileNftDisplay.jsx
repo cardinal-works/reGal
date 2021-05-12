@@ -17,7 +17,7 @@ const ProfileNftDisplay = ({
   return (
     <Fragment>
       <Card className="profile-card">
-        <Card.Img className="profile-card-img"  src={image} style={{borderRadius: "15px"}} />
+        <Card.Img className="profile-card-img" src={image}  />
       </Card>
     </Fragment>
   );

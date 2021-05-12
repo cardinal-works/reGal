@@ -19,8 +19,9 @@ const Footer = () => {
             <Col lg={1} md={2} sm={12}>
               <h5 className="footer-links text-uppercase">T.O.S.</h5>
             </Col>
-            <Col lg={1} md={2} sm={12}>
-              <h5 className="footer-links text-uppercase">Apply</h5>
+            <Col lg={1} md={2} sm={12}>					
+            <Link as={Link} target="_blank" to="https://forms.gle/R1tCLf24bhgK8t7AA">
+              <h5 className="footer-links text-uppercase">Apply</h5></Link>
             </Col>
             <Col lg={1} md={2} sm={12}>
               <h5 className="footer-links text-uppercase">Whitepaper</h5>

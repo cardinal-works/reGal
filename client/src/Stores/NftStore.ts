@@ -15,6 +15,7 @@ class NftStore {
 
     @action loadNfts = async (payload?: any) => {
         this.loadingInitial = true;
+        this.nftRegistry.clear();
         try {
             let response = await agent.Nft.getAll(payload);
             runInAction(() => {
@@ -32,6 +33,7 @@ class NftStore {
     }
 
     @action loadNft = async (id: number) => {
+        this.nft = null;
         try {
             let res = await agent.Nft.get(id);
             runInAction(() => {

@@ -2,38 +2,126 @@
   background: linear-gradient(
     180deg,
     #040404 0%,
-    rgb(74, 27, 8) 40%,
-    rgb(199, 96, 103) 100%
+    rgb(0, 0, 0) 40%,
+    rgb(0, 0, 0) 100%
   );
   padding-bottom: 100px;
 
+  .featured-nft-nav {
+    display: flex;
+    align-items: flex-start;
+    // margin: 0px 3% 0px 3%;
+  }
+
+
   .nft-container {
-
     .nft-explore-rows {
-      justify-content: center;
+      padding: 0px 0px 0px 0px !important;
     }
-
-    padding: 0px 0px 0px 0px !important;
     .explore-live-feed {
+      width: 500px;
+      height: 500px;
       position: relative;
+      padding: 0px 0px 0px 0px !important;
+      margin-right: auto;
+      margin-left: auto;
+      border: solid 5px transparent;
       .nft-display {
         display: block;
         padding-bottom: 100%;
         border-radius: 2px;
         img {
-          padding: 1px;
           position: absolute;
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: 0.25s ease-in-out;
+          transition: 0.3s ease-in-out;
           border-radius: 2px !important;
           &:hover {
-            opacity: 20%;
-            transition: 0.25s ease-in-out;
+            opacity: 12%;
+            transition: 0.3s ease-in-out;
           }
         }
       }
     }
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+    padding: 0px 4% 0px 4% !important;
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen 
+and (min-width : 321px) {
+    padding: 0px 4% 0px 4% !important;
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen 
+and (max-width : 320px) {
+    padding: 0px 4% 0px 4% !important;
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+    padding: 0px 3% 0px 3% !important;
+}
+
+/* iPads (landscape) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+    padding: 0px 6% 0px 6% !important;
+}
+
+/* iPads (portrait) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+    padding: 0px 2% 0px 2% !important;
+}
+
+@media only screen 
+and (min-width : 1150px) {
+    padding: 0px 2% 0px 2% !important;
+}
+
+/* Desktops and laptops ----------- */
+@media only screen 
+and (min-width : 1224px) {
+    padding: 0px 4% 0px 4% !important;
+}
+
+@media only screen 
+and (min-width : 1450px) {
+    padding: 0px 4% 0px 4% !important;
+}
+
+@media only screen 
+and (min-width : 1650px) {
+    padding: 0px 4% 0px 4% !important;
+}
+
+/* Large screens ----------- */
+@media only screen 
+and (min-width : 1824px) {
+    padding: 0px 10% 0px 10% !important;
+}
+
+  }
+  
+  .sort-button {
+      border-radius: 10px;
+      margin-top: 18px;
+      margin-left: 8px;
+      padding: 2px 12px 3px 12px;
+      background-color: #ffffff !important;
+      color: black !important;
+      border-color: rgb(45, 45, 45) !important;
   }
 }

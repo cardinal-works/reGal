@@ -14,10 +14,7 @@ contract AuctionRepository {
 
     // Mapping from auction index to user bids
     mapping(uint256 => Bid[]) public auctionBids;
-    //  [
-    //  {id 1: [{from, $},{from, $}]}, 
-    //  {id 2: [{from, $},{from, $}]},
-    //  ]
+
 
     // Mapping from owner to a list of owned auctions
     mapping(address => uint[]) public auctionOwner;

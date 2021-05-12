@@ -1,147 +1,154 @@
 .profile-container {
-  margin-top: 30px;
-  .nft-collection {
-    position: relative;
-    .profile-card {
-      display: block;
-      padding-bottom: 100%;
-      border-radius: 2px;
-      img {
-        padding: 1px;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: 0.25s ease-in-out;
-        border-radius: 2px !important;
+	margin-top: 30px;
+	padding: 0px 8% 0px 8%;
 
-        &:hover {
-          opacity: 50%;
-          transition: 0.25s ease-in-out;
-        }
-      }
-    }
+
+
+
+  .card {
+    background-color: transparent !important;
   }
+	.nft-collection {
+		position: relative;
+    
 
-  .nft-liked {
-    position: relative;
-    .profile-card {
-      display: block;
-      padding-bottom: 100%;
-      border-radius: 2px;
-      img {
-        padding: 1px;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: 0.25s ease-in-out;
-        border-radius: 2px !important;
+		.profile-card {
+			display: block;
+			padding-bottom: 100%;
+			border-radius: 2px;
+			img {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: 0.25s ease-in-out;
+				border-radius: 2px !important;
 
-        &:hover {
-          opacity: 50%;
-          transition: 0.25s ease-in-out;
-        }
-      }
-    }
-  }
+				&:hover {
+					opacity: 50%;
+					transition: 0.25s ease-in-out;
+				}
+			}
+		}
+	}
 
-  .nft-viewed {
-    padding-bottom: 100px;
-    position: relative;
-    .profile-card {
-      display: block;
-      padding-bottom: 100%;
-      border-radius: 2px;
-      img {
-        padding: 1px;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: 0.25s ease-in-out;
-        border-radius: 2px !important;
+	.nft-liked {
+		position: relative;
 
-        &:hover {
-          opacity: 50%;
-          transition: 0.25s ease-in-out;
-        }
-      }
-    }
-  }
+		.profile-card {
+			display: block;
+			padding-bottom: 100%;
+			border-radius: 2px;
+			img {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: 0.25s ease-in-out;
+				border-radius: 2px !important;
 
-  .profile-image {
-    border-radius: 7px;
-    height: 150px;
-    object-fit: cover;
-    border: solid 2px white;
-    box-shadow: 0px 0px 20px rgb(97, 97, 97);
-  }
+				&:hover {
+					opacity: 50%;
+					transition: 0.25s ease-in-out;
+				}
+			}
+		}
+	}
 
-  .profile-featured-nft {
-    width: 100%;
-    position: relative;
+	.nft-viewed {
+		padding-bottom: 100px;
+		position: relative;
+		.profile-card {
+			display: block;
+			padding-bottom: 100%;
+			border-radius: 2px;
+			img {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: 0.25s ease-in-out;
+				border-radius: 2px !important;
 
-    .nft-card {
-      background-image: -webkit-linear-gradient(
-        90deg,
-        rgba(255, 136, 124, 1) 0%,
-        rgba(182, 50, 95, 1) 35%,
-        rgba(255, 173, 0, 1) 100%
-      ); /* For Chrome and Safari */
-      background-image: -moz-linear-gradient(
-        90deg,
-        rgba(255, 136, 124, 1) 0%,
-        rgba(182, 50, 95, 1) 35%,
-        rgba(255, 173, 0, 1) 100%
-      ); /* For old Fx (3.6 to 15) */
-      background-image: -ms-linear-gradient(
-        90deg,
-        rgba(255, 136, 124, 1) 0%,
-        rgba(182, 50, 95, 1) 35%,
-        rgba(255, 173, 0, 1) 100%
-      ); /* For pre-releases of IE 10*/
-      background-image: -o-linear-gradient(
-        90deg,
-        rgba(255, 136, 124, 1) 0%,
-        rgba(182, 50, 95, 1) 35%,
-        rgba(255, 173, 0, 1) 100%
-      ); /* For old Opera (11.1 to 12.0) */
-      background-image: linear-gradient(
-        90deg,
-        rgba(255, 136, 124, 1) 0%,
-        rgba(182, 50, 95, 1) 35%,
-        rgba(255, 173, 0, 1) 100%
-      ); /* Standard syntax; must be last */
-      color: transparent !important;
-      background-clip: text;
-    }
-  }
-  .choose-file-button {
-    color: white;
-    padding-top: 8px;
-  }
+				&:hover {
+					opacity: 50%;
+					transition: 0.25s ease-in-out;
+				}
+			}
+		}
+	}
 
-  .nft-display-rows {
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-  .featured-nft {
-    .profile-card {
-      width: 100%;
-      border-radius: 2px;
-      img {
-        padding: 1px;
-        object-fit: cover;
-        height: 400px;
-        transition: 0.25s ease-in-out;
-        border-radius: 2px !important;
+	.profile-image {
+		border-radius: 2px;
+		height: 100%;
+		object-fit: cover;
 
-        &:hover {
-          opacity: 50%;
-          transition: 0.25s ease-in-out;
-        }
-      }
-    }
-  }
+		box-shadow: 0px 0px 20px rgb(97, 97, 97);
+	}
+
+	.profile-featured-nft {
+		width: 100%;
+
+		.nft-card {
+			background-image: -webkit-linear-gradient(
+				90deg,
+				rgba(255, 136, 124, 1) 0%,
+				rgba(182, 50, 95, 1) 35%,
+				rgba(255, 173, 0, 1) 100%
+			); /* For Chrome and Safari */
+			background-image: -moz-linear-gradient(
+				90deg,
+				rgba(255, 136, 124, 1) 0%,
+				rgba(182, 50, 95, 1) 35%,
+				rgba(255, 173, 0, 1) 100%
+			); /* For old Fx (3.6 to 15) */
+			background-image: -ms-linear-gradient(
+				90deg,
+				rgba(255, 136, 124, 1) 0%,
+				rgba(182, 50, 95, 1) 35%,
+				rgba(255, 173, 0, 1) 100%
+			); /* For pre-releases of IE 10*/
+			background-image: -o-linear-gradient(
+				90deg,
+				rgba(255, 136, 124, 1) 0%,
+				rgba(182, 50, 95, 1) 35%,
+				rgba(255, 173, 0, 1) 100%
+			); /* For old Opera (11.1 to 12.0) */
+			background-image: linear-gradient(
+				90deg,
+				rgba(255, 136, 124, 1) 0%,
+				rgba(182, 50, 95, 1) 35%,
+				rgba(255, 173, 0, 1) 100%
+			); /* Standard syntax; must be last */
+			color: transparent !important;
+			background-clip: text;
+		}
+	}
+	.choose-file-button {
+		color: white;
+		padding-top: 8px;
+	}
+
+	.nft-display-rows {
+		flex-direction: row;
+		justify-content: center;
+	}
+	.featured-nft {
+		.profile-card {
+			border-radius: 2px;
+			object-fit: cover;
+			img {
+				object-fit: cover;
+				height: 400px;
+        padding: 10px;
+				width: 180%;
+				transition: 0.25s ease-in-out;
+				border-radius: 2px !important;
+				&:hover {
+					opacity: 50%;
+					transition: 0.25s ease-in-out;
+				}
+			}
+		}
+	}
 }
