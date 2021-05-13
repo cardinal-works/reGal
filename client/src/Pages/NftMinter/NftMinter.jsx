@@ -39,7 +39,7 @@ const _dbMetadata = {
 
 const NftMinter = ({web3}) => {
 
-  const contractAddr = "0x1a9127b29180DA82C6072b7ef2F855c955ef2fF1";
+  const contractAddr = "0xFE8A0dd9E6307968407cAA165cca28b62bCD0E93";
   // const contractAddr = "0xce863dD3ec9bcDEEE585660Cab63C777E1201876";
   const DeedRepositoryContract = new web3.eth.Contract(DeedRepository, contractAddr);
   const userStore = useContext(UserStore);
@@ -83,7 +83,7 @@ const NftMinter = ({web3}) => {
         .registerDeed(Number(tokenId) + 1, ipfsLink)
         .send({ from: window.ethereum.selectedAddress })
         .then(createNft({...dbMetaData, nft_id: Number(tokenId) + 1}, dbMetaData.user_id))
-        .then((res) => console.log(res))
+        .then((res) => console.log('res', res.events.DeedRegistered.address))
     } else { return; }
 
   };
@@ -246,7 +246,7 @@ const NftMinter = ({web3}) => {
                   Yes
                 </ToggleButton>
                 <ToggleButton
-                  variant="danger"
+                  variant="warning"
                   size={"sm"}
                   onClick={(e) => {
                     handleRenderInput(e, false);
