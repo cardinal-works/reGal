@@ -82,7 +82,12 @@ const Nft = {
   delete: (id: number) => requests.del(`/${id}`)
 }
 
+const Price = {
+  get: () => requests.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc'),
+}
+
 export default {
   User,
-  Nft
+  Nft,
+  Price
 }

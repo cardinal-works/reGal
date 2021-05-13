@@ -4,22 +4,20 @@ import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Image, Button, ListGroup, Table } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
 import NftStore from '../../Stores/NftStore';
+import PriceStore from '../../Stores/PriceStore';
 
 const DetailedView = (props) => {
 	const nftStore = useContext(NftStore);
+	const priceStore = useContext(PriceStore);
 	const [params, setParams] = useState(useParams());
-	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
-	const { loadNft, nft } = nftStore;
+	const [currentEtherPrice, setCurrentEtherPrice] = useState();
+	const { loadNft, nft } = nftStore; 
+	const { getPrices, prices } = priceStore;
 	// console.log(useParams())
 
 	useEffect(() => {
         loadNft(params['id']);
-		fetch(
-			'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc'
-		)
-			.then((response) => response.json())
-			.then((data) => setCurrentEtherPrice(data[1]['current_price']))
-			.catch((err) => console.log('ERROR: ', err));
+		getPrices()
 	}, []);
 
 	return (
@@ -61,7 +59,7 @@ const DetailedView = (props) => {
 									<div className="usd-price d-inline-block ml-3">
 										<span className="fas fa-dollar-sign text-green fa-lg"></span>
 										<span className="text-primary ml-1 text-green currency-value">
-											{nft.current_bid * currentEtherPrice}
+											{nft.current_bid * prices[1]['current_price']}
 										</span>
 									</div>
 								</div>
