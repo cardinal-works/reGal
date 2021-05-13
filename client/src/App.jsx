@@ -6,6 +6,7 @@ import Landing from './Pages/Landing';
 import Explore from './Pages/Explore';
 import Profile from './Pages/Profile';
 import NftMinter from './Pages/NftMinter';
+import Auction from './Pages/Auction'
 import AuctionHouse from './Pages/AuctionHouse'
 import DetailedView from "./Pages/DetailedView";
 import ProfileSettings from "./Pages/ProfileSettings"
@@ -34,6 +35,9 @@ const App = ({web3}) => {
                 <Route exact path="/details/:id" component={DetailedView} />
                 <Route exact path='/minter'>
                     <NftMinter web3={web3} />
+                </Route>
+                <Route exact path='/auction/:id'>
+                    <Auction web3={web3} />
                 </Route>
             </ComponentWrapper>
         </Switch>
