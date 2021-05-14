@@ -3,10 +3,11 @@ import React, { useEffect, useState, useContext, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Image, Button, ListGroup, Table } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
+import { AuctionRepository } from '../../../abi/AuctionRepository_abi';
 import NftStore from '../../Stores/NftStore';
 import PriceStore from '../../Stores/PriceStore';
 
-const DetailedView = (props) => {
+const DetailedView = ({web3}) => {
 	const nftStore = useContext(NftStore);
 	const priceStore = useContext(PriceStore);
 	const [params, setParams] = useState(useParams());
@@ -15,10 +16,22 @@ const DetailedView = (props) => {
 	const { getPrices, prices } = priceStore;
 	// console.log(useParams())
 
+	let contractAddr = '0x0aC149cF75Ffcbe2C9E31948055B19E489E1267b';
+	const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
+
 	useEffect(() => {
         loadNft(params['id']);
 		getPrices()
 	}, []);
+
+	const handleBid = async (e) => {
+		e.preventDefault()
+		await AuctionRepositoryContract.methods
+			.bidOnAuction()
+			.send({ from: window.ethereum.selectedAddress })
+			.then((res) => console.log(res))
+
+	}
 
 	return (
 		<Container className="detailedview-container" fluid>
@@ -90,7 +103,7 @@ const DetailedView = (props) => {
 									{nft.description}
 								</p>
 								<div className="controls-wrapper text-md-center text-center mb-5 pb-5">
-									<Button variant="outline-primary" className="btn-fix">
+									<Button onClick={(e) => handleBid(e)} variant="outline-primary" className="btn-fix">
 										Place A Bid
 									</Button>
 								</div>
