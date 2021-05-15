@@ -3,6 +3,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 //Components
 import Landing from './Pages/Landing';
+import Farm from './Pages/Farm';
 import Explore from './Pages/Explore';
 import Profile from './Pages/Profile';
 import NftMinter from './Pages/NftMinter';
@@ -33,6 +34,9 @@ const App = ({ web3 }) => {
 				<Route exact path="/whitepaper" component={Whitepaper} />
 				<Route exact path="/details/:id">
 					<DetailedView web3={web3} />
+				</Route>
+				<Route exact path="/farm">
+					<Farm web3={web3} />
 				</Route>
 				<Route exact path="/minter">
 					<NftMinter web3={web3} />

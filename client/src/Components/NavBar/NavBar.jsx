@@ -38,7 +38,7 @@ const Navigation = () => {
 					<Nav.Link as={Link} to="/profile">
 						profile
 					</Nav.Link>
-					<Nav.Link to="/#">farm</Nav.Link>
+					<Nav.Link as={Link} to="/farm">farm</Nav.Link>
 					<Nav.Link>
 						<i className="fas fa-search"></i>
 					</Nav.Link>

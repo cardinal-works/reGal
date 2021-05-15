@@ -50,23 +50,24 @@ const Auction = ({ web3 }) => {
 
 	const handleCreateAuction = async () => {
 		// const { title, blockDeadline, startPrice, metaData, deedId, deedRepo } = auctionData;
-
+		console.log(typeof nft.nft_id);
 		const title = auctionData.title;
 		const blockDeadline = Math.floor(auctionData.blockDeadline);
 		const startPrice = auctionData.startPrice;
 		const metaData = auctionData.metaData;
-		const deedId = nft[0].nft_id;
+		const deedId = nft.nft_id;
 		const deedRepo = auctionData.deedRepo;
 
-		await AuctionRepositoryContract.methods
-			// .createAuction(deedRepo, deedId, title, metaData, startPrice, blockDeadline)
-			// // .send({ from: window.ethereum.selectedAddress })
-			// .send({from: window.ethereum.selectedAddress, gas: "6721975"})
-			// .then(updateNft(nft._id, {...nft, }))
-			// .then((res) => console.log(res));
-			.getAuctionById()
-			.call()
+		try {
+			await window.ethereum.enable();
+			await AuctionRepositoryContract.methods
+			.createAuction(deedRepo, deedId, title, metaData, startPrice, blockDeadline)
+			// .send({ from: window.ethereum.selectedAddress })
+			.send({from: window.ethereum.selectedAddress, gas: 1000000})
 			.then((res) => console.log(res))
+		} catch (error) {}
+
+
 	};
 
 	useEffect(() => {
@@ -78,12 +79,12 @@ const Auction = ({ web3 }) => {
 	return (
 		<Fragment>
 			{nft && user ? (
-				<Container key={"auction"}>
+				<Container key={'auction'}>
 					<Row>
 						<Col>
 							{' '}
 							<div>
-								<Image src={nft[0].thumbnail_image}></Image>
+								<Image src={nft.thumbnail_image}></Image>
 							</div>
 						</Col>
 						<Col className="text-white font-tertiary">
