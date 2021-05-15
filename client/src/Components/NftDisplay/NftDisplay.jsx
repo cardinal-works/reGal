@@ -61,8 +61,8 @@ const NftDisplay = ({
 					}}>
 					<Button className="btn-regal mt-4">details</Button>
 					<Button variant="danger" className="like-button mt-4 ml-2">
-							<i className="text-start fas fa-heart "></i>
-							</Button>
+						<i className="text-start fas fa-heart "></i>
+					</Button>
 				</Link>
 			</div>
 			<div className="nft-display">
@@ -98,8 +98,8 @@ const NftDisplay = ({
 					</div>
 					{console.log(Date.parse(date_mint) + auction_duration)}
 				</div> */}
-				<div className="video-overlay">
-				<div className="d-block mb-1">
+				<div className="image-overlay">
+					<div className="d-block mb-1">
 						<span className="overlay-text">{title}</span>
 					</div>
 					<div className="d-block mb-1">
@@ -125,7 +125,7 @@ const NftDisplay = ({
 						</Link>
 					</div>
 				</div>
-				<Image className="explore-card-image" src={thumbnail_image} />
+				<Image className="explore-card-image" src={thumbnail_image} fluid />
 			</div>
 		</Fragment>
 	);
