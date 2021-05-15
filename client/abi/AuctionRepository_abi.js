@@ -390,11 +390,6 @@ export const AuctionRepository = [
         "internalType": "uint256",
         "name": "_startPrice",
         "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_blockDeadline",
-        "type": "uint256"
       }
     ],
     "name": "createAuction",

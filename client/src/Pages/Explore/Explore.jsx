@@ -90,7 +90,7 @@ const Explore = (web3) => {
 									</Col>
 								);
 							})}
-						{getAllNfts.length &&
+						{/* {getAllNfts.length &&
 							// getAllNfts.slice(0, 2).map((nft, index) => {
 								getAllNfts.map((nft, index) => {
 								return (
@@ -110,7 +110,7 @@ const Explore = (web3) => {
 										/>
 									</Col>
 								);
-							})}
+							})} */}
 					</Row>
 			</Container>
 		</div>
