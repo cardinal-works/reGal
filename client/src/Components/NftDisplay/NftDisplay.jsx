@@ -81,23 +81,6 @@ const NftDisplay = ({
 						</Fragment>
 					}
 				</CornerRibbon>
-				{/* <div className="overlay-text-explore text-white">
-					<div className="">
-						<i style={{ fontSize: '0.75em' }}>{'current bid: '}</i>
-						<div> Ξ {current_bid}</div>
-						<div>{'$ ' + (current_bid * currentEtherPrice).toFixed(2)}</div>
-					</div>
-					<div className="h5 pt-4">{title}</div>
-					<div className="">
-						<i style={{ fontSize: '0.75em' }}>creator: </i>
-						<a href="#">@{creator}</a>
-					</div>
-					<div className="">
-						<i style={{ fontSize: '0.75em' }}>auctioneer: </i>
-						<a href="#">@{creator}</a>
-					</div>
-					{console.log(Date.parse(date_mint) + auction_duration)}
-				</div> */}
 				<div className="image-overlay">
 					<div className="d-block mb-1">
 						<span className="overlay-text">{title}</span>
@@ -113,16 +96,6 @@ const NftDisplay = ({
 					<div className="d-block mb-1">
 						<span className="overlay-text">auctioneer: </span>
 						<span className="overlay-values text-primary">@{creator}</span>
-					</div>
-					<div className="d-block mb-1">
-						{/* <Link className="overlay-values font-secondaryary" to="/test">
-							<Button className="mt-3">
-							Place A Bid
-							</Button>
-						</Link> */}
-						<Link className="overlay-values font-secondaryary" to="/test">
-					
-						</Link>
 					</div>
 				</div>
 				<Image className="explore-card-image" src={thumbnail_image} fluid />

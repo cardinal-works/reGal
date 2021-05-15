@@ -14,106 +14,88 @@
   }
 
 
-  .nft-container {
-    .nft-explore-rows {
-      padding: 0px 0px 0px 0px !important;
-    }
-    .explore-live-feed {
-      height: 300px;
-      position: relative;
-      padding: 0px 0px 0px 0px !important;
-      margin-right: auto;
-      margin-left: auto;
-      border: solid 5px transparent;
-
-      .nft-display {
-        display: block;
-        padding-bottom: 100%;
-        border-radius: 2px;
-        img {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: 0.3s ease-in-out;
-          border-radius: 2px !important;
-          &:hover {
-            opacity: 12%;
-            transition: 0.3s ease-in-out;
-          }
-        }
-      }
-    }
-/* Smartphones (portrait and landscape) ----------- */
-@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 480px) {
-    padding: 0px 4% 0px 4% !important;
-}
-
-/* Smartphones (landscape) ----------- */
-@media only screen 
-and (min-width : 321px) {
-    padding: 0px 4% 0px 4% !important;
-}
-
-/* Smartphones (portrait) ----------- */
-@media only screen 
-and (max-width : 320px) {
-    padding: 0px 4% 0px 4% !important;
-}
-
-/* iPads (portrait and landscape) ----------- */
-@media only screen 
-and (min-device-width : 768px) 
-and (max-device-width : 1024px) {
-    padding: 0px 3% 0px 3% !important;
-}
-
-/* iPads (landscape) ----------- */
-@media only screen 
-and (min-device-width : 768px) 
-and (max-device-width : 1024px) 
-and (orientation : landscape) {
-    padding: 0px 6% 0px 6% !important;
-}
-
-/* iPads (portrait) ----------- */
-@media only screen 
-and (min-device-width : 768px) 
-and (max-device-width : 1024px) 
-and (orientation : portrait) {
-    padding: 0px 2% 0px 2% !important;
-}
-
-@media only screen 
-and (min-width : 1150px) {
-    padding: 0px 2% 0px 2% !important;
-}
-
-/* Desktops and laptops ----------- */
-@media only screen 
-and (min-width : 1224px) {
-    padding: 0px 4% 0px 4% !important;
-}
-
-@media only screen 
-and (min-width : 1450px) {
-    padding: 0px 4% 0px 4% !important;
-}
-
-@media only screen 
-and (min-width : 1650px) {
-    padding: 0px 4% 0px 4% !important;
-}
-
-/* Large screens ----------- */
-@media only screen 
-and (min-width : 1824px) {
-    padding: 0px 10% 0px 10% !important;
-}
-
+.nft-container {
+  .nft-explore-rows {
+    padding: 0px 0px 0px 0px !important;
   }
+  .explore-live-feed {
+    height: 300px;
+    position: relative;
+    padding: 0px 0px 0px 0px !important;
+    margin-right: auto;
+    margin-left: auto;
+    border: solid 5px transparent;
+  }
+  /* Smartphones (portrait and landscape) ----------- */
+  @media only screen 
+  and (min-device-width : 320px) 
+  and (max-device-width : 480px) {
+      padding: 0px 4% 0px 4% !important;
+  }
+
+  /* Smartphones (landscape) ----------- */
+  @media only screen 
+  and (min-width : 321px) {
+      padding: 0px 4% 0px 4% !important;
+  }
+
+  /* Smartphones (portrait) ----------- */
+  @media only screen 
+  and (max-width : 320px) {
+      padding: 0px 4% 0px 4% !important;
+  }
+
+  /* iPads (portrait and landscape) ----------- */
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) {
+      padding: 0px 3% 0px 3% !important;
+  }
+
+  /* iPads (landscape) ----------- */
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) 
+  and (orientation : landscape) {
+      padding: 0px 6% 0px 6% !important;
+  }
+
+  /* iPads (portrait) ----------- */
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) 
+  and (orientation : portrait) {
+      padding: 0px 2% 0px 2% !important;
+  }
+
+  @media only screen 
+  and (min-width : 1150px) {
+      padding: 0px 2% 0px 2% !important;
+  }
+
+  /* Desktops and laptops ----------- */
+  @media only screen 
+  and (min-width : 1224px) {
+      padding: 0px 4% 0px 4% !important;
+  }
+
+  @media only screen 
+  and (min-width : 1450px) {
+      padding: 0px 4% 0px 4% !important;
+  }
+
+  @media only screen 
+  and (min-width : 1650px) {
+      padding: 0px 4% 0px 4% !important;
+  }
+
+  /* Large screens ----------- */
+  @media only screen 
+  and (min-width : 1824px) {
+      padding: 0px 10% 0px 10% !important;
+  }
+
+}
   
   .sort-button {
       border-radius: 10px;
