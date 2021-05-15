@@ -81,11 +81,11 @@ const Profile = (props) => {
 	);
 
 	useEffect(() => {
-		if (!window.ethereum.isMetaMask) {
+		if (!window.ethereum && !window.ethereum.isMetaMask) {
 			// props.history.push("/signup");
 			return;
 		}
-		if (!window.ethereum.selectedAddress) {
+		if (!window.ethereum && !window.ethereum.selectedAddress) {
 			// props.history.push("/signup")
 			return;
 		}
