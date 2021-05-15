@@ -38,11 +38,11 @@ module.exports = {
   networks: {
 
 
-    rpc: {
-      host: 'localhost',
-      port: 8545,
-      gas: 1900000
-    },
+    // rpc: {
+    //   host: 'localhost',
+    //   port: 8545,
+    //   gas: 1900000
+    // },
 
 
 

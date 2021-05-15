@@ -1,4 +1,5 @@
-export const AuctionRepository = [{
+export const AuctionRepository = [
+  {
     "anonymous": false,
     "inputs": [
       {

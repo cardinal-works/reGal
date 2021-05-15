@@ -18,7 +18,7 @@ const Auction = ({ web3 }) => {
 	const { getPrices, prices } = priceStore;
 	const { user, loadUser } = userStore;
 
-	let contractAddr = '0x0aC149cF75Ffcbe2C9E31948055B19E489E1267b';
+	let contractAddr = '0xEcBd8B69156A44c9e6CAADD7BF95189F0141e790';
 	const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
 
 	const [auctionData, setAuctionData] = useState({
@@ -27,7 +27,7 @@ const Auction = ({ web3 }) => {
 		startPrice: null,
 		metaData: `Regal Auction @${Date.now()}`,
 		deedId: null,
-		deedRepo: '0x7C516947D2C5aD5297973A445221E587A1243186',
+		deedRepo: '0x2453339cff9AEf21D5c7cE69292F77D92dd203Ed',
 	});
 
 	const handleAuctionTitle = (e) => {
