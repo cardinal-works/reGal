@@ -476,25 +476,25 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_approved\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_operator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"_approved\",\"type\":\"bool\"}],\"name\":\"ApprovalForAll\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"_balance\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"exists\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"_exists\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"getApproved\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"_operator\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_operator\",\"type\":\"address\"}],\"name\":\"isApprovedForAll\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"ownerOf\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"_data\",\"type\":\"bytes\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_operator\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"_approved\",\"type\":\"bool\"}],\"name\":\"setApprovalForAll\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"_symbol\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"takeOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_index\",\"type\":\"uint256\"}],\"name\":\"tokenByIndex\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_index\",\"type\":\"uint256\"}],\"name\":\"tokenOfOwnerByIndex\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"tokenURI\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"tokensOf\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Only use this interface for compatibility with previously deployed contractsUse ERC721 for interacting with new contracts which are standard-compliant\",\"methods\":{},\"title\":\"ERC-721 methods shipped in OpenZeppelin v1.7.0, removed in the latest version of the standard\"},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/D/Projects/reGal/client/contracts/ERC721/DeprecatedERC721.sol\":\"DeprecatedERC721\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/D/Projects/reGal/client/contracts/ERC721/DeprecatedERC721.sol\":{\"keccak256\":\"0xc89a5a7c97ac6f9a98dc43f1961d5bef19cf549bef0bb083e00b946484601e85\",\"urls\":[\"bzz-raw://377a488dde6bcd2744bf30fcd2166e86a19257d2324975f059697946f00e474c\",\"dweb:/ipfs/QmRfAETDCHZqxZSmKNLFK7NsRByHHXVMg14Nz5Guy45LLS\"]},\"/D/Projects/reGal/client/contracts/ERC721/ERC721.sol\":{\"keccak256\":\"0x01fcde3560e5ae146e09fcd3627ba1a09ce0185f3b6008572fb361a41ef14378\",\"urls\":[\"bzz-raw://d0a07b13a493ba50837490eacd878ad2bf3de44ede91e8c4c3c3761ae193105c\",\"dweb:/ipfs/QmcF1NWM5tnG5wD4Lid9ttYsyJYxm2PAoJJb2ig3HvN5Dn\"]},\"/D/Projects/reGal/client/contracts/ERC721/ERC721Basic.sol\":{\"keccak256\":\"0x6bfea8f187e0a9640ac9a9b6290436b6c99bbe473c1463d8f8ce36ee9d19c125\",\"urls\":[\"bzz-raw://e30c2fba70c9894242a2f34595a160a4afea156eee8cb18bc58ed7b199d28124\",\"dweb:/ipfs/QmTsjPX17w8Px3WWpWq2C4V3FpNiDYjJCUxbznxTQkoMzm\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_approved\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_operator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"_approved\",\"type\":\"bool\"}],\"name\":\"ApprovalForAll\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"_balance\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"exists\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"_exists\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"getApproved\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"_operator\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_operator\",\"type\":\"address\"}],\"name\":\"isApprovedForAll\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"ownerOf\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"_data\",\"type\":\"bytes\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_operator\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"_approved\",\"type\":\"bool\"}],\"name\":\"setApprovalForAll\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"_symbol\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"takeOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_index\",\"type\":\"uint256\"}],\"name\":\"tokenByIndex\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_index\",\"type\":\"uint256\"}],\"name\":\"tokenOfOwnerByIndex\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"tokenURI\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"tokensOf\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Only use this interface for compatibility with previously deployed contractsUse ERC721 for interacting with new contracts which are standard-compliant\",\"methods\":{},\"title\":\"ERC-721 methods shipped in OpenZeppelin v1.7.0, removed in the latest version of the standard\"},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/ramtin/Desktop/reGal/client/contracts/ERC721/DeprecatedERC721.sol\":\"DeprecatedERC721\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/ramtin/Desktop/reGal/client/contracts/ERC721/DeprecatedERC721.sol\":{\"keccak256\":\"0x4b55208e4b9baea0f04c28ddcfb2674852f28c6c444589fd7ad415299f85cbfc\",\"urls\":[\"bzz-raw://af30ac1bf61de00e3b6d443156f4089fcfea3ec7b034d32f982fe076b335e3c5\",\"dweb:/ipfs/QmRRE6Tey7EU71RnSX63he6c3dd54MPYnJKQfxS1k5NCX2\"]},\"/Users/ramtin/Desktop/reGal/client/contracts/ERC721/ERC721.sol\":{\"keccak256\":\"0xa79bb4fc830bfa1f1c2e95a4cf909f004fff660f8b1487990bea7fe32313fbad\",\"urls\":[\"bzz-raw://15e5ac312749253257596c623b88dc07cfb8ed7028e87dc5bbd69a49a5858748\",\"dweb:/ipfs/QmP9hGe8dnQHQ7CjAEYGMHjfqJo7oC8MJWSJRThkTo5zns\"]},\"/Users/ramtin/Desktop/reGal/client/contracts/ERC721/ERC721Basic.sol\":{\"keccak256\":\"0x7187ac0c9df8d88cfff175fb6129dae9285940f5b0c3a9e3ab8c3f799791ab9b\",\"urls\":[\"bzz-raw://f05014dd053db1e23f629a2a79f01449df9857b949772c9cd1f3f409f2082db0\",\"dweb:/ipfs/QmXqMb9X66HqPU9U3MXr29GaWB49fBSzjCrZ5ZT4ZsEBeJ\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "pragma solidity ^0.5.16;\r\n\r\nimport \"./ERC721.sol\";\r\n\r\n\r\n/**\r\n * @title ERC-721 methods shipped in OpenZeppelin v1.7.0, removed in the latest version of the standard\r\n * @dev Only use this interface for compatibility with previously deployed contracts\r\n * @dev Use ERC721 for interacting with new contracts which are standard-compliant\r\n */\r\ncontract DeprecatedERC721 is ERC721 {\r\n  function takeOwnership(uint256 _tokenId) public;\r\n  function transfer(address _to, uint256 _tokenId) public;\r\n  function tokensOf(address _owner) public view returns (uint256[] memory);\r\n}\r\n",
-  "sourcePath": "D:\\Projects\\reGal\\client\\contracts\\ERC721\\DeprecatedERC721.sol",
+  "source": "pragma solidity ^0.5.16;\n\nimport \"./ERC721.sol\";\n\n\n/**\n * @title ERC-721 methods shipped in OpenZeppelin v1.7.0, removed in the latest version of the standard\n * @dev Only use this interface for compatibility with previously deployed contracts\n * @dev Use ERC721 for interacting with new contracts which are standard-compliant\n */\ncontract DeprecatedERC721 is ERC721 {\n  function takeOwnership(uint256 _tokenId) public;\n  function transfer(address _to, uint256 _tokenId) public;\n  function tokensOf(address _owner) public view returns (uint256[] memory);\n}\n",
+  "sourcePath": "/Users/ramtin/Desktop/reGal/client/contracts/ERC721/DeprecatedERC721.sol",
   "ast": {
-    "absolutePath": "/D/Projects/reGal/client/contracts/ERC721/DeprecatedERC721.sol",
+    "absolutePath": "/Users/ramtin/Desktop/reGal/client/contracts/ERC721/DeprecatedERC721.sol",
     "exportedSymbols": {
       "DeprecatedERC721": [
-        798
+        800
       ]
     },
-    "id": 799,
+    "id": 801,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 774,
+        "id": 776,
         "literals": [
           "solidity",
           "^",
@@ -505,13 +505,13 @@
         "src": "0:24:2"
       },
       {
-        "absolutePath": "/D/Projects/reGal/client/contracts/ERC721/ERC721.sol",
+        "absolutePath": "/Users/ramtin/Desktop/reGal/client/contracts/ERC721/ERC721.sol",
         "file": "./ERC721.sol",
-        "id": 775,
+        "id": 777,
         "nodeType": "ImportDirective",
-        "scope": 799,
-        "sourceUnit": 853,
-        "src": "28:22:2",
+        "scope": 801,
+        "sourceUnit": 855,
+        "src": "26:22:2",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -521,37 +521,37 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 776,
+              "id": 778,
               "name": "ERC721",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 852,
-              "src": "370:6:2",
+              "referencedDeclaration": 854,
+              "src": "360:6:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC721_$852",
+                "typeIdentifier": "t_contract$_ERC721_$854",
                 "typeString": "contract ERC721"
               }
             },
-            "id": 777,
+            "id": 779,
             "nodeType": "InheritanceSpecifier",
-            "src": "370:6:2"
+            "src": "360:6:2"
           }
         ],
         "contractDependencies": [
-          825,
-          845,
-          852,
-          959
+          827,
+          847,
+          854,
+          961
         ],
         "contractKind": "contract",
         "documentation": "@title ERC-721 methods shipped in OpenZeppelin v1.7.0, removed in the latest version of the standard\n@dev Only use this interface for compatibility with previously deployed contracts\n@dev Use ERC721 for interacting with new contracts which are standard-compliant",
         "fullyImplemented": false,
-        "id": 798,
+        "id": 800,
         "linearizedBaseContracts": [
-          798,
-          852,
-          845,
-          825,
-          959
+          800,
+          854,
+          847,
+          827,
+          961
         ],
         "name": "DeprecatedERC721",
         "nodeType": "ContractDefinition",
@@ -559,23 +559,23 @@
           {
             "body": null,
             "documentation": null,
-            "id": 782,
+            "id": 784,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "takeOwnership",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 780,
+              "id": 782,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 779,
+                  "id": 781,
                   "name": "_tokenId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 782,
-                  "src": "405:16:2",
+                  "scope": 784,
+                  "src": "394:16:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -583,10 +583,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 778,
+                    "id": 780,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "405:7:2",
+                    "src": "394:7:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -596,16 +596,16 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "404:18:2"
+              "src": "393:18:2"
             },
             "returnParameters": {
-              "id": 781,
+              "id": 783,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "429:0:2"
+              "src": "418:0:2"
             },
-            "scope": 798,
-            "src": "382:48:2",
+            "scope": 800,
+            "src": "371:48:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
@@ -613,23 +613,23 @@
           {
             "body": null,
             "documentation": null,
-            "id": 789,
+            "id": 791,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "transfer",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 787,
+              "id": 789,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 784,
+                  "id": 786,
                   "name": "_to",
                   "nodeType": "VariableDeclaration",
-                  "scope": 789,
-                  "src": "452:11:2",
+                  "scope": 791,
+                  "src": "440:11:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -637,10 +637,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 783,
+                    "id": 785,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "452:7:2",
+                    "src": "440:7:2",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -652,11 +652,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 786,
+                  "id": 788,
                   "name": "_tokenId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 789,
-                  "src": "465:16:2",
+                  "scope": 791,
+                  "src": "453:16:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -664,10 +664,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 785,
+                    "id": 787,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "465:7:2",
+                    "src": "453:7:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -677,16 +677,16 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "451:31:2"
+              "src": "439:31:2"
             },
             "returnParameters": {
-              "id": 788,
+              "id": 790,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "489:0:2"
+              "src": "477:0:2"
             },
-            "scope": 798,
-            "src": "434:56:2",
+            "scope": 800,
+            "src": "422:56:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
@@ -694,23 +694,23 @@
           {
             "body": null,
             "documentation": null,
-            "id": 797,
+            "id": 799,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "tokensOf",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 792,
+              "id": 794,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 791,
+                  "id": 793,
                   "name": "_owner",
                   "nodeType": "VariableDeclaration",
-                  "scope": 797,
-                  "src": "512:14:2",
+                  "scope": 799,
+                  "src": "499:14:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -718,10 +718,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 790,
+                    "id": 792,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "512:7:2",
+                    "src": "499:7:2",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -732,19 +732,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "511:16:2"
+              "src": "498:16:2"
             },
             "returnParameters": {
-              "id": 796,
+              "id": 798,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 795,
+                  "id": 797,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 797,
-                  "src": "549:16:2",
+                  "scope": 799,
+                  "src": "536:16:2",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -753,19 +753,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 793,
+                      "id": 795,
                       "name": "uint256",
                       "nodeType": "ElementaryTypeName",
-                      "src": "549:7:2",
+                      "src": "536:7:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "id": 794,
+                    "id": 796,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "549:9:2",
+                    "src": "536:9:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
                       "typeString": "uint256[]"
@@ -775,27 +775,27 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "548:18:2"
+              "src": "535:18:2"
             },
-            "scope": 798,
-            "src": "494:73:2",
+            "scope": 800,
+            "src": "481:73:2",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 799,
-        "src": "341:229:2"
+        "scope": 801,
+        "src": "331:225:2"
       }
     ],
-    "src": "0:572:2"
+    "src": "0:557:2"
   },
   "legacyAST": {
     "attributes": {
-      "absolutePath": "/D/Projects/reGal/client/contracts/ERC721/DeprecatedERC721.sol",
+      "absolutePath": "/Users/ramtin/Desktop/reGal/client/contracts/ERC721/DeprecatedERC721.sol",
       "exportedSymbols": {
         "DeprecatedERC721": [
-          798
+          800
         ]
       }
     },
@@ -809,45 +809,45 @@
             ".16"
           ]
         },
-        "id": 774,
+        "id": 776,
         "name": "PragmaDirective",
         "src": "0:24:2"
       },
       {
         "attributes": {
-          "SourceUnit": 853,
-          "absolutePath": "/D/Projects/reGal/client/contracts/ERC721/ERC721.sol",
+          "SourceUnit": 855,
+          "absolutePath": "/Users/ramtin/Desktop/reGal/client/contracts/ERC721/ERC721.sol",
           "file": "./ERC721.sol",
-          "scope": 799,
+          "scope": 801,
           "symbolAliases": [
             null
           ],
           "unitAlias": ""
         },
-        "id": 775,
+        "id": 777,
         "name": "ImportDirective",
-        "src": "28:22:2"
+        "src": "26:22:2"
       },
       {
         "attributes": {
           "contractDependencies": [
-            825,
-            845,
-            852,
-            959
+            827,
+            847,
+            854,
+            961
           ],
           "contractKind": "contract",
           "documentation": "@title ERC-721 methods shipped in OpenZeppelin v1.7.0, removed in the latest version of the standard\n@dev Only use this interface for compatibility with previously deployed contracts\n@dev Use ERC721 for interacting with new contracts which are standard-compliant",
           "fullyImplemented": false,
           "linearizedBaseContracts": [
-            798,
-            852,
-            845,
-            825,
-            959
+            800,
+            854,
+            847,
+            827,
+            961
           ],
           "name": "DeprecatedERC721",
-          "scope": 799
+          "scope": 801
         },
         "children": [
           {
@@ -859,17 +859,17 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "ERC721",
-                  "referencedDeclaration": 852,
+                  "referencedDeclaration": 854,
                   "type": "contract ERC721"
                 },
-                "id": 776,
+                "id": 778,
                 "name": "UserDefinedTypeName",
-                "src": "370:6:2"
+                "src": "360:6:2"
               }
             ],
-            "id": 777,
+            "id": 779,
             "name": "InheritanceSpecifier",
-            "src": "370:6:2"
+            "src": "360:6:2"
           },
           {
             "attributes": {
@@ -882,7 +882,7 @@
                 null
               ],
               "name": "takeOwnership",
-              "scope": 798,
+              "scope": 800,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -894,7 +894,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "_tokenId",
-                      "scope": 782,
+                      "scope": 784,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -907,19 +907,19 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 778,
+                        "id": 780,
                         "name": "ElementaryTypeName",
-                        "src": "405:7:2"
+                        "src": "394:7:2"
                       }
                     ],
-                    "id": 779,
+                    "id": 781,
                     "name": "VariableDeclaration",
-                    "src": "405:16:2"
+                    "src": "394:16:2"
                   }
                 ],
-                "id": 780,
+                "id": 782,
                 "name": "ParameterList",
-                "src": "404:18:2"
+                "src": "393:18:2"
               },
               {
                 "attributes": {
@@ -928,14 +928,14 @@
                   ]
                 },
                 "children": [],
-                "id": 781,
+                "id": 783,
                 "name": "ParameterList",
-                "src": "429:0:2"
+                "src": "418:0:2"
               }
             ],
-            "id": 782,
+            "id": 784,
             "name": "FunctionDefinition",
-            "src": "382:48:2"
+            "src": "371:48:2"
           },
           {
             "attributes": {
@@ -948,7 +948,7 @@
                 null
               ],
               "name": "transfer",
-              "scope": 798,
+              "scope": 800,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -960,7 +960,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "_to",
-                      "scope": 789,
+                      "scope": 791,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -974,20 +974,20 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 783,
+                        "id": 785,
                         "name": "ElementaryTypeName",
-                        "src": "452:7:2"
+                        "src": "440:7:2"
                       }
                     ],
-                    "id": 784,
+                    "id": 786,
                     "name": "VariableDeclaration",
-                    "src": "452:11:2"
+                    "src": "440:11:2"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "name": "_tokenId",
-                      "scope": 789,
+                      "scope": 791,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -1000,19 +1000,19 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 785,
+                        "id": 787,
                         "name": "ElementaryTypeName",
-                        "src": "465:7:2"
+                        "src": "453:7:2"
                       }
                     ],
-                    "id": 786,
+                    "id": 788,
                     "name": "VariableDeclaration",
-                    "src": "465:16:2"
+                    "src": "453:16:2"
                   }
                 ],
-                "id": 787,
+                "id": 789,
                 "name": "ParameterList",
-                "src": "451:31:2"
+                "src": "439:31:2"
               },
               {
                 "attributes": {
@@ -1021,14 +1021,14 @@
                   ]
                 },
                 "children": [],
-                "id": 788,
+                "id": 790,
                 "name": "ParameterList",
-                "src": "489:0:2"
+                "src": "477:0:2"
               }
             ],
-            "id": 789,
+            "id": 791,
             "name": "FunctionDefinition",
-            "src": "434:56:2"
+            "src": "422:56:2"
           },
           {
             "attributes": {
@@ -1041,7 +1041,7 @@
                 null
               ],
               "name": "tokensOf",
-              "scope": 798,
+              "scope": 800,
               "stateMutability": "view",
               "superFunction": null,
               "visibility": "public"
@@ -1053,7 +1053,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "_owner",
-                      "scope": 797,
+                      "scope": 799,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -1067,19 +1067,19 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 790,
+                        "id": 792,
                         "name": "ElementaryTypeName",
-                        "src": "512:7:2"
+                        "src": "499:7:2"
                       }
                     ],
-                    "id": 791,
+                    "id": 793,
                     "name": "VariableDeclaration",
-                    "src": "512:14:2"
+                    "src": "499:14:2"
                   }
                 ],
-                "id": 792,
+                "id": 794,
                 "name": "ParameterList",
-                "src": "511:16:2"
+                "src": "498:16:2"
               },
               {
                 "children": [
@@ -1087,7 +1087,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "",
-                      "scope": 797,
+                      "scope": 799,
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "type": "uint256[]",
@@ -1106,47 +1106,47 @@
                               "name": "uint256",
                               "type": "uint256"
                             },
-                            "id": 793,
+                            "id": 795,
                             "name": "ElementaryTypeName",
-                            "src": "549:7:2"
+                            "src": "536:7:2"
                           }
                         ],
-                        "id": 794,
+                        "id": 796,
                         "name": "ArrayTypeName",
-                        "src": "549:9:2"
+                        "src": "536:9:2"
                       }
                     ],
-                    "id": 795,
+                    "id": 797,
                     "name": "VariableDeclaration",
-                    "src": "549:16:2"
+                    "src": "536:16:2"
                   }
                 ],
-                "id": 796,
+                "id": 798,
                 "name": "ParameterList",
-                "src": "548:18:2"
+                "src": "535:18:2"
               }
             ],
-            "id": 797,
+            "id": 799,
             "name": "FunctionDefinition",
-            "src": "494:73:2"
+            "src": "481:73:2"
           }
         ],
-        "id": 798,
+        "id": 800,
         "name": "ContractDefinition",
-        "src": "341:229:2"
+        "src": "331:225:2"
       }
     ],
-    "id": 799,
+    "id": 801,
     "name": "SourceUnit",
-    "src": "0:572:2"
+    "src": "0:557:2"
   },
   "compiler": {
     "name": "solc",
     "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.3.4",
-  "updatedAt": "2021-05-02T23:29:03.857Z",
+  "schemaVersion": "3.4.0",
+  "updatedAt": "2021-05-14T20:58:48.746Z",
   "devdoc": {
     "details": "Only use this interface for compatibility with previously deployed contractsUse ERC721 for interacting with new contracts which are standard-compliant",
     "methods": {},

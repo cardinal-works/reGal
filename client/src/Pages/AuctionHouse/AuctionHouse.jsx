@@ -7,6 +7,7 @@ import ProfileNftDisplay from '../../Components/ProfileNftDisplay';
 import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
 import { observer } from 'mobx-react-lite';
+import Auction from '../Auction';
 import { toJS } from 'mobx';
 import ipfs from '../../ipfs';
 var Buffer = require('buffer/').Buffer;
@@ -34,6 +35,7 @@ const auctionMetaData = {
 };
 
 const AuctionHouse = ({ web3 }) => {
+	const [modalShow, setModalShow] = useState(false);
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const { loadNfts, getAllNfts, nftRegistry } = nftStore;
@@ -51,49 +53,43 @@ const AuctionHouse = ({ web3 }) => {
 		<Fragment>
 			<Container className="auction-house-container mt-2" fluid>
 				<Row className="d-flex justify-content-center">
-				<div className="font-secondary text-white pr-1 text-center mb-4">Your Collection</div>
+					<div className="font-secondary text-white pr-1 text-center mb-4">Your Collection</div>
 					{getAllNfts.length &&
 						getAllNfts.map((nft, index) => (
 							<Col lg={2} md={3} sm={6} key={index} className="auction-cards">
 								<Card className="card-nft">
-									<Card.Img
-										className="card-nft-image"
-										variant="top"
-										src={nft.thumbnail_image}
-									/>
+									<Card.Img className="card-nft-image" variant="top" src={nft.thumbnail_image} />
 									<Card.Body>
 										<Card.Title>{nft.title}</Card.Title>
 										<Card.Text></Card.Text>
 										{nft.auction_mode ? (
-											<Button variant="warning">Cancel</Button>
+											<Fragment>
+												<Button
+													as={Link}
+													to={{
+														pathname: `/auction/${nft.nft_id}`,
+													}}
+													variant="warning">
+													Cancel
+												</Button>
+											</Fragment>
 										) : (
-											<Button className="primary">Start</Button>
+											<Fragment>
+												<Button
+													as={Link}
+													to={{
+														pathname: `/auction/${nft.nft_id}`,
+													}}
+													className="primary">
+													Start
+												</Button>
+											</Fragment>
 										)}
 									</Card.Body>
 								</Card>
 							</Col>
 						))}
 				</Row>
-				{/* <Form>
-					<Form.Group controlId="formBasicEmail">
-						<Form.Label> </Form.Label>
-						<Form.Control type="email" placeholder="Enter email" />
-						<Form.Text className="text-muted">
-							We'll never share your email with anyone else.
-						</Form.Text>
-					</Form.Group>
-
-					<Form.Group controlId="formBasicPassword">
-						<Form.Label>Password</Form.Label>
-						<Form.Control type="password" placeholder="Password" />
-					</Form.Group>
-					<Form.Group controlId="formBasicCheckbox">
-						<Form.Check type="checkbox" label="Check me out" />
-					</Form.Group>
-					<Button variant="primary" type="submit">
-						Submit
-					</Button>
-				</Form> */}
 			</Container>
 		</Fragment>
 	);
