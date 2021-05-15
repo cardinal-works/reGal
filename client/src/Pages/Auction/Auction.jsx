@@ -14,11 +14,11 @@ const Auction = ({ web3 }) => {
 	const priceStore = useContext(PriceStore);
 	const [params, setParams] = useState(useParams());
 	const [currentEtherPrice, setCurrentEtherPrice] = useState();
-	const { loadNft, nft } = nftStore;
+	const { loadNft, updateNft, nft } = nftStore;
 	const { getPrices, prices } = priceStore;
 	const { user, loadUser } = userStore;
 
-	let contractAddr = '0xC2963eCf16681c6aE75aB3c32Cff4ffF6890a11E';
+	let contractAddr = '0x0aC149cF75Ffcbe2C9E31948055B19E489E1267b';
 	const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
 
 	const [auctionData, setAuctionData] = useState({
@@ -27,7 +27,7 @@ const Auction = ({ web3 }) => {
 		startPrice: null,
 		metaData: `Regal Auction @${Date.now()}`,
 		deedId: null,
-		deedRepo: '0xFE8A0dd9E6307968407cAA165cca28b62bCD0E93',
+		deedRepo: '0x7C516947D2C5aD5297973A445221E587A1243186',
 	});
 
 	const handleAuctionTitle = (e) => {
@@ -50,84 +50,85 @@ const Auction = ({ web3 }) => {
 
 	const handleCreateAuction = async () => {
 		// const { title, blockDeadline, startPrice, metaData, deedId, deedRepo } = auctionData;
-
+		console.log(typeof nft.nft_id);
 		const title = auctionData.title;
 		const blockDeadline = Math.floor(auctionData.blockDeadline);
 		const startPrice = auctionData.startPrice;
 		const metaData = auctionData.metaData;
-		const deedId = nft[0].nft_id;
+		const deedId = nft.nft_id;
 		const deedRepo = auctionData.deedRepo;
 
-		const mdResult = await AuctionRepositoryContract.methods
+		try {
+			await window.ethereum.enable();
+			await AuctionRepositoryContract.methods
 			.createAuction(deedRepo, deedId, title, metaData, startPrice, blockDeadline)
-			.send({ from: window.ethereum.selectedAddress })
-			.then(console.log(mdResult))
+			// .send({ from: window.ethereum.selectedAddress })
+			.send({from: window.ethereum.selectedAddress, gas: 1000000})
+			.then((res) => console.log(res))
+		} catch (error) {}
+
+
 	};
 
 	useEffect(() => {
-		loadNft(params['id']);
-		getPrices();
 		loadUser(window.ethereum.selectedAddress);
+		loadNft(params.id);
+		getPrices();
 	}, []);
 
 	return (
 		<Fragment>
-			{nft &&
-				user &&
-				
-					<Container>
-						<Row>
-							<Col>
-								{' '}
-								<div>
-									<Image src={nft[0].thumbnail_image}></Image>
-								</div>
-							</Col>
-							<Col className="text-white font-tertiary">
-								<Form>
-									<Form.Group controlId="exampleForm.ControlInput0">
-										<Form.Label>Auctioneer</Form.Label>
-										<Form.Control type="text" disabled placeholder={user.wallet_id} />
-									</Form.Group>
-									<Form.Group controlId="exampleForm.ControlInput1">
-										<Form.Label>Auction Name*</Form.Label>
+			{nft && user ? (
+				<Container key={'auction'}>
+					<Row>
+						<Col>
+							{' '}
+							<div>
+								<Image src={nft.thumbnail_image}></Image>
+							</div>
+						</Col>
+						<Col className="text-white font-tertiary">
+							<Form>
+								<Form.Group controlId="exampleForm.ControlInput0">
+									<Form.Label>Auctioneer</Form.Label>
+									<Form.Control type="text" disabled placeholder={user.wallet_id} />
+								</Form.Group>
+								<Form.Group controlId="exampleForm.ControlInput1">
+									<Form.Label>Auction Name*</Form.Label>
+									<Form.Control
+										onChange={(e) => handleAuctionTitle(e)}
+										type="text"
+										placeholder="Rahmteen - Cube // First Mint - 1 of 1 !!"
+									/>
+								</Form.Group>
+								<Row>
+									<Form.Group as={Col} controlId="exampleForm.ControlInput2">
+										<Form.Label>Start Price*</Form.Label>
 										<Form.Control
-											onChange={(e) => handleAuctionTitle(e)}
+											onChange={(e) => handleStartPrice(e)}
 											type="text"
-											placeholder="Rahmteen - Cube // First Mint - 1 of 1 !!"
+											placeholder="0 ETH"
 										/>
 									</Form.Group>
-									<Row>
-										<Form.Group as={Col} controlId="exampleForm.ControlInput2">
-											<Form.Label>Start Price*</Form.Label>
-											<Form.Control
-												onChange={(e) => handleStartPrice(e)}
-												type="text"
-												placeholder="0 ETH"
-											/>
-										</Form.Group>
 
-										<Form.Group as={Col} controlId="formGridState">
-											<Form.Label>Auction Duration*</Form.Label>
-											<Form.Control as="select" defaultValue="Choose...">
-												<option>Choose Duration...</option>
-												<option>24 hours</option>
-												<option>72 hours</option>
-												<option>7 days</option>
-											</Form.Control>
-										</Form.Group>
-									</Row>
-									<Button variant="primary" size="lg" onClick={handleCreateAuction} className="mt-2">
-										Submit
-									</Button>
-								</Form>
-								{/* <span className="text-white font-tertiary">{!nft.auction_mode ? "Active" : "Cancel?"}</span>
-							<span className="text-white font-tertiary">{nft.asking_bid}</span>
-							<span></span> */}
-							</Col>
-						</Row>
-					</Container>
-				}
+									<Form.Group as={Col} controlId="formGridState">
+										<Form.Label>Auction Duration*</Form.Label>
+										<Form.Control as="select" defaultValue="Choose...">
+											<option>Choose Duration...</option>
+											<option>24 hours</option>
+											<option>72 hours</option>
+											<option>7 days</option>
+										</Form.Control>
+									</Form.Group>
+								</Row>
+								<Button variant="primary" size="lg" onClick={handleCreateAuction} className="mt-2">
+									Submit
+								</Button>
+							</Form>
+						</Col>
+					</Row>
+				</Container>
+			) : null}
 		</Fragment>
 	);
 };

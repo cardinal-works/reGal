@@ -38,7 +38,7 @@ class NftStore {
             let res = await agent.Nft.get(id);
             runInAction(() => {
                 if(res) {
-                    this.nft = res;
+                    this.nft = res[0];
                 }
             })
             return res;
@@ -56,7 +56,7 @@ class NftStore {
             runInAction(() => {
                 if(response) {    
                     this.submitting = false;
-                    this.nft = {...response}
+                    this.nft = response
                 }
             })
             return response;

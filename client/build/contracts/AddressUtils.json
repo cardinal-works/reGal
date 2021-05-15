@@ -12,14 +12,14 @@
     "absolutePath": "/Users/ramtin/Desktop/reGal/client/contracts/utils/AddressUtils.sol",
     "exportedSymbols": {
       "AddressUtils": [
-        2026
+        2028
       ]
     },
-    "id": 2027,
+    "id": 2029,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 2009,
+        "id": 2011,
         "literals": [
           "solidity",
           "^",
@@ -35,30 +35,30 @@
         "contractKind": "library",
         "documentation": "Utility library of inline functions on addresses",
         "fullyImplemented": true,
-        "id": 2026,
+        "id": 2028,
         "linearizedBaseContracts": [
-          2026
+          2028
         ],
         "name": "AddressUtils",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 2024,
+              "id": 2026,
               "nodeType": "Block",
               "src": "501:505:10",
               "statements": [
                 {
                   "assignments": [
-                    2017
+                    2019
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 2017,
+                      "id": 2019,
                       "name": "size",
                       "nodeType": "VariableDeclaration",
-                      "scope": 2024,
+                      "scope": 2026,
                       "src": "507:12:10",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -67,7 +67,7 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 2016,
+                        "id": 2018,
                         "name": "uint256",
                         "nodeType": "ElementaryTypeName",
                         "src": "507:7:10",
@@ -80,7 +80,7 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 2018,
+                  "id": 2020,
                   "initialValue": null,
                   "nodeType": "VariableDeclarationStatement",
                   "src": "507:12:10"
@@ -89,7 +89,7 @@
                   "externalReferences": [
                     {
                       "size": {
-                        "declaration": 2017,
+                        "declaration": 2019,
                         "isOffset": false,
                         "isSlot": false,
                         "src": "902:4:10",
@@ -98,7 +98,7 @@
                     },
                     {
                       "addr": {
-                        "declaration": 2011,
+                        "declaration": 2013,
                         "isOffset": false,
                         "isSlot": false,
                         "src": "922:4:10",
@@ -106,7 +106,7 @@
                       }
                     }
                   ],
-                  "id": 2019,
+                  "id": 2021,
                   "nodeType": "InlineAssembly",
                   "operations": "{ size := extcodesize(addr) }",
                   "src": "891:38:10"
@@ -118,18 +118,18 @@
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 2022,
+                    "id": 2024,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
                       "argumentTypes": null,
-                      "id": 2020,
+                      "id": 2022,
                       "name": "size",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 2017,
+                      "referencedDeclaration": 2019,
                       "src": "993:4:10",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -141,7 +141,7 @@
                     "rightExpression": {
                       "argumentTypes": null,
                       "hexValue": "30",
-                      "id": 2021,
+                      "id": 2023,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -162,30 +162,30 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 2015,
-                  "id": 2023,
+                  "functionReturnParameters": 2017,
+                  "id": 2025,
                   "nodeType": "Return",
                   "src": "986:15:10"
                 }
               ]
             },
             "documentation": "Returns whether the target address is a contract\n@dev This function will return false if invoked during the constructor of a contract,\n as the code is not actually created until after the constructor finishes.\n@param addr address to check\n@return whether the target address is a contract",
-            "id": 2025,
+            "id": 2027,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "isContract",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 2012,
+              "id": 2014,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2011,
+                  "id": 2013,
                   "name": "addr",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2025,
+                  "scope": 2027,
                   "src": "458:12:10",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -194,7 +194,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 2010,
+                    "id": 2012,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "458:7:10",
@@ -211,15 +211,15 @@
               "src": "457:14:10"
             },
             "returnParameters": {
-              "id": 2015,
+              "id": 2017,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2014,
+                  "id": 2016,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2025,
+                  "scope": 2027,
                   "src": "495:4:10",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -228,7 +228,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 2013,
+                    "id": 2015,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "495:4:10",
@@ -243,14 +243,14 @@
               ],
               "src": "494:6:10"
             },
-            "scope": 2026,
+            "scope": 2028,
             "src": "438:568:10",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
           }
         ],
-        "scope": 2027,
+        "scope": 2029,
         "src": "87:922:10"
       }
     ],
@@ -261,7 +261,7 @@
       "absolutePath": "/Users/ramtin/Desktop/reGal/client/contracts/utils/AddressUtils.sol",
       "exportedSymbols": {
         "AddressUtils": [
-          2026
+          2028
         ]
       }
     },
@@ -275,7 +275,7 @@
             ".16"
           ]
         },
-        "id": 2009,
+        "id": 2011,
         "name": "PragmaDirective",
         "src": "0:24:10"
       },
@@ -291,10 +291,10 @@
           "documentation": "Utility library of inline functions on addresses",
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            2026
+            2028
           ],
           "name": "AddressUtils",
-          "scope": 2027
+          "scope": 2029
         },
         "children": [
           {
@@ -307,7 +307,7 @@
                 null
               ],
               "name": "isContract",
-              "scope": 2026,
+              "scope": 2028,
               "stateMutability": "view",
               "superFunction": null,
               "visibility": "internal"
@@ -319,7 +319,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "addr",
-                      "scope": 2025,
+                      "scope": 2027,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -333,17 +333,17 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 2010,
+                        "id": 2012,
                         "name": "ElementaryTypeName",
                         "src": "458:7:10"
                       }
                     ],
-                    "id": 2011,
+                    "id": 2013,
                     "name": "VariableDeclaration",
                     "src": "458:12:10"
                   }
                 ],
-                "id": 2012,
+                "id": 2014,
                 "name": "ParameterList",
                 "src": "457:14:10"
               },
@@ -353,7 +353,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "",
-                      "scope": 2025,
+                      "scope": 2027,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "bool",
@@ -366,17 +366,17 @@
                           "name": "bool",
                           "type": "bool"
                         },
-                        "id": 2013,
+                        "id": 2015,
                         "name": "ElementaryTypeName",
                         "src": "495:4:10"
                       }
                     ],
-                    "id": 2014,
+                    "id": 2016,
                     "name": "VariableDeclaration",
                     "src": "495:4:10"
                   }
                 ],
-                "id": 2015,
+                "id": 2017,
                 "name": "ParameterList",
                 "src": "494:6:10"
               },
@@ -385,7 +385,7 @@
                   {
                     "attributes": {
                       "assignments": [
-                        2017
+                        2019
                       ],
                       "initialValue": null
                     },
@@ -394,7 +394,7 @@
                         "attributes": {
                           "constant": false,
                           "name": "size",
-                          "scope": 2024,
+                          "scope": 2026,
                           "stateVariable": false,
                           "storageLocation": "default",
                           "type": "uint256",
@@ -407,17 +407,17 @@
                               "name": "uint256",
                               "type": "uint256"
                             },
-                            "id": 2016,
+                            "id": 2018,
                             "name": "ElementaryTypeName",
                             "src": "507:7:10"
                           }
                         ],
-                        "id": 2017,
+                        "id": 2019,
                         "name": "VariableDeclaration",
                         "src": "507:12:10"
                       }
                     ],
-                    "id": 2018,
+                    "id": 2020,
                     "name": "VariableDeclarationStatement",
                     "src": "507:12:10"
                   },
@@ -426,7 +426,7 @@
                       "externalReferences": [
                         {
                           "size": {
-                            "declaration": 2017,
+                            "declaration": 2019,
                             "isOffset": false,
                             "isSlot": false,
                             "src": "902:4:10",
@@ -435,7 +435,7 @@
                         },
                         {
                           "addr": {
-                            "declaration": 2011,
+                            "declaration": 2013,
                             "isOffset": false,
                             "isSlot": false,
                             "src": "922:4:10",
@@ -446,13 +446,13 @@
                       "operations": "{ size := extcodesize(addr) }"
                     },
                     "children": [],
-                    "id": 2019,
+                    "id": 2021,
                     "name": "InlineAssembly",
                     "src": "891:38:10"
                   },
                   {
                     "attributes": {
-                      "functionReturnParameters": 2015
+                      "functionReturnParameters": 2017
                     },
                     "children": [
                       {
@@ -476,11 +476,11 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 2017,
+                              "referencedDeclaration": 2019,
                               "type": "uint256",
                               "value": "size"
                             },
-                            "id": 2020,
+                            "id": 2022,
                             "name": "Identifier",
                             "src": "993:4:10"
                           },
@@ -497,37 +497,37 @@
                               "type": "int_const 0",
                               "value": "0"
                             },
-                            "id": 2021,
+                            "id": 2023,
                             "name": "Literal",
                             "src": "1000:1:10"
                           }
                         ],
-                        "id": 2022,
+                        "id": 2024,
                         "name": "BinaryOperation",
                         "src": "993:8:10"
                       }
                     ],
-                    "id": 2023,
+                    "id": 2025,
                     "name": "Return",
                     "src": "986:15:10"
                   }
                 ],
-                "id": 2024,
+                "id": 2026,
                 "name": "Block",
                 "src": "501:505:10"
               }
             ],
-            "id": 2025,
+            "id": 2027,
             "name": "FunctionDefinition",
             "src": "438:568:10"
           }
         ],
-        "id": 2026,
+        "id": 2028,
         "name": "ContractDefinition",
         "src": "87:922:10"
       }
     ],
-    "id": 2027,
+    "id": 2029,
     "name": "SourceUnit",
     "src": "0:1010:10"
   },
@@ -537,7 +537,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.0",
-  "updatedAt": "2021-05-13T21:28:41.500Z",
+  "updatedAt": "2021-05-14T20:58:48.759Z",
   "devdoc": {
     "methods": {}
   },
