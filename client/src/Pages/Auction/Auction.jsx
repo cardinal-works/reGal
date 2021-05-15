@@ -18,7 +18,7 @@ const Auction = ({ web3 }) => {
 	const { getPrices, prices } = priceStore;
 	const { user, loadUser } = userStore;
 
-	let contractAddr = '0x0aC149cF75Ffcbe2C9E31948055B19E489E1267b';
+	let contractAddr = '0x1bcFcc685751D909Cbec6058B165D24d85BD6Ec0';
 	const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
 
 	const [auctionData, setAuctionData] = useState({
@@ -27,7 +27,7 @@ const Auction = ({ web3 }) => {
 		startPrice: null,
 		metaData: `Regal Auction @${Date.now()}`,
 		deedId: null,
-		deedRepo: '0x7C516947D2C5aD5297973A445221E587A1243186',
+		deedRepo: '0x6e7c022C0c6a4d4f5C0F3c8BE48DEbb1bF6BFC4c',
 	});
 
 	const handleAuctionTitle = (e) => {
@@ -57,16 +57,10 @@ const Auction = ({ web3 }) => {
 		const metaData = auctionData.metaData;
 		const deedId = nft.nft_id;
 		const deedRepo = auctionData.deedRepo;
-
-		try {
-			await window.ethereum.enable();
-			await AuctionRepositoryContract.methods
-			.createAuction(deedRepo, deedId, title, metaData, startPrice, blockDeadline)
-			// .send({ from: window.ethereum.selectedAddress })
-			.send({from: window.ethereum.selectedAddress, gas: 1000000})
+		AuctionRepositoryContract.methods
+			.createAuction(deedRepo, deedId, title, metaData, startPrice)
+			.send({ from: window.ethereum.selectedAddress })
 			.then((res) => console.log(res))
-		} catch (error) {}
-
 
 	};
 

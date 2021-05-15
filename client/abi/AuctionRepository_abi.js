@@ -1,4 +1,5 @@
-export const AuctionRepository = [{
+export const AuctionRepository = [
+  {
     "anonymous": false,
     "inputs": [
       {
@@ -388,11 +389,6 @@ export const AuctionRepository = [{
       {
         "internalType": "uint256",
         "name": "_startPrice",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_blockDeadline",
         "type": "uint256"
       }
     ],

@@ -38,7 +38,7 @@ const _dbMetadata = {
 };
 
 const NftMinter = ({ web3 }) => {
-	const contractAddr = '0x7C516947D2C5aD5297973A445221E587A1243186';
+	const contractAddr = '0x6e7c022C0c6a4d4f5C0F3c8BE48DEbb1bF6BFC4c';
 	// const contractAddr = "0xce863dD3ec9bcDEEE585660Cab63C777E1201876";
 	const DeedRepositoryContract = new web3.eth.Contract(DeedRepository, contractAddr);
 	const userStore = useContext(UserStore);

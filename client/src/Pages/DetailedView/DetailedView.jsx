@@ -35,9 +35,7 @@ const DetailedView = ({web3}) => {
 
 	return (
 		<Container className="detailedview-container" fluid>
-			{nft &&
-				nft.map((nft) => 
-
+			{nft && 
                 (
 					<Fragment>
 						<Row>
@@ -139,7 +137,7 @@ const DetailedView = ({web3}) => {
                 </Col> */}
 						{/* </Row> */}
 					</Fragment>
-				))}
+				)}
 		</Container>
 	);
 };
