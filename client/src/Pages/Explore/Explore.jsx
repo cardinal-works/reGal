@@ -38,10 +38,6 @@ const Explore = (web3) => {
 		return;
 	}, []);
 
-	useEffect(() => {
-		console.log(getAllNfts.map((res) => res));
-	}, [getAllNfts]);
-
 	return (
 		<div className="gradiant-background">
 			<Container className="nft-container " fluid>

@@ -12,11 +12,11 @@ class PriceStore {
             let res = await agent.Price.get();
             runInAction(() => {
                 if(res) {
-                    this.prices = res;
+                    this.prices = res[1];
                     this.loadingInitial = false;
                 }
             })
-            return res;
+            return res[1];
         } catch (error) {
             runInAction(() => {
                 this.loadingInitial = false;

@@ -41,7 +41,7 @@ class NftStore {
                     this.nft = res[0];
                 }
             })
-            return res;
+            return res[0];
         } catch (error) {
             console.log("Error: ", error);
         }
@@ -76,6 +76,7 @@ class NftStore {
                 if(response) {
                     this.nft = response
                     this.submitting = false;
+                    this.nftRegistry.set(response._id, response);
                 }
             })
             return response;

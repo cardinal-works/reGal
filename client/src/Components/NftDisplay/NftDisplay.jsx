@@ -1,13 +1,16 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react';
+import React, { Fragment, useState, useEffect, useRef, useContext } from 'react';
 import { Image, Card, Button, Row, Col, Container, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import UseInterval from '../UseInterval';
 import CornerRibbon from 'react-corner-ribbon';
+//Store
+import NftStore from "../../Stores/NftStore";
 //Media
 import heart from '../../../assets/images/heart.png';
 import Profile from '../../../assets/images/profile.png';
 import mint from '../../../assets/images/mint.png';
 import portrait from '../../../assets/images/portrait.png';
+import { observer } from 'mobx-react-lite';
 
 const NftDisplay = ({
 	_id,
@@ -22,6 +25,8 @@ const NftDisplay = ({
 	date_mint,
 	tags,
 }) => {
+	const nftStore = useContext(NftStore);
+	const { updateNft, loadNft } = nftStore;
 	// let timeLeft = new Date(ending).getTime() - new Date().getTime();
 	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
 	// const [auctionTimer, setAuctionTimer] = useState([{
@@ -47,9 +52,13 @@ const NftDisplay = ({
 			.then((response) => response.json())
 			.then((data) => setCurrentEtherPrice(data[1]['current_price']))
 			.catch((err) => console.log('ERROR: ', err));
-
-		return;
 	}, []);
+
+	const handleLikeNft = () => {
+		loadNft(nft_id).then( nft => (
+			updateNft({...nft, likes: nft.likes + 1})
+		))
+	}
 
 	return (
 		<Fragment>
@@ -58,12 +67,14 @@ const NftDisplay = ({
 					to={{
 						pathname: `/details/${nft_id}`,
 						state: { nft_id: Number(nft_id) },
-					}}>
-					<Button className="btn-regal mt-4">details</Button>
-					<Button variant="danger" className="like-button mt-4 ml-2">
-						<i className="text-start fas fa-heart "></i>
-					</Button>
+					}}
+					className="btn btn-regal mt-4"
+				>
+					Details
 				</Link>
+				<Button variant="danger" className="like-button mt-4 ml-2" onClick={handleLikeNft}>
+					<i className="text-start fas fa-heart "></i>
+				</Button>
 			</div>
 			<div className="nft-display">
 				<CornerRibbon
@@ -104,4 +115,4 @@ const NftDisplay = ({
 	);
 };
 
-export default NftDisplay;
+export default observer(NftDisplay);
