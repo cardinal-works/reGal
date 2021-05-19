@@ -1,22 +1,16 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react';
-import {
-	Image,
-	Card,
-	Button,
-	Row,
-	Col,
-	Container,
-	ListGroup,
-	ListGroupItem,
-} from 'react-bootstrap';
+import React, { Fragment, useState, useEffect, useRef, useContext } from 'react';
+import { Image, Card, Button, Row, Col, Container, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import UseInterval from '../UseInterval';
 import CornerRibbon from 'react-corner-ribbon';
+//Store
+import NftStore from "../../Stores/NftStore";
 //Media
 import heart from '../../../assets/images/heart.png';
 import Profile from '../../../assets/images/profile.png';
 import mint from '../../../assets/images/mint.png';
 import portrait from '../../../assets/images/portrait.png';
+import { observer } from 'mobx-react-lite';
 
 const NftDisplay = ({
 	_id,
@@ -31,7 +25,8 @@ const NftDisplay = ({
 	date_mint,
 	tags,
 }) => {
-
+	const nftStore = useContext(NftStore);
+	const { updateNft, loadNft } = nftStore;
 	// let timeLeft = new Date(ending).getTime() - new Date().getTime();
 	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
 	// const [auctionTimer, setAuctionTimer] = useState([{
@@ -53,25 +48,33 @@ const NftDisplay = ({
 	// }, 1000)
 
 	useEffect(() => {
-		fetch(
-			'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc'
-		)
+		fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc')
 			.then((response) => response.json())
 			.then((data) => setCurrentEtherPrice(data[1]['current_price']))
 			.catch((err) => console.log('ERROR: ', err));
-
-		return;
 	}, []);
+
+	const handleLikeNft = () => {
+		loadNft(nft_id).then( nft => (
+			updateNft({...nft, likes: nft.likes + 1})
+		))
+	}
 
 	return (
 		<Fragment>
 			<div className="details-button">
-				<Link to={{
-                pathname: `/details/${nft_id}`,
-                state: { nft_id: Number(nft_id) }}
-              }>
-					<Button className="btn-regal mt-4">details</Button>
+				<Link
+					to={{
+						pathname: `/details/${nft_id}`,
+						state: { nft_id: Number(nft_id) },
+					}}
+					className="btn btn-regal mt-4"
+				>
+					Details
 				</Link>
+				<Button variant="danger" className="like-button mt-4 ml-2" onClick={handleLikeNft}>
+					<i className="text-start fas fa-heart "></i>
+				</Button>
 			</div>
 			<div className="nft-display">
 				<CornerRibbon
@@ -79,40 +82,37 @@ const NftDisplay = ({
 					fontColor="#000" // OPTIONAL, default as "#f0f0f0"
 					backgroundColor="#fff" // OPTIONAL, default as "#2c7"
 					containerStyle={{}} // OPTIONAL, style of the ribbon
-					style={{ }} // OPTIONAL, style of ribbon content
+					style={{}} // OPTIONAL, style of ribbon content
 					className="font-tertiary " // OPTIONAL, css class of ribbon
 				>
 					{
 						<Fragment>
-							<i
-								className="fas fa-heart mx-auto heart pr-1"
-								style={{ color: '#d20000' }}></i>
+							<i className="fas fa-heart mx-auto heart pr-1" style={{ color: '#d20000' }}></i>
 							{likes}
 						</Fragment>
 					}
 				</CornerRibbon>
-				<div className="overlay-text-explore text-white">
-					<div className="">
-						<i style={{ fontSize: '0.75em' }}>{'current bid: '}</i>
-						<div> Ξ {current_bid}</div>
-						<div>{'$ ' + (current_bid * currentEtherPrice).toFixed(2)}</div>
+				<div className="image-overlay">
+					<div className="d-block mb-1">
+						<span className="overlay-text">{title}</span>
 					</div>
-					<div className="h5 pt-4">{title}</div>
-					<div className="">
-						<i style={{ fontSize: '0.75em' }}>creator: </i>
-						<a href="#">@{creator}</a>
+					<div className="d-block mb-1">
+						<span className="overlay-text">Current Bid: </span>
+						<span className="overlay-values text-primary">1.02ETH</span>
 					</div>
-					<div className="">
-						<i style={{ fontSize: '0.75em' }}>auctioneer: </i>
-						<a href="#">@{creator}</a>
+					<div className="d-block mb-1">
+						<span className="overlay-text">creator: </span>
+						<span className="overlay-values text-primary">@{creator}</span>
 					</div>
-					{console.log(Date.parse(date_mint) + auction_duration)}
-					{/* <Link to={`/details/${nft_id}`}><Button className="btn-regal mt-4">details</Button></Link> */}
+					<div className="d-block mb-1">
+						<span className="overlay-text">auctioneer: </span>
+						<span className="overlay-values text-primary">@{creator}</span>
+					</div>
 				</div>
-				<Image className="explore-card-image" src={thumbnail_image} />
+				<Image className="explore-card-image" src={thumbnail_image} fluid />
 			</div>
 		</Fragment>
 	);
 };
 
-export default NftDisplay;
+export default observer(NftDisplay);

@@ -38,10 +38,6 @@ const Explore = (web3) => {
 		return;
 	}, []);
 
-	useEffect(() => {
-		console.log(getAllNfts.map((res) => res));
-	}, [getAllNfts]);
-
 	return (
 		<div className="gradiant-background">
 			<Container className="nft-container " fluid>
@@ -73,7 +69,7 @@ const Explore = (web3) => {
 						{getAllNfts.length &&
 							getAllNfts.map((nft, index) => {
 								return (
-									<Col lg={3} md={6} sm={6} key={index} className="explore-live-feed">
+									<Col lg={3} md={4} sm={6} key={index} className="explore-live-feed">
 										<NftDisplay
 											_id={nft._id}
 											likes={nft.likes}
@@ -90,11 +86,11 @@ const Explore = (web3) => {
 									</Col>
 								);
 							})}
-						{getAllNfts.length &&
+						{/* {getAllNfts.length &&
 							// getAllNfts.slice(0, 2).map((nft, index) => {
 								getAllNfts.map((nft, index) => {
 								return (
-									<Col lg={3} md={6} sm={6} key={index} className="explore-live-feed">
+									<Col lg={2} md={6} sm={6} key={index} className="explore-live-feed">
 										<NftDisplay
 											_id={nft._id}
 											likes={nft.likes}
@@ -110,7 +106,7 @@ const Explore = (web3) => {
 										/>
 									</Col>
 								);
-							})}
+							})} */}
 					</Row>
 			</Container>
 		</div>
