@@ -40,7 +40,7 @@ module.exports = {
 
     rpc: {
       host: 'localhost',
-      port: 8545,
+      port: 7545,
       gas: 20000000000
     },
 
@@ -54,11 +54,11 @@ module.exports = {
     //
 
 
-    development: {
-     host: "127.0.0.1",     // Localhost (default: none)
-     port: 7545,            // Standard Ethereum port (default: none)
-     network_id: "*",       // Any network (default: none)
-    },
+    // development: {
+    //  host: "127.0.0.1",     // Localhost (default: none)
+    //  port: 7545,            // Standard Ethereum port (default: none)
+    //  network_id: "*",       // Any network (default: none)
+    // },
 
 
 

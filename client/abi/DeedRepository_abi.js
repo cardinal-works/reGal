@@ -514,4 +514,4 @@ export const DeedRepository = [
     "stateMutability": "nonpayable",
     "type": "function"
   }
-]
+],
