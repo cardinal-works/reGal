@@ -454,4 +454,4 @@ export const AuctionRepository = [
       "stateMutability": "payable",
       "type": "function"
     }
-  ],
+  ]

@@ -36,7 +36,6 @@ contract DeedRepository is ERC721Token {
     }
 
 
-
     /**
     * , string memory _title, string memory _creator, string memory _name _title, _creator, _name
     * @dev Public function to add metadata to a deed

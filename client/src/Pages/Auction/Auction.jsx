@@ -57,8 +57,8 @@ const Auction = ({ web3 }) => {
 		const metaData = auctionData.metaData;
 		const deedId = nft.nft_id;
 		const deedRepo = auctionData.deedRepo;
-		AuctionRepositoryContract.methods
-			.createAuction(deedRepo, deedId, title, metaData, startPrice)
+		await AuctionRepositoryContract.methods
+			.createAuction(deedRepo, deedId, title, metaData, startPrice, blockDeadline)
 			.send({ from: window.ethereum.selectedAddress })
 			.then((res) => console.log(res))
 

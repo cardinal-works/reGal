@@ -26,7 +26,7 @@ const DetailedView = ({web3}) => {
 	}, []);
 
 	useEffect(() => {
-		if(prices)
+		if(prices && nft)
 		{
 			setPrice(nft.current_bid * prices['current_price']);
 		}
