@@ -383,6 +383,7 @@ const Profile = (props) => {
 								className="nft-collection mt-3 mb-3">
 								<ProfileNftDisplay
 									image={nfts.thumbnail_image}
+									nft_id={nfts.nft_id}
 								/>
 							</Col>
 						))}

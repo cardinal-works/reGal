@@ -1,21 +1,20 @@
 .nft-display {
 	border-radius: 2px;
-	height: 100%;
 	background-color: black;
-	position: relative;
-	img {
-		object-fit: cover;
-		width: 100%;
-		&:hover {
-			transition: 1s ease-in-out;
+	padding-bottom: 100%;
+	border-radius: 2px;
+
+
+	&:hover {
+        .image-overlay {
+			opacity: 100%;
+			transition: 0.35s ease-in-out;
+        }
+		.explore-card-image {
+			opacity: 12%;
+			transition: 0.3s ease-in-out;
 		}
-	}
-	.overlay-text-explore {
-		position: absolute;
-		padding: 20px;
-		font-size: 1.25em;
-		font-weight: 900;
-	}
+    }
 	.heart {
 		margin-top: 6px;
 		display: inline-block;
@@ -23,13 +22,79 @@
 		animation: bounceIn; /* referring directly to the animation's @keyframe declaration */
 		animation-duration: 2s; /* don't forget to set a duration! */
 	}
+    .image-overlay {
+        z-index: 99999;
+        position: absolute;
+        bottom: 50px;
+		transition: 0.35s ease-in-out;
+		opacity: 0%;
+        background-color: rgba( 0, 0, 0, 0.7);
+        padding: 20px;
+        -webkit-transition-duration: 0.3s;
+        -moz-transition-duration: 0.3s;
+        -o-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+
+        a {
+            position: relative;
+            z-index: 4;
+        }
+
+		.overlay-text {
+			color: #ffffff;
+			font-size: 18px;
+			margin-top: -20px;
+		}
+
+        .overlay-values {
+            font-weight: bold;
+            font-size: 18px;
+        }
+    }
+
+	.explore-card-image {
+		object-fit: cover;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		transition: 0.3s ease-in-out;
+		border-radius: 2px !important;
+	}
+
+    // h1 {
+    //     position: relative;
+    //     z-index: 2;
+    //     font-size: 50px !important;
+    // }
+
+	// .overlay-text-explore {
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	position:fixed;
+	// 	padding: 20px;
+	// 	font-size: 1.25em;
+	// 	font-weight: 900;
+	// }
+}
+
+.like-button {
+	border: solid 2px white;
+	border-radius: 10px;
+	padding-bottom: 4.5px;
+	&:hover {
+		border: 2px solid white !important;
+		color: black;
+		background-color: white;
+		transition: 0.35s ease-in-out !important;
+	}
+
 }
 
 .details-button {
-	position: relative;
-	bottom: -482px;
-	right: -8px;
-	z-index: 2;
+	position: absolute;
+	bottom: 0px;
+	right: 8px;
+	z-index: 99;
 	.btn-regal {
 		font-size: 1.15em;
 		background-color: black !important;

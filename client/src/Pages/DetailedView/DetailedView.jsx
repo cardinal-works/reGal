@@ -14,6 +14,7 @@ const DetailedView = ({web3}) => {
 	const [currentEtherPrice, setCurrentEtherPrice] = useState();
 	const { loadNft, nft } = nftStore; 
 	const { getPrices, prices } = priceStore;
+	const [price, setPrice] = useState(0);
 	// console.log(useParams())
 
 	let contractAddr = '0x0aC149cF75Ffcbe2C9E31948055B19E489E1267b';
@@ -23,6 +24,13 @@ const DetailedView = ({web3}) => {
         loadNft(params['id']);
 		getPrices()
 	}, []);
+
+	useEffect(() => {
+		if(prices && nft)
+		{
+			setPrice(nft.current_bid * prices['current_price']);
+		}
+	}, [prices]);
 
 	const handleBid = async (e) => {
 		e.preventDefault()
@@ -35,9 +43,7 @@ const DetailedView = ({web3}) => {
 
 	return (
 		<Container className="detailedview-container" fluid>
-			{nft &&
-				nft.map((nft) => 
-
+			{nft && 
                 (
 					<Fragment>
 						<Row>
@@ -72,7 +78,7 @@ const DetailedView = ({web3}) => {
 									<div className="usd-price d-inline-block ml-3">
 										<span className="fas fa-dollar-sign text-green fa-lg"></span>
 										<span className="text-primary ml-1 text-green currency-value">
-											{nft.current_bid * prices[1]['current_price']}
+											{price}
 										</span>
 									</div>
 								</div>
@@ -139,7 +145,7 @@ const DetailedView = ({web3}) => {
                 </Col> */}
 						{/* </Row> */}
 					</Fragment>
-				))}
+				)}
 		</Container>
 	);
 };
