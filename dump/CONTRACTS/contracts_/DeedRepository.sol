@@ -11,13 +11,15 @@ import "./ERC721/ERC721Token.sol";
  */
 contract DeedRepository is ERC721Token {
 
+
+
     /**
     * @dev Created a DeedRepository with a name and symbol
     * @param _name string represents the name of the repository
     * @param _symbol string represents the symbol of the repository
     */
     constructor(string memory _name, string memory _symbol) 
-        ERC721Token(_name, _symbol) {}
+        public ERC721Token(_name, _symbol) {}
     
     /**
     * @dev Public function to register a new deed
@@ -34,7 +36,6 @@ contract DeedRepository is ERC721Token {
     function getTotalNFTCount () public view returns (uint) {
         return totalSupply();
     }
-
 
 
     /**

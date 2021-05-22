@@ -1,6 +1,4 @@
-// SPDX-License-Identifier: MIT
-
-pragma solidity >=0.8.0;
+pragma solidity ^0.5.16;
 
 
 /**
@@ -8,7 +6,7 @@ pragma solidity >=0.8.0;
  * @dev Interface for any contract that wants to support safeTransfers
  *  from ERC721 asset contracts.
  */
-abstract contract ERC721Receiver {
+contract ERC721Receiver {
   /**
    * @dev Magic value to be returned upon successful reception of an NFT
    *  Equals to `bytes4(keccak256("onERC721Received(address,uint256,bytes)"))`,
@@ -28,5 +26,5 @@ abstract contract ERC721Receiver {
    * @param _data Additional data with no specified format
    * @return `bytes4(keccak256("onERC721Received(address,uint256,bytes)"))`
    */
-  function onERC721Received(address _from, uint256 _tokenId, bytes memory _data) virtual public returns(bytes4);
+  function onERC721Received(address _from, uint256 _tokenId, bytes memory _data) public returns(bytes4);
 }

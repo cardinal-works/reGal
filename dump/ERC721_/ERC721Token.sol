@@ -1,6 +1,4 @@
-// SPDX-License-Identifier: MIT
-
-pragma solidity >=0.8.0;
+pragma solidity ^0.5.16;
 
 import "./ERC721.sol";
 import "./DeprecatedERC721.sol";
@@ -13,7 +11,7 @@ import "./ERC721BasicToken.sol";
  * Moreover, it includes approve all functionality using operator terminology
  * @dev see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
-abstract contract ERC721Token is ERC721, ERC721BasicToken {
+contract ERC721Token is ERC721, ERC721BasicToken {
   // Token name
   string internal name_;
 
@@ -38,7 +36,7 @@ abstract contract ERC721Token is ERC721, ERC721BasicToken {
   /**
   * @dev Constructor function
   */
-  constructor(string memory _name, string memory _symbol) {
+  constructor(string memory _name, string memory _symbol) public {
     name_ = _name;
     symbol_ = _symbol;
   }
@@ -47,7 +45,7 @@ abstract contract ERC721Token is ERC721, ERC721BasicToken {
   * @dev Gets the token name
   * @return string representing the token name
   */
-  function name() virtual override public view returns (string memory) {
+  function name() public view returns (string memory) {
     return name_;
   }
 
@@ -55,7 +53,7 @@ abstract contract ERC721Token is ERC721, ERC721BasicToken {
   * @dev Gets the token symbol
   * @return string representing the token symbol
   */
-  function symbol() virtual override public view returns (string memory) {
+  function symbol() public view returns (string memory) {
     return symbol_;
   }
 
@@ -64,7 +62,7 @@ abstract contract ERC721Token is ERC721, ERC721BasicToken {
   * @dev Throws if the token ID does not exist. May return an empty string.
   * @param _tokenId uint256 ID of the token to query
   */
-  function tokenURI(uint256 _tokenId) virtual override public view returns (string memory) {
+  function tokenURI(uint256 _tokenId) public view returns (string memory) {
     require(exists(_tokenId));
     return tokenURIs[_tokenId];
   }
@@ -75,7 +73,7 @@ abstract contract ERC721Token is ERC721, ERC721BasicToken {
   * @param _index uint256 representing the index to be accessed of the requested tokens list
   * @return uint256 token ID at the given index of the tokens list owned by the requested address
   */
-  function tokenOfOwnerByIndex(address _owner, uint256 _index) virtual override public view returns (uint256) {
+  function tokenOfOwnerByIndex(address _owner, uint256 _index) public view returns (uint256) {
     require(_index < balanceOf(_owner));
     return ownedTokens[_owner][_index];
   }
@@ -84,7 +82,7 @@ abstract contract ERC721Token is ERC721, ERC721BasicToken {
   * @dev Gets the total amount of tokens stored by the contract
   * @return uint256 representing the total amount of tokens
   */
-  function totalSupply() virtual override public view returns (uint256) {
+  function totalSupply() public view returns (uint256) {
     return allTokens.length;
   }
 
@@ -94,7 +92,7 @@ abstract contract ERC721Token is ERC721, ERC721BasicToken {
   * @param _index uint256 representing the index to be accessed of the tokens list
   * @return uint256 token ID at the given index of the tokens list
   */
-  function tokenByIndex(uint256 _index) virtual override public view returns (uint256) {
+  function tokenByIndex(uint256 _index) public view returns (uint256) {
     require(_index < totalSupply());
     return allTokens[_index];
   }
@@ -115,7 +113,7 @@ abstract contract ERC721Token is ERC721, ERC721BasicToken {
   * @param _to address representing the new owner of the given token ID
   * @param _tokenId uint256 ID of the token to be added to the tokens list of the given address
   */
-  function addTokenTo(address _to, uint256 _tokenId) virtual override internal {
+  function addTokenTo(address _to, uint256 _tokenId) internal {
     super.addTokenTo(_to, _tokenId);
     uint256 length = ownedTokens[_to].length;
     ownedTokens[_to].push(_tokenId);
@@ -127,11 +125,11 @@ abstract contract ERC721Token is ERC721, ERC721BasicToken {
   * @param _from address representing the previous owner of the given token ID
   * @param _tokenId uint256 ID of the token to be removed from the tokens list of the given address
   */
-  function removeTokenFrom(address _from, uint256 _tokenId) virtual override internal {
+  function removeTokenFrom(address _from, uint256 _tokenId) internal {
     super.removeTokenFrom(_from, _tokenId);
 
     uint256 tokenIndex = ownedTokensIndex[_tokenId];
-    uint256 lastTokenIndex = ownedTokens[_from].length;
+    uint256 lastTokenIndex = ownedTokens[_from].length.sub(1);
     uint256 lastToken = ownedTokens[_from][lastTokenIndex];
 
     ownedTokens[_from][tokenIndex] = lastToken;
@@ -140,7 +138,7 @@ abstract contract ERC721Token is ERC721, ERC721BasicToken {
     // be zero. Then we can make sure that we will remove _tokenId from the ownedTokens list since we are first swapping
     // the lastToken to the first position, and then dropping the element placed in the last position of the list
 
-    ownedTokens[_from].pop();
+    ownedTokens[_from].length--;
     ownedTokensIndex[_tokenId] = 0;
     ownedTokensIndex[lastToken] = tokenIndex;
   }
@@ -151,7 +149,7 @@ abstract contract ERC721Token is ERC721, ERC721BasicToken {
   * @param _to address the beneficiary that will own the minted token
   * @param _tokenId uint256 ID of the token to be minted by the msg.sender
   */
-  function _mint(address _to, uint256 _tokenId) virtual override internal {
+  function _mint(address _to, uint256 _tokenId) internal {
     super._mint(_to, _tokenId);
 
     allTokensIndex[_tokenId] = allTokens.length;
@@ -164,7 +162,7 @@ abstract contract ERC721Token is ERC721, ERC721BasicToken {
   * @param _owner owner of the token to burn
   * @param _tokenId uint256 ID of the token being burned by the msg.sender
   */
-  function _burn(address _owner, uint256 _tokenId) virtual override internal {
+  function _burn(address _owner, uint256 _tokenId) internal {
     super._burn(_owner, _tokenId);
 
     // Clear metadata (if any)
@@ -174,13 +172,13 @@ abstract contract ERC721Token is ERC721, ERC721BasicToken {
 
     // Reorg all tokens array
     uint256 tokenIndex = allTokensIndex[_tokenId];
-    uint256 lastTokenIndex = allTokens.length;
+    uint256 lastTokenIndex = allTokens.length.sub(1);
     uint256 lastToken = allTokens[lastTokenIndex];
 
     allTokens[tokenIndex] = lastToken;
     allTokens[lastTokenIndex] = 0;
 
-    allTokens.pop();
+    allTokens.length--;
     allTokensIndex[_tokenId] = 0;
     allTokensIndex[lastToken] = tokenIndex;
   }

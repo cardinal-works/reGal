@@ -1,4 +1,6 @@
-pragma solidity ^0.5.16;
+// SPDX-License-Identifier: MIT
+
+pragma solidity >=0.8.0;
 
 import "./ERC721.sol";
 
@@ -8,8 +10,8 @@ import "./ERC721.sol";
  * @dev Only use this interface for compatibility with previously deployed contracts
  * @dev Use ERC721 for interacting with new contracts which are standard-compliant
  */
-contract DeprecatedERC721 is ERC721 {
-  function takeOwnership(uint256 _tokenId) public;
-  function transfer(address _to, uint256 _tokenId) public;
-  function tokensOf(address _owner) public view returns (uint256[] memory);
+abstract contract DeprecatedERC721 is ERC721 {
+  function takeOwnership(uint256 _tokenId) virtual public;
+  function transfer(address _to, uint256 _tokenId) virtual public;
+  function tokensOf(address _owner) virtual public view returns (uint256[] memory);
 }

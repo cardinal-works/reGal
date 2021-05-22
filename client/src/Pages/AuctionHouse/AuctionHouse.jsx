@@ -11,7 +11,7 @@ import Auction from '../Auction';
 import { toJS } from 'mobx';
 import ipfs from '../../ipfs';
 var Buffer = require('buffer/').Buffer;
-import { AuctionRepository_abi } from '../../../abi/AuctionRepository_abi';
+import { AuctionRepository } from '../../../abi/AuctionRepository_abi';
 
 // uint auctionId = auctions.length;
 // Auction memory newAuction;
@@ -40,9 +40,16 @@ const AuctionHouse = ({ web3 }) => {
 	const nftStore = useContext(NftStore);
 	const { loadNfts, getAllNfts, nftRegistry } = nftStore;
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
+	let contractAddr = '0x6fA517231FC8Af43254DA18F9C19FD35160a79ce';
+	const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
+
 	useEffect(() => {
 		console.log(window.ethereum.selectedAddress);
 		loadUser(window.ethereum.selectedAddress).then((res) => loadNfts({ user_id: res._id }));
+		AuctionRepositoryContract.methods
+			.getAuctionsOf(window.ethereum.selectedAddress)
+			.call()
+			.then(res => console.log('res', res))
 	}, []);
 
 	useEffect(() => {

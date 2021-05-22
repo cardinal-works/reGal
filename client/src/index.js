@@ -9,7 +9,7 @@ import truffleConfig from "../truffle-config";
 //CSS
 import "../assets/styles/Custom.scss";
 
-var web3Location = `http://${truffleConfig.networks.development.host}:${truffleConfig.networks.development.port}`;
+var web3Location = `http://${truffleConfig.networks.rpc.host}:${truffleConfig.networks.rpc.port}`;
 
 
 //import our Landing, that is linked to the root and 
@@ -21,7 +21,7 @@ window.addEventListener('load', function() {
     // eslint-disable-next-line                       
     web3Provided = new Web3(web3.currentProvider);               
   } else {                                                      
-    web3Provided = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:7545'))
+    web3Provided = new Web3(new Web3.providers.HttpProvider(web3Location))
   }   
   ReactDOM.render(
     <ParallaxProvider>

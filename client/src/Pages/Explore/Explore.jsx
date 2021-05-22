@@ -40,7 +40,7 @@ const Explore = (web3) => {
 
 	return (
 		<div className="gradiant-background">
-			<Container className="nft-container " fluid>
+			<Container className="nft-container ">
 				<Row className="featured-nft-nav ">
 					<Col className="featured-text text-end featured-text text-white font-primary">
 							Featured				

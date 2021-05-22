@@ -1,6 +1,4 @@
-// SPDX-License-Identifier: MIT
-
-pragma solidity >=0.8.0;
+pragma solidity ^0.5.16;
 
 import "./ERC721Basic.sol";
 import "./ERC721Receiver.sol";
@@ -12,7 +10,7 @@ import "../utils/AddressUtils.sol";
  * @title ERC721 Non-Fungible Token Standard basic implementation
  * @dev see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
-abstract contract ERC721BasicToken is ERC721Basic {
+contract ERC721BasicToken is ERC721Basic {
   using SafeMath for uint256;
   using AddressUtils for address;
 
@@ -55,7 +53,7 @@ abstract contract ERC721BasicToken is ERC721Basic {
   * @param _owner address to query the balance of
   * @return uint256 representing the amount owned by the passed address
   */
-  function balanceOf(address _owner) virtual override public view returns (uint256) {
+  function balanceOf(address _owner) public view returns (uint256) {
     require(_owner != address(0));
     return ownedTokensCount[_owner];
   }
@@ -65,7 +63,7 @@ abstract contract ERC721BasicToken is ERC721Basic {
   * @param _tokenId uint256 ID of the token to query the owner of
   * @return owner address currently marked as the owner of the given token ID
   */
-  function ownerOf(uint256 _tokenId) virtual override public view returns (address) {
+  function ownerOf(uint256 _tokenId) public view returns (address) {
     address owner = tokenOwner[_tokenId];
     require(owner != address(0));
     return owner;
@@ -76,7 +74,7 @@ abstract contract ERC721BasicToken is ERC721Basic {
   * @param _tokenId uint256 ID of the token to query the existance of
   * @return whether the token exists
   */
-  function exists(uint256 _tokenId) virtual override public view returns (bool) {
+  function exists(uint256 _tokenId) public view returns (bool) {
     address owner = tokenOwner[_tokenId];
     return owner != address(0);
   }
@@ -89,7 +87,7 @@ abstract contract ERC721BasicToken is ERC721Basic {
   * @param _to address to be approved for the given token ID
   * @param _tokenId uint256 ID of the token to be approved
   */
-  function approve(address _to, uint256 _tokenId) virtual override public {
+  function approve(address _to, uint256 _tokenId) public {
     address owner = ownerOf(_tokenId);
     require(_to != owner);
     require(msg.sender == owner || isApprovedForAll(owner, msg.sender));
@@ -105,7 +103,7 @@ abstract contract ERC721BasicToken is ERC721Basic {
    * @param _tokenId uint256 ID of the token to query the approval of
    * @return address currently approved for a the given token ID
    */
-  function getApproved(uint256 _tokenId) virtual override public view returns (address) {
+  function getApproved(uint256 _tokenId) public view returns (address) {
     return tokenApprovals[_tokenId];
   }
 
@@ -115,7 +113,7 @@ abstract contract ERC721BasicToken is ERC721Basic {
   * @param _to operator address to set the approval
   * @param _approved representing the status of the approval to be set
   */
-  function setApprovalForAll(address _to, bool _approved) virtual override public {
+  function setApprovalForAll(address _to, bool _approved) public {
     require(_to != msg.sender);
     operatorApprovals[msg.sender][_to] = _approved;
     emit ApprovalForAll(msg.sender, _to, _approved);
@@ -127,7 +125,7 @@ abstract contract ERC721BasicToken is ERC721Basic {
    * @param _operator operator address which you want to query the approval of
    * @return bool whether the given operator is approved by the given owner
    */
-  function isApprovedForAll(address _owner, address _operator) virtual override public view returns (bool) {
+  function isApprovedForAll(address _owner, address _operator) public view returns (bool) {
     return operatorApprovals[_owner][_operator];
   }
 
@@ -139,7 +137,7 @@ abstract contract ERC721BasicToken is ERC721Basic {
   * @param _to address to receive the ownership of the given token ID
   * @param _tokenId uint256 ID of the token to be transferred
   */
-  function transferFrom(address _from, address _to, uint256 _tokenId) virtual override public canTransfer(_tokenId) {
+  function transferFrom(address _from, address _to, uint256 _tokenId) public canTransfer(_tokenId) {
     require(_from != address(0));
     require(_to != address(0));
 
@@ -166,9 +164,7 @@ abstract contract ERC721BasicToken is ERC721Basic {
     address _to,
     uint256 _tokenId
   )
-   public
-   virtual
-   override
+    public
     canTransfer(_tokenId)
   {
     safeTransferFrom(_from, _to, _tokenId, "");
@@ -192,9 +188,7 @@ abstract contract ERC721BasicToken is ERC721Basic {
     uint256 _tokenId,
     bytes memory _data
   )
-   public
-   virtual
-   override
+    public
     canTransfer(_tokenId)
   {
     transferFrom(_from, _to, _tokenId);
@@ -208,41 +202,41 @@ abstract contract ERC721BasicToken is ERC721Basic {
    * @return bool whether the msg.sender is approved for the given token ID,
    *  is an operator of the owner, or is the owner of the token
    */
-  function isApprovedOrOwner(address _spender, uint256 _tokenId) virtual internal view returns (bool) {
+  function isApprovedOrOwner(address _spender, uint256 _tokenId) internal view returns (bool) {
     address owner = ownerOf(_tokenId);
     return _spender == owner || getApproved(_tokenId) == _spender || isApprovedForAll(owner, _spender);
   }
 
   /**
-  * @dev virtual Internal function to mint a new token
+  * @dev Internal function to mint a new token
   * @dev Reverts if the given token ID already exists
   * @param _to The address that will own the minted token
   * @param _tokenId uint256 ID of the token to be minted by the msg.sender
   */
-  function _mint(address _to, uint256 _tokenId) virtual internal {
+  function _mint(address _to, uint256 _tokenId) internal {
     require(_to != address(0));
     addTokenTo(_to, _tokenId);
     emit Transfer(address(0), _to, _tokenId);
   }
 
   /**
-  * @dev virtual Internal function to burn a specific token
+  * @dev Internal function to burn a specific token
   * @dev Reverts if the token does not exist
   * @param _tokenId uint256 ID of the token being burned by the msg.sender
   */
-  function _burn(address _owner, uint256 _tokenId) virtual internal {
+  function _burn(address _owner, uint256 _tokenId) internal {
     clearApproval(_owner, _tokenId);
     removeTokenFrom(_owner, _tokenId);
     emit Transfer(_owner, address(0), _tokenId);
   }
 
   /**
-  * @dev virtual Internal function to clear current approval of a given token ID
+  * @dev Internal function to clear current approval of a given token ID
   * @dev Reverts if the given address is not indeed the owner of the token
   * @param _owner owner of the token
   * @param _tokenId uint256 ID of the token to be transferred
   */
-  function clearApproval(address _owner, uint256 _tokenId) virtual internal {
+  function clearApproval(address _owner, uint256 _tokenId) internal {
     require(ownerOf(_tokenId) == _owner);
     if (tokenApprovals[_tokenId] != address(0)) {
       tokenApprovals[_tokenId] = address(0);
@@ -251,29 +245,29 @@ abstract contract ERC721BasicToken is ERC721Basic {
   }
 
   /**
-  * @dev virtual Internal function to add a token ID to the list of a given address
+  * @dev Internal function to add a token ID to the list of a given address
   * @param _to address representing the new owner of the given token ID
   * @param _tokenId uint256 ID of the token to be added to the tokens list of the given address
   */
-  function addTokenTo(address _to, uint256 _tokenId) virtual internal {
+  function addTokenTo(address _to, uint256 _tokenId) internal {
     require(tokenOwner[_tokenId] == address(0));
     tokenOwner[_tokenId] = _to;
     ownedTokensCount[_to] = ownedTokensCount[_to].add(1);
   }
 
   /**
-  * @dev virtual Internal function to remove a token ID from the list of a given address
+  * @dev Internal function to remove a token ID from the list of a given address
   * @param _from address representing the previous owner of the given token ID
   * @param _tokenId uint256 ID of the token to be removed from the tokens list of the given address
   */
-  function removeTokenFrom(address _from, uint256 _tokenId) virtual internal {
+  function removeTokenFrom(address _from, uint256 _tokenId) internal {
     require(ownerOf(_tokenId) == _from);
     ownedTokensCount[_from] = ownedTokensCount[_from].sub(1);
     tokenOwner[_tokenId] = address(0);
   }
 
   /**
-  * @dev virtual Internal function to invoke `onERC721Received` on a target address
+  * @dev Internal function to invoke `onERC721Received` on a target address
   * @dev The call is not executed if the target address is not a contract
   * @param _from address representing the previous owner of the given token ID
   * @param _to target address that will receive the tokens
@@ -287,7 +281,7 @@ abstract contract ERC721BasicToken is ERC721Basic {
     uint256 _tokenId,
     bytes memory _data
   )
-    virtual internal
+    internal
     returns (bool)
   {
     if (!_to.isContract()) {
