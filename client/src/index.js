@@ -21,7 +21,7 @@ window.addEventListener('load', function() {
     // eslint-disable-next-line                       
     web3Provided = new Web3(web3.currentProvider);               
   } else {                                                      
-    web3Provided = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:7545');
+    web3Provided = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:7545'))
   }   
   ReactDOM.render(
     <ParallaxProvider>
