@@ -13,26 +13,8 @@ import ipfs from '../../ipfs';
 var Buffer = require('buffer/').Buffer;
 import { AuctionRepository } from '../../../abi/AuctionRepository_abi';
 
-// uint auctionId = auctions.length;
-// Auction memory newAuction;
-// newAuction.name = _auctionTitle;
-// newAuction.blockDeadline = _blockDeadline;
-// newAuction.startPrice = _startPrice;
-// newAuction.metadata = _metadata;
-// newAuction.deedId = _deedId;
-// newAuction.deedRepositoryAddress = _deedRepositoryAddress;
-// newAuction.owner = msg.sender;
-// newAuction.active = true;
-// newAuction.finalized = false;
 
-const auctionMetaData = {
-	contract_address: '0x1a9127b29180DA82C6072b7ef2F855c955ef2fF1',
-	nft_id: 0,
-	auction_title: '',
-	auction_metadata: '',
-	auction_start_price: 0,
-	auction_deadline: 0,
-};
+const AUCTION_ADD = process.env.AUCTION_ADD
 
 const AuctionHouse = ({ web3 }) => {
 	const [modalShow, setModalShow] = useState(false);
@@ -40,7 +22,7 @@ const AuctionHouse = ({ web3 }) => {
 	const nftStore = useContext(NftStore);
 	const { loadNfts, getAllNfts, nftRegistry } = nftStore;
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
-	let contractAddr = '0x6fA517231FC8Af43254DA18F9C19FD35160a79ce';
+	let contractAddr = AUCTION_ADD;
 	const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
 
 	useEffect(() => {

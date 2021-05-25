@@ -16,6 +16,7 @@ contract DeedRepository is ERC721Token {
     * @param _name string represents the name of the repository
     * @param _symbol string represents the symbol of the repository
     */
+
     constructor(string memory _name, string memory _symbol) 
         ERC721Token(_name, _symbol) {}
     
@@ -34,8 +35,6 @@ contract DeedRepository is ERC721Token {
     function getTotalNFTCount () public view returns (uint) {
         return totalSupply();
     }
-
-
 
     /**
     * , string memory _title, string memory _creator, string memory _name _title, _creator, _name

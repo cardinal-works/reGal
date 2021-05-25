@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import UseInterval from '../UseInterval';
 import CornerRibbon from 'react-corner-ribbon';
 //Store
-import NftStore from "../../Stores/NftStore";
+import NftStore from '../../Stores/NftStore';
 //Media
 import heart from '../../../assets/images/heart.png';
 import Profile from '../../../assets/images/profile.png';
@@ -27,25 +27,7 @@ const NftDisplay = ({
 }) => {
 	const nftStore = useContext(NftStore);
 	const { updateNft, loadNft } = nftStore;
-	// let timeLeft = new Date(ending).getTime() - new Date().getTime();
 	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
-	// const [auctionTimer, setAuctionTimer] = useState([{
-	//     days: Math.floor(timeLeft / (86400000)),
-	//     hours: Math.floor((timeLeft % (86400000)) / (3600000)),
-	//     minutes: Math.floor((timeLeft % (3600000)) / (60000)),
-	//     seconds: Math.floor((timeLeft % (60000)) / 1000),
-	//   }]);
-	// UseInterval(() => {
-	// let timeLeft = new Date(ending).getTime() - new Date().getTime();
-	//   setAuctionTimer([
-	//     {
-	//       days: Math.floor(timeLeft / (86400000)),
-	//       hours: Math.floor((timeLeft % (86400000)) / (3600000)),
-	//       minutes: Math.floor((timeLeft % (3600000)) / (60000)),
-	//       seconds: Math.floor((timeLeft % (60000)) / 1000),
-	//     },
-	//   ]);
-	// }, 1000)
 
 	useEffect(() => {
 		fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc')
@@ -55,10 +37,8 @@ const NftDisplay = ({
 	}, []);
 
 	const handleLikeNft = () => {
-		loadNft(nft_id).then( nft => (
-			updateNft({...nft, likes: nft.likes + 1})
-		))
-	}
+		loadNft(nft_id).then((nft) => updateNft({ ...nft, likes: nft.likes + 1 }));
+	};
 
 	return (
 		<Fragment>
@@ -68,8 +48,7 @@ const NftDisplay = ({
 						pathname: `/details/${nft_id}`,
 						state: { nft_id: Number(nft_id) },
 					}}
-					className="btn btn-regal mt-4"
-				>
+					className="btn btn-regal mt-4">
 					Details
 				</Link>
 				<Button variant="danger" className="like-button mt-4 ml-2" onClick={handleLikeNft}>

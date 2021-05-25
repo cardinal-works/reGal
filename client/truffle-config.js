@@ -39,12 +39,12 @@ module.exports = {
 
 
     rpc: {
-      host: '127.0.0.1',
+      host: 'localhost',
       port: 8545,
       network_id: "*" // Match any network id
     },
 
-
+// truffle migrate --network rpc 
 
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
@@ -66,8 +66,8 @@ module.exports = {
     advanced: {
     // port: 8777,             // Custom port
     // network_id: 1342,       // Custom network
-       gas: 6721975,           // Gas sent with each transaction (default: ~6700000)
-       gasPrice: 20  // 20 gwei (in wei) (default: 100 gwei)
+      //  gas: 6721975,           // Gas sent with each transaction (default: ~6700000)
+      //  gasPrice: 20  // 20 gwei (in wei) (default: 100 gwei)
     // from: <address>,        // Account to send txs from (default: accounts[0])
     // websocket: true        // Enable EventEmitter interface for web3 (default: false)
     },

@@ -108,7 +108,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -132,7 +133,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -191,7 +193,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -204,7 +207,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -223,7 +227,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -242,7 +247,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -266,7 +272,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -285,7 +292,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -344,7 +352,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -427,7 +436,8 @@
       "name": "bidOnAuction",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_auctionId\",\"type\":\"uint256\"}],\"name\":\"AuctionCanceled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_auctionId\",\"type\":\"uint256\"}],\"name\":\"AuctionCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_auctionId\",\"type\":\"uint256\"}],\"name\":\"AuctionFinalized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_auctionId\",\"type\":\"uint256\"}],\"name\":\"BidSuccess\",\"type\":\"event\"},{\"stateMutability\":\"nonpayable\",\"type\":\"fallback\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"auctionBids\",\"outputs\":[{\"internalType\":\"address payable\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"auctionOwner\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"auctions\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"blockDeadline\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"startPrice\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"metadata\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"deedId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"deedRepositoryAddress\",\"type\":\"address\"},{\"internalType\":\"address payable\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"finalized\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_auctionId\",\"type\":\"uint256\"}],\"name\":\"bidOnAuction\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_auctionId\",\"type\":\"uint256\"}],\"name\":\"cancelAuction\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_deedRepositoryAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_deedId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_auctionTitle\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_metadata\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"_startPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_blockDeadline\",\"type\":\"uint256\"}],\"name\":\"createAuction\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_auctionId\",\"type\":\"uint256\"}],\"name\":\"finalizeAuction\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_auctionId\",\"type\":\"uint256\"}],\"name\":\"getAuctionById\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"blockDeadline\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"startPrice\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"metadata\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"deedId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"deedRepositoryAddress\",\"type\":\"address\"},{\"internalType\":\"address payable\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"finalized\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"getAuctionsCountOfOwner\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"getAuctionsOf\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_auctionId\",\"type\":\"uint256\"}],\"name\":\"getBidsCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_auctionId\",\"type\":\"uint256\"}],\"name\":\"getCurrentBid\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"bidOnAuction(uint256)\":{\"details\":\"Bidder sends bid on an auctionAuction should be active and not endedRefund previous bidder if a new bid is valid and placed.\",\"params\":{\"_auctionId\":\"uint ID of the created auction\"}},\"cancelAuction(uint256)\":{\"details\":\"Cancels an ongoing auction by the ownerDeed is transfered back to the auction ownerBidder is refunded with the initial amount\",\"params\":{\"_auctionId\":\"uint ID of the created auction\"}},\"createAuction(address,uint256,string,string,uint256,uint256)\":{\"details\":\"Creates an auction with the given informatin\",\"params\":{\"_auctionTitle\":\"string containing auction title\",\"_blockDeadline\":\"uint is the timestamp in which the auction expires\",\"_deedId\":\"uint256 of the deed registered in DeedRepository\",\"_deedRepositoryAddress\":\"address of the DeedRepository contract\",\"_metadata\":\"string containing auction metadata\",\"_startPrice\":\"uint256 starting price of the auction\"},\"returns\":{\"_0\":\"bool whether the auction is created\"}},\"finalizeAuction(uint256)\":{\"details\":\"Finalized an ended auctionThe auction should be ended, and there should be at least one bidOn success Deed is transfered to bidder and auction owner gets the amount\",\"params\":{\"_auctionId\":\"uint ID of the created auction\"}},\"getAuctionsCountOfOwner(address)\":{\"details\":\"Gets the total number of auctions owned by an address\",\"params\":{\"_owner\":\"address of the owner\"},\"returns\":{\"_0\":\"uint total number of auctions\"}},\"getAuctionsOf(address)\":{\"details\":\"Gets an array of owned auctions\",\"params\":{\"_owner\":\"address of the auction owner\"}},\"getBidsCount(uint256)\":{\"details\":\"Gets the bid counts of a given auction\",\"params\":{\"_auctionId\":\"uint ID of the auction\"}},\"getCount()\":{\"details\":\"Gets the length of auctions\",\"returns\":{\"_0\":\"uint representing the auction count\"}},\"getCurrentBid(uint256)\":{\"details\":\"Gets an array of owned auctions\",\"params\":{\"_auctionId\":\"uint of the auction owner\"},\"returns\":{\"_0\":\"amount uint256, address of last bidder\"}}},\"title\":\"Auction Repository This contracts allows auctions to be created for non-fungible tokens Moreover, it includes the basic functionalities of an auction house\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/ramtin/Desktop/reGal/client/contracts/AuctionRepository.sol\":\"AuctionRepository\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/ramtin/Desktop/reGal/client/contracts/AuctionRepository.sol\":{\"keccak256\":\"0xc76e3614fffd847748a48e72e7ba7d33a152c6aa2a45168344abc88f9675361d\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://576e1cbc093ef7920737cdf8a2f7ffd3657dc14ff26283c6ae9a44471753e1d8\",\"dweb:/ipfs/QmYPo8FnsHQ5e5bhp4X7guH68DNFJxUvAhUpeL92GhJMC2\"]},\"/Users/ramtin/Desktop/reGal/client/contracts/DeedRepository.sol\":{\"keccak256\":\"0x1138f89a476d648a48b3ea04231f0008128a93a41d7f58f0ab64b3419afc0b10\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://134bea4e0255a55e3b87e27f5ca97a479b38d8be60963fb605267900899cd4b9\",\"dweb:/ipfs/Qme9s21fcQE1bPUopyCyVXQwwZmGEJPcCT2TkiC7Mz1dEB\"]},\"/Users/ramtin/Desktop/reGal/client/contracts/ERC721/DeprecatedERC721.sol\":{\"keccak256\":\"0xe1a2f068e191785438b582b068a1bac027a21a08705f834d636d6f0a2dd99d0f\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://70603ff830bdf221a1af98fe21e6ff9cc6335cc456c322f2ee523cf48e7dc8e3\",\"dweb:/ipfs/QmSireVctDawuzEJJxmb5TwyCq2tHLxeQqe6WVavH3PaAp\"]},\"/Users/ramtin/Desktop/reGal/client/contracts/ERC721/ERC721.sol\":{\"keccak256\":\"0x25d18c2cf3de67512221d7270d3a8d90cc6e1c63213190eee9e1e9f41f275214\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8c14b37b21b7abab05ef596a0874378de5b5ef078552fa08f1ad7dfaa71dddb6\",\"dweb:/ipfs/QmazNRQAteB2ohuq9Awahr5qvCSgNeKussCGakAQGNQbGJ\"]},\"/Users/ramtin/Desktop/reGal/client/contracts/ERC721/ERC721Basic.sol\":{\"keccak256\":\"0x9f2bd3e7caed15ab888e27cdbe77b90cdc6ce5cf845a2d51c5d02a734f67f813\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://79c2135bb8822f9ddbeea61614d44a505711df43cf087094b9aa2ed5eddbdfe7\",\"dweb:/ipfs/QmRhhne83tq9Qw3vb9vPMmxBxv54cEgx8QmzTCZDjfr336\"]},\"/Users/ramtin/Desktop/reGal/client/contracts/ERC721/ERC721BasicToken.sol\":{\"keccak256\":\"0x1e0eb4522c551cd43625acd3c7e6e28c53b1c0209401c77750f585c9d36d2237\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1a19eadd67b7062868998b1baea8daa4c6371bd743a47e85fb7632dc457eff28\",\"dweb:/ipfs/QmTpe3C3XdFU9YLYGQ8hFC6RoQLgYX1cauvvRexr8qgYzK\"]},\"/Users/ramtin/Desktop/reGal/client/contracts/ERC721/ERC721Receiver.sol\":{\"keccak256\":\"0x95b7ce8a1872414251bd3bf8f2a4e3178c41d227ed6390ae87809e5953866b8e\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://749ac65d1166b8704f91ffc193feb2a71f21d91e0cb0fbdbc18b603f5c7e4408\",\"dweb:/ipfs/Qmba6EYEgyjWKTQ3qZZeJogxJK36ukExqNV1v1PKpwxMJh\"]},\"/Users/ramtin/Desktop/reGal/client/contracts/ERC721/ERC721Token.sol\":{\"keccak256\":\"0x811ef0ac098b49ba7c0e5a219421f47dc6a32081cb12e8d03265f82dfe285eeb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://eeac9766d6e0d81dc244d00fce3ddcd2d7298d5cff113f04b04c10e2492f1dec\",\"dweb:/ipfs/QmckidrxteBXYM2UZ8wHcrznduiVP1YAP27MetSChEGeqo\"]},\"/Users/ramtin/Desktop/reGal/client/contracts/utils/AddressUtils.sol\":{\"keccak256\":\"0xbe617a3bbea587e6bc4672cad9b434cb14256ad3091a7ee68190fb3989e929da\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://32462235e9b55185a5f32845e1d8445b72aa33fb937dbdca7a916bf60e7dfbf8\",\"dweb:/ipfs/QmTxhzTmC5n8L1yyyHT3u9jU47eRXXseZ3zFtjCZHzSwxo\"]},\"/Users/ramtin/Desktop/reGal/client/contracts/utils/math/SafeMath.sol\":{\"keccak256\":\"0xc5ed2c2a3bdb241ef2739458835274c55f9e6b21b8c001cbb6454ba09e5cd7a9\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f7ace25e88c153b49862cc6fef30b73555b8d4b02b58b30b4c2b08d6040ec7db\",\"dweb:/ipfs/QmfQuF6rnzJnJc9M6rnsbZviyZ6itr8bGT56L7tYj7ZfFm\"]}},\"version\":1}",
@@ -25749,9 +25759,23 @@
     "name": "solc",
     "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x38168834e4Bb903a487372deC5807dB10bC83C2a",
+      "transactionHash": "0x0583841844b3c4ad6b58a86564ebf38c6fa2c4fb2b1af7afcdb0c1a0019b29d5"
+    },
+    "1621716395548": {
+      "events": {},
+      "links": {},
+      "address": "0x96aFF928B1560C2D37ae16Adb8D09d0B4C683d30",
+      "transactionHash": "0x53baef9b4e98fd7afd13268e78f89bfe245fcb1e0b774789978629ac8b1c0f66"
+    }
+  },
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-05-22T17:52:31.981Z",
+  "updatedAt": "2021-05-22T20:56:51.613Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {

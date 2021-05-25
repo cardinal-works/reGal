@@ -7,6 +7,8 @@ import { AuctionRepository } from '../../../abi/AuctionRepository_abi';
 import NftStore from '../../Stores/NftStore';
 import UserStore from '../../Stores/UserStore';
 import PriceStore from '../../Stores/PriceStore';
+const AUCTION_ADD = process.env.AUCTION_ADD
+const NFT_ADD = process.env.NFT_ADD
 
 const Auction = ({ web3 }) => {
 	const nftStore = useContext(NftStore);
@@ -18,7 +20,7 @@ const Auction = ({ web3 }) => {
 	const { getPrices, prices } = priceStore;
 	const { user, loadUser } = userStore;
 
-	let contractAddr = '0x6fA517231FC8Af43254DA18F9C19FD35160a79ce';
+	let contractAddr = AUCTION_ADD;
 	const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
 
 	const [auctionData, setAuctionData] = useState({
@@ -27,7 +29,7 @@ const Auction = ({ web3 }) => {
 		startPrice: null,
 		metaData: `Regal Auction @${Date.now()}`,
 		deedId: null,
-		deedRepo: '0xCC1fA852B2D7dD999F2918e7adec0fa588Bd6f24',
+		deedRepo: NFT_ADD,
 	});
 
 	const handleAuctionTitle = (e) => {

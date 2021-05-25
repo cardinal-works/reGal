@@ -17,6 +17,7 @@ import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
 import { DeedRepository } from '../../../abi/DeedRepository_abi';
 var Buffer = require('buffer/').Buffer;
+const NFT_ADD = process.env.NFT_ADD
 
 const _dbMetadata = {
 	title: '',
@@ -38,7 +39,7 @@ const _dbMetadata = {
 };
 
 const NftMinter = ({ web3 }) => {
-	const contractAddr = '0xCC1fA852B2D7dD999F2918e7adec0fa588Bd6f24';
+	const contractAddr = NFT_ADD;
 	// const contractAddr = "0xce863dD3ec9bcDEEE585660Cab63C777E1201876";
 	const DeedRepositoryContract = new web3.eth.Contract(DeedRepository, contractAddr);
 	const userStore = useContext(UserStore);
@@ -58,7 +59,6 @@ const NftMinter = ({ web3 }) => {
 
 	const handleMint = async () => {
 		if (user._id) {
-			console.log(user._id);
 			const _bcMetadata = {
 				title: dbMetaData.title,
 				creator: dbMetaData.creator,

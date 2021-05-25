@@ -1086,7 +1086,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-05-22T17:52:31.994Z",
+  "updatedAt": "2021-05-22T20:49:04.207Z",
   "devdoc": {
     "details": "Only use this interface for compatibility with previously deployed contractsUse ERC721 for interacting with new contracts which are standard-compliant",
     "kind": "dev",
