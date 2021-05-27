@@ -21,6 +21,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@openzeppelin/contracts": "^4.1.0",
     "animate.css": "^4.1.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",

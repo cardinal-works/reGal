@@ -7,8 +7,6 @@ import { AuctionRepository } from '../../../abi/AuctionRepository_abi';
 import NftStore from '../../Stores/NftStore';
 import UserStore from '../../Stores/UserStore';
 import PriceStore from '../../Stores/PriceStore';
-const AUCTION_ADD = process.env.AUCTION_ADD
-const NFT_ADD = process.env.NFT_ADD
 
 const Auction = ({ web3 }) => {
 	const nftStore = useContext(NftStore);
@@ -20,11 +18,7 @@ const Auction = ({ web3 }) => {
 	const { getPrices, prices } = priceStore;
 	const { user, loadUser } = userStore;
 
-<<<<<<< HEAD
-	let contractAddr = AUCTION_ADD;
-=======
-	let contractAddr = '0xD317bDEe64fb50095d79F8D8586EFeae3D314D3d';
->>>>>>> abc2a4d7b3ded9be8eb35df33ad2862d638010e2
+	let contractAddr = '0xa535e0C5Dec0a2CE862495AF88B2155D347615E3';
 	const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
 
 	const [auctionData, setAuctionData] = useState({
@@ -33,11 +27,7 @@ const Auction = ({ web3 }) => {
 		startPrice: null,
 		metaData: `Regal Auction @${Date.now()}`,
 		deedId: null,
-<<<<<<< HEAD
-		deedRepo: NFT_ADD,
-=======
-		deedRepo: '0xf151fE67F58d52f49D65B5BAddCC01f5c70F702B',
->>>>>>> abc2a4d7b3ded9be8eb35df33ad2862d638010e2
+		deedRepo: '0x7062291c081993f67AB0e428835bEE8b51d664e0',
 	});
 
 	const handleAuctionTitle = (e) => {
@@ -67,11 +57,7 @@ const Auction = ({ web3 }) => {
 		const metaData = auctionData.metaData;
 		const deedId = nft.nft_id;
 		const deedRepo = auctionData.deedRepo;
-<<<<<<< HEAD
 		AuctionRepositoryContract.methods
-=======
-		await AuctionRepositoryContract.methods
->>>>>>> abc2a4d7b3ded9be8eb35df33ad2862d638010e2
 			.createAuction(deedRepo, deedId, title, metaData, startPrice, blockDeadline)
 			.send({ from: window.ethereum.selectedAddress })
 			.then(res => console.log(res))

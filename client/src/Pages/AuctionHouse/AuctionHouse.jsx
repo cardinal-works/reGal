@@ -14,7 +14,6 @@ var Buffer = require('buffer/').Buffer;
 import { AuctionRepository } from '../../../abi/AuctionRepository_abi';
 
 
-const AUCTION_ADD = process.env.AUCTION_ADD
 
 const AuctionHouse = ({ web3 }) => {
 	const [modalShow, setModalShow] = useState(false);
@@ -22,7 +21,7 @@ const AuctionHouse = ({ web3 }) => {
 	const nftStore = useContext(NftStore);
 	const { loadNfts, getAllNfts, nftRegistry } = nftStore;
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
-	let contractAddr = AUCTION_ADD;
+	let contractAddr = '0xa535e0C5Dec0a2CE862495AF88B2155D347615E3';
 	const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
 
 	useEffect(() => {
