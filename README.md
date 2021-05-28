@@ -1,4 +1,4 @@
-
+# Regal #
 
 <img src='https://user-images.githubusercontent.com/71619815/119935178-e7ed5b00-bf3b-11eb-8bf1-be4d782509d1.jpg' width="300"/>
 
