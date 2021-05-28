@@ -17,6 +17,7 @@ const Navigation = () => {
 	}, []);
 
 	return (
+		<Container className='nav-container' fluid>
 		<Navbar className="nav-bar" collapseOnSelect expand="lg" variant="dark">
 			<Navbar.Brand
 				as={Link}
@@ -76,6 +77,7 @@ const Navigation = () => {
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>
+		</Container>
 	);
 };
 

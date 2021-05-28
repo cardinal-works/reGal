@@ -20,7 +20,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const App = ({ web3 }) => {
 	return (
 		<Switch>
-			<ComponentWrapper>
+			<ComponentWrapper web3={web3}>
 				<Route exact path="/" component={Explore} />
 				<Route exact path="/signup" component={SignUp} />
 				<Route exact path="/profile" component={Profile} />
