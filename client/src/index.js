@@ -9,7 +9,7 @@ import truffleConfig from "../truffle-config";
 //CSS
 import "../assets/styles/Custom.scss";
 
-var web3Location = `http://${truffleConfig.networks.rpc.host}:${truffleConfig.networks.rpc.port}`;
+var web3Location = `http://localhost:${truffleConfig.networks.regal.port}`;
 
 
 //import our Landing, that is linked to the root and 

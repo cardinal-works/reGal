@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Image, Button, ListGroup, Table, Form } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
-import { AuctionRepository } from '../../../abi/AuctionRepository_abi';
+import { RegalAuction } from '../../../abi/RegalAuction_abi';
 import NftStore from '../../Stores/NftStore';
 import UserStore from '../../Stores/UserStore';
 import PriceStore from '../../Stores/PriceStore';
@@ -18,16 +18,15 @@ const Auction = ({ web3 }) => {
 	const { getPrices, prices } = priceStore;
 	const { user, loadUser } = userStore;
 
-	let contractAddr = '0xD317bDEe64fb50095d79F8D8586EFeae3D314D3d';
-	const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
+	let contractAddr = '0x3C7038139356e5e30Cbc8bC407076617ce3437ea';
+	const RegalAuctionContract = new web3.eth.Contract(RegalAuction, contractAddr);
 
 	const [auctionData, setAuctionData] = useState({
 		title: null,
-		blockDeadline: (1 * 60 * 60) / 17,
+		startDate: Date.now(),
+		endTime: null,
 		startPrice: null,
-		metaData: `Regal Auction @${Date.now()}`,
-		deedId: null,
-		deedRepo: '0xf151fE67F58d52f49D65B5BAddCC01f5c70F702B',
+		deedId: 1,
 	});
 
 	const handleAuctionTitle = (e) => {
@@ -41,28 +40,38 @@ const Auction = ({ web3 }) => {
 
 	const handleStartPrice = (e) => {
 		e.preventDefault();
-		const value = e.target.value;
+		// const weiValue = Web3.utils.toWei(e.target.value, 'ether');
+		const value = weiValue;
 		setAuctionData((prevState) => ({
 			...prevState,
 			startPrice: value,
 		}));
 	};
 
+	const handleDuration = (e) => {
+
+		const value = Number(e.target.value);
+		let end = Date.now() + value;
+		end = Math.round(end / 1000)
+		setAuctionData((prevState) => ({
+			...prevState,
+			endTime: end,
+		}));
+	};
+
 	const handleCreateAuction = async () => {
 		// const { title, blockDeadline, startPrice, metaData, deedId, deedRepo } = auctionData;
-		console.log(typeof nft.nft_id);
 		const title = auctionData.title;
-		const blockDeadline = Math.floor(auctionData.blockDeadline);
+		const endDate = auctionData.endDate;
 		const startPrice = auctionData.startPrice;
-		const metaData = auctionData.metaData;
-		const deedId = nft.nft_id;
-		const deedRepo = auctionData.deedRepo;
-		await AuctionRepositoryContract.methods
-			.createAuction(deedRepo, deedId, title, metaData, startPrice, blockDeadline)
+		const deedId = auctionData.deedId;
+		RegalAuctionContract.methods
+			.startAuction(1, 1, 1622185134)
 			.send({ from: window.ethereum.selectedAddress })
-			.then((res) => console.log(res))
-
+			.then(res => console.log(res))
 	};
+
+
 
 	useEffect(() => {
 		loadUser(window.ethereum.selectedAddress);
@@ -107,11 +116,11 @@ const Auction = ({ web3 }) => {
 
 									<Form.Group as={Col} controlId="formGridState">
 										<Form.Label>Auction Duration*</Form.Label>
-										<Form.Control as="select" defaultValue="Choose...">
+										<Form.Control onChange={(e) => handleDuration(e)} as="select" defaultValue="Choose...">
 											<option>Choose Duration...</option>
-											<option>24 hours</option>
-											<option>72 hours</option>
-											<option>7 days</option>
+											<option value={86400}>1 day</option>
+											<option value={259200}>3 days</option>
+											<option value={604800}>7 days</option>
 										</Form.Control>
 									</Form.Group>
 								</Row>

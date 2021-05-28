@@ -1,4 +1,6 @@
-pragma solidity ^0.5.16;
+// SPDX-License-Identifier: MIT
+
+pragma solidity >=0.8.0;
 
 import "./DeedRepository.sol";
 
@@ -63,9 +65,7 @@ contract AuctionRepository {
     /**
      * @dev Disallow payments to this contract directly
      */
-    function() external {
-        revert();
-    }
+    fallback() external {}
 
     /**
      * @dev Gets the length of auctions
@@ -128,19 +128,6 @@ contract AuctionRepository {
         return auctionOwner[_owner].length;
     }
 
-    /**
-     * @dev Gets the info of a given auction which are stored within a struct
-     * @param _auctionId uint ID of the auction
-     * @return string name of the auction
-     * @return uint256 timestamp of the auction in which it expires
-     * @return uint256 starting price of the auction
-     * @return string representing the metadata of the auction
-     * @return uint256 ID of the deed registered in DeedRepository
-     * @return address Address of the DeedRepository
-     * @return address owner of the auction
-     * @return bool whether the auction is active
-     * @return bool whether the auction is finalized
-     */
     function getAuctionById(uint256 _auctionId)
         public
         view
@@ -151,7 +138,7 @@ contract AuctionRepository {
             string memory metadata,
             uint256 deedId,
             address deedRepositoryAddress,
-            address owner,
+            address payable owner,
             bool active,
             bool finalized
         )
@@ -195,12 +182,12 @@ contract AuctionRepository {
         uint256 auctionId = auctions.length;
         Auction memory newAuction;
         newAuction.name = _auctionTitle;
-        newAuction.blockDeadline = _blockDeadline + now;
+        newAuction.blockDeadline = _blockDeadline + block.timestamp;
         newAuction.startPrice = _startPrice;
         newAuction.metadata = _metadata;
         newAuction.deedId = _deedId;
         newAuction.deedRepositoryAddress = _deedRepositoryAddress;
-        newAuction.owner = msg.sender;
+        newAuction.owner = payable(msg.sender);
         newAuction.active = true;
         newAuction.finalized = false;
 
@@ -332,7 +319,7 @@ contract AuctionRepository {
 
         // insert bid
         Bid memory newBid;
-        newBid.from = msg.sender;
+        newBid.from = payable(msg.sender);
         newBid.amount = ethAmountSent;
         auctionBids[_auctionId].push(newBid);
         emit BidSuccess(msg.sender, _auctionId);

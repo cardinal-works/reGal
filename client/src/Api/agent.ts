@@ -44,6 +44,7 @@ const sleep = (ms: number) => (response: AxiosResponse) =>
     setTimeout(() => resolve(response), ms)
   );
 
+
 const requests = {
   get: (url: string) => 
     axios
@@ -66,6 +67,7 @@ const requests = {
       .then(sleep(1000))
       .then(responseBody),
 };
+
 
 const User = {
   get: (id: number) => requests.get(`/user/get/${id}`),

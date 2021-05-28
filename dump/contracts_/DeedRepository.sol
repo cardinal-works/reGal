@@ -1,4 +1,6 @@
-pragma solidity ^0.5.16;
+// SPDX-License-Identifier: MIT
+
+pragma solidity >=0.8.0;
 import "./ERC721/ERC721Token.sol";
 
 /**
@@ -9,15 +11,14 @@ import "./ERC721/ERC721Token.sol";
  */
 contract DeedRepository is ERC721Token {
 
-
-
     /**
     * @dev Created a DeedRepository with a name and symbol
     * @param _name string represents the name of the repository
     * @param _symbol string represents the symbol of the repository
     */
+
     constructor(string memory _name, string memory _symbol) 
-        public ERC721Token(_name, _symbol) {}
+        ERC721Token(_name, _symbol) {}
     
     /**
     * @dev Public function to register a new deed
@@ -34,7 +35,6 @@ contract DeedRepository is ERC721Token {
     function getTotalNFTCount () public view returns (uint) {
         return totalSupply();
     }
-
 
     /**
     * , string memory _title, string memory _creator, string memory _name _title, _creator, _name
