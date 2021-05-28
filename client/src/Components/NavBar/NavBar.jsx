@@ -5,13 +5,17 @@ import { Link } from 'react-router-dom';
 import UserStore from '../../Stores/UserStore';
 import { observer } from 'mobx-react-lite';
 import CreateModal from '../CreateModal';
+import Web3 from "web3"
 
 const Navigation = () => {
 	const userStore = useContext(UserStore);
 	const [modalShow, setModalShow] = useState(false);
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
+	let web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+
 
 	useEffect(() => {
+		console.log(web3)
 		if(window.ethereum && window.ethereum.selectedAddress)
 			loadUser(window.ethereum.selectedAddress);
 	}, []);
