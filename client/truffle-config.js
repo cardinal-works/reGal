@@ -37,9 +37,9 @@ module.exports = {
 
   networks: {
 
-    rpc: {
-      host: 'localhost',
-      port: 8545,
+    regal: {
+      host: '127.0.0.1',
+      port: 9546,
       network_id: "*" // Match any network id
     },
 

@@ -15,7 +15,7 @@ import ipfs from '../../ipfs';
 import { Link, Redirect } from 'react-router-dom';
 import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
-import { DeedRepository } from '../../../abi/DeedRepository_abi';
+import { RegalAuction } from '../../../abi/RegalAuction_abi';
 var Buffer = require('buffer/').Buffer;
 
 const _dbMetadata = {
@@ -38,9 +38,9 @@ const _dbMetadata = {
 };
 
 const NftMinter = ({ web3 }) => {
-	const contractAddr = '0x7062291c081993f67AB0e428835bEE8b51d664e0';
+	const contractAddr = '0xF8915Fa980F1a44770C80500F9Bb4169b7E04D72';
 	// const contractAddr = "0xce863dD3ec9bcDEEE585660Cab63C777E1201876";
-	const DeedRepositoryContract = new web3.eth.Contract(DeedRepository, contractAddr);
+	const RegalAuctionContract = new web3.eth.Contract(RegalAuction, contractAddr);
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const [userChanges, setUserChanges] = useState({});
@@ -68,17 +68,10 @@ const NftMinter = ({ web3 }) => {
 			const result = await ipfs.add(_bcStringified);
 			const ipfsLink = 'https://gateway.ipfs.io/ipfs/' + result.path;
 
-			const tokenId = await DeedRepositoryContract.methods
-				.getTotalNFTCount()
-				.call({ from: window.ethereum.selectedAddress });
-			// setDbMetaData( prevState => ({...prevState, nft_id: tokenId}));
-			console.log(Number(tokenId) + 1, tokenId, typeof tokenId);
-
-			const mdResult = await DeedRepositoryContract.methods
-				.registerDeed(Number(tokenId) + 1, ipfsLink)
+			const mdResult = await RegalAuctionContract.methods
+				.createCollectible(ipfsLink)
 				.send({ from: window.ethereum.selectedAddress })
-				.then(createNft({ ...dbMetaData, nft_id: Number(tokenId) + 1 }, dbMetaData.user_id))
-				.then((res) => console.log('res', res.events.DeedRegistered.address));
+				.then(res => createNft({ ...dbMetaData, nft_id: res.events.Transfer.returnValues.tokenId}, dbMetaData.user_id))
 		} else {
 			return;
 		}

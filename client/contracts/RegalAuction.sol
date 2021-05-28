@@ -7,12 +7,21 @@ import "./tools/SafeMath.sol";
 
 contract RegalAuction is ERC721 {
     
+    /**
+    * @dev 
+    */
     struct History {
         address owned;
         uint256 price;
     }
     
-    //variables that remain static or connstant
+    
+    /**
+    * @dev A struct for storing the information of NFT's on the platform.
+    * @param _tokenId represents a specific deed
+    * @param _uri text which describes the characteristics of a given deed
+    * @return whether the deed metadata was added to the repository
+    */
     struct RegalCollectible {
         address payable seller; // 0x01wd...
         uint256 minbid; // 0
@@ -28,10 +37,16 @@ contract RegalAuction is ERC721 {
         address payable highestBidder;
     }
     
-    mapping(uint256 => RegalCollectible) public _regalCollectibles;  // Map id to ArtItem
-    address public owner;   // owner
+    mapping(uint256 => RegalCollectible) public _regalCollectibles; 
+
+    /**
+    * @dev 
+     */
+    address public owner;  
     address [] public minters;
-    using SafeMath for uint256;  // For Future use
+    
+    /// * added for future use
+    using SafeMath for uint256;
 
     //Note: Token is minted after it is sold or after auction ends
   
@@ -52,7 +67,11 @@ contract RegalAuction is ERC721 {
         owner = msg.sender;
     }
     
-    
+    /**
+    * @dev A function for minting valid collectibles and storing them in our contracts memory. 
+    * @param _tokenURI represents a specific collectible's IPFS URI, carrying it's discription.
+    */
+
     function createCollectible(string memory _tokenURI) public {
         minters.push(msg.sender);
         uint _id = minters.length;
@@ -60,15 +79,24 @@ contract RegalAuction is ERC721 {
         _setTokenURI(_id, _tokenURI);
         _regalCollectibles[_id] = RegalCollectible(payable(msg.sender), 0, _tokenURI, false, 0, 0, true);
     }
-    
-    function startAuction(uint _id, uint256 _minbid, uint256 _end) public onlyOwner(_id) returns (bool success) {
-        
-        require(_minbid >= 0, "Price cannot be less than 0");
-        
-        RegalCollectible memory collectible = _regalCollectibles[_id];
-        string memory _uri = collectible.tokenURI;
-        _regalCollectibles[_id] = RegalCollectible(payable(msg.sender), _minbid, _uri, true, block.timestamp, _end, true);
-        return true;
+
+    /**
+    * @dev 
+    * @param _id (uint) represents the id associated to a specific .
+    * @param _minbid (uint256) represents a specific collectible's IPFS URI, carrying it's discription.
+    * @param _end (uint256) represents a specific collectible's IPFS URI, carrying it's discription.       
+    * @return _success (bool) is returned on a sucessful invocation.  
+    */
+
+    function startAuction(uint _id, uint256 _minbid, uint256 _end) 
+        public 
+        onlyOwner(_id) // validates ownership of the collectible
+        returns (bool _success) {
+            require(_minbid >= 0, "Price cannot be less than 0");
+            RegalCollectible memory collectible = _regalCollectibles[_id];
+            string memory _uri = collectible.tokenURI;
+            _regalCollectibles[_id] = RegalCollectible(payable(msg.sender), _minbid, _uri, true, block.timestamp, _end, true);
+            return true;
     }
     
     function placeBid(uint256 id) public payable onlyOnSale(id) onlyNotOwner(id) onlyMinBid(id) returns (bool success) {
