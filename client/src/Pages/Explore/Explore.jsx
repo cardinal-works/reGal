@@ -40,10 +40,12 @@ const Explore = (web3) => {
 
 	return (
 		<div className="gradiant-background">
-			<Container className="nft-container ">
-				<Row className="featured-nft-nav ">
-					<Col className="featured-text text-end featured-text text-white font-primary">Featured</Col>
-					<Col className="text-start mt-1">
+			<Container className="nft-container p-0" fluid>
+				<Row className="featured-nft-nav">
+					<Col className="featured-text-col text-white text-start">
+						<span className="featured-text">Featured</span>{' '}
+					</Col>
+					<Col className="sort-button-col mb-2 text-end p-0">
 						<Dropdown>
 							<Dropdown.Toggle variant="danger" size="lg" className="sort-button" id="dropdown-basic">
 								sort
@@ -79,27 +81,6 @@ const Explore = (web3) => {
 								</Col>
 							);
 						})}
-					{/* {getAllNfts.length &&
-							// getAllNfts.slice(0, 2).map((nft, index) => {
-								getAllNfts.map((nft, index) => {
-								return (
-									<Col lg={2} md={6} sm={6} key={index} className="explore-live-feed">
-										<NftDisplay
-											_id={nft._id}
-											likes={nft.likes}
-											thumbnail_image={nft.thumbnail_image}
-											nft_id={nft.nft_id}
-											current_bid={nft.current_bid}
-											title={nft.title}
-											auction_startDate={nft.auction_startDate}
-											auction_duration={nft.auction_duration}
-											creator={nft.creator}
-											date_mint={nft.date_mint}
-											tags={nft.tags}
-										/>
-									</Col>
-								);
-							})} */}
 				</Row>
 			</Container>
 		</div>

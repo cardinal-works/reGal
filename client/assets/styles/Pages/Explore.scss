@@ -1,30 +1,51 @@
+// ** EXPLORE PAGE STYLING ** //
+
+
+// ** GRADIENT DIV CONTAINER FOR THE LANDING/EXPLORE PAGE ** //
 .gradiant-background {
+	//** CURRENTLY BLACK, BASIC STYLING FOR A SMOOTH VERTICAL GRADIENT BG **//
 	background: linear-gradient(180deg, #040404 0%, rgb(0, 0, 0) 40%, rgb(0, 0, 0) 100%);
 	padding-bottom: 10%;
-
-	.featured-nft-nav {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
+	// ** MAIN CONTAINER FOR THE ENTIRE COMPONENT ** //
 	.nft-container {
+		// ** 1/2 ROW - NFT NAVBAR WITH FEATURED TEXT AND SORT DROPDOWN ** //
+		.featured-nft-nav {
+			display: flex;
+			align-items: flex-end !important;
+			// ** FEATURED COL AND TEXT ** //
+			.featured-text-col {
+				.featured-text {
+					font-size: 1.95em;
+				}
+			}
+			// ** SORT BUTTON COL AND BUTTON STYLING ** //
+			.sort-button-col {
+				.sort-button {
+					padding: 2px 12px 2px 12px;
+					background-color: #ffffff !important;
+					color: black !important;
+					border-color: rgb(45, 45, 45) !important;
+				}
+			}
+		}
+
+		// ** MAIN NFT EXPLORE ROW ** //
 		.nft-explore-rows {
 			padding: 0px 0px 0px 0px !important;
+			// ** COL THAT MAPS AND RENDERS FROM DATABASE ** //
+			.explore-live-feed {
+				height: 450px;
+				position: relative;
+				padding: 0px 0px 0px 0px !important;
+				border: solid 5px transparent;
+			}
 		}
-		.explore-live-feed {
-			height: 300px;
-			position: relative;
-			padding: 0px 0px 0px 0px !important;
-			border: solid 5px transparent;
-		}
-
+		// ** MEDIA QUERIES FOR SIZING ENTIRE PAGE AND MARGINS OVER MULTIPLE DEVICES (WIP) ** //
 		@media only screen and (max-width: 320px) {
 			padding: 0px 4% 0px 4% !important;
 		}
 
-		@media only screen and (min-device-width: 768px) 
-    and (max-device-width: 1024px) and (orientation: landscape) {
+		@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
 			padding: 0px 6% 0px 6% !important;
 		}
 
@@ -32,20 +53,8 @@
 			padding: 0px 2% 0px 2% !important;
 		}
 
-		@media only screen and (min-width: 1650px) {
-			padding: 0px 4% 0px 4% !important;
-		}
-
 		@media only screen and (min-width: 1824px) {
-			padding: 0px 10% 0px 10% !important;
+			padding: 0px 3% 0px 3% !important;
 		}
-	}
-
-	.sort-button {
-		border-radius: 10px;
-		padding: 2px 12px 3px 12px;
-		background-color: #ffffff !important;
-		color: black !important;
-		border-color: rgb(45, 45, 45) !important;
 	}
 }
