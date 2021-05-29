@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 // ** COMPONENTS
 import NftDisplay from '../../Components/NftDisplay/NftDisplay';
-import { Col, Container, Row, Dropdown } from 'react-bootstrap';
+import { Col, Container, Row, Dropdown, CardDeck } from 'react-bootstrap';
 // ** STATE
 import { observer } from 'mobx-react-lite';
 import UserStore from '../../Stores/UserStore';
@@ -39,11 +39,11 @@ const Explore = (web3) => {
 	return (
 		<div className="gradiant-background">
 			<Container className="nft-container" >
-				<Row className="featured-nft-nav">
+				<Row className="featured-nft-nav mb-3">
 					<Col className="featured-text-col text-white text-start">
 						<span className="featured-text">Featured</span>{' '}
 					</Col>
-					<Col className="sort-button-col mb-2 text-end p-0">
+					<Col className="sort-button-col mb-2 text-end p-0 mr-3">
 						<Dropdown>
 							<Dropdown.Toggle variant="danger" size="lg" className="sort-button" id="dropdown-basic">
 								sort
@@ -59,6 +59,7 @@ const Explore = (web3) => {
 					</Col>
 				</Row>
 				<Row className="nft-explore-rows">
+				
 					{getAllNfts.length &&
 						getAllNfts.map((nft, index) => {
 							return (
@@ -76,9 +77,10 @@ const Explore = (web3) => {
 										date_mint={nft.date_mint}
 										tags={nft.tags}
 									/>
-								</Col>
+								// </Col>
 							);
 						})}
+					
 				</Row>
 			</Container>
 		</div>

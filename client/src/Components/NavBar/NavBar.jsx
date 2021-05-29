@@ -21,7 +21,7 @@ const Navigation = () => {
 
 	useEffect(() => {
 		// ** REGAL SIGNED MESSAGE -> JWT -> Authenication Key
-		// *  web3.eth.personal.sign("Welcome to Regal", window.ethereum.selectedAddress).then((obj, res) => console.log(obj, res));
+		// web3.eth.personal.sign("Welcome to Regal", window.ethereum.selectedAddress).then((obj, res) => console.log(obj, res));
 		// ** TEMPLATE FOR FUTURE USE
 
 		if (window.ethereum && window.ethereum.selectedAddress) loadUser(window.ethereum.selectedAddress);
@@ -29,8 +29,9 @@ const Navigation = () => {
 
 	return (
 		<Navbar className="nav-container" bg="dark" collapseOnSelect expand="lg" variant="dark">
-			<Navbar.Brand as={Link} to="/" className="regal-brand text-majesti">
-				<Image className="regal-image" src={Regal} />
+			<Navbar.Brand as={Link} to="/" className="regal-brand text-majesti font-primary">
+				{/* <Image className="regal-image" src={Regal} /> */}
+				R
 			</Navbar.Brand>
 			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 			<Navbar.Collapse id="responsive-navbar-nav">

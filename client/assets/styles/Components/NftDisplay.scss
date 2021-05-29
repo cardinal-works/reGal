@@ -1,101 +1,88 @@
 // ** NFT DISPLAY PAGE STYLING ** //
 
-// ** NFT DISPLAY CONTAINER THAT IS MAPPED ON DISPLAY PAGES LIKE EXPLORE ** //
-.nft-display-container {
-	// ** 1/2 DETAILS AND LIKES DIV LINKING TO DETAIL PAGE AND MANAGING USER LIKES/INTERACTIONS ** //
-	.details-likes-div {
+.nft-item-card {
+	text-decoration: none !important;
+	padding: 25px 0px 0px 0px;
+	border: solid 0px;
+	border-radius: 0px;
+	width: 400px;
+	height: 330px;
+	background-color: black !important;
+
+	.explore-card-image {
+		// margin: 10px 10px 0px 10px;
+		border-radius: 0px;
+		padding: 0px;
+		height: auto;
+		object-fit: cover;
+		min-height: 270px;
+		max-height: 270px;
+		width: auto;
+		max-width: 270px;
+		// box-shadow: white -5px 5px 1px;
+	}
+
+	.current-bid-div {
 		position: absolute;
-		bottom: 3px;
-		right: 8px;
+		bottom: 310px;
+		right: 70px;
 		z-index: 99;
-		// ** DETAILS BUTTON ** //
-		.details-button {
-			font-size: 1.2em !important;
-			padding: 8px 12px 8px 12px;
-			font-size: 1.15em;
-			background-color: black !important;
-			color: white !important;
-			border-color: white !important;
-			transition: 0.35s ease-in-out !important;
-			&:hover {
-				background-color: white !important;
-				color: black !important;
-				transition: 0.35s ease-in-out !important;
-			}
-		}
-		// ** LIKE BUTTON HEART ** //
-		.like-button {
-			border: solid 1px white;
-			// border-radius: 10px;
-			padding: 6px 12px 4px 12px;
-			&:hover {
-				border: 1px solid white !important;
-				color: black;
-				background-color: white;
-				transition: 0.35s ease-in-out !important;
-			}
+		// ** CURRENT BID DIV ** //
+		.current-bid {
+			color: white;
+			font-weight: 500;
+			font-size: 1.3em;
 		}
 	}
-	// ** 2/2 DIV THAT CONTAINS THE ENTIRE NFT DETAILS + IMAGE DATA AND OVERLAY TEXT ** //
-	.nft-display {
-		border-radius: 2px;
-		background-color: black;
-		padding-bottom: 100%;
-		border-radius: 2px;
-		// ** IMAGE OVERLAY TRANSITION STYLING ** //
-		&:hover {
-			.image-overlay {
-				opacity: 100%;
-				transition: 0.35s ease-in-out;
-			}
-			.explore-card-image {
-				opacity: 12%;
-				transition: 0.3s ease-in-out;
-			}
+
+	.countdown-div {
+		position: absolute;
+		bottom: 230px;
+		right: -5px;
+		z-index: 99;
+		transform: rotate(-270deg) !important;
+		// ** CURRENT BID DIV ** //
+		.countdown {
+			color: white;
+			// font-weight: 900;
+			font-size: 1.3em;
 		}
-		// ** THE HEART SVG HTML IMAGE THAT IS CONTAINER IN THE CORNER RIBBON COMPONENT TOP RIGHT ** //
-		.heart {
-			margin-top: 6px;
-			display: inline-block;
-			margin: 0 0.5rem;
-			animation: bounceIn; /* referring directly to the animation's @keyframe declaration */
-			animation-duration: 2s; /* don't forget to set a duration! */
+	}
+
+	.creator-div {
+		position: absolute;
+		bottom: 310px;
+		right: 270px;
+		z-index: 99;
+
+		.creator-text {
+			color: white !important;
+			font-weight: 900;
+			font-size: 1.3em;
 		}
-		// ** IMAGE OVERLAY AND DATA STYLING ** //
-		.image-overlay {
-			z-index: 99999;
+	}
+	.more-div {
+		position: absolute;
+		bottom: 10px;
+		right: 70px;
+		z-index: 99;
+
+		.more-text {
+			color: white !important;
+			font-weight: 600;
+			font-size: 2em;
+		}
+	}
+	.likes-div {
+		.likes-text {
 			position: absolute;
-			bottom: 50px;
-			transition: 0.35s ease-in-out;
-			opacity: 0%;
-			background-color: rgba(0, 0, 0, 0.7);
-			padding: 20px;
-			-webkit-transition-duration: 0.3s;
-			-moz-transition-duration: 0.3s;
-			-o-transition-duration: 0.3s;
-			transition-duration: 0.3s;
-			a {
-				position: relative;
-				z-index: 4;
-			}
-			.overlay-text {
-				color: #ffffff;
-				font-size: 18px;
-				margin-top: -20px;
-			}
-			.overlay-values {
-				font-weight: bold;
-				font-size: 18px;
-			}
-		}
-		// ** THE IMAGE DISPLAYED FOR EACH NFT ** //
-		.explore-card-image {
-			object-fit: cover;
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			transition: 0.3s ease-in-out;
-			border-radius: 2px !important;
+			bottom: 5px;
+			right: 280px;
+			z-index: 99;
+			white-space: nowrap;
+			color: white !important;
+			font-weight: 500;
+			font-size: 1.3em;
 		}
 	}
 }
