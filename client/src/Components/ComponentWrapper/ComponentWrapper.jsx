@@ -8,7 +8,7 @@ import Footer from "../Footer";
 const ComponentWrapper = ({ children }) => {
   return (
     <Fragment>
-      <Navigation web3={web3}/>
+      <Navigation/>
       {children}
       <Footer />
     </Fragment>
