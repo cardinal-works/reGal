@@ -9,9 +9,6 @@ import { observer } from 'mobx-react-lite';
 import CreateModal from '../CreateModal';
 import Web3 from 'web3';
 
-// Images
-import Regal from '../../../assets/images/regal-2.png';
-
 
 const Navigation = () => {
 	const userStore = useContext(UserStore);
@@ -30,12 +27,11 @@ const Navigation = () => {
 	return (
 		<Navbar className="nav-container" bg="dark" collapseOnSelect expand="lg" variant="dark">
 			<Navbar.Brand as={Link} to="/" className="regal-brand text-majesti font-primary">
-				{/* <Image className="regal-image" src={Regal} /> */}
-				R
+				<span className='r-text'>R</span> 
 			</Navbar.Brand>
 			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 			<Navbar.Collapse id="responsive-navbar-nav">
-				<Nav className="nav-links mr-auto my-auto mb-0 pb-0">
+				<Nav className="nav-links">
 					<Nav.Link as={Link} to="/">
 						explore
 					</Nav.Link>
@@ -46,10 +42,10 @@ const Navigation = () => {
 						farm
 					</Nav.Link>
 					<Nav.Link>
-						<i className="fas fa-search"></i>
+						<i className="fas fa-search ml-2"></i>
 					</Nav.Link>
 				</Nav>
-				<Nav>
+				<Nav className="ml-auto">
 					{user ? (
 						<Container className="profile-nav-container" fluid style={{ padding: 0 }}>
 							<Nav.Link className="create-nav-link">
@@ -61,8 +57,8 @@ const Navigation = () => {
 							</Nav.Link>
 							<CreateModal show={modalShow} onHide={() => setModalShow(false)} />
 							<div className="profile-link-nav ">
-								<Nav.Link className="">
-									<Image as={Link} to="/profile" className="profile-link-image " src={user.profile_image} height="50px"></Image>
+								<Nav.Link as={Link} to="/profile" className="">
+									<Image  className="profile-link-image " src={user.profile_image} height="50px"></Image>
 								</Nav.Link>
 							</div>
 						</Container>
