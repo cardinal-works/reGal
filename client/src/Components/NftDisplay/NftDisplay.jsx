@@ -29,12 +29,12 @@ const NftDisplay = ({
 	const { updateNft, loadNft } = nftStore;
 	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
 
-	useEffect(() => {
-		fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc')
-			.then((response) => response.json())
-			.then((data) => setCurrentEtherPrice(data[1]['current_price']))
-			.catch((err) => console.log('ERROR: ', err));
-	}, []);
+	// useEffect(() => {
+	// 	fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc')
+	// 		.then((response) => response.json())
+	// 		.then((data) => setCurrentEtherPrice(data[1]['current_price']))
+	// 		.catch((err) => console.log('ERROR: ', err));
+	// }, []);
 
 	const handleLikeNft = () => {
 		loadNft(nft_id).then((nft) => updateNft({ ...nft, likes: nft.likes + 1 }));
@@ -42,17 +42,18 @@ const NftDisplay = ({
 
 	return (
 		<Fragment>
-			<div className="details-button">
-				<Link
+			<Container className="nft-display-container p-0" fluid>
+			<div className="details-likes-div">
+				<Button variant="danger" className="like-button" onClick={handleLikeNft}>
+					<i className="text-start fas fa-heart "></i>
+				</Button>
+				<Button as={Link}
 					to={{
 						pathname: `/details/${nft_id}`,
 						state: { nft_id: Number(nft_id) },
 					}}
-					className="btn btn-regal mt-4">
+					className="details-button ml-1">
 					Details
-				</Link>
-				<Button variant="danger" className="like-button mt-4 ml-2" onClick={handleLikeNft}>
-					<i className="text-start fas fa-heart "></i>
 				</Button>
 			</div>
 			<div className="nft-display">
@@ -90,6 +91,7 @@ const NftDisplay = ({
 				</div>
 				<Image className="explore-card-image" src={thumbnail_image} fluid />
 			</div>
+			</Container>
 		</Fragment>
 	);
 };
