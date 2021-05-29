@@ -1,12 +1,10 @@
-//Modules
-import React, { useState, Fragment, useContext, useEffect } from 'react';
+// ** MODULES
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-//Components
+// ** COMPONENTS
 import NftDisplay from '../../Components/NftDisplay/NftDisplay';
 import { Col, Container, Row, Dropdown } from 'react-bootstrap';
-import { Parallax } from 'react-scroll-parallax';
-import CornerRibbon from 'react-corner-ribbon';
-//State and Data
+// ** STATE
 import { observer } from 'mobx-react-lite';
 import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
@@ -40,7 +38,7 @@ const Explore = (web3) => {
 
 	return (
 		<div className="gradiant-background">
-			<Container className="nft-container p-0" fluid>
+			<Container className="nft-container" >
 				<Row className="featured-nft-nav">
 					<Col className="featured-text-col text-white text-start">
 						<span className="featured-text">Featured</span>{' '}

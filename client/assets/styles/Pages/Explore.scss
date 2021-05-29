@@ -1,6 +1,5 @@
 // ** EXPLORE PAGE STYLING ** //
 
-
 // ** GRADIENT DIV CONTAINER FOR THE LANDING/EXPLORE PAGE ** //
 .gradiant-background {
 	//** CURRENTLY BLACK, BASIC STYLING FOR A SMOOTH VERTICAL GRADIENT BG **//
@@ -21,6 +20,7 @@
 			// ** SORT BUTTON COL AND BUTTON STYLING ** //
 			.sort-button-col {
 				.sort-button {
+					font-size: 1.5em !important;
 					padding: 2px 12px 2px 12px;
 					background-color: #ffffff !important;
 					color: black !important;
@@ -33,14 +33,13 @@
 			padding: 0px 0px 0px 0px !important;
 			// ** COL THAT MAPS AND RENDERS FROM DATABASE ** //
 			.explore-live-feed {
-				height: 250px;
 				position: relative;
 				padding: 0px 0px 0px 0px !important;
 				border: solid 5px transparent;
 			}
 		}
 		// ** MEDIA QUERIES FOR SIZING ENTIRE PAGE AND MARGINS OVER MULTIPLE DEVICES (WIP) ** //
-		@media only screen and (max-width: 320px) {
+		@media only screen and (min-width: 320px) {
 			padding: 0px 4% 0px 4% !important;
 		}
 
