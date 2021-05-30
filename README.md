@@ -22,7 +22,7 @@ _"An nft marketplace application that is built on a decentralized framework for 
 
 - `npm install` & `cd client npm install` (install dev/prod dependencies)
 - `ganache-cli -p 9546` (set up custom port that truffle will connect to)
-- delete the contracts for __in the build folder__ (not the one in client)
+- delete the contracts folder __in the build folder__ (not the one in client)
 - `truffle console --network regal` (connect to the ganache server on 9546)
 - `npm start` (run this from top level not the client)
 
