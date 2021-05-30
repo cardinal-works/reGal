@@ -38,12 +38,12 @@ const Explore = (web3) => {
 
 	return (
 		<div className="gradiant-background">
-			<Container className="nft-container" >
-				<Row className="featured-nft-nav mb-3">
-					<Col className="featured-text-col text-white text-start">
-						<span className="featured-text">Featured</span>{' '}
+			<Container className="nft-container">
+				<Row className="featured-nft-nav mb-3 m-1">
+					<Col className="featured-text-col text-white p-0 text-start">
+						<span className="featured-text">featured</span>{' '}
 					</Col>
-					<Col className="sort-button-col mb-2 text-end p-0 mr-3">
+					<Col className="sort-button-col mb-2 text-end p-0">
 						<Dropdown>
 							<Dropdown.Toggle variant="danger" size="lg" className="sort-button" id="dropdown-basic">
 								sort
@@ -63,7 +63,7 @@ const Explore = (web3) => {
 					{getAllNfts.length &&
 						getAllNfts.map((nft, index) => {
 							return (
-								<Col lg={3} md={4} sm={6} key={index} className="explore-live-feed">
+								<Col lg={3} md={4} sm={6} xs={12} key={index} className="explore-live-feed">
 									<NftDisplay
 										_id={nft._id}
 										likes={nft.likes}
@@ -77,7 +77,7 @@ const Explore = (web3) => {
 										date_mint={nft.date_mint}
 										tags={nft.tags}
 									/>
-								// </Col>
+								</Col>
 							);
 						})}
 					

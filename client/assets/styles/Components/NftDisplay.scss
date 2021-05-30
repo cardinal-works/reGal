@@ -1,88 +1,35 @@
 // ** NFT DISPLAY PAGE STYLING ** //
 
-.nft-item-card {
-	text-decoration: none !important;
-	padding: 25px 0px 0px 0px;
-	border: solid 0px;
-	border-radius: 0px;
-	width: 400px;
-	height: 330px;
-	background-color: black !important;
 
-	.explore-card-image {
-		// margin: 10px 10px 0px 10px;
-		border-radius: 0px;
-		padding: 0px;
-		height: auto;
-		object-fit: cover;
-		min-height: 270px;
-		max-height: 270px;
-		width: auto;
-		max-width: 270px;
-		// box-shadow: white -5px 5px 1px;
+.overlay-container {
+	background-color: rgb(0, 0, 0);
+	display: flex;
+	justify-content: space-around;
+	.star {
+		color: rgb(194, 171, 71);
+		font-size: 13px;
+		padding-left: 5px;
 	}
-
-	.current-bid-div {
-		position: absolute;
-		bottom: 310px;
-		right: 70px;
-		z-index: 99;
-		// ** CURRENT BID DIV ** //
-		.current-bid {
-			color: white;
-			font-weight: 500;
-			font-size: 1.3em;
-		}
-	}
-
-	.countdown-div {
-		position: absolute;
-		bottom: 230px;
-		right: -5px;
-		z-index: 99;
-		transform: rotate(-270deg) !important;
-		// ** CURRENT BID DIV ** //
-		.countdown {
-			color: white;
-			// font-weight: 900;
-			font-size: 1.3em;
-		}
-	}
-
-	.creator-div {
-		position: absolute;
-		bottom: 310px;
-		right: 270px;
-		z-index: 99;
-
-		.creator-text {
-			color: white !important;
-			font-weight: 900;
-			font-size: 1.3em;
-		}
-	}
-	.more-div {
-		position: absolute;
-		bottom: 10px;
-		right: 70px;
-		z-index: 99;
-
-		.more-text {
-			color: white !important;
-			font-weight: 600;
-			font-size: 2em;
-		}
-	}
-	.likes-div {
-		.likes-text {
-			position: absolute;
-			bottom: 5px;
-			right: 280px;
-			z-index: 99;
-			white-space: nowrap;
-			color: white !important;
-			font-weight: 500;
-			font-size: 1.3em;
-		}
+	.profile {
+		font-size: 13px;
+		padding-left: 5px;
 	}
 }
+
+.nft-display-container {
+
+.nft-item-card {
+	text-decoration: none !important;
+	padding: 5px;
+	border: solid 0px;
+	border-radius: 0px;
+	background-color: black !important;
+	.explore-card-image {
+		object-fit: cover;
+		width: 100vw;
+		height: 30vh;
+		border-radius: 2px;
+	}
+  }
+}
+
