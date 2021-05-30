@@ -241,12 +241,14 @@ const NftMinter = ({ web3 }) => {
 							<small>20MB limit (jpg, png, mp4, gif, jpeg)</small>
 						</Col>
 						<Col md={12} className="mt-3 mb-3 text-center">
-							<Button className="mr-1"
+							<Button
+								className="mr-1"
 								onClick={() => setFormList([true, false, false, false])}>
 								<i className="fad fa-angle-double-left"></i>
 							</Button>
 							{dbMetaData.thumbnail_image.length > 1 && (
-								<Button className="ml-1"
+								<Button
+									className="ml-1"
 									onClick={() =>
 										setFormList([false, false, true, false])
 									}>
@@ -268,7 +270,7 @@ const NftMinter = ({ web3 }) => {
 				</Toast.Header>
 				<Toast.Body>
 					<Row className="text-center mb-2">
-					<Col md={12}>
+						<Col md={12}>
 							{dbMetaData.thumbnail_image ? (
 								<NftDisplay
 									nft_id={0}
@@ -287,13 +289,21 @@ const NftMinter = ({ web3 }) => {
 							<Form className="text-left">
 								<Form.Group controlId="minter.controlTitle">
 									<Form.Label className="pl-1">title *</Form.Label>
-									<Form.Control name="title" type="text" />
+									<Form.Control
+										value={dbMetaData.title}
+										name="title"
+										type="text"
+									/>
 								</Form.Group>
 								<Form.Group controlId="minter.controlDesc">
 									<Form.Label className="pl-1">
 										description *
 									</Form.Label>
-									<Form.Control name="description" as="textarea" rows={2} />
+									<Form.Control
+										name="description"
+										as="textarea"
+										rows={2}
+									/>
 									<small className="pl-1">* 280 character limit</small>
 								</Form.Group>
 								<Form.Label className="pl-1">tags</Form.Label>
@@ -307,7 +317,12 @@ const NftMinter = ({ web3 }) => {
 					</Row>
 					<Row className="mt-4">
 						<Col md={12} className="mx-auto text-center mb-3 pb-1">
-							<Button onClick={() => setNext(true)}>
+							<Button
+								onClick={() => setFormList([false, true, false, false])}>
+								<i className="fad fa-angle-double-left"></i>
+							</Button>
+							<Button
+								onClick={() => setFormList([false, false, false, true])}>
 								<i className="fad fa-chevron-double-right"></i>
 							</Button>
 						</Col>
@@ -323,9 +338,20 @@ const NftMinter = ({ web3 }) => {
 						<small>3/3</small>
 					</Col>
 				</Toast.Header>
-
 				<Toast.Body>
 					<Row className="text-center">
+					<Col md={12} className="mb-2">
+							{dbMetaData.thumbnail_image ? (
+								<NftDisplay
+									nft_id={0}
+									likes={420}
+									thumbnail_image={dbMetaData.thumbnail_image}
+									current_bid={999}
+									title={dbMetaData.title}
+									creator={user.display_name}
+								/>
+							) : null}
+						</Col>
 						<Col md={12} className="pb-3">
 							save or mint?
 						</Col>
@@ -352,6 +378,16 @@ const NftMinter = ({ web3 }) => {
 									setNext(true);
 								}}>
 								mint
+							</Button>
+						</Col>
+						<Col md={12} className="mx-auto text-center mb-3 pb-1">
+							<Button
+								onClick={() => setFormList([false, true, false, false])}>
+								<i className="fad fa-angle-double-left"></i>
+							</Button>
+							<Button
+								onClick={() => setFormList([false, false, false, true])}>
+								<i className="fad fa-chevron-double-right"></i>
 							</Button>
 						</Col>
 					</Row>
