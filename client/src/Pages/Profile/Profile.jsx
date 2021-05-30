@@ -226,11 +226,11 @@ const Profile = (props, web3) => {
 
 	return (
 		<Fragment>
-			<Container className="profile-container" fluid>
+			<Container className="profile-container">
 				<Row className="nft-display-rows mb-5 pb-3">
 					{/*  */}
 					{editMode === false ? (
-						<Col lg={3} className="mt-3">
+						<Col lg={3} md={6} className="mt-3">
 							<Col md={6} lg={12}>
 								<Image
 									className="profile-image "
@@ -271,7 +271,7 @@ const Profile = (props, web3) => {
 							</Col>
 						</Col>
 					) : (
-						<Col lg={3} className="">
+						<Col lg={6}  className="">
 							<Form>
 								<Form.Group>
 									<Col lg={12}>
@@ -348,8 +348,8 @@ const Profile = (props, web3) => {
 						</Col>
 					)}
 					{/*  */}
-					<Col className="featured-nft">
-						<div className="text-white font-primary ml-2">Featured</div>
+					<Col className="featured-nft" lg={9} md={6}>
+						<div className="text-white font-primary ">Featured</div>
 						<ProfileNftDisplay
 							likes={nfts[5].likes}
 							comments={nfts[5].comments}
@@ -369,7 +369,7 @@ const Profile = (props, web3) => {
 					{getAllNfts.length &&
 						getAllNfts.map((nfts, index) => (
 							<Col
-								lg={2}
+								lg={4}
 								md={3}
 								sm={6}
 								key={index}
@@ -385,7 +385,7 @@ const Profile = (props, web3) => {
 					<span className="text-white font-secondary pt-2">Liked</span>
 					{nfts.length &&
 						nfts.map((nfts, index) => (
-							<Col lg={1} md={3} sm={12} key={index} className="nft-liked mt-3 mb-3">
+							<Col lg={3} md={3} sm={12} key={index} className="nft-liked mt-3 mb-3">
 								<ProfileNftDisplay
 									likes={nfts.likes}
 									comments={nfts.comments}
@@ -405,7 +405,7 @@ const Profile = (props, web3) => {
 					<span className="text-white font-secondary pt-5">Recently Viewed</span>
 					{nfts.length &&
 						nfts.map((nfts, index) => (
-							<Col lg={1} md={3} sm={12} key={index} className="nft-viewed mt-3 mb-3">
+							<Col lg={3} md={3} sm={12} key={index} className="nft-viewed mt-3 mb-3">
 								<ProfileNftDisplay
 									likes={nfts.likes}
 									comments={nfts.comments}

@@ -1,6 +1,7 @@
 .profile-container {
 	margin-top: 30px;
-	padding: 0px 8% 0px 8%;
+
+	// padding: 0px 8% 0px 8%;
 
 
 
@@ -132,6 +133,8 @@
 	.nft-display-rows {
 		flex-direction: row;
 		justify-content: center;
+		align-items: center;
+		align-content: center;
 	}
 	.featured-nft {
 		.profile-card {
@@ -140,7 +143,7 @@
 			img {
 				object-fit: cover;
 				height: 400px;
-        padding: 10px;
+        padding: 0px;
 				width: 180%;
 				transition: 0.25s ease-in-out;
 				border-radius: 2px !important;

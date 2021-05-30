@@ -381,11 +381,11 @@ const NftMinter = ({ web3 }) => {
 							</Button>
 						</Col>
 						<Col md={12} className="mx-auto text-center mb-3 pb-1">
-							<Button
+							<Button className="ml-1"
 								onClick={() => setFormList([false, true, false, false])}>
 								<i className="fad fa-angle-double-left"></i>
 							</Button>
-							<Button
+							<Button className="mr-1"
 								onClick={() => setFormList([false, false, false, true])}>
 								<i className="fad fa-chevron-double-right"></i>
 							</Button>
