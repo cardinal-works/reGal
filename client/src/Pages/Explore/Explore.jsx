@@ -1,12 +1,10 @@
-//Modules
-import React, { useState, Fragment, useContext, useEffect } from 'react';
+// ** MODULES
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-//Components
+// ** COMPONENTS
 import NftDisplay from '../../Components/NftDisplay/NftDisplay';
-import { Col, Container, Row, Dropdown } from 'react-bootstrap';
-import { Parallax } from 'react-scroll-parallax';
-import CornerRibbon from 'react-corner-ribbon';
-//State and Data
+import { Col, Container, Row, Dropdown, CardDeck } from 'react-bootstrap';
+// ** STATE
 import { observer } from 'mobx-react-lite';
 import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
@@ -40,10 +38,12 @@ const Explore = (web3) => {
 
 	return (
 		<div className="gradiant-background">
-			<Container className="nft-container ">
-				<Row className="featured-nft-nav ">
-					<Col className="featured-text text-end featured-text text-white font-primary">Featured</Col>
-					<Col className="text-start mt-1">
+			<Container className="nft-container">
+				<Row className="featured-nft-nav mb-3 m-1">
+					<Col className="featured-text-col text-white p-0 text-start">
+						<span className="featured-text">featured</span>{' '}
+					</Col>
+					<Col className="sort-button-col mb-2 text-end p-0">
 						<Dropdown>
 							<Dropdown.Toggle variant="danger" size="lg" className="sort-button" id="dropdown-basic">
 								sort
@@ -59,10 +59,11 @@ const Explore = (web3) => {
 					</Col>
 				</Row>
 				<Row className="nft-explore-rows">
+				
 					{getAllNfts.length &&
 						getAllNfts.map((nft, index) => {
 							return (
-								<Col lg={3} md={4} sm={6} key={index} className="explore-live-feed">
+								<Col lg={3} md={4} sm={6} xs={12} key={index} className="explore-live-feed">
 									<NftDisplay
 										_id={nft._id}
 										likes={nft.likes}
@@ -79,27 +80,7 @@ const Explore = (web3) => {
 								</Col>
 							);
 						})}
-					{/* {getAllNfts.length &&
-							// getAllNfts.slice(0, 2).map((nft, index) => {
-								getAllNfts.map((nft, index) => {
-								return (
-									<Col lg={2} md={6} sm={6} key={index} className="explore-live-feed">
-										<NftDisplay
-											_id={nft._id}
-											likes={nft.likes}
-											thumbnail_image={nft.thumbnail_image}
-											nft_id={nft.nft_id}
-											current_bid={nft.current_bid}
-											title={nft.title}
-											auction_startDate={nft.auction_startDate}
-											auction_duration={nft.auction_duration}
-											creator={nft.creator}
-											date_mint={nft.date_mint}
-											tags={nft.tags}
-										/>
-									</Col>
-								);
-							})} */}
+					
 				</Row>
 			</Container>
 		</div>

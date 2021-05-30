@@ -1,106 +1,58 @@
+// ** EXPLORE PAGE STYLING ** //
+
+// ** GRADIENT DIV CONTAINER FOR THE LANDING/EXPLORE PAGE ** //
 .gradiant-background {
-  background: linear-gradient(
-    180deg,
-    #040404 0%,
-    rgb(0, 0, 0) 40%,
-    rgb(0, 0, 0) 100%
-  );
-  padding-bottom: 100px;
+	//** CURRENTLY BLACK, BASIC STYLING FOR A SMOOTH VERTICAL GRADIENT BG **//
+	background: linear-gradient(180deg,rgb(0, 0, 0) 0%, rgb(31, 6, 6) 40%, rgb(59, 41, 141) 100%);
+	// rgb(177, 98, 8)
+	padding-bottom: 10%;
 
-  .featured-nft-nav {
-    display: flex;
-    align-items: flex-start;
-  }
+	// ** MAIN CONTAINER FOR THE ENTIRE COMPONENT ** //
+	.nft-container {
+		// ** 1/2 ROW - NFT NAVBAR WITH FEATURED TEXT AND SORT DROPDOWN ** //
+		.featured-nft-nav {
+			display: flex;
+			align-items: flex-end !important;
+			// ** FEATURED COL AND TEXT ** //
+			.featured-text-col {
+				.featured-text {
+					font-size: 1.95em;
+				}
+			}
+			// ** SORT BUTTON COL AND BUTTON STYLING ** //
+			.sort-button-col {
+				.sort-button {
+					font-size: 1.5em !important;
+					padding: 2px 12px 2px 12px;
+					background-color: #ffffff !important;
+					color: black !important;
+					border-color: rgb(45, 45, 45) !important;
+				}
+			}
+		}
+		// ** 2/2 MAIN NFT EXPLORE ROW ** //
+		.nft-explore-rows {
+			padding: 0px 0px 0px 0px !important;
+			// ** COL THAT MAPS AND RENDERS FROM DATABASE ** //
+			.explore-live-feed {
+				padding: 0px 0px 0px 0px !important;
+			}
+		}
+		// ** MEDIA QUERIES FOR SIZING ENTIRE PAGE AND MARGINS OVER MULTIPLE DEVICES (WIP) ** //
+		// @media only screen and (min-width: 320px) {
+		// 	padding: 0px 4% 0px 4% !important;
+		// }
 
+		// @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+		// 	padding: 0px 6% 0px 6% !important;
+		// }
 
-.nft-container {
-  .nft-explore-rows {
-    padding: 0px 0px 0px 0px !important;
-  }
-  .explore-live-feed {
-    height: 300px;
-    position: relative;
-    padding: 0px 0px 0px 0px !important;
-    border: solid 5px transparent;
-  }
-  /* Smartphones (portrait and landscape) ----------- */
-  @media only screen 
-  and (min-device-width : 320px) 
-  and (max-device-width : 480px) {
-      padding: 0px 4% 0px 4% !important;
-  }
+		// @media only screen and (min-width: 1150px) {
+		// 	padding: 0px 2% 0px 2% !important;
+		// }
 
-  /* Smartphones (landscape) ----------- */
-  @media only screen 
-  and (min-width : 321px) {
-      padding: 0px 4% 0px 4% !important;
-  }
-
-  /* Smartphones (portrait) ----------- */
-  @media only screen 
-  and (max-width : 320px) {
-      padding: 0px 4% 0px 4% !important;
-  }
-
-  /* iPads (portrait and landscape) ----------- */
-  @media only screen 
-  and (min-device-width : 768px) 
-  and (max-device-width : 1024px) {
-      padding: 0px 3% 0px 3% !important;
-  }
-
-  /* iPads (landscape) ----------- */
-  @media only screen 
-  and (min-device-width : 768px) 
-  and (max-device-width : 1024px) 
-  and (orientation : landscape) {
-      padding: 0px 6% 0px 6% !important;
-  }
-
-  /* iPads (portrait) ----------- */
-  @media only screen 
-  and (min-device-width : 768px) 
-  and (max-device-width : 1024px) 
-  and (orientation : portrait) {
-      padding: 0px 2% 0px 2% !important;
-  }
-
-  @media only screen 
-  and (min-width : 1150px) {
-      padding: 0px 2% 0px 2% !important;
-  }
-
-  /* Desktops and laptops ----------- */
-  @media only screen 
-  and (min-width : 1224px) {
-      padding: 0px 4% 0px 4% !important;
-  }
-
-  @media only screen 
-  and (min-width : 1450px) {
-      padding: 0px 4% 0px 4% !important;
-  }
-
-  @media only screen 
-  and (min-width : 1650px) {
-      padding: 0px 4% 0px 4% !important;
-  }
-
-  /* Large screens ----------- */
-  @media only screen 
-  and (min-width : 1824px) {
-      padding: 0px 10% 0px 10% !important;
-  }
-
-}
-  
-  .sort-button {
-      border-radius: 10px;
-      margin-top: 18px;
-      margin-left: 8px;
-      padding: 2px 12px 3px 12px;
-      background-color: #ffffff !important;
-      color: black !important;
-      border-color: rgb(45, 45, 45) !important;
-  }
+		// @media only screen and (min-width: 1824px) {
+		// 	padding: 0px 3% 0px 3% !important;
+		// }
+	}
 }

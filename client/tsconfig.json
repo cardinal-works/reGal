@@ -17,6 +17,6 @@
     "experimentalDecorators": true,
     "suppressImplicitAnyIndexErrors": true
   },
-  "include": ["src", "index.d.ts"],
+  "include": ["src", "index.d.ts", "../__blank component"],
   "exclude": ["node_modules", "build"]
 }

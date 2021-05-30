@@ -1,7 +1,7 @@
 //Modules
 import React, { useEffect, useState, Fragment, useContext } from 'react';
 import { Container, Row, Col, Image, Button, Form, FormFile } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, history } from 'react-router-dom';
 //Contracts
 import ProfileNftDisplay from '../../Components/ProfileNftDisplay';
 import UserStore from '../../Stores/UserStore';
@@ -66,12 +66,13 @@ const initialState = {
 	],
 };
 
-const Profile = (props) => {
+const Profile = (props, web3) => {
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
 	const { loadNfts, getAllNfts, nftRegistry } = nftStore;
 	const [editMode, setEditMode] = useState(false);
+
 	const [userChanges, setUserChanges] = useState(
 		toJS(user) || {
 			profile_image: '',
@@ -81,25 +82,17 @@ const Profile = (props) => {
 	);
 
 	useEffect(() => {
-		if (!window.ethereum.isMetaMask) {
-			if (!window.ethereum && !window.ethereum.isMetaMask) {
-				// props.history.push("/signup");
-				return;
-			}
-			if (!window.ethereum && !window.ethereum.selectedAddress) {
-				// props.history.push("/signup")
-				return;
-			}
-		}
-		loadUser(window.ethereum.selectedAddress).then((res) => {
-			loadNfts({ user_id: res._id });
-			setUserChanges(res);
+		console.log()
+		loadUser(window.ethereum.selectedAddress)
+		.then((res) => {
+		loadNfts({ user_id: res._id });
+		setUserChanges(res);
 		});
 		// .then(console.log("hello", Object.fromEntries(nftRegistry)))
 	}, []);
 
 	useEffect(() => {
-		console.log(nftRegistry);
+		// console.log(nftRegistry);
 	}, [nftRegistry]);
 
 	const [nfts, setNfts] = useState([
