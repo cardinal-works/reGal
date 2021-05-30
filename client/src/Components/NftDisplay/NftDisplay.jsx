@@ -32,27 +32,32 @@ const NftDisplay = ({ _id, likes, thumbnail_image, auction_startDate, auction_du
 				</Card>
 				<Container className="pl-1 pr-1">
 					<Row className="overlay-container">
-						<Col md={12} className="pt-1 pb-1">
+						<Col md={8} className="symbols-container pt-1 pb-1">
 							<div className="likes-div">
-								<span className="text-white pr-2 text-green" style={{fontWeight: '900'}}>{current_bid}Ξ</span>
+								<span className="text-white pr-2 text-green" style={{ fontWeight: '900' }}>
+									{current_bid}Ξ
+								</span>
 								<span className="likes-text text-white pl-1">
-									<i className="fas fa-heart mx-auto heart pr-1" style={{ color: '#d20000',fontWeight: '900'}}></i>
+									<i className="fas fa-heart mx-auto heart pr-1" style={{ color: '#d20000', fontWeight: '900' }}></i>
 									{likes}
 								</span>
 								<span className="pl-1">
 									<i className="far fa-star star "></i>
 								</span>
-								<span className="pl-1 text-white">
-								<i className="fad fa-user-circle profile "></i>{" "}{creator}
-								</span>
 							</div>
 						</Col>
-						<Col className="pt-1 pb-1 text-white">
-							{title}
+						<Col md={4} className="pt-1">
+							{' '}
+							<span className="pl-1 text-white creator-link">
+								<i className="fad fa-user-circle profile "></i>
+								{' @'}
+								{creator}
+							</span>
 						</Col>
+						<Col className="pt-1 pb-1 text-white">{title}</Col>
 						<Col className="pt-1 pb-1">
 							<div className="more-div text-white text-end">
-							<Countdown date={Date.now() + 100000000} />
+								<Countdown date={Date.now() + 100000000} />
 								<i className="far fa-ellipsis-h pl-3"></i>
 							</div>
 						</Col>

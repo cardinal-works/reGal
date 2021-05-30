@@ -72,6 +72,7 @@ const Profile = (props, web3) => {
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
 	const { loadNfts, getAllNfts, nftRegistry } = nftStore;
 	const [editMode, setEditMode] = useState(false);
+
 	const [userChanges, setUserChanges] = useState(
 		toJS(user) || {
 			profile_image: '',

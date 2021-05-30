@@ -10,9 +10,16 @@
 		font-size: 13px;
 		padding-left: 5px;
 	}
+	.creator-link {
+		font-size: 1.2em;
+	}
 	.profile {
-		font-size: 13px;
+		font-size: 0px;
+		text-align: center;
 		padding-left: 5px;
+	}
+	.symbols-container {
+		flex-wrap: nowrap !important;
 	}
 }
 
