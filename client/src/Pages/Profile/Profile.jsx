@@ -1,6 +1,6 @@
 //Modules
 import React, { useEffect, useState, Fragment, useContext } from 'react';
-import { Container, Row, Col, Image, Button, Form, FormFile } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Form, FormFile, Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
 import { Link, history } from 'react-router-dom';
 //Contracts
 import ProfileCard from '../../Components/ProfileCard';
@@ -230,72 +230,74 @@ const Profile = (props, web3) => {
 	return (
 		<Fragment>
 			<Container className="profile-container">
-				{user && nft && (
-					<Row className="profile-details-row">
-						<Col md={4} sm={12} className="profile-card-col mx-auto">
-							{/* <Image className="profile-image" src={user.profile_image}></Image> */}
-							<ProfileCard
-								_id={user._id}
-								profile_image={user.profile_image}
-								wallet_id={user.wallet_id}
-								profile_featured_id={user.profile_featured_id}
-								bio={user.bio}
-								profile_bg_color={user.profile_bg_color}
-								display_name={user.display_name}></ProfileCard>
-						</Col>
-						<Col className="profile-featured-col mx-auto my-5">
-							<NftDisplay
-								_id={nft._id}
-								likes={nft.likes}
-								thumbnail_image={nft.thumbnail_image}
-								nft_id={nft.nft_id}
-								current_bid={nft.current_bid}
-								title={nft.title}
-								auction_startDate={nft.auction_startDate}
-								auction_duration={nft.auction_duration}
-								creator={nft.creator}
-								date_mint={nft.date_mint}
-								tags={nft.tags}
-							/>
-						</Col>
-					</Row>
-				)}
-				<Row>
-					{user && user.collections.length > 1
-						? user.collections.map((nfts, i) => {
-								return (
-									<Col
-										lg={3}
-										md={4}
-										sm={6}
-										xs={12}
-										key={index}
-										className="explore-live-feed">
-										<NftDisplay
-											_id={nft._id}
-											likes={nft.likes}
-											thumbnail_image={nft.thumbnail_image}
-											nft_id={nft.nft_id}
-											current_bid={nft.current_bid}
-											title={nft.title}
-											auction_startDate={nft.auction_startDate}
-											auction_duration={nft.auction_duration}
-											creator={nft.creator}
-											date_mint={nft.date_mint}
-											tags={nft.tags}
-										/>
-									</Col>
-								);
-						  })
-						: null}
-					<span className="text-white font-tertiary">
-						Collection <i className="fas fa-plus pl-2"></i>
-					</span>
-					<Col></Col>
-					<span className="text-white font-tertiary">Liked</span>
-					<Col></Col>
-					<span className="text-white font-tertiary">Recently Viewed</span>
-					<Col></Col>
+				<Row className="profile-details-row">
+					{user && nft && (
+						<Fragment>
+							<Col md={3} className="profile-card-col ">
+								{/* <Image className="profile-image" src={user.profile_image}></Image> */}
+								<ProfileCard
+									_id={user._id}
+									profile_image={user.profile_image}
+									wallet_id={user.wallet_id}
+									profile_featured_id={user.profile_featured_id}
+									bio={user.bio}
+									profile_bg_color={user.profile_bg_color}
+									display_name={user.display_name}></ProfileCard>
+							</Col>
+							<Col md={6}>
+								<Col>
+									<span className="text-white font-tertiary">
+										Collection <i className="fas fa-plus pl-2"></i>
+									</span>
+								</Col>
+								<Col>
+									<span className="text-white font-tertiary">Liked</span>
+								</Col>
+								<Col>
+									<span className="text-white font-tertiary">Recently Viewed</span>
+								</Col>
+							</Col>
+							<Col md={3}>
+								<NftDisplay
+									_id={nfts._id}
+									likes={nfts.likes}
+									thumbnail_image={nfts.thumbnail_image}
+									nft_id={nfts.nft_id}
+									current_bid={nfts.current_bid}
+									title={nfts.title}
+									auction_startDate={nfts.auction_startDate}
+									auction_duration={nfts.auction_duration}
+									creator={nfts.creator}
+									date_mint={nfts.date_mint}
+									tags={nfts.tags}
+								/>
+							</Col>
+						</Fragment>
+					)}
+
+					{/* {user && user.collections.length === 1 ? (
+						user.collections.map((nfts, i) => {
+							return (
+								<Col  className="">
+									<NftDisplay
+										_id={nfts._id}
+										likes={nfts.likes}
+										thumbnail_image={nfts.thumbnail_image}
+										nft_id={nfts.nft_id}
+										current_bid={nfts.current_bid}
+										title={nfts.title}
+										auction_startDate={nfts.auction_startDate}
+										auction_duration={nfts.auction_duration}
+										creator={nfts.creator}
+										date_mint={nfts.date_mint}
+										tags={nfts.tags}
+									/>
+								</Col>
+							);
+						})
+					) : (null
+					)} */}
+
 				</Row>
 			</Container>
 		</Fragment>

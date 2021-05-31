@@ -2,11 +2,15 @@
 
 
 .profile-container {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center !important;
+	padding: 0% 8% 0% 8%;
 	.profile-details-row {
-		.profile-card-col {			
+
+		.profile-card-col {	
+			padding-top: 5px;
 			.profile-image {
-				width: 200px;
-				height: auto;
 				border-radius: 1px;
 				border: solid 5px #ffffff;
 			}
@@ -14,6 +18,7 @@
 		.profile-featured-col {
 			margin-top: 20px;
 		}
+
 
 
 	}

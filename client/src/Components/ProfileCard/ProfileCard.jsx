@@ -59,7 +59,7 @@ const ProfileCard = ({
 						src={profile_image}
 					/>
 				</Card>
-				<Container className="pl-1 pr-1">
+				<Container className="">
 					<Row className="overlay-container">
 						<Col md={12} className="symbols-container pt-1 pb-1">
 							<div className="likes-div">
