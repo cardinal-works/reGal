@@ -13,18 +13,22 @@
 	.creator-link {
 		font-size: 1.2em;
 	}
-	.profile {
-		font-size: 0px;
+	.user-profile {
+		font-size: 13px;
 		text-align: center;
-		padding-left: 5px;
+		color:white;
 	}
 	.symbols-container {
 		flex-wrap: nowrap !important;
+	}
+	.nft-title-text {
+		font-size: 1.4em;
 	}
 }
 
 // ** DISPLAY CONTAINER FOR NFT CARD ** //
 .nft-display-container {
+
 
 .nft-item-card {
 	text-decoration: none !important;
