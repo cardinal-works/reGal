@@ -1,6 +1,7 @@
 // ** NFT DISPLAY PAGE STYLING ** //
 
 // ** CONTAINER FOR DETAILS OF NFT ** //
+.nft-display-container {
 .overlay-container {
 	background-color: rgb(0, 0, 0);
 	display: flex;
@@ -28,7 +29,6 @@
 }
 
 // ** DISPLAY CONTAINER FOR NFT CARD ** //
-.nft-display-container {
 
 
 .nft-item-card {
@@ -44,5 +44,5 @@
 		border-radius: 2px;
 	}
   }
-}
 
+}

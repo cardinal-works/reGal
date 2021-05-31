@@ -2,21 +2,27 @@
 // ** DISPLAY CONTAINER FOR PROFILE CARD ** //
 // **************************************** //
 
-.profile-card-container {
-	// width: 20vw;
-	.profile-item-card {
-		box-shadow: rgba(127, 132, 138, 0.199) 0px 8px 24px;
-		text-decoration: none !important;
-		border: solid 0px;
-		border-radius: 0px;
-		background-color: black !important;
+.profile-page-banner-container {
+	// background-color: black !important;
+	display: flex;
+	align-items: center;
+	justify-content: space-between !important;
+	.profile-banner-image {
+		object-fit: cover;
+		min-height: 100% !important;
+		min-width: auto !important;
+		max-height: 200px !important;
+		padding: 5px !important;
+		box-shadow: rgba(159, 159, 159, 0.2) 0px 0px 20px;
 
-		.profile-card-image {
-			box-shadow: rgba(116, 122, 128, 0.2) 0px 8px 24px;
-			object-fit: cover;			
-			width: 100vw;
-			height: 29vh;
-			border-radius: 2px;
+	}
+	.symbols-container {
+		max-width: 100ch;
+	}
+	.profile-social-div {
+		color: white;
+		i {
+			padding-right: 10px;
 		}
 	}
 }

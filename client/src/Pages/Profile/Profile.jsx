@@ -1,6 +1,6 @@
 //Modules
 import React, { useEffect, useState, Fragment, useContext } from 'react';
-import { Container, Row, Col, Image, Button, Form, FormFile, Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
+import { Container, Row, Col, Nav, Image, Button, Form, FormFile, Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
 import { Link, history } from 'react-router-dom';
 //Contracts
 import ProfileCard from '../../Components/ProfileCard';
@@ -230,10 +230,11 @@ const Profile = (props, web3) => {
 	return (
 		<Fragment>
 			<Container className="profile-container">
+				<Row></Row>
 				<Row className="profile-details-row">
 					{user && nft && (
 						<Fragment>
-							<Col md={3} className="profile-card-col ">
+							<Col md={12} className="profile-page-card-nav">
 								{/* <Image className="profile-image" src={user.profile_image}></Image> */}
 								<ProfileCard
 									_id={user._id}
@@ -243,21 +244,25 @@ const Profile = (props, web3) => {
 									bio={user.bio}
 									profile_bg_color={user.profile_bg_color}
 									display_name={user.display_name}></ProfileCard>
+								{/* <div style={{ position: "relative" }}> */}
+
+								{/* 						
+									<CornerRibbon
+										position="top-right" // OPTIONAL, default as "top-right"
+										fontColor="#f0f0f0" // OPTIONAL, default as "#f0f0f0"
+										backgroundColor="#2c7" // OPTIONAL, default as "#2c7"
+										containerStyle={{}} // OPTIONAL, style of the ribbon
+										style={{}} // OPTIONAL, style of ribbon content
+										className="" // OPTIONAL, css class of ribbon
+									>
+										FEATURED */}
+
+								{/* </CornerRibbon> */}
+
+								{/* </div> */}
 							</Col>
-							<Col md={6}>
-								<Col>
-									<span className="text-white font-tertiary">
-										Collection <i className="fas fa-plus pl-2"></i>
-									</span>
-								</Col>
-								<Col>
-									<span className="text-white font-tertiary">Liked</span>
-								</Col>
-								<Col>
-									<span className="text-white font-tertiary">Recently Viewed</span>
-								</Col>
-							</Col>
-							<Col md={3}>
+
+							<Col lg={3} md={5}>
 								<NftDisplay
 									_id={nfts._id}
 									likes={nfts.likes}
@@ -271,6 +276,33 @@ const Profile = (props, web3) => {
 									date_mint={nfts.date_mint}
 									tags={nfts.tags}
 								/>
+							</Col>
+							<Col lg={9} md={7}>
+								{/* <Col>
+									<span className="text-white font-tertiary">
+										Collection <i className="fas fa-plus pl-2"></i>
+									</span>
+								</Col>
+								<Col>
+									<span className="text-white font-tertiary">Liked</span>
+								</Col>
+								<Col>
+									<span className="text-white font-tertiary">Recently Viewed</span>
+								</Col> */}
+								<Nav fill variant="tabs" defaultActiveKey="/home">
+									<Nav.Item>
+										<Nav.Link href="/home">Collection</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey="link-1">Liked</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey="link-2">Recently Viewed</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey="link-2">Starred</Nav.Link>
+									</Nav.Item>
+								</Nav>
 							</Col>
 						</Fragment>
 					)}
@@ -297,7 +329,6 @@ const Profile = (props, web3) => {
 						})
 					) : (null
 					)} */}
-
 				</Row>
 			</Container>
 		</Fragment>

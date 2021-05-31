@@ -333,7 +333,7 @@ const NftMinter = ({ web3 }) => {
 							) : null}
 						</Col>
 						<Col md={12} className=" text-center pt-5 pb-3">
-							save or mint?
+							save draft or mint?
 						</Col>
 						<Col className="text-center">
 							<span className="text-center pt-1 pb-1">
@@ -346,7 +346,7 @@ const NftMinter = ({ web3 }) => {
 					<Row className="mt-2 mb-2 text-center pt-2">
 						<Col className="text-center">
 							<Button className=" mr-1 button-save" variant="secondary">
-								save
+								save draft
 							</Button>
 
 							<Button

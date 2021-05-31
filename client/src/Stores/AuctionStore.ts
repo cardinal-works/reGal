@@ -3,7 +3,9 @@ import { createContext, SyntheticEvent, ChangeEvent } from "react";
 import { IAuction } from "../Models/Auction";
 import agent from "../Api/agent";
 
-
+// ** TESTING AN AUCTION DB MANAGMENT STRATEGY NOT CURRENTLY IMPLMENTED ** //
+// ** TESTING AN AUCTION DB MANAGMENT STRATEGY NOT CURRENTLY IMPLMENTED ** //
+// ** TESTING AN AUCTION DB MANAGMENT STRATEGY NOT CURRENTLY IMPLMENTED ** //
 class AuctionStore {
     @observable auctionRegistry = new Map<string, IAuction>();
     @observable auction: IAuction | null = null;
