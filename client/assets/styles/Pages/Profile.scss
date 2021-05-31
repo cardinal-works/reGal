@@ -1,157 +1,196 @@
+// ** PROFILE PAGE STYLING ** //
+
+
 .profile-container {
-	margin-top: 30px;
+	.profile-details-row {
+		.profile-card-col {			
+			.profile-image {
+				width: 200px;
+				height: auto;
+				border-radius: 1px;
+				border: solid 5px #ffffff;
+			}
+		}
+		.profile-featured-col {
+			margin-top: 20px;
+		}
 
-	// padding: 0px 8% 0px 8%;
+
+	}
 
 
 
 
-  .card {
-    background-color: transparent !important;
-  }
-	.nft-collection {
-		position: relative;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .profile-container {
+// 	margin-top: 30px;
+
+// 	// padding: 0px 8% 0px 8%;
+
+//   .card {
+//     background-color: transparent !important;
+//   }
+// 	.nft-collection {
+// 		position: relative;
     
 
-		.profile-card {
-			display: block;
-			padding-bottom: 100%;
-			border-radius: 2px;
-			img {
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				transition: 0.25s ease-in-out;
-				border-radius: 2px !important;
+// 		.profile-card {
+// 			display: block;
+// 			padding-bottom: 100%;
+// 			border-radius: 2px;
+// 			img {
+// 				position: absolute;
+// 				width: 100%;
+// 				height: 100%;
+// 				object-fit: cover;
+// 				transition: 0.25s ease-in-out;
+// 				border-radius: 2px !important;
 
-				&:hover {
-					opacity: 50%;
-					transition: 0.25s ease-in-out;
-				}
-			}
-		}
-	}
+// 				&:hover {
+// 					opacity: 50%;
+// 					transition: 0.25s ease-in-out;
+// 				}
+// 			}
+// 		}
+// 	}
 
-	.nft-liked {
-		position: relative;
+// 	.nft-liked {
+// 		position: relative;
 
-		.profile-card {
-			display: block;
-			padding-bottom: 100%;
-			border-radius: 2px;
-			img {
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				transition: 0.25s ease-in-out;
-				border-radius: 2px !important;
+// 		.profile-card {
+// 			display: block;
+// 			padding-bottom: 100%;
+// 			border-radius: 2px;
+// 			img {
+// 				position: absolute;
+// 				width: 100%;
+// 				height: 100%;
+// 				object-fit: cover;
+// 				transition: 0.25s ease-in-out;
+// 				border-radius: 2px !important;
 
-				&:hover {
-					opacity: 50%;
-					transition: 0.25s ease-in-out;
-				}
-			}
-		}
-	}
+// 				&:hover {
+// 					opacity: 50%;
+// 					transition: 0.25s ease-in-out;
+// 				}
+// 			}
+// 		}
+// 	}
 
-	.nft-viewed {
-		padding-bottom: 100px;
-		position: relative;
-		.profile-card {
-			display: block;
-			padding-bottom: 100%;
-			border-radius: 2px;
-			img {
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				transition: 0.25s ease-in-out;
-				border-radius: 2px !important;
+// 	.nft-viewed {
+// 		padding-bottom: 100px;
+// 		position: relative;
+// 		.profile-card {
+// 			display: block;
+// 			padding-bottom: 100%;
+// 			border-radius: 2px;
+// 			img {
+// 				position: absolute;
+// 				width: 100%;
+// 				height: 100%;
+// 				object-fit: cover;
+// 				transition: 0.25s ease-in-out;
+// 				border-radius: 2px !important;
 
-				&:hover {
-					opacity: 50%;
-					transition: 0.25s ease-in-out;
-				}
-			}
-		}
-	}
+// 				&:hover {
+// 					opacity: 50%;
+// 					transition: 0.25s ease-in-out;
+// 				}
+// 			}
+// 		}
+// 	}
 
-	.profile-image {
-		border-radius: 2px;
-		height: 100%;
-		object-fit: cover;
+// 	.profile-image {
+// 		border-radius: 2px;
+// 		height: 100%;
+// 		object-fit: cover;
 
-		box-shadow: 0px 0px 20px rgb(97, 97, 97);
-	}
+// 		box-shadow: 0px 0px 20px rgb(97, 97, 97);
+// 	}
 
-	.profile-featured-nft {
-		width: 100%;
+// 	.profile-featured-nft {
+// 		width: 100%;
 
-		.nft-card {
-			background-image: -webkit-linear-gradient(
-				90deg,
-				rgba(255, 136, 124, 1) 0%,
-				rgba(182, 50, 95, 1) 35%,
-				rgba(255, 173, 0, 1) 100%
-			); /* For Chrome and Safari */
-			background-image: -moz-linear-gradient(
-				90deg,
-				rgba(255, 136, 124, 1) 0%,
-				rgba(182, 50, 95, 1) 35%,
-				rgba(255, 173, 0, 1) 100%
-			); /* For old Fx (3.6 to 15) */
-			background-image: -ms-linear-gradient(
-				90deg,
-				rgba(255, 136, 124, 1) 0%,
-				rgba(182, 50, 95, 1) 35%,
-				rgba(255, 173, 0, 1) 100%
-			); /* For pre-releases of IE 10*/
-			background-image: -o-linear-gradient(
-				90deg,
-				rgba(255, 136, 124, 1) 0%,
-				rgba(182, 50, 95, 1) 35%,
-				rgba(255, 173, 0, 1) 100%
-			); /* For old Opera (11.1 to 12.0) */
-			background-image: linear-gradient(
-				90deg,
-				rgba(255, 136, 124, 1) 0%,
-				rgba(182, 50, 95, 1) 35%,
-				rgba(255, 173, 0, 1) 100%
-			); /* Standard syntax; must be last */
-			color: transparent !important;
-			background-clip: text;
-		}
-	}
-	.choose-file-button {
-		color: white;
-		padding-top: 8px;
-	}
+// 		.nft-card {
+// 			background-image: -webkit-linear-gradient(
+// 				90deg,
+// 				rgba(255, 136, 124, 1) 0%,
+// 				rgba(182, 50, 95, 1) 35%,
+// 				rgba(255, 173, 0, 1) 100%
+// 			); /* For Chrome and Safari */
+// 			background-image: -moz-linear-gradient(
+// 				90deg,
+// 				rgba(255, 136, 124, 1) 0%,
+// 				rgba(182, 50, 95, 1) 35%,
+// 				rgba(255, 173, 0, 1) 100%
+// 			); /* For old Fx (3.6 to 15) */
+// 			background-image: -ms-linear-gradient(
+// 				90deg,
+// 				rgba(255, 136, 124, 1) 0%,
+// 				rgba(182, 50, 95, 1) 35%,
+// 				rgba(255, 173, 0, 1) 100%
+// 			); /* For pre-releases of IE 10*/
+// 			background-image: -o-linear-gradient(
+// 				90deg,
+// 				rgba(255, 136, 124, 1) 0%,
+// 				rgba(182, 50, 95, 1) 35%,
+// 				rgba(255, 173, 0, 1) 100%
+// 			); /* For old Opera (11.1 to 12.0) */
+// 			background-image: linear-gradient(
+// 				90deg,
+// 				rgba(255, 136, 124, 1) 0%,
+// 				rgba(182, 50, 95, 1) 35%,
+// 				rgba(255, 173, 0, 1) 100%
+// 			); /* Standard syntax; must be last */
+// 			color: transparent !important;
+// 			background-clip: text;
+// 		}
+// 	}
+// 	.choose-file-button {
+// 		color: white;
+// 		padding-top: 8px;
+// 	}
 
-	.nft-display-rows {
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-		align-content: center;
-	}
-	.featured-nft {
-		.profile-card {
-			border-radius: 2px;
-			object-fit: cover;
-			img {
-				object-fit: cover;
-				height: 400px;
-        padding: 0px;
-				width: 180%;
-				transition: 0.25s ease-in-out;
-				border-radius: 2px !important;
-				&:hover {
-					opacity: 50%;
-					transition: 0.25s ease-in-out;
-				}
-			}
-		}
-	}
-}
+// 	.nft-display-rows {
+// 		flex-direction: row;
+// 		justify-content: center;
+// 		align-items: center;
+// 		align-content: center;
+// 	}
+// 	.featured-nft {
+// 		.profile-card {
+// 			border-radius: 2px;
+// 			object-fit: cover;
+// 			img {
+// 				object-fit: cover;
+// 				height: 400px;
+//         padding: 0px;
+// 				width: 180%;
+// 				transition: 0.25s ease-in-out;
+// 				border-radius: 2px !important;
+// 				&:hover {
+// 					opacity: 50%;
+// 					transition: 0.25s ease-in-out;
+// 				}
+// 			}
+// 		}
+// 	}
+// }
