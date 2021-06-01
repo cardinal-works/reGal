@@ -1,9 +1,9 @@
 //Modules
 import React, { useEffect, useState, Fragment, useContext } from 'react';
-import { Container, Row, Col, Image, Card, Button, Form, FormFile } from 'react-bootstrap';
+import { Container, Row, Col, Image, Nav, Card, Button, Form, FormFile } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 //Contracts
-import ProfileNftDisplay from '../../Components/ProfileNftDisplay';
+import NftDisplay from '../../Components/NftDisplay';
 import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
 import { observer } from 'mobx-react-lite';
@@ -12,8 +12,6 @@ import { toJS } from 'mobx';
 import ipfs from '../../ipfs';
 var Buffer = require('buffer/').Buffer;
 import { AuctionRepository } from '../../../abi/AuctionRepository_abi';
-
-
 
 const AuctionHouse = ({ web3 }) => {
 	const [modalShow, setModalShow] = useState(false);
@@ -27,10 +25,10 @@ const AuctionHouse = ({ web3 }) => {
 	useEffect(() => {
 		console.log(window.ethereum.selectedAddress);
 		loadUser(window.ethereum.selectedAddress).then((res) => loadNfts({ user_id: res._id }));
-		AuctionRepositoryContract.methods
-			.getAuctionsOf(window.ethereum.selectedAddress)
-			.call()
-			.then(res => console.log('res', res))
+		// AuctionRepositoryContract.methods
+		// 	.getAuctionsOf(window.ethereum.selectedAddress)
+		// 	.call()
+		// 	.then(res => console.log('res', res))
 	}, []);
 
 	useEffect(() => {
@@ -39,42 +37,34 @@ const AuctionHouse = ({ web3 }) => {
 
 	return (
 		<Fragment>
-			<Container className="auction-house-container mt-2" fluid>
-				<Row className="d-flex justify-content-center">
+			<Container className="auction-house-container mt-2" >
+				<Row className="">
 					<div className="font-secondary text-white pr-1 text-center mb-4">Your Collection</div>
 					{getAllNfts.length &&
 						getAllNfts.map((nft, index) => (
-							<Col lg={2} md={3} sm={6} key={index} className="auction-cards">
-								<Card className="card-nft">
-									<Card.Img className="card-nft-image" variant="top" src={nft.thumbnail_image} />
-									<Card.Body>
-										<Card.Title>{nft.title}</Card.Title>
-										<Card.Text></Card.Text>
-										{nft.auction_mode ? (
-											<Fragment>
-												<Button
-													as={Link}
-													to={{
-														pathname: `/auction/${nft.nft_id}`,
-													}}
-													variant="warning">
-													Cancel
-												</Button>
-											</Fragment>
-										) : (
-											<Fragment>
-												<Button
-													as={Link}
-													to={{
-														pathname: `/auction/${nft.nft_id}`,
-													}}
-													className="primary">
-													Start
-												</Button>
-											</Fragment>
-										)}
-									</Card.Body>
-								</Card>
+							<Col>
+								<Nav fill variant="tabs" defaultActiveKey="link-0" className="profile-nft-nav">
+									<Nav.Item>
+										<Nav.Link eventKey="link-0">Collection</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey="link-1">Drafts</Nav.Link>
+									</Nav.Item>
+								</Nav>
+								<Container className="profile-nfts-grid" >
+									<Row className="pt-4 pl-2">
+										<Col lg={6} md={12}>
+											<NftDisplay />
+										</Col>
+
+										<Col md={12} style={{ fontSize: '13px', color: '#f6a615' }} className="text-right pt-3">
+											View All
+											<i
+												style={{ fontSize: '13px', color: '#f6a615' }}
+												className="fas fa-angle-double-right pl-2 my-auto pr-2"></i>
+										</Col>
+									</Row>
+								</Container>
 							</Col>
 						))}
 				</Row>

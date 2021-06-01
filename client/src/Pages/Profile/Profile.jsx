@@ -228,7 +228,7 @@ const Profile = (props, web3) => {
 
 	return (
 		<Fragment>
-			<Container className="profile-container">
+			<Container className="profile-container pb-3 mb-3">
 				<Row className="profile-details-row">
 					{user && nft && (
 						<Fragment>
@@ -275,18 +275,18 @@ const Profile = (props, web3) => {
 									</Nav.Item>
 								</Nav>
 								<Container className="profile-nfts-grid">
-									<Row className="pt-4">
+									<Row className="pt-4 pl-2">
 										{nfts &&
-											nfts.slice(0, 2).map((nft, i) => {
+											nfts.slice(0, 3).map((nft, i) => {
 												return (
-													<Col lg={6} md={12}>
+													<Col lg={4} md={12}>
 														<NftDisplay />
 													</Col>
 												);
 											})}
-										<Col md={12} className="text-white text-right ">
+										<Col md={12} style={{fontSize: '13px', color: "#f6a615"}}  className="text-right pt-3">
 											View All
-										<i style={{fontSize: '13px'}} className="fas text-white fa-angle-double-right pl-2 my-auto pr-3"></i>
+										<i style={{fontSize: '13px', color: "#f6a615"}} className="fas fa-angle-double-right pl-2 my-auto pr-2"></i>
 										</Col>
 									</Row>
 								
