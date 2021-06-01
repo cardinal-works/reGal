@@ -34,15 +34,17 @@
 .nft-item-card {
 	text-decoration: none !important;
 	padding: 5px;
-	border: solid 0px;
 	border-radius: 0px;
+	border-color: black !important;
 	background-color: black !important;
+	
 	.explore-card-image {
 		object-fit: cover;
-		width: 100vw;
-		height: 30vh;
+		width: auto;
+		min-height: 20vh;
+		max-height: 20vh;
 		border-radius: 2px;
-	}
+		outline-color: black !important;
+	} 
   }
-
 }

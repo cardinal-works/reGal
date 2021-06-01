@@ -26,7 +26,7 @@ const Navigation = () => {
 
 	return (
 		<Navbar className="nav-container" bg="dark" collapseOnSelect expand="lg" variant="dark">
-			<Navbar.Brand as={Link} to="/" className="regal-brand text-majesti font-primary">
+			<Navbar.Brand as={Link} to="/" className="regal-brand text-majesti font-primary pt-2">
 				<span className='r-text'>R</span> 
 			</Navbar.Brand>
 			<Navbar.Toggle aria-controls="responsive-navbar-nav" />

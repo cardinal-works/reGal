@@ -21,6 +21,7 @@ body {
 	background-color: #161616 !important;
 }
 
+
 .font-primary {
 
 	@media (min-width: 300px) { font-size: 3em }
@@ -120,6 +121,10 @@ footer {
 
 .text-majesti {
 	font-family: $primary-font;
+}
+
+.text-serif {
+	font-family: sans-serif;
 }
 
 .btn-fix {

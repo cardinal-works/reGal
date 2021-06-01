@@ -5,6 +5,7 @@ import { Link, history } from 'react-router-dom';
 //Contracts
 import ProfileCard from '../../Components/ProfileCard';
 import ProfileNftDisplay from '../../Components/ProfileNftDisplay';
+
 import NftDisplay from '../../Components/NftDisplay';
 import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
@@ -222,20 +223,16 @@ const Profile = (props, web3) => {
 	}, []);
 
 	useEffect(() => {
-		// console.log(loadingInitial);
-		// console.log(getAllNfts)
 		console.log(user);
 	}, [loadingInitial, user, getAllNfts]);
 
 	return (
 		<Fragment>
 			<Container className="profile-container">
-				<Row></Row>
 				<Row className="profile-details-row">
 					{user && nft && (
 						<Fragment>
 							<Col md={12} className="profile-page-card-nav">
-								{/* <Image className="profile-image" src={user.profile_image}></Image> */}
 								<ProfileCard
 									_id={user._id}
 									profile_image={user.profile_image}
@@ -244,22 +241,6 @@ const Profile = (props, web3) => {
 									bio={user.bio}
 									profile_bg_color={user.profile_bg_color}
 									display_name={user.display_name}></ProfileCard>
-								{/* <div style={{ position: "relative" }}> */}
-
-								{/* 						
-									<CornerRibbon
-										position="top-right" // OPTIONAL, default as "top-right"
-										fontColor="#f0f0f0" // OPTIONAL, default as "#f0f0f0"
-										backgroundColor="#2c7" // OPTIONAL, default as "#2c7"
-										containerStyle={{}} // OPTIONAL, style of the ribbon
-										style={{}} // OPTIONAL, style of ribbon content
-										className="" // OPTIONAL, css class of ribbon
-									>
-										FEATURED */}
-
-								{/* </CornerRibbon> */}
-
-								{/* </div> */}
 							</Col>
 
 							<Col lg={3} md={5}>
@@ -275,23 +256,13 @@ const Profile = (props, web3) => {
 									creator={nfts.creator}
 									date_mint={nfts.date_mint}
 									tags={nfts.tags}
+									featured={true}
 								/>
 							</Col>
-							<Col lg={9} md={7}>
-								{/* <Col>
-									<span className="text-white font-tertiary">
-										Collection <i className="fas fa-plus pl-2"></i>
-									</span>
-								</Col>
-								<Col>
-									<span className="text-white font-tertiary">Liked</span>
-								</Col>
-								<Col>
-									<span className="text-white font-tertiary">Recently Viewed</span>
-								</Col> */}
-								<Nav fill variant="tabs" defaultActiveKey="/home">
+							<Col lg={9} md={6}>
+								<Nav fill variant="tabs" defaultActiveKey="link-0" className="profile-nft-nav">
 									<Nav.Item>
-										<Nav.Link href="/home">Collection</Nav.Link>
+										<Nav.Link eventKey="link-0">Collection</Nav.Link>
 									</Nav.Item>
 									<Nav.Item>
 										<Nav.Link eventKey="link-1">Liked</Nav.Link>
@@ -300,35 +271,29 @@ const Profile = (props, web3) => {
 										<Nav.Link eventKey="link-2">Recently Viewed</Nav.Link>
 									</Nav.Item>
 									<Nav.Item>
-										<Nav.Link eventKey="link-2">Starred</Nav.Link>
+										<Nav.Link eventKey="link-3">Starred</Nav.Link>
 									</Nav.Item>
 								</Nav>
+								<Container className="profile-nfts-grid">
+									<Row className="pt-4">
+										{nfts &&
+											nfts.slice(0, 2).map((nft, i) => {
+												return (
+													<Col lg={6} md={12}>
+														<NftDisplay />
+													</Col>
+												);
+											})}
+										<Col md={12} className="text-white text-right ">
+											View All
+										<i style={{fontSize: '13px'}} className="fas text-white fa-angle-double-right pl-2 my-auto pr-3"></i>
+										</Col>
+									</Row>
+								
+								</Container>
 							</Col>
 						</Fragment>
 					)}
-
-					{/* {user && user.collections.length === 1 ? (
-						user.collections.map((nfts, i) => {
-							return (
-								<Col  className="">
-									<NftDisplay
-										_id={nfts._id}
-										likes={nfts.likes}
-										thumbnail_image={nfts.thumbnail_image}
-										nft_id={nfts.nft_id}
-										current_bid={nfts.current_bid}
-										title={nfts.title}
-										auction_startDate={nfts.auction_startDate}
-										auction_duration={nfts.auction_duration}
-										creator={nfts.creator}
-										date_mint={nfts.date_mint}
-										tags={nfts.tags}
-									/>
-								</Col>
-							);
-						})
-					) : (null
-					)} */}
 				</Row>
 			</Container>
 		</Fragment>

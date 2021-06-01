@@ -14,14 +14,38 @@ const StatsDisplay = () => {
 	const { updateNft, loadNft } = nftStore;
 	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
 
-	const handleLikeNft = () => {
-	};
+	const handleLikeNft = () => {};
 
 	return (
 		<Fragment>
-			<Container className="stats-display-container pb-3">
+				<Container className="stats-display-container pt-2 pl-0">
+				<ListGroup className="stats-list" horizontal>
+					<ListGroup.Item>total
+						<span className=" pl-1 text-green">
+						<nobr>1.0 <span className="icon-size eth">Ξ</span></nobr> 
+						</span>
+					</ListGroup.Item>
+					<ListGroup.Item >
+						stars
+						<span className=" pl-1 stars">
+							<nobr className="mt-n1">113 <i className="fas fa-star icon-size star"></i></nobr> 
+						</span>
+					</ListGroup.Item>
+					<ListGroup.Item>
+						likes
+						<span className="pl-1 likes">
+							<nobr>21 <i className="fas fa-heart icon-size heart"></i></nobr> 
+						</span>
+					</ListGroup.Item>
+					<ListGroup.Item>
+						views
+						<span className="pl-1 views">
+							<nobr>2943 <i class="fas fa-eye icon-size eye"></i></nobr> 
+						</span>
+					</ListGroup.Item>
+				</ListGroup>
 				
-			</Container>
+				</Container>
 		</Fragment>
 	);
 };

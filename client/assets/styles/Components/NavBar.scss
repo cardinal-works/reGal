@@ -1,8 +1,10 @@
 .nav-container {
 	display: flex;
 	background-color: #161616 !important;
-	margin: 50px 100px 30px 100px;
-	align-items:center;
+	margin: 50px 100px 20px 100px;
+	justify-content:space-between;
+	align-items: center;
+	align-content: flex-start;
 
 	.regal-brand {
 		.r-text {
@@ -18,6 +20,7 @@
 
 	.connect-button {
 		border-color: white;
+		padding-top: 3px;
 		color: white;
 		&:hover {
 			background: white;
@@ -27,6 +30,8 @@
 	}
 
 	.create-button {
+			padding-top: 3px;
+			padding-bottom: 3px;
 			border-color: white;
 			color: white;
 			&:hover {
