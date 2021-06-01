@@ -81,26 +81,22 @@ const Profile = (props) => {
 	);
 
 	useEffect(() => {
-		if (!window.ethereum.isMetaMask) {
-			if (!window.ethereum && !window.ethereum.isMetaMask) {
-				// props.history.push("/signup");
-				return;
-			}
-			if (!window.ethereum && !window.ethereum.selectedAddress) {
-				// props.history.push("/signup")
-				return;
-			}
+		if (!window.ethereum && !window.ethereum.isMetaMask) {
+			props.history.push("/signup");
+			return;
+		}
+		if (!window.ethereum.selectedAddress) {
+			props.history.push("/signup")
+			return;
 		}
 		loadUser(window.ethereum.selectedAddress).then((res) => {
 			loadNfts({ user_id: res._id });
 			setUserChanges(res);
-		});
+		}).catch( error => (
+			props.history.push("/signup")
+		))
 		// .then(console.log("hello", Object.fromEntries(nftRegistry)))
 	}, []);
-
-	useEffect(() => {
-		console.log(nftRegistry);
-	}, [nftRegistry]);
 
 	const [nfts, setNfts] = useState([
 		{
@@ -226,10 +222,10 @@ const Profile = (props) => {
 			.catch((err) => console.log(err));
 	};
 
-	useEffect(() => {
-		// console.log(loadingInitial);
-		// console.log(getAllNfts)
-	}, [loadingInitial, user, getAllNfts]);
+	// useEffect(() => {
+	// 	// console.log(loadingInitial);
+	// 	// console.log(getAllNfts)
+	// }, [loadingInitial, user, getAllNfts]);
 
 	return (
 		<Fragment>

@@ -5,6 +5,7 @@ import UseInterval from '../UseInterval';
 import CornerRibbon from 'react-corner-ribbon';
 //Store
 import NftStore from "../../Stores/NftStore";
+import UserStore from "../../Stores/UserStore";
 //Media
 import heart from '../../../assets/images/heart.png';
 import Profile from '../../../assets/images/profile.png';
@@ -26,7 +27,10 @@ const NftDisplay = ({
 	tags,
 }) => {
 	const nftStore = useContext(NftStore);
+	const userStore = useContext(UserStore);
+
 	const { updateNft, loadNft } = nftStore;
+	const { loadUser, updateUser, user } = userStore;
 	// let timeLeft = new Date(ending).getTime() - new Date().getTime();
 	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
 	// const [auctionTimer, setAuctionTimer] = useState([{
@@ -56,8 +60,28 @@ const NftDisplay = ({
 
 	const handleLikeNft = () => {
 		loadNft(nft_id).then( nft => (
-			updateNft({...nft, likes: nft.likes + 1})
+			updateNft({...nft, likes: nft.likes + 1}).then( response => (
+				updateUser({ ...user, liked_nfts: user.liked_nfts.push(response)})
+			))
 		))
+	}
+
+	const isLoggedIn = async () => {
+		if(user) 
+		{
+			return true;
+		}
+		return false;
+	}
+
+	const isNftLiked = () => {
+		if(user) {
+			user.liked_nfts.forEach( n => {
+				if(n._id == _id) 
+					return true
+			})
+		}
+		return false;
 	}
 
 	return (
@@ -72,9 +96,14 @@ const NftDisplay = ({
 				>
 					Details
 				</Link>
-				<Button variant="danger" className="like-button mt-4 ml-2" onClick={handleLikeNft}>
-					<i className="text-start fas fa-heart "></i>
-				</Button>
+				{
+					isLoggedIn
+					?
+					<Button variant="danger" className="like-button mt-4 ml-2" onClick={handleLikeNft} disabled={isNftLiked()}>
+						<i className="text-start fas fa-heart "></i>
+					</Button>
+					: null
+				}
 			</div>
 			<div className="nft-display">
 				<CornerRibbon

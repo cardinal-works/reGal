@@ -37,7 +37,7 @@ class UserStore {
             runInAction(() => {
                 if(response) {    
                     this.submitting = false;
-                    this.user = {...response}
+                    this.user = response
                 }
             })
             return response;
