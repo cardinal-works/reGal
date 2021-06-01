@@ -15,6 +15,7 @@ const Navigation = () => {
 	const [modalShow, setModalShow] = useState(false);
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
 	let web3 = new Web3(Web3.givenProvider || 'ws://localhost:9546');
+	const pending = false;
 
 	useEffect(() => {
 		// ** REGAL SIGNED MESSAGE -> JWT -> Authenication Key
@@ -55,6 +56,13 @@ const Navigation = () => {
 									</Button>
 								</div>
 							</Nav.Link>
+							{pending ? <Nav.Link className="create-nav-link">
+								<div className="profile-link-nav ">
+									<Button onClick={() => setModalShow(true)} className="create-button mr-2" variant="outline-success">
+										1.2
+									</Button>
+								</div>
+							</Nav.Link> : null}
 							<CreateModal show={modalShow} onHide={() => setModalShow(false)} />
 							<div className="profile-link-nav ">
 								<Nav.Link as={Link} to="/profile" className="">

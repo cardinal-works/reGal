@@ -40,7 +40,7 @@ const StatsDisplay = () => {
 					<ListGroup.Item>
 						views
 						<span className="pl-1 views">
-							<nobr>2943 <i class="fas fa-eye icon-size eye"></i></nobr> 
+							<nobr>2943 <i className="fas fa-eye icon-size eye"></i></nobr> 
 						</span>
 					</ListGroup.Item>
 				</ListGroup>

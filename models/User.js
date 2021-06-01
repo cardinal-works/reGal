@@ -51,6 +51,10 @@ const UserSchema = new Schema({
         type: String,
         require: false,
     },
+	pending: {
+		type: Number,
+		require: false,
+	},
 	collections: [
 		new Schema({
 			title: {
@@ -416,7 +420,7 @@ const UserSchema = new Schema({
 			auctions: [
 				{
 					nft_id: {
-						type: Number,
+						type: String,
 						required: true,
 					},
 					seller_id: {

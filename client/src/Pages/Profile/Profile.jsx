@@ -228,10 +228,10 @@ const Profile = (props, web3) => {
 
 	return (
 		<Fragment>
-			<Container className="profile-container pb-3 mb-3">
+			<Container className="profile-container" >
 				<Row className="profile-details-row">
 					{user && nft && (
-						<Fragment>
+						<Fragment >
 							<Col md={12} className="profile-page-card-nav">
 								<ProfileCard
 									_id={user._id}
@@ -242,8 +242,7 @@ const Profile = (props, web3) => {
 									profile_bg_color={user.profile_bg_color}
 									display_name={user.display_name}></ProfileCard>
 							</Col>
-
-							<Col lg={3} md={5}>
+							<Col className="" lg={3} md={5}>
 								<NftDisplay
 									_id={nfts._id}
 									likes={nfts.likes}
@@ -259,7 +258,7 @@ const Profile = (props, web3) => {
 									featured={true}
 								/>
 							</Col>
-							<Col lg={9} md={6}>
+							<Col className="" lg={9} md={6}>
 								<Nav fill variant="tabs" defaultActiveKey="link-0" className="profile-nft-nav">
 									<Nav.Item>
 										<Nav.Link eventKey="link-0">Collection</Nav.Link>
@@ -274,12 +273,12 @@ const Profile = (props, web3) => {
 										<Nav.Link eventKey="link-3">Starred</Nav.Link>
 									</Nav.Item>
 								</Nav>
-								<Container className="profile-nfts-grid">
-									<Row className="pt-4 pl-2">
+								<Container className="" >
+									<Row className="pt-4 pl-2 profile-nfts-grid">
 										{nfts &&
 											nfts.slice(0, 3).map((nft, i) => {
 												return (
-													<Col lg={4} md={12}>
+													<Col key={i} xl={4} lg={5} md={12} sm={10} xs={10}>
 														<NftDisplay />
 													</Col>
 												);

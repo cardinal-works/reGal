@@ -45,10 +45,10 @@ const AuctionHouse = ({ web3 }) => {
 							<Col>
 								<Nav fill variant="tabs" defaultActiveKey="link-0" className="profile-nft-nav">
 									<Nav.Item>
-										<Nav.Link eventKey="link-0">Collection</Nav.Link>
+										<Nav.Link onClick={() => window.alert('hello')} eventKey="link-0">Collection</Nav.Link>
 									</Nav.Item>
 									<Nav.Item>
-										<Nav.Link eventKey="link-1">Drafts</Nav.Link>
+										<Nav.Link onClick={() => window.alert('hello')} eventKey="link-1">Drafts</Nav.Link>
 									</Nav.Item>
 								</Nav>
 								<Container className="profile-nfts-grid" >
