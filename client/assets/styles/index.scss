@@ -4,7 +4,7 @@
 }
 
 html {
-	background-color: black;
+	background-color: #161616 !important;
 }
 
 body {
@@ -18,8 +18,9 @@ body {
 	animation-duration: 2s;
 	margin-left: auto;
 	margin-right: auto;
-	background-color: $black;
+	background-color: #161616 !important;
 }
+
 
 .font-primary {
 
@@ -120,6 +121,10 @@ footer {
 
 .text-majesti {
 	font-family: $primary-font;
+}
+
+.text-serif {
+	font-family: sans-serif;
 }
 
 .btn-fix {

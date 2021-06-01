@@ -1,17 +1,6 @@
 //Modules
 import React, { useEffect, useState, useContext, Fragment } from 'react';
-import {
-	Container,
-	Row,
-	Col,
-	Image,
-	Form,
-	Button,
-	OverlayTrigger,
-	ToolTip,
-	Toast,
-	FormControl,
-} from 'react-bootstrap';
+import { Container, Row, Col, Image, Form, Button, OverlayTrigger, ToolTip, Toast, FormControl } from 'react-bootstrap';
 import ipfs from '../../ipfs';
 import { Link, Redirect } from 'react-router-dom';
 import NftDisplay from '../../Components/NftDisplay';
@@ -19,25 +8,6 @@ import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
 import { RegalAuction } from '../../../abi/RegalAuction_abi';
 var Buffer = require('buffer/').Buffer;
-
-const _dbMetadata = {
-	title: '',
-	creator: '@artistName',
-	nft_description: '',
-	nft_id: null,
-	thumbnail_image: '',
-	raw_image: null,
-	likes: 0,
-	current_bid: 0,
-	auction_id: 0,
-	asking_bid: null,
-	previous_sold: null,
-	auction_duration: null,
-	auction_startDate: null,
-	auction_mode: false,
-	auction_started: false,
-	tags: [],
-};
 
 const NftMinter = ({ web3 }) => {
 	const contractAddr = '0xF8915Fa980F1a44770C80500F9Bb4169b7E04D72';
@@ -48,15 +18,18 @@ const NftMinter = ({ web3 }) => {
 	const [userChanges, setUserChanges] = useState({});
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
 	const { createNft } = nftStore;
-	const [dbMetaData, setDbMetaData] = useState(_dbMetadata);
 	const [formList, setFormList] = useState([true, false, false, false]);
 	const [uploading, setUploading] = useState(false);
-	const [renderInput, setRenderInput] = useState([<div key={0}></div>]);
+	const [dbMetaData, setDbMetaData] = useState({
+		title: '',
+		creator: '@artistName',
+		nft_description: '',
+		thumbnail_image: '',
+		tags: [],
+	});
 
 	useEffect(() => {
-		console.log(web3);
 		loadUser(window.ethereum.selectedAddress).then((res) => {
-			console.log(res);
 			setDbMetaData((prevState) => ({
 				...prevState,
 				creator: res.display_name,
@@ -65,15 +38,13 @@ const NftMinter = ({ web3 }) => {
 		});
 	}, []);
 
-	const renderTooltip = () => <Tooltip id="button-tooltip">Simple tooltip</Tooltip>;
-
 	const handleMint = async () => {
 		if (user._id) {
 			const _bcMetadata = {
 				title: dbMetaData.title,
 				creator: dbMetaData.creator,
 				nft_id: dbMetaData.nft_id,
-				raw_image: dbMetaData.raw_image,
+				thumbnail_image: dbMetaData.thumbnail_image,
 			};
 			const _bcStringified = JSON.stringify(_bcMetadata);
 			const result = await ipfs.add(_bcStringified);
@@ -152,34 +123,38 @@ const NftMinter = ({ web3 }) => {
 	};
 
 	return (
-		<Container className="nft-minter-container">
-			<Toast show={formList[0]} animation={false} className="mx-auto pb-3">
-				<Toast.Header closeButton={false}>
-					<strong className="mx-auto text-majesti">R</strong>
+		<Container className="nft-minter-container ">
+			<Toast show={formList[0]} animation={false} className="toast-1 mx-auto pb-3">
+				<Toast.Header className="toast-1-header" closeButton={false}>
+					<strong className="mx-auto text-majesti font-tertiary">R</strong>
 				</Toast.Header>
 				<Toast.Body>
-					<Row>
-						<Col className="text-center pb-3"></Col>
-					</Row>
-					<Row>
-						<Col className="mx-auto text-end">
-							<Button
-								onClick={() => setFormList([false, true, false, false])}>
-								New
-							</Button>
+					<Row className="pb-3 pt-2">
+						<Col md={12} className="text-center pb-3 pt-2">
+							If this is your first time minting an NFT, click <a href="#">here</a> for a quick explanation on what you need
+							to know.
 						</Col>
-						<Col className="mx-auto text-start">
+						<Col className="text-center pb-3 pt-2">
+							Otherwise, choose between starting from scratch (new) or from a previous draft.
+						</Col>
+					</Row>
+					<Row className="text-center">
+						<Col className="mx-auto">
 							<Button
+								className="drafts-button"
 								onClick={() => {
 									setNext(true);
 								}}>
 								Drafts
 							</Button>
+							<Button className="new-button ml-3 text-center" onClick={() => setFormList([false, true, false, false])}>
+								New
+							</Button>
 						</Col>
 					</Row>
 				</Toast.Body>
 			</Toast>
-			<Toast show={formList[1]} animation={false} className="mx-auto">
+			<Toast show={formList[1]} animation={false} className="toast-2 mx-auto">
 				<Toast.Header closeButton={false}>
 					<Col className="text-start p-0">
 						<strong className="mx-auto text-start text-majesti">R</strong>
@@ -190,11 +165,12 @@ const NftMinter = ({ web3 }) => {
 				</Toast.Header>
 				<Toast.Body>
 					<Row className="text-center">
-						<Col md={12}>
+						<Col md={12} style={{ fontSize: '12px' }}>
 							{dbMetaData.thumbnail_image ? (
 								<NftDisplay
 									nft_id={0}
 									likes={420}
+									preview={true}
 									thumbnail_image={dbMetaData.thumbnail_image}
 									current_bid={999}
 									title={dbMetaData.title}
@@ -202,23 +178,31 @@ const NftMinter = ({ web3 }) => {
 								/>
 							) : null}
 						</Col>
-						<Col md={12} className="pb-3">
-							upload your artwork
+						<Col md={12} className="pb-4">
+							{dbMetaData.thumbnail_image ? null : <b>upload your artwork</b>}
 						</Col>
 						<Col className="text-center">
-							<small className="text-center">
-								This will be the representation of your art{' '}
-								<b> on the blockchain</b> and the preview{' '}
-								<b>on our site.</b> <br /> <br />
-								It can never be changed or deleted so choose wisely.{' '}
-								<br />
-								You will be able to preview your art before it is minted.
-							</small>
+							{dbMetaData.thumbnail_image ? (
+								<span>
+									doesn't look right? <br /> upload another <i className="fas fa-caret-down mt-2"></i>{' '}
+								</span>
+							) : (
+								<>
+									<span className="text-center">
+										This will be the representation of your art <b> on the blockchain</b> and the preview{' '}
+										<b>on our site. </b>
+									</span>
+									<span>
+										It can never be changed or deleted so choose wisely. <br /> <br />
+										<i>You will be able to preview your art before it is minted.</i>
+									</span>
+								</>
+							)}
 						</Col>
 					</Row>
-					<Row className="mt-4">
+					<Row className="mt-2">
 						<Col md={12} className="mx-auto text-center">
-							<Button>
+							<Button className="ipfs-button mb-1 mt-5">
 								{uploading ? (
 									<span className="spinner-border spinner-border-sm mr-2 mb-1"></span>
 								) : (
@@ -236,30 +220,23 @@ const NftMinter = ({ web3 }) => {
 									type="file"></input>
 							</Button>
 						</Col>
-						<Col md={12} className="text-center">
-							<br />
+						<Col md={12} className="text-center pb-3 pt-2">
 							<small>20MB limit (jpg, png, mp4, gif, jpeg)</small>
 						</Col>
-						<Col md={12} className="mt-3 mb-3 text-center">
-							<Button
-								className="mr-1"
-								onClick={() => setFormList([true, false, false, false])}>
-								<i className="fad fa-angle-double-left"></i>
+						<Col md={12} className="mt-1 pt-2 mb-3 text-center">
+							<Button className="button-prev mr-1 mt-1" onClick={() => setFormList([true, false, false, false])}>
+								<i className="fad fa-angle-double-left "></i>
 							</Button>
 							{dbMetaData.thumbnail_image.length > 1 && (
-								<Button
-									className="ml-1"
-									onClick={() =>
-										setFormList([false, false, true, false])
-									}>
-									<i className="fad fa-chevron-double-right"></i>
+								<Button className="button-next ml-1 mt-1" onClick={() => setFormList([false, false, true, false])}>
+									<i className="fad fa-chevron-double-right "></i>
 								</Button>
 							)}
 						</Col>
 					</Row>
 				</Toast.Body>
 			</Toast>
-			<Toast show={formList[2]} animation={false} className="mx-auto">
+			<Toast show={formList[2]} animation={false} className="toast-3 mx-auto">
 				<Toast.Header closeButton={false}>
 					<Col className="text-start p-0">
 						<strong className="mx-auto text-start text-majesti">R</strong>
@@ -279,6 +256,8 @@ const NftMinter = ({ web3 }) => {
 									current_bid={999}
 									title={dbMetaData.title}
 									creator={user.display_name}
+									description={dbMetaData.nft_description}
+									preview={true}
 								/>
 							) : null}
 						</Col>
@@ -287,49 +266,47 @@ const NftMinter = ({ web3 }) => {
 						</Col>
 						<Col md={12} className="text-center">
 							<Form className="text-left">
-								<Form.Group controlId="minter.controlTitle">
-									<Form.Label className="pl-1">title *</Form.Label>
+								<Form.Group>
+									<Form.Label className="text-white">title*</Form.Label>
 									<Form.Control
-										value={dbMetaData.title}
-										name="title"
+										maxLength="60"
 										type="text"
+										name="title"
+										placeholder=""
+										value={dbMetaData.title}
+										onChange={handleInputChange}
 									/>
 								</Form.Group>
-								<Form.Group controlId="minter.controlDesc">
-									<Form.Label className="pl-1">
-										description *
-									</Form.Label>
+								<Form.Group>
+									<Form.Label className="text-white">description*</Form.Label>
 									<Form.Control
-										name="description"
+										maxLength="280"
 										as="textarea"
-										rows={2}
+										row={6}
+										name="nft_description"
+										placeholder=""
+										value={dbMetaData.nft_description || ''}
+										onChange={handleInputChange}
 									/>
-									<small className="pl-1">* 280 character limit</small>
 								</Form.Group>
 								<Form.Label className="pl-1">tags</Form.Label>
-								<Form.Control
-									type="text"
-									placeholder="disabled"
-									readOnly
-								/>
+								<Form.Control type="text" placeholder="disabled" readOnly />
 							</Form>
 						</Col>
 					</Row>
 					<Row className="mt-4">
 						<Col md={12} className="mx-auto text-center mb-3 pb-1">
-							<Button
-								onClick={() => setFormList([false, true, false, false])}>
+							<Button className="button-prev mr-1" onClick={() => setFormList([false, true, false, false])}>
 								<i className="fad fa-angle-double-left"></i>
 							</Button>
-							<Button
-								onClick={() => setFormList([false, false, false, true])}>
+							<Button className="button-next ml-1" onClick={() => setFormList([false, false, false, true])}>
 								<i className="fad fa-chevron-double-right"></i>
 							</Button>
 						</Col>
 					</Row>
 				</Toast.Body>
 			</Toast>
-			<Toast show={formList[3]} animation={false} className="mx-auto">
+			<Toast show={formList[3]} animation={false} className="toast-4 mx-auto">
 				<Toast.Header closeButton={false}>
 					<Col className="text-start p-0">
 						<strong className="mx-auto text-start text-majesti">R</strong>
@@ -339,56 +316,53 @@ const NftMinter = ({ web3 }) => {
 					</Col>
 				</Toast.Header>
 				<Toast.Body>
-					<Row className="text-center">
-					<Col md={12} className="mb-2">
+					<Row className="text-end">
+						<Col md={12} className="mb-2">
 							{dbMetaData.thumbnail_image ? (
-								<NftDisplay
-									nft_id={0}
-									likes={420}
-									thumbnail_image={dbMetaData.thumbnail_image}
-									current_bid={999}
-									title={dbMetaData.title}
-									creator={user.display_name}
-								/>
+								<Fragment>
+									<NftDisplay
+										nft_id={0}
+										likes={420}
+										thumbnail_image={dbMetaData.thumbnail_image}
+										current_bid={999}
+										title={dbMetaData.title}
+										creator={user.display_name}
+									/>{' '}
+									<small className="text-white pb-2">note: description is only visible on the detail page</small>{' '}
+								</Fragment>
 							) : null}
 						</Col>
-						<Col md={12} className="pb-3">
-							save or mint?
+						<Col md={12} className=" text-center pt-5 pb-3">
+							save draft or mint?
 						</Col>
 						<Col className="text-center">
-							<small className="text-center">
-								Any interaction with the blockchain costs gas
-								{/* <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}> */}
-								<i className="fas fa-map-marker-question"></i>{' '}
-								{/* </OverlayTrigger> */}
-								. If you don't want to mint (pay) it now, you can save
-								your art as a draft.
+							<span className="text-center pt-1 pb-1">
+								Any interaction with the blockchain costs gas. If you don't want to mint (pay) it now, you can save your art
+								as a draft.
 								<br />{' '}
-							</small>
+							</span>
 						</Col>
 					</Row>
-					<Row className="mt-4 mb-2 text-center">
-						<Col className="mx-auto text-end">
-							<Button variant="secondary">save</Button>
-						</Col>
-						<Col className="mx-auto text-start">
+					<Row className="mt-2 mb-2 text-center pt-2">
+						<Col className="text-center">
+							<Button className=" mr-1 button-save" variant="secondary">
+								save draft
+							</Button>
+
 							<Button
-								variant="success"
-								onClick={() => {
-									setNext(true);
-								}}>
+								className=" ml-1 button-mint"
+								onClick={handleMint}
+								disabled={dbMetaData.title && dbMetaData.creator && dbMetaData.nft_description ? false : true}>
 								mint
 							</Button>
 						</Col>
-						<Col md={12} className="mx-auto text-center mb-3 pb-1">
-							<Button
-								onClick={() => setFormList([false, true, false, false])}>
+						<Col md={12} className="mx-auto text-center pt-1 mb-1">
+							<Button className="button-prev mt-4" onClick={() => setFormList([false, false, true, false])}>
 								<i className="fad fa-angle-double-left"></i>
 							</Button>
-							<Button
-								onClick={() => setFormList([false, false, false, true])}>
+							{/* <Button className="ml-1 button-next" onClick={() => setFormList([false, false, false, true])}>
 								<i className="fad fa-chevron-double-right"></i>
-							</Button>
+							</Button> */}
 						</Col>
 					</Row>
 				</Toast.Body>

@@ -1,154 +1,29 @@
 .profile-container {
-	margin-top: 30px;
-	padding: 0px 8% 0px 8%;
-
-
-
-
-  .card {
-    background-color: transparent !important;
-  }
-	.nft-collection {
-		position: relative;
-    
-
-		.profile-card {
-			display: block;
-			padding-bottom: 100%;
-			border-radius: 2px;
-			img {
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				transition: 0.25s ease-in-out;
-				border-radius: 2px !important;
-
-				&:hover {
-					opacity: 50%;
-					transition: 0.25s ease-in-out;
-				}
-			}
-		}
-	}
-
-	.nft-liked {
-		position: relative;
-
-		.profile-card {
-			display: block;
-			padding-bottom: 100%;
-			border-radius: 2px;
-			img {
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				transition: 0.25s ease-in-out;
-				border-radius: 2px !important;
-
-				&:hover {
-					opacity: 50%;
-					transition: 0.25s ease-in-out;
-				}
-			}
-		}
-	}
-
-	.nft-viewed {
-		padding-bottom: 100px;
-		position: relative;
-		.profile-card {
-			display: block;
-			padding-bottom: 100%;
-			border-radius: 2px;
-			img {
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				transition: 0.25s ease-in-out;
-				border-radius: 2px !important;
-
-				&:hover {
-					opacity: 50%;
-					transition: 0.25s ease-in-out;
-				}
-			}
-		}
-	}
-
-	.profile-image {
-		border-radius: 2px;
-		height: 100%;
-		object-fit: cover;
-
-		box-shadow: 0px 0px 20px rgb(97, 97, 97);
-	}
-
-	.profile-featured-nft {
-		width: 100%;
-
-		.nft-card {
-			background-image: -webkit-linear-gradient(
-				90deg,
-				rgba(255, 136, 124, 1) 0%,
-				rgba(182, 50, 95, 1) 35%,
-				rgba(255, 173, 0, 1) 100%
-			); /* For Chrome and Safari */
-			background-image: -moz-linear-gradient(
-				90deg,
-				rgba(255, 136, 124, 1) 0%,
-				rgba(182, 50, 95, 1) 35%,
-				rgba(255, 173, 0, 1) 100%
-			); /* For old Fx (3.6 to 15) */
-			background-image: -ms-linear-gradient(
-				90deg,
-				rgba(255, 136, 124, 1) 0%,
-				rgba(182, 50, 95, 1) 35%,
-				rgba(255, 173, 0, 1) 100%
-			); /* For pre-releases of IE 10*/
-			background-image: -o-linear-gradient(
-				90deg,
-				rgba(255, 136, 124, 1) 0%,
-				rgba(182, 50, 95, 1) 35%,
-				rgba(255, 173, 0, 1) 100%
-			); /* For old Opera (11.1 to 12.0) */
-			background-image: linear-gradient(
-				90deg,
-				rgba(255, 136, 124, 1) 0%,
-				rgba(182, 50, 95, 1) 35%,
-				rgba(255, 173, 0, 1) 100%
-			); /* Standard syntax; must be last */
-			color: transparent !important;
-			background-clip: text;
-		}
-	}
-	.choose-file-button {
-		color: white;
-		padding-top: 8px;
-	}
-
-	.nft-display-rows {
-		flex-direction: row;
-		justify-content: center;
-	}
-	.featured-nft {
-		.profile-card {
-			border-radius: 2px;
-			object-fit: cover;
-			img {
-				object-fit: cover;
-				height: 400px;
-        padding: 10px;
-				width: 180%;
-				transition: 0.25s ease-in-out;
-				border-radius: 2px !important;
-				&:hover {
-					opacity: 50%;
-					transition: 0.25s ease-in-out;
-				}
-			}
-		}
-	}
+    .profile-nft-nav {
+        border-color: #222222;
+        a.nav-link.active {
+            border-radius: 0px;
+            background-color: #222222;
+            border-color: #222222;
+            color: white;
+            &:hover {
+                border-color: transparent;
+                background-color: rgb(141, 141, 141);
+            }
+        }
+        a.nav-link {
+            border-radius: 0px;
+            color: white;
+            &:hover {
+                border-color: transparent;
+                background-color: rgba(151, 151, 151, 0.308);
+            }
+        }
+    }
+    .profile-nfts-grid {
+        // box-shadow: rgba(255, 255, 255, 0.132) 0px 0px 10px;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        background-color: #222222;
+    }
 }

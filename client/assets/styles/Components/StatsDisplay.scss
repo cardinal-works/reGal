@@ -1,0 +1,40 @@
+.stats-display-container {
+    display: flex;
+    align-items: baseline;
+    font-weight: 300;
+    .stats-list {
+        div {
+            color: white;
+            font-size: 1.3em;
+
+        }
+        i {
+ 
+     
+ 
+        }
+    }
+    .eth {
+        font-size: 0.8em !important;
+    }
+    .star {
+        font-size: 0.75em !important;
+    }
+    .heart {
+        font-size: 0.8em !important;
+    }
+    .eye {
+        font-size: 0.8em !important;
+    }
+
+    .stars {
+        color: gold;
+    }
+    .likes {
+        color: rgb(207, 0, 0);
+    }
+    .views {
+        color: rgb(0, 136, 255);
+    }
+
+}

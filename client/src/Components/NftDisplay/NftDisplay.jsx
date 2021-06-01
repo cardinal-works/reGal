@@ -9,7 +9,22 @@ import { Row, Col, Image, Button, Container, Card, ListGroup, ListGroupItem } fr
 import NftStore from '../../Stores/NftStore';
 import { observer } from 'mobx-react-lite';
 
-const NftDisplay = ({ _id, likes, thumbnail_image, auction_startDate, auction_duration, nft_id, current_bid, title, creator, date_mint, tags }) => {
+const NftDisplay = ({
+	_id,
+	likes,
+	thumbnail_image,
+	auction_startDate,
+	auction_duration,
+	featured,
+	nft_id,
+	current_bid,
+	title,
+	creator,
+	date_mint,
+	tags,
+	description,
+	preview,
+}) => {
 	const nftStore = useContext(NftStore);
 	const { updateNft, loadNft } = nftStore;
 	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
@@ -28,11 +43,27 @@ const NftDisplay = ({ _id, likes, thumbnail_image, auction_startDate, auction_du
 						state: { nft_id: Number(nft_id) },
 					}}
 					className="nft-item-card">
-					<Card.Img className="explore-card-image" variant="top" src={thumbnail_image} />
+					{featured ? (
+						<div style={{ position: 'relative' }}>
+							<CornerRibbon
+								position="top-left" // OPTIONAL, default as "top-right"
+								fontColor="#000000" // OPTIONAL, default as "#f0f0f0"
+								backgroundColor="#de961b" // OPTIONAL, default as "#2c7"
+								containerStyle={{}} // OPTIONAL, style of the ribbon
+								style={{ fontSize: '12px' }} // OPTIONAL, style of ribbon content
+								className="text-white" // OPTIONAL, css class of ribbon
+							>
+								featured
+							</CornerRibbon>
+							<Card.Img className="explore-card-image" variant="top" src={thumbnail_image} />
+						</div>
+					) : (
+						<Card.Img className="explore-card-image" variant="top" src={thumbnail_image} />
+					)}
 				</Card>
 				<Container className="pl-1 pr-1">
-					<Row className="overlay-container">
-						<Col md={8} className="symbols-container pt-1 pb-1">
+					<Row className="overlay-container pb-1">
+						<Col md={12} className="symbols-container pt-1 pb-1 text-end">
 							<div className="likes-div">
 								<span className="text-white pr-2 text-green" style={{ fontWeight: '900' }}>
 									{current_bid}Ξ
@@ -46,21 +77,30 @@ const NftDisplay = ({ _id, likes, thumbnail_image, auction_startDate, auction_du
 								</span>
 							</div>
 						</Col>
-						<Col md={4} className="pt-1">
+						<Col md={12} className=" text-start pt-1">
 							{' '}
-							<span className="pl-1 text-white creator-link">
-								<i className="fad fa-user-circle profile "></i>
-								{' @'}
+							<span className="text-white creator-link">
+								<i className="far fa-at user-profile pr-1"></i>
+								{/* {' @'} */}
 								{creator}
 							</span>
 						</Col>
-						<Col className="pt-1 pb-1 text-white">{title}</Col>
-						<Col className="pt-1 pb-1">
-							<div className="more-div text-white text-end">
-								<Countdown date={Date.now() + 100000000} />
-								<i className="far fa-ellipsis-h pl-3"></i>
-							</div>
+						<Col md={12} className="pt-1 pb-1 nft-title-text text-white text-start">
+							{title}
 						</Col>
+						{description && description.length > 0 ? (
+							<Col className="text-start pl-4 pt-1 pb-3" md={8}>
+								{description}
+							</Col>
+						) : null}
+						{preview ? null : (
+							<Col className="pt-1 pb-1">
+								<div className="more-div text-white text-end">
+									{!preview ? <Countdown date={Date.now() + 100000000} /> : null}
+									<i className="far fa-ellipsis-h pl-3"></i>
+								</div>
+							</Col>
+						)}
 					</Row>
 				</Container>
 			</Container>
