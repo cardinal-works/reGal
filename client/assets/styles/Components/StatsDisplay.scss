@@ -2,16 +2,18 @@
     display: flex;
     align-items: baseline;
     font-weight: 300;
+
+    .list-group {
+        .list-group-item {
+            border-color: transparent !important;
+        }
+    }
     .stats-list {
+  
         div {
             color: white;
             font-size: 1.3em;
 
-        }
-        i {
- 
-     
- 
         }
     }
     .eth {

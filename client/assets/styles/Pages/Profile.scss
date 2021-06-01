@@ -1,7 +1,10 @@
 .profile-container {
+    padding: 0px;
     .profile-nft-nav {
         border-color: #222222;
         a.nav-link.active {
+            
+            font-size: 1.25em;
             border-radius: 0px;
             background-color: #222222;
             border-color: #222222;
@@ -12,6 +15,7 @@
             }
         }
         a.nav-link {
+            font-size: 1.25em;
             border-radius: 0px;
             color: white;
             &:hover {
@@ -25,5 +29,6 @@
         padding-bottom: 15px;
         margin-bottom: 20px;
         background-color: #222222;
+
     }
 }
