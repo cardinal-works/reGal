@@ -12,8 +12,12 @@ const NftSchema = new Schema({
         type: String,
         required: true
     },
-    creator: {
-        type: String,
+    creator_id: {
+        type: Number,
+        required: true
+    },
+    creator_name: {
+        type: String, 
         required: true
     },
     nft_description: {
@@ -22,10 +26,6 @@ const NftSchema = new Schema({
     },
     nft_id: {
         type: Number,
-        required: true
-    },
-    thumbnail_image: {
-        type: String,
         required: true
     },
     date_mint: {
@@ -37,46 +37,59 @@ const NftSchema = new Schema({
         default: 0,
         required: true
     },
-    current_bid: {
+    stars: {
         type: Number,
         default: 0,
         required: true
     },
-    asking_bid: {
-        type: Number,
-        default: null,
-        require: true
-    },
     previous_sold: {
-        type: [Number],
-        defaut: null,
+        type: Array,
+        defaut: [0],
         require: true
     },
-    auction_duration: {
+    thumbnail_image: {
         type: String,
-        default: null,
-        require: true
-    },
-    auction_startDate: {
-        type: String,
-        default: null,
-        require: true
+        required: true
     },
     auction_mode: {
         type: Boolean,
         default: false,
         require: true
     },
-    auction_ended: {
-        type: Boolean,
-        default: false,
-        require: true
-    },
-    auction_id: {
-        type: Number,
-        default: null,
-        require: true
-    },
+    auctions: [{
+        nft_id: {
+            type: Number,
+            required: true,
+        },
+        seller_id: {
+            type: Number,
+            required: true
+        },
+        seller_name: {
+            type: String,
+            required: true
+        },
+		start_date: {
+            type: Number,
+            required: true
+        },
+		asking_bid: {
+            type: Number,
+            required: true
+        },
+		end_date: {
+            type: Number,
+            required: true
+        },
+		bids: {
+            type: Array, 
+            require: true,
+        },
+        watchers: {
+            type: Array, 
+            require: true, 
+        }
+    }],
     tags: [
         new Schema({
             name: {
