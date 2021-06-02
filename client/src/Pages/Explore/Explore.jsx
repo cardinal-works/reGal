@@ -17,23 +17,23 @@ const Explore = (web3) => {
 
 	useEffect(async () => {
 		loadNfts();
-		let userAddress;
-		if (window.ethereum) {
-			await window.ethereum
-				.request({ method: 'eth_accounts' })
-				.then((res) => {
-					userAddress = res;
-					loadUser(userAddress[0]);
-				})
-				.catch((error) => {
-					if (error.code === 4001) {
-						console.log('Please connect to MetaMask.');
-					} else {
-						console.error(error);
-					}
-				});
-		}
-		return;
+		// let userAddress;
+		// if (window.ethereum) {
+		// 	await window.ethereum
+		// 		.request({ method: 'eth_accounts' })
+		// 		.then((res) => {
+		// 			userAddress = res;
+		// 			loadUser(userAddress[0]);
+		// 		})
+		// 		.catch((error) => {
+		// 			if (error.code === 4001) {
+		// 				console.log('Please connect to MetaMask.');
+		// 			} else {
+		// 				console.error(error);
+		// 			}
+		// 		});
+		// }
+		// return;
 	}, []);
 
 	return (

@@ -83,7 +83,7 @@ const Auction = ({ web3 }) => {
 	return (
 		<Fragment>
 			{nft && user ? (
-				<Container key={'auction'}>
+				<Container>
 					<Row>
 						<Col>
 						<Toast show={true} animation={false} className="toast-4 mx-auto">
