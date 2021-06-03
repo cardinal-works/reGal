@@ -1,16 +1,13 @@
-import React, { Fragment, useState, useEffect, useRef, useContext } from 'react';
-import { Image, Card, Button, Row, Col, Container, ListGroup, ListGroupItem } from 'react-bootstrap';
+// ** MODULES
+import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import UseInterval from '../UseInterval';
+// ** COMPONENTS
 import CornerRibbon from 'react-corner-ribbon';
-//Store
-import NftStore from "../../Stores/NftStore";
+import Countdown from 'react-countdown';
+import { Row, Col, Image, Button, Container, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+// ** STORE
+import NftStore from '../../Stores/NftStore';
 import UserStore from "../../Stores/UserStore";
-//Media
-import heart from '../../../assets/images/heart.png';
-import Profile from '../../../assets/images/profile.png';
-import mint from '../../../assets/images/mint.png';
-import portrait from '../../../assets/images/portrait.png';
 import { observer } from 'mobx-react-lite';
 
 const NftDisplay = ({
@@ -19,52 +16,25 @@ const NftDisplay = ({
 	thumbnail_image,
 	auction_startDate,
 	auction_duration,
+	featured,
 	nft_id,
 	current_bid,
 	title,
 	creator,
 	date_mint,
 	tags,
+	description,
+	preview,
 }) => {
 	const nftStore = useContext(NftStore);
 	const userStore = useContext(UserStore);
 
 	const { updateNft, loadNft } = nftStore;
-	const { loadUser, updateUser, user } = userStore;
-	// let timeLeft = new Date(ending).getTime() - new Date().getTime();
 	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
-	// const [auctionTimer, setAuctionTimer] = useState([{
-	//     days: Math.floor(timeLeft / (86400000)),
-	//     hours: Math.floor((timeLeft % (86400000)) / (3600000)),
-	//     minutes: Math.floor((timeLeft % (3600000)) / (60000)),
-	//     seconds: Math.floor((timeLeft % (60000)) / 1000),
-	//   }]);
-	// UseInterval(() => {
-	// let timeLeft = new Date(ending).getTime() - new Date().getTime();
-	//   setAuctionTimer([
-	//     {
-	//       days: Math.floor(timeLeft / (86400000)),
-	//       hours: Math.floor((timeLeft % (86400000)) / (3600000)),
-	//       minutes: Math.floor((timeLeft % (3600000)) / (60000)),
-	//       seconds: Math.floor((timeLeft % (60000)) / 1000),
-	//     },
-	//   ]);
-	// }, 1000)
-
-	useEffect(() => {
-		fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc')
-			.then((response) => response.json())
-			.then((data) => setCurrentEtherPrice(data[1]['current_price']))
-			.catch((err) => console.log('ERROR: ', err));
-	}, []);
 
 	const handleLikeNft = () => {
-		loadNft(nft_id).then( nft => (
-			updateNft({...nft, likes: nft.likes + 1}).then( response => (
-				updateUser({ ...user, liked_nfts: user.liked_nfts.push(response)})
-			))
-		))
-	}
+		loadNft(nft_id).then((nft) => updateNft({ ...nft, likes: nft.likes + 1 }));
+	};
 
 	const isLoggedIn = async () => {
 		if(user) 
@@ -86,60 +56,75 @@ const NftDisplay = ({
 
 	return (
 		<Fragment>
-			<div className="details-button">
-				<Link
+			<Container className="nft-display-container pb-3">
+				<Card
+					as={Link}
 					to={{
 						pathname: `/details/${nft_id}`,
 						state: { nft_id: Number(nft_id) },
 					}}
-					className="btn btn-regal mt-4"
-				>
-					Details
-				</Link>
-				{
-					isLoggedIn
-					?
-					<Button variant="danger" className="like-button mt-4 ml-2" onClick={handleLikeNft} disabled={isNftLiked()}>
-						<i className="text-start fas fa-heart "></i>
-					</Button>
-					: null
-				}
-			</div>
-			<div className="nft-display">
-				<CornerRibbon
-					position="top-right" // OPTIONAL, default as "top-right"
-					fontColor="#000" // OPTIONAL, default as "#f0f0f0"
-					backgroundColor="#fff" // OPTIONAL, default as "#2c7"
-					containerStyle={{}} // OPTIONAL, style of the ribbon
-					style={{}} // OPTIONAL, style of ribbon content
-					className="font-tertiary " // OPTIONAL, css class of ribbon
-				>
-					{
-						<Fragment>
-							<i className="fas fa-heart mx-auto heart pr-1" style={{ color: '#d20000' }}></i>
-							{likes}
-						</Fragment>
-					}
-				</CornerRibbon>
-				<div className="image-overlay">
-					<div className="d-block mb-1">
-						<span className="overlay-text">{title}</span>
-					</div>
-					<div className="d-block mb-1">
-						<span className="overlay-text">Current Bid: </span>
-						<span className="overlay-values text-primary">1.02ETH</span>
-					</div>
-					<div className="d-block mb-1">
-						<span className="overlay-text">creator: </span>
-						<span className="overlay-values text-primary">@{creator}</span>
-					</div>
-					<div className="d-block mb-1">
-						<span className="overlay-text">auctioneer: </span>
-						<span className="overlay-values text-primary">@{creator}</span>
-					</div>
-				</div>
-				<Image className="explore-card-image" src={thumbnail_image} fluid />
-			</div>
+					className="nft-item-card">
+					{featured ? (
+						<div style={{ position: 'relative' }}>
+							<CornerRibbon
+								position="top-left" // OPTIONAL, default as "top-right"
+								fontColor="#000000" // OPTIONAL, default as "#f0f0f0"
+								backgroundColor="#de961b" // OPTIONAL, default as "#2c7"
+								containerStyle={{}} // OPTIONAL, style of the ribbon
+								style={{ fontSize: '12px' }} // OPTIONAL, style of ribbon content
+								className="text-white" // OPTIONAL, css class of ribbon
+							>
+								featured
+							</CornerRibbon>
+							<Card.Img className="explore-card-image" variant="top" src={thumbnail_image} />
+						</div>
+					) : (
+						<Card.Img className="explore-card-image" variant="top" src={thumbnail_image} />
+					)}
+				</Card>
+				<Container className="pl-1 pr-1">
+					<Row className="overlay-container pb-1">
+						<Col md={12} className="symbols-container pt-1 pb-1 text-end">
+							<div className="likes-div">
+								<span className="text-white pr-2 text-green" style={{ fontWeight: '900' }}>
+									{current_bid}Ξ
+								</span>
+								<span className="likes-text text-white pl-1">
+									<i className="fas fa-heart mx-auto heart pr-1" style={{ color: '#d20000', fontWeight: '900' }}></i>
+									{likes}
+								</span>
+								<span className="pl-1">
+									<i className="far fa-star star "></i>
+								</span>
+							</div>
+						</Col>
+						<Col md={12} className=" text-start pt-1">
+							{' '}
+							<span className="text-white creator-link">
+								<i className="far fa-at user-profile pr-1"></i>
+								{/* {' @'} */}
+								{creator}
+							</span>
+						</Col>
+						<Col md={12} className="pt-1 pb-1 nft-title-text text-white text-start">
+							{title}
+						</Col>
+						{description && description.length > 0 ? (
+							<Col className="text-start pl-4 pt-1 pb-3" md={8}>
+								{description}
+							</Col>
+						) : null}
+						{preview ? null : (
+							<Col className="pt-1 pb-1">
+								<div className="more-div text-white text-end">
+									{!preview ? <Countdown date={Date.now() + 100000000} /> : null}
+									<i className="far fa-ellipsis-h pl-3"></i>
+								</div>
+							</Col>
+						)}
+					</Row>
+				</Container>
+			</Container>
 		</Fragment>
 	);
 };

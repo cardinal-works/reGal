@@ -21,14 +21,14 @@ const CreateModal = (props) => {
 							</Col>
 							<Col lg={12} className="mx-auto mb-3">
 								<Link to="/minter">
-									<Button className="btn-regal" onClick={props.onHide}>
+									<Button className="button-nft" onClick={props.onHide}>
 										NFT
 									</Button>
 								</Link>
 							</Col>
 							<Col lg={12} className="mx-auto mb-5">
 								<Link to="/auction-house">
-									<Button className="btn-regal " onClick={props.onHide}>
+									<Button className="button-auction" onClick={props.onHide}>
 										AUCTION
 									</Button>
 								</Link>

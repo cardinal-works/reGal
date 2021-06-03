@@ -1,6 +1,11 @@
 .footer {
   // background: #c75f67!important;
-  background: transparent;
+  position: relative;
+  // margin-top: 300px;
+  /* negative value of footer height */
+  height: 200px;
+  clear: both;
+	background-color: #161616 !important;
 
 
   .footer-nav {
@@ -23,7 +28,7 @@
 
     button {
       margin-bottom: 10px;
-      color: black;
+      color: rgb(255, 255, 255);
     }
   }
     

@@ -1,7 +1,5 @@
-var AuctionRepository = artifacts.require("./AuctionRepository.sol");
-var DeedRepository = artifacts.require("./DeedRepository.sol");
+var RegalAuction = artifacts.require("./RegalAuction.sol");
 // DeedRepository => 0xbb55adc67f64d1e6f08ba7523ecd2eca2ee434a3
 module.exports = function(deployer) {
-  deployer.deploy(AuctionRepository);
-  deployer.deploy(DeedRepository, "REGAL NFT", "RFT");
+  deployer.deploy(RegalAuction);
 };

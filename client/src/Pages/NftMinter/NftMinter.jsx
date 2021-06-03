@@ -1,85 +1,67 @@
 //Modules
 import React, { useEffect, useState, useContext, Fragment } from 'react';
-import {
-	Container,
-	Row,
-	Col,
-	Image,
-	Form,
-	Button,
-	ToggleButtonGroup,
-	ToggleButton,
-	FormControl,
-} from 'react-bootstrap';
+import { Container, Row, Col, Image, Form, Button, OverlayTrigger, ToolTip, Toast, FormControl } from 'react-bootstrap';
 import ipfs from '../../ipfs';
 import { Link, Redirect } from 'react-router-dom';
+import NftDisplay from '../../Components/NftDisplay';
 import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
-import { DeedRepository } from '../../../abi/DeedRepository_abi';
+import { RegalAuction } from '../../../abi/RegalAuction_abi';
 var Buffer = require('buffer/').Buffer;
 
-const _dbMetadata = {
-	title: '',
-	creator: '@artistName',
-	nft_description: '',
-	nft_id: null,
-	thumbnail_image: '',
-	raw_image: null,
-	likes: 0,
-	current_bid: 0,
-	auction_id: 0,
-	asking_bid: null,
-	previous_sold: null,
-	auction_duration: null,
-	auction_startDate: null,
-	auction_mode: false,
-	auction_started: false,
-	tags: [],
-};
-
 const NftMinter = ({ web3 }) => {
-	const contractAddr = '0x6e7c022C0c6a4d4f5C0F3c8BE48DEbb1bF6BFC4c';
+	const contractAddr = '0xF8915Fa980F1a44770C80500F9Bb4169b7E04D72';
 	// const contractAddr = "0xce863dD3ec9bcDEEE585660Cab63C777E1201876";
-	const DeedRepositoryContract = new web3.eth.Contract(DeedRepository, contractAddr);
+	const RegalAuctionContract = new web3.eth.Contract(RegalAuction, contractAddr);
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const [userChanges, setUserChanges] = useState({});
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
 	const { createNft } = nftStore;
-	const [dbMetaData, setDbMetaData] = useState(_dbMetadata);
-	const [renderInput, setRenderInput] = useState([<div key={0}></div>]);
+	const [formList, setFormList] = useState([true, false, false, false]);
+	const [uploading, setUploading] = useState(false);
+	const [dbMetaData, setDbMetaData] = useState({
+		title: '',
+		creator: '@artistName',
+		nft_description: '',
+		thumbnail_image: '',
+		tags: [],
+	});
 
 	useEffect(() => {
-		console.log(web3);
 		loadUser(window.ethereum.selectedAddress).then((res) => {
-			setDbMetaData((prevState) => ({ ...prevState, creator: res.display_name, user_id: res._id }));
+			setDbMetaData((prevState) => ({
+				...prevState,
+				creator: res.display_name,
+				user_id: res._id,
+			}));
 		});
 	}, []);
 
 	const handleMint = async () => {
 		if (user._id) {
-			console.log(user._id);
 			const _bcMetadata = {
 				title: dbMetaData.title,
 				creator: dbMetaData.creator,
 				nft_id: dbMetaData.nft_id,
-				raw_image: dbMetaData.raw_image,
+				thumbnail_image: dbMetaData.thumbnail_image,
 			};
 			const _bcStringified = JSON.stringify(_bcMetadata);
 			const result = await ipfs.add(_bcStringified);
 			const ipfsLink = 'https://gateway.ipfs.io/ipfs/' + result.path;
 
-			const tokenId = await DeedRepositoryContract.methods
-				.getTotalNFTCount()
-				.call({ from: window.ethereum.selectedAddress });
-			// setDbMetaData( prevState => ({...prevState, nft_id: tokenId}));
-			console.log(Number(tokenId) + 1, tokenId, typeof tokenId);
-
-			const mdResult = await DeedRepositoryContract.methods
-				.registerDeed(Number(tokenId) + 1, ipfsLink)
+			const mdResult = await RegalAuctionContract.methods
+				.createCollectible(ipfsLink)
 				.send({ from: window.ethereum.selectedAddress })
-				.then(createNft({ ...dbMetaData, nft_id: Number(tokenId) + 1 }, dbMetaData.user_id))
-				.then((res) => console.log('res', res.events.DeedRegistered.address));
+				.then((res) =>
+					createNft(
+						{
+							...dbMetaData,
+							nft_id: res.events.Transfer.returnValues.tokenId,
+						},
+						dbMetaData.user_id
+					)
+				);
 		} else {
 			return;
 		}
@@ -118,153 +100,406 @@ const NftMinter = ({ web3 }) => {
 	};
 
 	const handleFileUpload = (file, arg) => {
+		if (file === undefined) {
+			setUploading(false);
+			return;
+		}
+		if (file.size > 20000000) {
+			setUploading(false);
+			return;
+		}
 		const reader = new FileReader();
 		reader.readAsArrayBuffer(file);
 		reader.onloadend = () => uploadToIPFS(reader, arg);
 	};
 
-	const uploadToIPFS = async (reader, arg) => {
+	const uploadToIPFS = async (reader) => {
 		const buffer = await Buffer.from(reader.result);
 		const result = await ipfs.add(buffer);
 		const ipfsLink = 'https://gateway.ipfs.io/ipfs/' + result.path;
 		const metadata = dbMetaData;
-		if (arg === null) {
-			setDbMetaData({ ...metadata, thumbnail_image: ipfsLink });
-		} else setDbMetaData({ ...metadata, raw_image: ipfsLink });
+		setDbMetaData({ ...metadata, thumbnail_image: ipfsLink });
+		setUploading(false);
 	};
 
 	return (
-		<Container className="minter-container">
-			<Row className="user-profile-data text-center">
-				{dbMetaData.thumbnail_image.length == 0 ? (
-					<Fragment>
-						<Col md={6} lg={12}>
-							<Image
-								className="profile-image"
-								src={user ? user.profile_image : null}
-								width="150px"
-								height="150px"></Image>
+		<Container className="nft-minter-container ">
+			<Toast show={formList[0]} animation={false} className="toast-1 mx-auto pb-3">
+				<Toast.Header className="toast-1-header" closeButton={false}>
+					<strong className="mx-auto text-majesti font-tertiary">R</strong>
+				</Toast.Header>
+				<Toast.Body>
+					<Row className="pb-3 pt-2">
+						<Col md={12} className="text-center pb-3 pt-2">
+							If this is your first time minting an NFT, click <a href="#">here</a> for a quick explanation on what you need
+							to know.
 						</Col>
-						<Col md={6} lg={12} className=" mt-3">
-							<span className="text-majesti text-white user-profile-name font-secondary ">
-								{' '}
-								{user ? '@' + user.display_name : '@displayname'}{' '}
-							</span>{' '}
+						<Col className="text-center pb-3 pt-2">
+							Otherwise, choose between starting from scratch (new) or from a previous draft.
 						</Col>
-						<Col md={6} lg={12} className="mt-1 ml-1">
-							<span className="text-primary text-center">
-								{user ? user.wallet_id.slice(0, 3) + '...' + user.wallet_id.slice(-3) : null}
+					</Row>
+					<Row className="text-center">
+						<Col className="mx-auto">
+							<Button
+								className="drafts-button"
+								onClick={() => {
+									setNext(true);
+								}}>
+								Drafts
+							</Button>
+							<Button className="new-button ml-3 text-center" onClick={() => setFormList([false, true, false, false])}>
+								New
+							</Button>
+						</Col>
+					</Row>
+				</Toast.Body>
+			</Toast>
+			<Toast show={formList[1]} animation={false} className="toast-2 mx-auto">
+				<Toast.Header closeButton={false}>
+					<Col className="text-start p-0">
+						<strong className="mx-auto text-start text-majesti">R</strong>
+					</Col>
+					<Col className="text-end p-0">
+						<small>1/3</small>
+					</Col>
+				</Toast.Header>
+				<Toast.Body>
+					<Row className="text-center">
+						<Col md={12} style={{ fontSize: '12px' }}>
+							{dbMetaData.thumbnail_image ? (
+								<NftDisplay
+									nft_id={0}
+									likes={420}
+									preview={true}
+									thumbnail_image={dbMetaData.thumbnail_image}
+									current_bid={999}
+									title={dbMetaData.title}
+									creator={user.display_name}
+								/>
+							) : null}
+						</Col>
+						<Col md={12} className="pb-4">
+							{dbMetaData.thumbnail_image ? null : <b>upload your artwork</b>}
+						</Col>
+						<Col className="text-center">
+							{dbMetaData.thumbnail_image ? (
+								<span>
+									doesn't look right? <br /> upload another <i className="fas fa-caret-down mt-2"></i>{' '}
+								</span>
+							) : (
+								<>
+									<span className="text-center">
+										This will be the representation of your art <b> on the blockchain</b> and the preview{' '}
+										<b>on our site. </b>
+									</span>
+									<span>
+										It can never be changed or deleted so choose wisely. <br /> <br />
+										<i>You will be able to preview your art before it is minted.</i>
+									</span>
+								</>
+							)}
+						</Col>
+					</Row>
+					<Row className="mt-2">
+						<Col md={12} className="mx-auto text-center">
+							<Button className="ipfs-button mb-1 mt-5">
+								{uploading ? (
+									<span className="spinner-border spinner-border-sm mr-2 mb-1"></span>
+								) : (
+									<i className="fad fa-cloud-upload"></i>
+								)}
+								{uploading ? <small>uploading to IPFS</small> : ''}
+
+								<input
+									accept="image/png, image/jpeg, video/mp4, image/gif, image/jpg"
+									onChange={(e) => {
+										setUploading(true);
+										handleFileUpload(e.target.files[0]);
+									}}
+									className="input-overlay"
+									type="file"></input>
+							</Button>
+						</Col>
+						<Col md={12} className="text-center pb-3 pt-2">
+							<small>20MB limit (jpg, png, mp4, gif, jpeg)</small>
+						</Col>
+						<Col md={12} className="mt-1 pt-2 mb-3 text-center">
+							<Button className="button-prev mr-1 mt-1" onClick={() => setFormList([true, false, false, false])}>
+								<i className="fad fa-angle-double-left "></i>
+							</Button>
+							{dbMetaData.thumbnail_image.length > 1 && (
+								<Button className="button-next ml-1 mt-1" onClick={() => setFormList([false, false, true, false])}>
+									<i className="fad fa-chevron-double-right "></i>
+								</Button>
+							)}
+						</Col>
+					</Row>
+				</Toast.Body>
+			</Toast>
+			<Toast show={formList[2]} animation={false} className="toast-3 mx-auto">
+				<Toast.Header closeButton={false}>
+					<Col className="text-start p-0">
+						<strong className="mx-auto text-start text-majesti">R</strong>
+					</Col>
+					<Col className="text-end p-0">
+						<small>2/3</small>
+					</Col>
+				</Toast.Header>
+				<Toast.Body>
+					<Row className="text-center mb-2">
+						<Col md={12}>
+							{dbMetaData.thumbnail_image ? (
+								<NftDisplay
+									nft_id={0}
+									likes={420}
+									thumbnail_image={dbMetaData.thumbnail_image}
+									current_bid={999}
+									title={dbMetaData.title}
+									creator={user.display_name}
+									description={dbMetaData.nft_description}
+									preview={true}
+								/>
+							) : null}
+						</Col>
+						<Col md={12} className="pb-3 mb-3">
+							describe your artwork
+						</Col>
+						<Col md={12} className="text-center">
+							<Form className="text-left">
+								<Form.Group>
+									<Form.Label className="text-white">title*</Form.Label>
+									<Form.Control
+										maxLength="60"
+										type="text"
+										name="title"
+										placeholder=""
+										value={dbMetaData.title}
+										onChange={handleInputChange}
+									/>
+								</Form.Group>
+								<Form.Group>
+									<Form.Label className="text-white">description*</Form.Label>
+									<Form.Control
+										maxLength="280"
+										as="textarea"
+										row={6}
+										name="nft_description"
+										placeholder=""
+										value={dbMetaData.nft_description || ''}
+										onChange={handleInputChange}
+									/>
+								</Form.Group>
+								<Form.Label className="pl-1">tags</Form.Label>
+								<Form.Control type="text" placeholder="disabled" readOnly />
+							</Form>
+						</Col>
+					</Row>
+					<Row className="mt-4">
+						<Col md={12} className="mx-auto text-center mb-3 pb-1">
+							<Button className="button-prev mr-1" onClick={() => setFormList([false, true, false, false])}>
+								<i className="fad fa-angle-double-left"></i>
+							</Button>
+							<Button className="button-next ml-1" onClick={() => setFormList([false, false, false, true])}>
+								<i className="fad fa-chevron-double-right"></i>
+							</Button>
+						</Col>
+					</Row>
+				</Toast.Body>
+			</Toast>
+			<Toast show={formList[3]} animation={false} className="toast-4 mx-auto">
+				<Toast.Header closeButton={false}>
+					<Col className="text-start p-0">
+						<strong className="mx-auto text-start text-majesti">R</strong>
+					</Col>
+					<Col className="text-end p-0">
+						<small>3/3</small>
+					</Col>
+				</Toast.Header>
+				<Toast.Body>
+					<Row className="text-end">
+						<Col md={12} className="mb-2">
+							{dbMetaData.thumbnail_image ? (
+								<Fragment>
+									<NftDisplay
+										nft_id={0}
+										likes={420}
+										thumbnail_image={dbMetaData.thumbnail_image}
+										current_bid={999}
+										title={dbMetaData.title}
+										creator={user.display_name}
+									/>{' '}
+									<small className="text-white pb-2">note: description is only visible on the detail page</small>{' '}
+								</Fragment>
+							) : null}
+						</Col>
+						<Col md={12} className=" text-center pt-5 pb-3">
+							save draft or mint?
+						</Col>
+						<Col className="text-center">
+							<span className="text-center pt-1 pb-1">
+								Any interaction with the blockchain costs gas. If you don't want to mint (pay) it now, you can save your art
+								as a draft.
+								<br />{' '}
 							</span>
 						</Col>
-					</Fragment>
-				) : null}
-			</Row>
-			<Row className="nft-upload-form justify-content-md-center">
-				<Col md={12}>
-					<div className="nft-upload-placeholder text-center mx-auto">
-						{dbMetaData.thumbnail_image && (
-							<Image
-								className="image-border-box my-auto"
-								loop="infinite"
-								src={dbMetaData.thumbnail_image}
-								alt="Nft thumbnail preview"
-							/>
-						)}
-					</div>
-				</Col>
-				<Col md={6} className="mt-4 md-offset-3 mx-auto">
-					<Form>
-						<Form.Group>
-							<Form.Label className="text-white">Name*</Form.Label>
-							<Form.Control
-								type="text"
-								name="title"
-								placeholder="NFT Name"
-								value={dbMetaData.title}
-								onChange={handleInputChange}
-							/>
-						</Form.Group>
-						<Form.Group>
-							<Form.Label className="text-white">Artist*</Form.Label>
-							<Form.Control
-								type="text"
-								disabled={true}
-								name="creator"
-								placeholder="@artistName"
-								value={dbMetaData.creator}
-								onChange={handleInputChange}
-							/>
-						</Form.Group>
-						<Form.Group>
-							<Form.Label className="text-white">Description*</Form.Label>
-							<Form.Control
-								as="textarea"
-								row={3}
-								name="nft_description"
-								placeholder="NFT Description"
-								value={dbMetaData.nft_description || ''}
-								onChange={handleInputChange}
-							/>
-						</Form.Group>
-						<Form.Group>
-							<Form.File
-								className="text-primary"
-								label="Upload raw file*"
-								name="nft_thumbnail"
-								onChange={(e) => handleFileUpload(e.target.files[0])}
-							/>
-						</Form.Group>
-						<Form.Group>
-							<Form.File
-								className="text-primary"
-								label="Upload thumbnail*"
-								name="nft_uri"
-								onChange={(e) => handleFileUpload(e.target.files[0], null)}
-							/>
-						</Form.Group>
-						<Form.Group>
-							<Form.Label className="text-white">Provide Downloadable Link?</Form.Label>
-							<div></div>
-							<ToggleButtonGroup type="checkbox">
-								<ToggleButton
-									variant="success"
-									size={'sm'}
-									value={true}
-									onClick={(e) => {
-										handleRenderInput(e, true);
-									}}>
-									Yes
-								</ToggleButton>
-								<ToggleButton
-									variant="warning"
-									size={'sm'}
-									onClick={(e) => {
-										handleRenderInput(e, false);
-									}}>
-									No
-								</ToggleButton>
-							</ToggleButtonGroup>
-						</Form.Group>
-						<Form.Group>{renderInput}</Form.Group>
-						<Form.Group className="text-center mt-5 mb-5">
-							<Button
-								className="mint-submit"
-								onClick={handleMint}
-								// disabled={
-								//     dbMetaData.title &&
-								//     dbMetaData.creator &&
-								//     nft_description &&
-								//     nft_uri
-								//   ? false : true}
-							>
-								Mint
+					</Row>
+					<Row className="mt-2 mb-2 text-center pt-2">
+						<Col className="text-center">
+							<Button className=" mr-1 button-save" variant="secondary">
+								save draft
 							</Button>
-						</Form.Group>
-					</Form>
-				</Col>
-			</Row>
+
+							<Button
+								className=" ml-1 button-mint"
+								onClick={handleMint}
+								disabled={dbMetaData.title && dbMetaData.creator && dbMetaData.nft_description ? false : true}>
+								mint
+							</Button>
+						</Col>
+						<Col md={12} className="mx-auto text-center pt-1 mb-1">
+							<Button className="button-prev mt-4" onClick={() => setFormList([false, false, true, false])}>
+								<i className="fad fa-angle-double-left"></i>
+							</Button>
+							{/* <Button className="ml-1 button-next" onClick={() => setFormList([false, false, false, true])}>
+								<i className="fad fa-chevron-double-right"></i>
+							</Button> */}
+						</Col>
+					</Row>
+				</Toast.Body>
+			</Toast>
 		</Container>
 	);
 };
 
 export default NftMinter;
+
+// <Container className="minter-container">
+// 	<Row className="user-profile-data text-center">
+// 		{dbMetaData.thumbnail_image.length == 0 ? (
+// 			<Fragment>
+// 				<Col md={6} lg={12}>
+// 					<Image
+// 						className="profile-image"
+// 						src={user ? user.profile_image : null}
+// 						width="150px"
+// 						height="150px"></Image>
+// 				</Col>
+// 				<Col md={6} lg={12} className=" mt-3">
+// 					<span className="text-majesti text-white user-profile-name font-secondary ">
+// 						{' '}
+// 						{user ? '@' + user.display_name : '@displayname'}{' '}
+// 					</span>{' '}
+// 				</Col>
+// 				<Col md={6} lg={12} className="mt-1 ml-1">
+// 					<span className="text-primary text-center">
+// 						{user ? user.wallet_id.slice(0, 3) + '...' + user.wallet_id.slice(-3) : null}
+// 					</span>
+// 				</Col>
+// 			</Fragment>
+// 		) : null}
+// 	</Row>
+// 	<Row className="nft-upload-form justify-content-md-center">
+// 		<Col md={12}>
+// 			<div className="nft-upload-placeholder text-center mx-auto">
+// 				{dbMetaData.thumbnail_image && (
+// 					<Image
+// 						className="image-border-box my-auto"
+// 						loop="infinite"
+// 						src={dbMetaData.thumbnail_image}
+// 						alt="Nft thumbnail preview"
+// 					/>
+// 				)}
+// 			</div>
+// 		</Col>
+// 		<Col md={6} className="mt-4 md-offset-3 mx-auto">
+// 			<Form>
+// 				<Form.Group>
+// 					<Form.Label className="text-white">Name*</Form.Label>
+// 					<Form.Control
+// 						type="text"
+// 						name="title"
+// 						placeholder="NFT Name"
+// 						value={dbMetaData.title}
+// 						onChange={handleInputChange}
+// 					/>
+// 				</Form.Group>
+// 				<Form.Group>
+// 					<Form.Label className="text-white">Artist*</Form.Label>
+// 					<Form.Control
+// 						type="text"
+// 						disabled={true}
+// 						name="creator"
+// 						placeholder="@artistName"
+// 						value={dbMetaData.creator}
+// 						onChange={handleInputChange}
+// 					/>
+// 				</Form.Group>
+// 				<Form.Group>
+// 					<Form.Label className="text-white">Description*</Form.Label>
+// 					<Form.Control
+// 						as="textarea"
+// 						row={3}
+// 						name="nft_description"
+// 						placeholder="NFT Description"
+// 						value={dbMetaData.nft_description || ''}
+// 						onChange={handleInputChange}
+// 					/>
+// 				</Form.Group>
+// 				<Form.Group>
+// 					<Form.File
+// 						className="text-primary"
+// 						label="Upload raw file*"
+// 						name="nft_thumbnail"
+// 						onChange={(e) => handleFileUpload(e.target.files[0])}
+// 					/>
+// 				</Form.Group>
+// 				<Form.Group>
+// 					<Form.File
+// 						className="text-primary"
+// 						label="Upload thumbnail*"
+// 						name="nft_uri"
+// 						onChange={(e) => handleFileUpload(e.target.files[0], null)}
+// 					/>
+// 				</Form.Group>
+// 				<Form.Group>
+// 					<Form.Label className="text-white">Provide Downloadable Link?</Form.Label>
+// 					<div></div>
+// 					<ToggleButtonGroup type="checkbox">
+// 						<ToggleButton
+// 							variant="success"
+// 							size={'sm'}
+// 							value={true}
+// 							onClick={(e) => {
+// 								handleRenderInput(e, true);
+// 							}}>
+// 							Yes
+// 						</ToggleButton>
+// 						<ToggleButton
+// 							variant="warning"
+// 							size={'sm'}
+// 							onClick={(e) => {
+// 								handleRenderInput(e, false);
+// 							}}>
+// 							No
+// 						</ToggleButton>
+// 					</ToggleButtonGroup>
+// 				</Form.Group>
+// 				<Form.Group>{renderInput}</Form.Group>
+// 				<Form.Group className="text-center mt-5 mb-5">
+// 					<Button
+// 						className="mint-submit"
+// 						onClick={handleMint}
+// 						// disabled={
+// 						//     dbMetaData.title &&
+// 						//     dbMetaData.creator &&
+// 						//     nft_description &&
+// 						//     nft_uri
+// 						//   ? false : true}
+// 					>
+// 						Mint
+// 					</Button>
+// 				</Form.Group>
+// 			</Form>
+// 		</Col>
+// 	</Row>
+// </Container>
