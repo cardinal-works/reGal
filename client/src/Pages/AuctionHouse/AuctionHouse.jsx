@@ -10,10 +10,10 @@ import { observer } from 'mobx-react-lite';
 import Auction from '../Auction';
 import { toJS } from 'mobx';
 import ipfs from '../../ipfs';
-var Buffer = require('buffer/').Buffer;
+// var Buffer = require('buffer/').Buffer;
 import { AuctionRepository } from '../../../abi/AuctionRepository_abi';
 
-const AuctionHouse = ({ ethers }) => {
+const AuctionHouse = () => {
 	const [modalShow, setModalShow] = useState(false);
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);

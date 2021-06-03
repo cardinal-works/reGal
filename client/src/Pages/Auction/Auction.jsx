@@ -9,7 +9,7 @@ import UserStore from '../../Stores/UserStore';
 import NftDisplay from "../../Components/NftDisplay"
 import PriceStore from '../../Stores/PriceStore';
 
-const Auction = ({ ethers }) => {
+const Auction = () => {
 	const nftStore = useContext(NftStore);
 	const userStore = useContext(UserStore);
 	const priceStore = useContext(PriceStore);

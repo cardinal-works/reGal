@@ -12,7 +12,7 @@ import "../assets/styles/Custom.scss";
 
 // var web3Location = `http://localhost:${truffleConfig.networks.regal.port}`;
 
-const provider = new ethers.providers.Web3Provider(window.ethereum)
+// const provider = new ethers.providers.Web3Provider(window.ethereum)
 
 //import our Landing, that is linked to the root and 
 window.addEventListener('load', function() {                    
@@ -25,8 +25,8 @@ window.addEventListener('load', function() {
   ReactDOM.render(
     <ParallaxProvider>
       <BrowserRouter history={history}>
-        <App ethers={provider}/>
-        {/* <App/> */}
+        {/* <App ethers={provider}/> */}
+        <App/>
     </BrowserRouter>
     </ParallaxProvider>,
     document.getElementById('root')

@@ -7,7 +7,7 @@ import { AuctionRepository } from '../../../abi/AuctionRepository_abi';
 import NftStore from '../../Stores/NftStore';
 import PriceStore from '../../Stores/PriceStore';
 
-const DetailedView = ({ethers}) => {
+const DetailedView = () => {
 	const nftStore = useContext(NftStore);
 	const priceStore = useContext(PriceStore);
 	const [params, setParams] = useState(useParams());
