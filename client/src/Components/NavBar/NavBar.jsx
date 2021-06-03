@@ -1,35 +1,60 @@
 //Modules
 import React, { useState, useContext, useEffect, Fragment } from 'react';
-import { Nav, Navbar, Image, Container, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Nav, Navbar, Image, Container, Button, Spinner } from 'react-bootstrap';
+import { Link, Redirect } from 'react-router-dom';
 import UserStore from '../../Stores/UserStore';
 import { observer } from 'mobx-react-lite';
-import history from "../../History";
+import history from '../../History';
 
-//Components 
+//Components
 import CreateModal from '../CreateModal';
 import Web3 from 'web3';
-
 
 const Navigation = () => {
 	const userStore = useContext(UserStore);
 	const [modalShow, setModalShow] = useState(false);
+	const [buttonText, setButtonText] = useState('connect');
+	const [redirect, setRedirect] = useState(<></>);
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
+	// const [userHistory, setUserHistory] = useState(history)
 	let web3 = new Web3(Web3.givenProvider || 'ws://localhost:9546');
+	const pending = false;
 
-	useEffect(() => {
-		console.log("History: ", history);
-		// ** REGAL SIGNED MESSAGE -> JWT -> Authenication Key
-		// web3.eth.personal.sign("Welcome to Regal", window.ethereum.selectedAddress).then((obj, res) => console.log(obj, res));
-		// ** TEMPLATE FOR FUTURE USE
+	const handleConnect = () => {
+		// ** IF NO METAMASK INSTALLED ** //
+		setButtonText(<span className="spinner-border spinner-border-sm mb-1 mt-1"></span>);
 
-		if (window.ethereum && window.ethereum.selectedAddress) loadUser(window.ethereum.selectedAddress);
-	}, []);
+		if (!window.ethereum) {
+			setTimeout(() => {
+				setButtonText('connect');
+				return setRedirect(<Redirect to="/signup" />);
+			}, 1000);
+		}
+		if (window.ethereum) {
+			window.ethereum.request({ method: 'eth_requestAccounts' })
+			.then((res) => {
+				loadUser(res[0]).then((res) => {
+					if (res === undefined) {
+						setTimeout(() => {
+							setButtonText('connect');
+							return setRedirect(<Redirect to="/signup" />);
+						}, 1000);
+					} else {
+						setTimeout(() => {
+							setButtonText('connect');
+							return setRedirect(<Redirect to="/profile" />);
+						}, 1000);
+					}
+				});
+			})
+			.catch(() => setButtonText('connect'))
+		}
+	};
 
 	return (
 		<Navbar className="nav-container" bg="dark" collapseOnSelect expand="lg" variant="dark">
 			<Navbar.Brand as={Link} to="/" className="regal-brand text-majesti font-primary pt-2">
-				<span className='r-text'>R</span> 
+				<span className="r-text">R</span>
 			</Navbar.Brand>
 			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 			<Navbar.Collapse id="responsive-navbar-nav">
@@ -44,7 +69,7 @@ const Navigation = () => {
 						farm
 					</Nav.Link>
 					<Nav.Link>
-						<i className="fas fa-search ml-2"></i>
+						<i className="fas fa-search ml-2 pb-2"></i>
 					</Nav.Link>
 				</Nav>
 				<Nav className="ml-auto">
@@ -57,20 +82,30 @@ const Navigation = () => {
 									</Button>
 								</div>
 							</Nav.Link>
+							{pending ? (
+								<Nav.Link className="create-nav-link">
+									<div className="profile-link-nav ">
+										<Button onClick={() => setModalShow(true)} className="create-button mr-2" variant="outline-success">
+											1.2
+										</Button>
+									</div>
+								</Nav.Link>
+							) : null}
 							<CreateModal show={modalShow} onHide={() => setModalShow(false)} />
 							<div className="profile-link-nav ">
 								<Nav.Link as={Link} to="/profile" className="">
-									<Image  className="profile-link-image " src={user.profile_image} height="50px"></Image>
+									<Image className="profile-link-image " src={user.profile_image} height="50px"></Image>
 								</Nav.Link>
 							</div>
 						</Container>
 					) : (
 						<Fragment>
-							<Button as={Link} to="/signup" className="connect-button" variant="outline-success">
-								connect
+							<Button onClick={handleConnect} className="connect-button" variant="outline-success">
+								{buttonText}
 							</Button>
 						</Fragment>
 					)}
+					{redirect}
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>

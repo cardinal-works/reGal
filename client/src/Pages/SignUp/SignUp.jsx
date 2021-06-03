@@ -1,211 +1,171 @@
+// ** SIGN UP page for user creation ** //
+
 //Modules
-import React, { useEffect, useState, Fragment, useContext } from "react";
-import {
-  Container,
-  Col,
-  Row,
-  Image,
-  Form,
-  Button,
-  Modal,
-  FormFile,
-} from "react-bootstrap";
-import MetaMask from "../../../assets/images/metamask.svg";
-import { Link, Redirect } from "react-router-dom";
-import WalletSupport from "../../Components/WalletSupport/WalletSupport";
-import UserStore from "../../Stores/UserStore";
+import React, { useEffect, useState, Fragment, useContext } from 'react';
+import { Container, Col, Row, Image, Toast, Form, Button, Modal, FormFile } from 'react-bootstrap';
+//Stores
+import UserStore from '../../Stores/UserStore';
+//Components
+import OnboardingButton from '../../Components/OnboardingButton';
+
+
+// ** BASIC USER CREATION SCHEMA ** //
+const userSchema = {
+	wallet_id: null,
+	display_name: null,
+	email_address: null,
+	email_list: false,
+};
 
 const SignUp = (props) => {
-  // CONTEXT FOR STATE MGMT/REST API
-  const userStore = useContext(UserStore);
-  const { loadUser, createUser, user } = userStore;
+	// ** STORE ** //
+	const userStore = useContext(UserStore);
+	const { loadUser, createUser, user } = userStore;
+	// ** LOCAL STATE ** //
+	const [userData, setUserData] = useState(userSchema);
+	const [submitButtonText, setSubmitButtonText] = useState('Submit');
 
-  // STATE FOR USER SIGNUP DATA
-  const [userData, setUserData] = useState({
-    wallet_id: '',
-    display_name: '',
-    email_address: '',
-    bio: '',
-    profile_image: '',
-    profile_bg_color: '',
-    email_list: false,
-    collections: [],
-    liked_nfts: [],
-    recently_viewed_nfts: []
-  });
-  // FUNCTIONS FOR HANDLING MODAL VIEW FOR SIGN UP
-  // **************************************************
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  // **************************************************
+	// ** ERROR HANDLING FOR USERS SIGNING UP WITH AN EXISTING ACCOUNT ** //
+	useEffect(() => {
+		if (window.ethereum && window.ethereum.selectedAddress) {
+			loadUser(window.ethereum.selectedAddress).then((res) => {
+				if (res !== undefined) {
+					return props.history.push('profile');
+				}
+			});
+		}
+	}, []);
 
-  // FUNCTION FOR CREATING USER
-  // **************************************************
-  const createProfile = (e) => {
-    // BASIC ERROR HANDLING
-    e.preventDefault();
-    if (!window.ethereum || !userData || !userData.wallet_id || !userData.email_address) {
-      return;
-    }
+	// ** FORM INPUT HANDLER ** //
+	const handleUserData = (e) => {
+		let address = window.ethereum.selectedAddress;
+		let key = e.target.name;
+		let val = e.target.value;
+		if (val === 'on') {
+			setUserData((prevState) => {
+				let bool = !prevState.email_list;
+				return { ...prevState, email_list: bool };
+			});
+		} else {
+			setUserData((prevState) => {
+				return {
+					...prevState,
+					[key]: val,
+					['wallet_id']: address,
+				};
+			});
+		}
+	};
 
-    createUser(userData)
-      .then((res) => {
-        handleClose();
-      })
-      .catch((error) => console.log(error))
-      .finally(() => props.history.push("/profile"))
-  };
-  // **************************************************
+	// ** SUBMIT AND USER CREATION HANDLER ** //
+	const handleSubmit = (e) => {
+		const form = e.currentTarget;
+		if (form.checkValidity() === false) {
+			e.preventDefault();
+			e.stopPropagation();
+		} else {
+			setSubmitButtonText(
+				<>
+					Creating Profile
+					<span className="spinner-border spinner-border-sm mb-1 mt-1 ml-1" />
+				</>
+			);
+			createUser(userData)
+				.then((res) => console.log(res))
+				.then(() => {
+					setTimeout(() => {
+						setValidated(true);
+					}, 1500);
+				});
+		}
+	};
 
-  // FUNCTIONS FOR CONNECTING METAMASK WITH JSON RPC
-  // **************************************************
-  const ethEnabled = async () => {
-    if (window.ethereum) {
-      await window.ethereum
-        .send("eth_requestAccounts")
-        .then((res) => {
-          setUserData(prevState => ({
-            ...prevState,
-            wallet_id: res.result[0],
-            display_name: res.result[0],
-            email_list: false,
-          }));
+	return (
+		<Container className="signup-container my-5 mb-3 pb-3" fluid>
+			{/* ALERT BOX WITH METAMASK MODULE THAT ALLOWS USERS TO INSTALL METAMASK AND GET RE-ROUTED TO OUR SIGN UP PAGE  */}
+			{!window.ethereum && (
+				<Toast show={true} animation={false} className="toast-1 mx-auto mb-2 pb-2">
+					<Toast.Header className="toast-1-header" closeButton={false}>
+						<strong className="mx-auto text-majesti font-tertiary">R</strong>
+					</Toast.Header>
+					<Toast.Body>
+						<Row className="pb-1 pt-2">
+							<Col md={12} className="text-center pb-3 mb-3 pt-1">
+								We weren't able to find your digital wallet!
+							</Col>
 
-          loadUser(res.result[0]).then((res) => {
-            !res ? handleShow() : props.history.push("/")
-          })
-          
-          // .catch((err) => console.log(err))
-        });
-      }
-    };
-  // **************************************************
-
-  // FUNCTIONS FOR UPDATING STATE FOR USER REGISTRATION
-  // **************************************************
-  const handleInputChange = event => {
-    let name = event.target.name;
-    let value = event.target.value;
-    setUserData( prevState => ({
-      ...prevState,
-      [name]: value
-    }))
-  }
-
-  const handleEmailList = () => {
-    let emailList = userData.email_list;
-    setUserData( prevState => ({ ...prevState, email_list: !emailList }));
-  };
-  // *****************************************************
-
-  return (
-    <div className="signup-container">
-      <Container className="connect-1 pt-3">
-        <Row>
-          <Col
-            className="text-white font-primary text-center mb-2 pb-2 pt-3"
-            md={12}
-            lg={12}
-          ></Col>
-        </Row>
-        <Row>
-          <Col className="text-center" lg={12}>
-            <Col>
-              <Image
-                className="metamask-logo text-center"
-                src={MetaMask}
-                width="5%"
-              ></Image>
-            </Col>
-            <Col>
-              <Button className="btn-regal mt-4" onClick={ethEnabled}>
-                Sign Up
-              </Button>
-            </Col>
-          </Col>
-          <Col className="text-center mt-3" lg={12}>
-            <WalletSupport />
-          </Col>
-        </Row>
-      </Container>
-      <Modal
-        backdrop="static"
-        centered={true}
-        size={"md"}
-        show={show}
-        onHide={handleClose}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Sign Up</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {userData.wallet_id ? (
-            <Fragment>
-              <span className="h6 text-green">
-                Connected {"  "} <i className="fas fa-check text-green"></i>
-              </span>
-              <p>{userData.wallet_id} </p>
-            </Fragment>
-          ) : (
-            <Fragment>
-              <span className="h6 text-red">
-                Not Connected {"  "} <i className="far fa-times-circle "></i>
-              </span>
-            </Fragment>
-          )}
-          <Form>
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label className="h6">Display Name</Form.Label>
-              <Form.Control
-                type="text"
-                onChange={handleInputChange}
-                name="display_name"
-                placeholder={
-                  userData.wallet_id
-                    ? userData.wallet_id.slice(0, 3) +
-                      "..." +
-                      userData.wallet_id.slice(-3)
-                    : null
-                }
-              />
-              <Form.Text className="text-muted">
-                This will default to your wallet address if left empty. (You
-                can always change it later!)
-              </Form.Text>
-            </Form.Group>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label className="h6">Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="ebachman@pp.com"
-                name="email_address"
-                onChange={handleInputChange}
-              />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
-            <Form.Group controlId="formBasicCheckbox">
-              <Form.Check
-                onClick={handleEmailList}
-                type="checkbox"
-                label="Stay updated with our newsletter"
-              />
-            </Form.Group>
-            <Button
-              variant="primary"
-              type="submit"
-              onClick={(e) => createProfile(e)}
-            >
-              Submit
-            </Button>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer></Modal.Footer>
-      </Modal>
-    </div>
-  );
+							<Col md={12} className="text-center pb-3 mb-3 pt-2">
+								{/* Imported module to help faciliate metamask user sign up */}
+								<OnboardingButton></OnboardingButton>
+							</Col>
+							<Col className="text-center pb-3 pt-3">
+								<small>
+									*If you have never used cyptocurrency or interacted with a blockchain website, click
+									<a href="#"> here</a> for a quick guide to get started.
+								</small>
+							</Col>
+						</Row>
+					</Toast.Body>
+				</Toast>
+			)}
+			{/* THE FORM MODULE THAT IS ASSOCIATED TO USER CREATION */}
+			{window.ethereum && window.ethereum.selectedAddress ? (
+				<>
+					<Toast show={true} animation={false} className="toast-1 mx-auto mb-2 pb-2">
+						<Toast.Header className="toast-1-header" closeButton={false}>
+							<strong className="mx-auto text-majesti font-tertiary">R</strong>
+						</Toast.Header>
+						<Toast.Body>
+							<Container>
+								<Row>
+									<Col md={12}>
+										<p className="text-center h4">Create Profile</p>
+										<p className="pt-4 text-center pb-2">
+											Enter your email and display name below. 
+											A preview of your profile will populate below.</p>
+										<p className="pt-4">
+											<i className="text-white mr-2 fas fa-link"></i> 
+											{window.ethereum.selectedAddress.slice(0, 6) + '...' + window.ethereum.selectedAddress.slice(38, 44)}
+										</p>
+										<Form noValidate validated={validated} onSubmit={(e) => handleSubmit(e)} className="text-left pb-2">
+											<Form.Group>
+												<Form.Label className="text-white">email</Form.Label>
+												<Form.Control 
+												required type="email" 
+												name="email_address" 
+												placeholder="" 
+												onChange={(e) => handleUserData(e)} />
+											</Form.Group>
+											<Form.Group>
+												<Form.Label className="text-white">display name</Form.Label>
+												<Form.Control 
+												required 
+												maxLength="15" 
+												minLength="4" 
+												name="display_name" 
+												onChange={(e) => handleUserData(e)} />
+											</Form.Group>
+											<Form.Group as={Row} controlId="formHorizontalCheck">
+												<Col className="pt-2">
+													<Form.Check name="email_list" type="switch" id="custom-switch" label={<small>subscribe to newsletter</small>} onChange={(e) => handleUserData(e)} />
+												</Col>
+											</Form.Group>
+											<div className="text-center pt-4">
+												<Button type="submit">{submitButtonText}</Button>
+											</div>
+										</Form>
+										<div className="pt-5">
+											<small>* We don't share your email with anyone. It's a utility strictly for providing an extra level of security for our users and community.</small>
+										</div>
+									</Col>
+								</Row>
+							</Container>
+						</Toast.Body>
+					</Toast>
+				</>
+			) : null}
+		</Container>
+	);
 };
 
 export default SignUp;
