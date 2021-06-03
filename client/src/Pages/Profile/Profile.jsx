@@ -69,7 +69,7 @@ const initialState = {
 	],
 };
 
-const Profile = (props, web3) => {
+const Profile = (props) => {
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
@@ -83,10 +83,6 @@ const Profile = (props, web3) => {
 			display_name: '',
 		}
 	);
-
-	useEffect(() => {
-		// console.log(nftRegistry);
-	}, [nftRegistry]);
 
 	const [nfts, setNfts] = useState([
 		{
@@ -213,25 +209,27 @@ const Profile = (props, web3) => {
 	};
 
 	useEffect(() => {
-		console.log();
+		if (!window.ethereum) {
+			console.log('hello')
+			props.history.push("/signup")
+		} 
+		if (!window.ethereum.selectedAddress) {
+			props.history.push("/signup")
+		}
 		loadUser(window.ethereum.selectedAddress).then((res) => {
 			loadNfts({ user_id: res._id });
 			setUserChanges(res);
 		});
-		loadNft(1);
-		// .then(console.log("hello", Object.fromEntries(nftRegistry)))
+		loadNft(1); 
 	}, []);
 
-	useEffect(() => {
-		console.log(user);
-	}, [loadingInitial, user, getAllNfts]);
 
 	return (
 		<Fragment>
-			<Container className="profile-container">
+			<Container className="profile-container" >
 				<Row className="profile-details-row">
 					{user && nft && (
-						<Fragment>
+						<Fragment >
 							<Col md={12} className="profile-page-card-nav">
 								<ProfileCard
 									_id={user._id}
@@ -242,8 +240,7 @@ const Profile = (props, web3) => {
 									profile_bg_color={user.profile_bg_color}
 									display_name={user.display_name}></ProfileCard>
 							</Col>
-
-							<Col lg={3} md={5}>
+							<Col className="" lg={3} md={5}>
 								<NftDisplay
 									_id={nfts._id}
 									likes={nfts.likes}
@@ -259,7 +256,7 @@ const Profile = (props, web3) => {
 									featured={true}
 								/>
 							</Col>
-							<Col lg={9} md={6}>
+							<Col className="" lg={9} md={6}>
 								<Nav fill variant="tabs" defaultActiveKey="link-0" className="profile-nft-nav">
 									<Nav.Item>
 										<Nav.Link eventKey="link-0">Collection</Nav.Link>
@@ -274,19 +271,19 @@ const Profile = (props, web3) => {
 										<Nav.Link eventKey="link-3">Starred</Nav.Link>
 									</Nav.Item>
 								</Nav>
-								<Container className="profile-nfts-grid">
-									<Row className="pt-4">
+								<Container className="" >
+									<Row className="pt-4 pl-2 profile-nfts-grid">
 										{nfts &&
-											nfts.slice(0, 2).map((nft, i) => {
+											nfts.slice(0, 3).map((nft, i) => {
 												return (
-													<Col lg={6} md={12}>
+													<Col key={i} xl={4} lg={5} md={12} sm={10} xs={10}>
 														<NftDisplay />
 													</Col>
 												);
 											})}
-										<Col md={12} className="text-white text-right ">
+										<Col md={12} style={{fontSize: '13px', color: "#f6a615"}}  className="text-right pt-3">
 											View All
-										<i style={{fontSize: '13px'}} className="fas text-white fa-angle-double-right pl-2 my-auto pr-3"></i>
+										<i style={{fontSize: '13px', color: "#f6a615"}} className="fas fa-angle-double-right pl-2 my-auto pr-2"></i>
 										</Col>
 									</Row>
 								
