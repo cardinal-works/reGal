@@ -35,11 +35,7 @@
     "material-design-icons": "^3.0.1",
     "mobx": "^5.15.4",
     "mobx-react-lite": "^1.5.2",
-<<<<<<< HEAD
-    "openzeppelin-solidity": "^4.1.0",
-=======
     "moment": "^2.29.1",
->>>>>>> 84a7c6868549f23449a52e7e556d52f8fb73ddfa
     "pdf-viewer-reactjs": "^2.2.3",
     "pdfjs-dist": "^2.7.570",
     "react": "^17.0.1",
