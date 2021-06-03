@@ -26,34 +26,34 @@ const UserSchema = new Schema({
 		required: false,
 		default: 'https://gateway.ipfs.io/ipfs/QmVEBTtEo6q7m5KumcfdkaGn91TZiSN4GgZDtmcr7daNZ4',
 	},
-	profile_bg_color: {
+	profile_theme: {
 		type: String,
-		require: false,
+		required: false,
 	},
 	profile_featured_id: {
 		type: Number,
-		require: false,
+		required: false,
 	},
 	email_list: {
 		type: Boolean,
-		require: false,
+		required: false,
 		default: false,
 	},
     website: {
         type: String,
-        require: false,
+        required: false,
     },
     twitter: {
         type: String,
-        require: false,
+        required: false,
     },
     instagram: {
         type: String,
-        require: false,
+        required: false,
     },
-	pending: {
+	pending_value: {
 		type: Number,
-		require: false,
+		required: false,
 	},
 	collections: [
 		new Schema({
@@ -98,7 +98,7 @@ const UserSchema = new Schema({
 			previous_sold: {
 				type: Array,
 				defaut: [0],
-				require: true,
+				required: true,
 			},
 			thumbnail_image: {
 				type: String,
@@ -107,7 +107,7 @@ const UserSchema = new Schema({
 			auction_mode: {
 				type: Boolean,
 				default: false,
-				require: true,
+				required: true,
 			},
 			auctions: [
 				{
@@ -137,11 +137,11 @@ const UserSchema = new Schema({
 					},
 					bids: {
 						type: Array,
-						require: false,
+						required: false,
 					},
 					watchers: {
 						type: Array,
-						require: false,
+						required: false,
 					},
 				},
 			],
@@ -202,7 +202,7 @@ const UserSchema = new Schema({
 			previous_sold: {
 				type: Array,
 				defaut: [0],
-				require: true,
+				required: true,
 			},
 			thumbnail_image: {
 				type: String,
@@ -211,7 +211,7 @@ const UserSchema = new Schema({
 			auction_mode: {
 				type: Boolean,
 				default: false,
-				require: true,
+				required: true,
 			},
 			auctions: [
 				{
@@ -241,11 +241,11 @@ const UserSchema = new Schema({
 					},
 					bids: {
 						type: Array,
-						require: false,
+						required: false,
 					},
 					watchers: {
 						type: Array,
-						require: false,
+						required: false,
 					},
 				},
 			],
@@ -306,7 +306,7 @@ const UserSchema = new Schema({
 			previous_sold: {
 				type: Array,
 				defaut: [0],
-				require: true,
+				required: true,
 			},
 			thumbnail_image: {
 				type: String,
@@ -315,7 +315,7 @@ const UserSchema = new Schema({
 			auction_mode: {
 				type: Boolean,
 				default: false,
-				require: true,
+				required: true,
 			},
 			auctions: [
 				{
@@ -345,11 +345,11 @@ const UserSchema = new Schema({
 					},
 					bids: {
 						type: Array,
-						require: false,
+						required: false,
 					},
 					watchers: {
 						type: Array,
-						require: false,
+						required: false,
 					},
 				},
 			],
@@ -406,7 +406,7 @@ const UserSchema = new Schema({
 			previous_sold: {
 				type: Array,
 				defaut: [0],
-				require: true,
+				required: true,
 			},
 			thumbnail_image: {
 				type: String,
@@ -415,7 +415,7 @@ const UserSchema = new Schema({
 			auction_mode: {
 				type: Boolean,
 				default: false,
-				require: true,
+				required: true,
 			},
 			auctions: [
 				{
@@ -445,11 +445,11 @@ const UserSchema = new Schema({
 					},
 					bids: {
 						type: Array,
-						require: false,
+						required: false,
 					},
 					watchers: {
 						type: Array,
-						require: false,
+						required: false,
 					},
 				},
 			],
@@ -510,7 +510,7 @@ const UserSchema = new Schema({
 			previous_sold: {
 				type: Array,
 				defaut: [0],
-				require: true,
+				required: true,
 			},
 			thumbnail_image: {
 				type: String,
@@ -519,7 +519,7 @@ const UserSchema = new Schema({
 			auction_mode: {
 				type: Boolean,
 				default: false,
-				require: true,
+				required: true,
 			},
 			auctions: [
 				{
@@ -549,11 +549,11 @@ const UserSchema = new Schema({
 					},
 					bids: {
 						type: Array,
-						require: false,
+						required: false,
 					},
 					watchers: {
 						type: Array,
-						require: false,
+						required: false,
 					},
 				},
 			],

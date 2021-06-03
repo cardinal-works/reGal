@@ -39,20 +39,20 @@ const OnboardingButton = (props) => {
     }
   }, [accounts]);
 
-  // useEffect(() => {
-  //   function handleNewAccounts(newAccounts) {
-  //     setAccounts(newAccounts);
-  //   }
-  //   if (MetaMaskOnboarding.isMetaMaskInstalled()) {
-  //     window.ethereum
-  //       .request({ method: 'eth_requestAccounts' })
-  //       .then((res) => handleNewAccounts);
-  //     window.ethereum.on('accountsChanged', handleNewAccounts);
-  //     return () => {
-  //       window.ethereum.off('accountsChanged', handleNewAccounts);
-  //     };
-  //   }
-  // }, []);
+  useEffect(() => {
+    function handleNewAccounts(newAccounts) {
+      setAccounts(newAccounts);
+    }
+    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+      window.ethereum
+        .request({ method: 'eth_requestAccounts' })
+        .then((res) => handleNewAccounts);
+      window.ethereum.on('accountsChanged', handleNewAccounts);
+      return () => {
+        window.ethereum.off('accountsChanged', handleNewAccounts);
+      };
+    }
+  }, []);
 
   const onClick = () => {
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
@@ -60,7 +60,7 @@ const OnboardingButton = (props) => {
         .request({ method: 'eth_requestAccounts' })
         .then((newAccounts) => {
           setAccounts(newAccounts);
-          window.location.reload()
+          // window.location.reload()
         });
     } else {
       onboarding.current.startOnboarding();

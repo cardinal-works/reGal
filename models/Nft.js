@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-//const Tag = require("./Tag");
+//const Tag = required("./Tag");
 
 const NftSchema = new Schema({
     title: {
@@ -45,7 +45,7 @@ const NftSchema = new Schema({
     previous_sold: {
         type: Array,
         defaut: [0],
-        require: true
+        required: true
     },
     thumbnail_image: {
         type: String,
@@ -54,7 +54,7 @@ const NftSchema = new Schema({
     auction_mode: {
         type: Boolean,
         default: false,
-        require: true
+        required: true
     },
     auctions: [{
         nft_id: {
@@ -83,11 +83,11 @@ const NftSchema = new Schema({
         },
 		bids: {
             type: Array, 
-            require: true,
+            required: true,
         },
         watchers: {
             type: Array, 
-            require: true, 
+            required: true, 
         }
     }],
     tags: [

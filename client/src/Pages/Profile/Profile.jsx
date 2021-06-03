@@ -69,7 +69,7 @@ const initialState = {
 	],
 };
 
-const Profile = (props, web3) => {
+const Profile = (props) => {
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
@@ -83,10 +83,6 @@ const Profile = (props, web3) => {
 			display_name: '',
 		}
 	);
-
-	useEffect(() => {
-		// console.log(nftRegistry);
-	}, [nftRegistry]);
 
 	const [nfts, setNfts] = useState([
 		{
@@ -213,18 +209,20 @@ const Profile = (props, web3) => {
 	};
 
 	useEffect(() => {
-		console.log();
+		if (!window.ethereum) {
+			console.log('hello')
+			props.history.push("/signup")
+		} 
+		if (!window.ethereum.selectedAddress) {
+			props.history.push("/signup")
+		}
 		loadUser(window.ethereum.selectedAddress).then((res) => {
 			loadNfts({ user_id: res._id });
 			setUserChanges(res);
 		});
-		loadNft(1);
-		// .then(console.log("hello", Object.fromEntries(nftRegistry)))
+		loadNft(1); 
 	}, []);
 
-	useEffect(() => {
-		console.log(user);
-	}, [loadingInitial, user, getAllNfts]);
 
 	return (
 		<Fragment>

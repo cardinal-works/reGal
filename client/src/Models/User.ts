@@ -8,6 +8,9 @@ export interface IUser {
 	profile_theme: string;
 	profile_featured_id: number;
 	email_list: boolean;
+	website: string,
+	twitter: string,
+	instagram: string,
 	pending_value: number;
 	collection: [
 		{

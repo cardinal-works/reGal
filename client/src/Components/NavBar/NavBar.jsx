@@ -21,21 +21,34 @@ const Navigation = () => {
 	const pending = false;
 
 	const handleConnect = () => {
-		console.log(history.location.pathname);
 		// ** IF NO METAMASK INSTALLED ** //
+		setButtonText(<span className="spinner-border spinner-border-sm mb-1 mt-1"></span>);
+
 		if (!window.ethereum) {
-			setButtonText(<span className="spinner-border spinner-border-sm mb-1 mt-1"></span>);
 			setTimeout(() => {
 				setButtonText('connect');
 				return setRedirect(<Redirect to="/signup" />);
 			}, 1000);
 		}
-		// ** IF METAMASK INSTALLED && NO ACCOUNT FOUND ** //
-		// if (window.ethereum.selectedAddress === "null") {
-		// loadUser(window.ethereum.selectedAddress)
-		// .then((res) => console.log(res))
-		// console.log("hello")
-		// }
+		if (window.ethereum) {
+			window.ethereum.request({ method: 'eth_requestAccounts' })
+			.then((res) => {
+				loadUser(res[0]).then((res) => {
+					if (res === undefined) {
+						setTimeout(() => {
+							setButtonText('connect');
+							return setRedirect(<Redirect to="/signup" />);
+						}, 1000);
+					} else {
+						setTimeout(() => {
+							setButtonText('connect');
+							return setRedirect(<Redirect to="/profile" />);
+						}, 1000);
+					}
+				});
+			})
+			.catch(() => setButtonText('connect'))
+		}
 	};
 
 	return (
@@ -56,7 +69,7 @@ const Navigation = () => {
 						farm
 					</Nav.Link>
 					<Nav.Link>
-						<i className="fas fa-search ml-2"></i>
+						<i className="fas fa-search ml-2 pb-2"></i>
 					</Nav.Link>
 				</Nav>
 				<Nav className="ml-auto">
@@ -87,9 +100,9 @@ const Navigation = () => {
 						</Container>
 					) : (
 						<Fragment>
-								<Button onClick={handleConnect} className="connect-button" variant="outline-success">
-									{buttonText}
-								</Button>
+							<Button onClick={handleConnect} className="connect-button" variant="outline-success">
+								{buttonText}
+							</Button>
 						</Fragment>
 					)}
 					{redirect}

@@ -30,11 +30,11 @@ const AuctionSchema = new Schema({
 	},
 	bids: {
 		type: Array,
-		require: false,
+		required: false,
 	},
 	watchers: {
 		type: Array,
-		require: false,
+		required: false,
 	},
 });
 
