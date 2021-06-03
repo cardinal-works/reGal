@@ -57,13 +57,16 @@ const ProfileCard = ({ _id, display_name, wallet_id, profile_image, profile_feat
 						<div className="profile-social-div pt-1">
 							<i className="fab fa-twitter-square twitter"></i>
 							<i className="fab fa-instagram-square instagram"></i>
-							<i class="fas fa-share-alt-square website"></i>
+							<i className="fas fa-share-alt-square website"></i>
 						</div>
 					</Col>
 					<Col className="mr-1 pt-2">
 						<div className="more-div text-white pb-1 ">
 							{user.wallet_id === wallet_id ? (
-								<i className="fad fa-pencil edit"></i>
+								<Fragment>
+									<i className="fad fa-pencil edit pr-1"></i>
+									<i className="fas fa-cog settings"></i>
+								</Fragment>
 							) : (
 								<i className="far fa-ellipsis-h pl-3"></i>
 							)}
