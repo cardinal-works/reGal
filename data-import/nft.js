@@ -3,7 +3,8 @@ module.exports = {
     'documents': [
         {
             'title': "Nft 1",
-            'creator': "User 1",
+            'creator_id': "0x123f9nnasdfk12893jasd2dad",
+            'creator_name': "User 1",
             'asking_bid': null,
             'previous_sold': null,
             'auction_duration': 86400000,
@@ -30,7 +31,8 @@ module.exports = {
         },
         {
             'title': "Nft 2",
-            'creator': "User 1",
+            'creator_id': "0x123f9nnasdfk12893jasd2dad",
+            'creator_name': "User 1",
             'asking_bid':null,
             'previous_sold':null,
             'auction_duration': 86400000,
@@ -56,7 +58,8 @@ module.exports = {
             'date_mint': Date.now()       },
         {
             'title': "Nft 3",
-            'creator': "User 1",
+            'creator_id': "0x123f9nnasdfk12893jasd2dad",
+            'creator_name': "User 1",
             'asking_bid':null,
             'previous_sold':[3.5, 10, 2],
             'auction_duration': 86400000,
@@ -82,7 +85,8 @@ module.exports = {
             'date_mint': (Date.now())       },
         {
             'title': "Nft 11",
-            'creator': "User 2",
+            'creator_id': "0x123f9nnasdfk12893jasd2dad",
+            'creator_name': "User 2",
             'asking_bid':null,
             'previous_sold':[1.1],
             'auction_duration': 86400000,
@@ -109,7 +113,8 @@ module.exports = {
         },
         {
             'title': "Nft 21",
-            'creator': "User 2",
+            'creator_id': "0x123f9nnasdfk12893jasd2dad",
+            'creator_name': "User 2",
             'asking_bid':null,
             'previous_sold':[1.4],
             'auction_duration': 86400000,
@@ -135,7 +140,8 @@ module.exports = {
             'date_mint': (Date.now())       },
         {
             'title': "Nft 32",
-            'creator': "User 2",
+            'creator_id': "0x123f9nnasdfk12893jasd2dad",
+            'creator_name': "User 2",
             'asking_bid':null,
             'previous_sold':[3.1, 4.3],
             'auction_duration': 86400000,
@@ -161,7 +167,8 @@ module.exports = {
             'date_mint': (Date.now())       },
         {
             'title': "Nft 322",
-            'creator': "User 3",
+            'creator_id': "0x123f9nnasdfk12893jasd2dad",
+            'creator_name': "User 3",
             'asking_bid':null,
             'previous_sold':null,
             'auction_duration': 86400000,
@@ -188,7 +195,8 @@ module.exports = {
         },
         {
             'title': "Nft 324",
-            'creator': "User 3",
+            'creator_id': "0x123f9nnasdfk12893jasd2dad",
+            'creator_name': "User 3",
             'asking_bid':null,
             'previous_sold':null,
             'auction_duration': 86400000,
@@ -214,7 +222,8 @@ module.exports = {
             'date_mint': (Date.now())       },
         {
             'title': "Nft 325",
-            'creator': "User 3",
+            'creator_id': "0x123f9nnasdfk12893jasd2dad",
+            'creator_name': "User 3",
             'asking_bid':null,
             'previous_sold':null,
             'auction_duration': 86400000,
