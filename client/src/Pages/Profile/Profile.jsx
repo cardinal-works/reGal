@@ -37,7 +37,7 @@ const Profile = (props) => {
 			loadNfts({ user_id: res._id });
 			// setUserChanges(res);
 		});
-		loadNft(1); 
+		// loadNft(1); 
 	}, []);
 
 
@@ -45,7 +45,7 @@ const Profile = (props) => {
 		<Fragment>
 			<Container className="profile-container" >
 				<Row className="profile-details-row">
-					{user && nft && (
+					{user && (
 						<Fragment >
 							<Col md={12} className="profile-page-card-nav">
 								<ProfileCard
