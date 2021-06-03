@@ -13,14 +13,14 @@ import ipfs from '../../ipfs';
 var Buffer = require('buffer/').Buffer;
 import { AuctionRepository } from '../../../abi/AuctionRepository_abi';
 
-const AuctionHouse = ({ web3 }) => {
+const AuctionHouse = ({ ethers }) => {
 	const [modalShow, setModalShow] = useState(false);
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const { loadNfts, getAllNfts, nftRegistry } = nftStore;
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
 	let contractAddr = '0xa535e0C5Dec0a2CE862495AF88B2155D347615E3';
-	const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
+	// const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
 
 	useEffect(() => {
 		console.log(window.ethereum.selectedAddress);

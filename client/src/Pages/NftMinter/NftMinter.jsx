@@ -9,10 +9,10 @@ import NftStore from '../../Stores/NftStore';
 import { RegalAuction } from '../../../abi/RegalAuction_abi';
 var Buffer = require('buffer/').Buffer;
 
-const NftMinter = ({ web3 }) => {
+const NftMinter = ({ ethers }) => {
 	const contractAddr = '0xF8915Fa980F1a44770C80500F9Bb4169b7E04D72';
 	// const contractAddr = "0xce863dD3ec9bcDEEE585660Cab63C777E1201876";
-	const RegalAuctionContract = new web3.eth.Contract(RegalAuction, contractAddr);
+	// const RegalAuctionContract = new ethers.eth.Contract(RegalAuction, contractAddr);
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const [userChanges, setUserChanges] = useState({});

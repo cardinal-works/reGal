@@ -1,9 +1,8 @@
 // ** MODULES
 import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import ProfileEditModal from '../ProfileEditModal';
 // ** COMPONENTS
-import CornerRibbon from 'react-corner-ribbon';
-import Countdown from 'react-countdown';
 import StatsDisplay from '../StatsDisplay';
 import { Row, Col, Image, Button, Container, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 // ** STORE
@@ -11,21 +10,15 @@ import UserStore from '../../Stores/UserStore';
 import { observer } from 'mobx-react-lite';
 
 const ProfileCard = ({ _id, display_name, wallet_id, profile_image, profile_featured_id, bio, profile_bg_color }) => {
+	const [modalShow, setModalShow] = useState(false);
+	const [editMode, setEditMode] = useState(false);
 	const userStore = useContext(UserStore);
 	const { loadUser, user, loadingInitial, submitting } = userStore;
 
 	useEffect(() => {
 		console.log();
 		loadUser(window.ethereum.selectedAddress);
-		// .then(console.log("hello", Object.fromEntries(nftRegistry)))
 	}, []);
-	// const nftStore = useContext(NftStore);
-	// const { updateNft, loadNft } = nftStore;
-	// const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
-
-	// const handleLikeNft = () => {
-	// 	loadNft(_id).then((user) => updateNft({ ...nft, likes: nft.likes + 1 }));
-	// };
 
 	return (
 		<Fragment>
@@ -40,9 +33,6 @@ const ProfileCard = ({ _id, display_name, wallet_id, profile_image, profile_feat
 								<i style={{ fontSize: '12px', color: '#1b68de' }} className="fad fa-badge-check pr-1"></i>verified
 							</nobr>
 						</span>
-						{/* <span className="pl-1">
-							<i style={{ fontSize: '14px', color: '#e2c249' }}  className="far fa-star star "></i>
-						</span> */}
 						<br />
 						<span className="text-white creator-link font-secondary bio-name ">
 							{' @'}
@@ -65,7 +55,7 @@ const ProfileCard = ({ _id, display_name, wallet_id, profile_image, profile_feat
 							{user.wallet_id === wallet_id ? (
 								<Fragment>
 									<i className="fad fa-pencil edit pr-1"></i>
-									<i className="fas fa-cog settings"></i>
+									<i as={Button} onClick={() => setModalShow(true)} className="fas fa-cog settings"></i>
 								</Fragment>
 							) : (
 								<i className="far fa-ellipsis-h pl-3"></i>
@@ -76,6 +66,7 @@ const ProfileCard = ({ _id, display_name, wallet_id, profile_image, profile_feat
 						<StatsDisplay />
 					</Col>
 				</Row>
+				<ProfileEditModal show={modalShow} onHide={() => setModalShow(false)}></ProfileEditModal>
 			</Container>
 		</Fragment>
 	);
