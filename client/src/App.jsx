@@ -17,32 +17,32 @@ import SignUp from './Pages/SignUp';
 //CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const App = ({ web3 }) => {
+const App = ({ ethers }) => {
 	return (
 		<Switch>
-			<ComponentWrapper web3={web3}>
+			<ComponentWrapper ethers={ethers}>
 				<Route exact path="/" component={Explore} />
 				<Route exact path="/signup" component={SignUp} />
 				<Route exact path="/profile" component={Profile} />
 				<Route exact path="/explore">
-					<Explore web3={web3} />
+					<Explore ethers={ethers} />
 				</Route>
 				<Route exact path="/auction-house">
-					<AuctionHouse web3={web3} />
+					<AuctionHouse ethers={ethers} />
 				</Route>
 				<Route exact path="/dashboard" component={ProfileSettings} />
 				<Route exact path="/whitepaper" component={Whitepaper} />
 				<Route exact path="/details/:id">
-					<DetailedView web3={web3} />
+					<DetailedView ethers={ethers} />
 				</Route>
 				<Route exact path="/farm">
-					<Farm web3={web3} />
+					<Farm ethers={ethers} />
 				</Route>
 				<Route exact path="/minter">
-					<NftMinter web3={web3} />
+					<NftMinter ethers={ethers} />
 				</Route>
 				<Route exact path="/auction/:id">
-					<Auction web3={web3} />
+					<Auction ethers={ethers} />
 				</Route>
 			</ComponentWrapper>
 		</Switch>

@@ -7,7 +7,7 @@ import { AuctionRepository } from '../../../abi/AuctionRepository_abi';
 import NftStore from '../../Stores/NftStore';
 import PriceStore from '../../Stores/PriceStore';
 
-const DetailedView = ({web3}) => {
+const DetailedView = ({ethers}) => {
 	const nftStore = useContext(NftStore);
 	const priceStore = useContext(PriceStore);
 	const [params, setParams] = useState(useParams());
@@ -18,7 +18,7 @@ const DetailedView = ({web3}) => {
 	// console.log(useParams())
 
 	let contractAddr = '0x0aC149cF75Ffcbe2C9E31948055B19E489E1267b';
-	const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
+	// const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
 
 	useEffect(() => {
         loadNft(params['id']);
