@@ -4,209 +4,26 @@ import { Container, Row, Col, Nav, Image, Button, Form, FormFile, Breadcrumb, Br
 import { Link, history } from 'react-router-dom';
 //Contracts
 import ProfileCard from '../../Components/ProfileCard';
-import ProfileNftDisplay from '../../Components/ProfileNftDisplay';
+// import CreateModal from '../ProfileEditModal';
 
 import NftDisplay from '../../Components/NftDisplay';
+import EmptyDisplay from '../../Components/EmptyDisplay'
 import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
 import { observer } from 'mobx-react-lite';
 import { toJS } from 'mobx';
-import CornerRibbon from 'react-corner-ribbon';
 import ipfs from '../../ipfs';
 var Buffer = require('buffer/').Buffer;
 //Media
-import demo from '../../../assets/images/demo-art.jpeg';
-import demo2 from '../../../assets/images/nft-1.jpg';
-import demo3 from '../../../assets/images/nft-2.jpg';
-import demo4 from '../../../assets/images/nft-3.jpg';
-import demo5 from '../../../assets/images/nft-5.jpg';
-import demo6 from '../../../assets/images/nft-6.jpg';
-
-const initialState = {
-	nfts: [
-		{
-			id: 1,
-			image: demo,
-			likes: 27,
-			comments: 8,
-			title: 'Backbone',
-		},
-		{
-			id: 2,
-			image: demo2,
-			likes: 109,
-			comments: 56,
-			title: 'OTXHello',
-		},
-		{
-			id: 3,
-			image: demo3,
-			likes: 89,
-			comments: 17,
-			title: 'Spaceman',
-		},
-		{
-			id: 4,
-			image: demo4,
-			likes: 211,
-			comments: 24,
-			title: 'Grooves',
-		},
-		{
-			id: 5,
-			image: demo5,
-			likes: 32,
-			comments: 10,
-			title: 'Pixel Monkey',
-		},
-		{
-			id: 6,
-			image: demo6,
-			likes: 49,
-			comments: 16,
-			title: 'Martian',
-		},
-	],
-};
 
 const Profile = (props) => {
+	const [modalShow, setModalShow] = useState(false);
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
 	const { loadNfts, getAllNfts, loadNft, nft, nftRegistry } = nftStore;
-	const [editMode, setEditMode] = useState(false);
 
-	const [userChanges, setUserChanges] = useState(
-		toJS(user) || {
-			profile_image: '',
-			bio: '',
-			display_name: '',
-		}
-	);
 
-	const [nfts, setNfts] = useState([
-		{
-			id: 1,
-			image: demo,
-			likes: 27,
-			comments: 8,
-			bid: 4,
-			title: 'velociraptor',
-			creator: 'deffie',
-			date_mint: '02/01/2021',
-			current: 1.3,
-			previous: 1.0,
-		},
-		{
-			id: 2,
-			image: demo2,
-			likes: 109,
-			comments: 56,
-			bid: 27,
-			title: 'dilip',
-			creator: 'lucid monday',
-			date_mint: '01/17/2021',
-			current: 4.32,
-			previous: null,
-		},
-		{
-			id: 3,
-			image: demo3,
-			likes: 89,
-			comments: 17,
-			bid: 2,
-			title: 'late year',
-			creator: 'othello',
-			date_mint: '02/01/2021',
-			current: 0.9,
-			previous: 2.4,
-		},
-		{
-			id: 4,
-			image: demo4,
-			likes: 211,
-			comments: 24,
-			bid: 3,
-			title: 'beeple',
-			creator: 'rahmteen',
-			date_mint: '01/17/2021',
-			current: 3.12,
-			previous: null,
-		},
-		{
-			id: 5,
-			image: demo5,
-			likes: 32,
-			comments: 10,
-			bid: 60,
-			title: 'prince kong',
-			creator: 'cgYoda',
-			date_mint: '02/01/2021',
-			current: 1.3,
-			previous: 1.0,
-		},
-		{
-			id: 6,
-			image: demo6,
-			likes: 49,
-			comments: 16,
-			bid: 32,
-			title: 'dead space',
-			creator: 'elon',
-			date_mint: '01/17/2021',
-			current: 10.92,
-			previous: null,
-		},
-	]);
-
-	const handleFileUpload = (file) => {
-		const reader = new FileReader();
-		reader.readAsArrayBuffer(file);
-		reader.onloadend = () => uploadToIPFS(reader);
-	};
-
-	const uploadToIPFS = async (reader) => {
-		const buffer = await Buffer.from(reader.result);
-		const result = await ipfs.add(buffer);
-		const ipfsLink = 'https://gateway.ipfs.io/ipfs/' + result.path;
-		let userChange = userChanges;
-		setUserChanges({
-			...userChange,
-			profile_image: ipfsLink,
-		});
-	};
-
-	const handleDisplayName = (e) => {
-		e.preventDefault();
-		let userChange = userChanges;
-		setUserChanges({
-			...userChange,
-			display_name: e.target.value,
-		});
-	};
-
-	const handleBio = (e) => {
-		e.preventDefault();
-		let userChange = userChanges;
-		setUserChanges({
-			...userChange,
-			bio: e.target.value,
-		});
-	};
-
-	const handleUpdateUser = (e) => {
-		e.preventDefault();
-		if (userChanges.profile_image.length === 0) {
-			setUserChanges({ ...userChanges, profile_image: user.profile_image });
-		}
-		let newUser = { ...user, ...userChanges };
-
-		updateUser(newUser)
-			.then((res) => {
-				setEditMode(false);
-			})
-			.catch((err) => console.log(err));
-	};
 
 	useEffect(() => {
 		if (!window.ethereum) {
@@ -218,7 +35,7 @@ const Profile = (props) => {
 		}
 		loadUser(window.ethereum.selectedAddress).then((res) => {
 			loadNfts({ user_id: res._id });
-			setUserChanges(res);
+			// setUserChanges(res);
 		});
 		loadNft(1); 
 	}, []);
@@ -241,20 +58,21 @@ const Profile = (props) => {
 									display_name={user.display_name}></ProfileCard>
 							</Col>
 							<Col className="" lg={3} md={5}>
-								<NftDisplay
-									_id={nfts._id}
-									likes={nfts.likes}
-									thumbnail_image={nfts.thumbnail_image}
-									nft_id={nfts.nft_id}
-									current_bid={nfts.current_bid}
-									title={nfts.title}
-									auction_startDate={nfts.auction_startDate}
-									auction_duration={nfts.auction_duration}
-									creator={nfts.creator}
-									date_mint={nfts.date_mint}
-									tags={nfts.tags}
+								<EmptyDisplay featured={true}></EmptyDisplay>
+								{/* <NftDisplay
+									_id={nft._id}
+									likes={nft.likes}
+									thumbnail_image={nft.thumbnail_image}
+									nft_id={nft.nft_id}
+									current_bid={nft.current_bid}
+									title={nft.title}
+									auction_startDate={nft.auction_startDate}
+									auction_duration={nft.auction_duration}
+									creator={nft.creator}
+									date_mint={nft.date_mint}
+									tags={nft.tags}
 									featured={true}
-								/>
+								/> */}
 							</Col>
 							<Col className="" lg={9} md={6}>
 								<Nav fill variant="tabs" defaultActiveKey="link-0" className="profile-nft-nav">
@@ -272,9 +90,9 @@ const Profile = (props) => {
 									</Nav.Item>
 								</Nav>
 								<Container className="" >
-									<Row className="pt-4 pl-2 profile-nfts-grid">
-										{nfts &&
-											nfts.slice(0, 3).map((nft, i) => {
+									{/* <Row className="pt-4 pl-2 profile-nfts-grid">
+										{nft &&
+											nft.slice(0, 3).map((nft, i) => {
 												return (
 													<Col key={i} xl={4} lg={5} md={12} sm={10} xs={10}>
 														<NftDisplay />
@@ -285,8 +103,7 @@ const Profile = (props) => {
 											View All
 										<i style={{fontSize: '13px', color: "#f6a615"}} className="fas fa-angle-double-right pl-2 my-auto pr-2"></i>
 										</Col>
-									</Row>
-								
+									</Row> */}
 								</Container>
 							</Col>
 						</Fragment>

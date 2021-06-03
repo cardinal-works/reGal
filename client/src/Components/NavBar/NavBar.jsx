@@ -8,7 +8,7 @@ import history from '../../History';
 
 //Components
 import CreateModal from '../CreateModal';
-import Web3 from 'web3';
+// import Web3 from 'web3';
 
 const Navigation = () => {
 	const userStore = useContext(UserStore);
@@ -17,7 +17,7 @@ const Navigation = () => {
 	const [redirect, setRedirect] = useState(<></>);
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
 	// const [userHistory, setUserHistory] = useState(history)
-	let web3 = new Web3(Web3.givenProvider || 'ws://localhost:9546');
+	// let web3 = new Web3(Web3.givenProvider || 'ws://localhost:9546');
 	const pending = false;
 
 	const handleConnect = () => {

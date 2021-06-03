@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite';
 import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
 
-const Explore = (web3) => {
+const Explore = (ethers) => {
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const { loadUser } = userStore;

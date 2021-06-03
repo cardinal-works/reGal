@@ -9,7 +9,7 @@ import UserStore from '../../Stores/UserStore';
 import NftDisplay from "../../Components/NftDisplay"
 import PriceStore from '../../Stores/PriceStore';
 
-const Auction = ({ web3 }) => {
+const Auction = ({ ethers }) => {
 	const nftStore = useContext(NftStore);
 	const userStore = useContext(UserStore);
 	const priceStore = useContext(PriceStore);
@@ -20,7 +20,7 @@ const Auction = ({ web3 }) => {
 	const { user, loadUser } = userStore;
 
 	let contractAddr = '0x3C7038139356e5e30Cbc8bC407076617ce3437ea';
-	const RegalAuctionContract = new web3.eth.Contract(RegalAuction, contractAddr);
+	// const RegalAuctionContract = new ethers.eth.Contract(RegalAuction, contractAddr);
 
 	const [auctionData, setAuctionData] = useState({
 		title: null,
@@ -42,7 +42,7 @@ const Auction = ({ web3 }) => {
 	const handleStartPrice = (e) => {
 		e.preventDefault();
 		// const weiValue = Web3.utils.toWei(e.target.value, 'ether');
-		const value = weiValue;
+		// const value = weiValue;
 		setAuctionData((prevState) => ({
 			...prevState,
 			startPrice: value,

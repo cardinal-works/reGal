@@ -24,6 +24,7 @@ const SignUp = (props) => {
 	// ** LOCAL STATE ** //
 	const [userData, setUserData] = useState(userSchema);
 	const [submitButtonText, setSubmitButtonText] = useState('Submit');
+	const [validated, setValidated] = useState(false)
 
 	// ** ERROR HANDLING FOR USERS SIGNING UP WITH AN EXISTING ACCOUNT ** //
 	useEffect(() => {
@@ -127,7 +128,7 @@ const SignUp = (props) => {
 											<i className="text-white mr-2 fas fa-link"></i> 
 											{window.ethereum.selectedAddress.slice(0, 6) + '...' + window.ethereum.selectedAddress.slice(38, 44)}
 										</p>
-										<Form noValidate validated={validated} onSubmit={(e) => handleSubmit(e)} className="text-left pb-2">
+										<Form validated={validated} onSubmit={(e) => handleSubmit(e)} className="text-left pb-2">
 											<Form.Group>
 												<Form.Label className="text-white">email</Form.Label>
 												<Form.Control 
