@@ -3,8 +3,9 @@
 //Modules
 import React, { useEffect, useState, Fragment, useContext } from 'react';
 import { Container, Col, Row, Image, Toast, Form, Button, Modal, FormFile } from 'react-bootstrap';
+//Stores
 import UserStore from '../../Stores/UserStore';
-// Components
+//Components
 import OnboardingButton from '../../Components/OnboardingButton';
 
 
