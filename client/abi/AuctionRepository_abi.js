@@ -1,4 +1,5 @@
-export const AuctionRepository = [{
+export const AuctionRepository = [
+  {
     "anonymous": false,
     "inputs": [
       {
@@ -75,12 +76,10 @@ export const AuctionRepository = [{
     "type": "event"
   },
   {
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "fallback"
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -106,12 +105,11 @@ export const AuctionRepository = [{
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "address",
@@ -132,12 +130,11 @@ export const AuctionRepository = [{
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -193,12 +190,11 @@ export const AuctionRepository = [{
         "type": "bool"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "getCount",
     "outputs": [
@@ -208,12 +204,11 @@ export const AuctionRepository = [{
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -229,12 +224,11 @@ export const AuctionRepository = [{
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "address",
@@ -250,12 +244,11 @@ export const AuctionRepository = [{
         "type": "uint256[]"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -276,12 +269,11 @@ export const AuctionRepository = [{
         "type": "address"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "address",
@@ -297,12 +289,11 @@ export const AuctionRepository = [{
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -343,7 +334,7 @@ export const AuctionRepository = [{
         "type": "address"
       },
       {
-        "internalType": "address",
+        "internalType": "address payable",
         "name": "owner",
         "type": "address"
       },
@@ -358,12 +349,11 @@ export const AuctionRepository = [{
         "type": "bool"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "address",
@@ -404,12 +394,10 @@ export const AuctionRepository = [{
         "type": "bool"
       }
     ],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "uint256",
@@ -419,12 +407,10 @@ export const AuctionRepository = [{
     ],
     "name": "cancelAuction",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "uint256",
@@ -434,12 +420,10 @@ export const AuctionRepository = [{
     ],
     "name": "finalizeAuction",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "uint256",
@@ -449,8 +433,8 @@ export const AuctionRepository = [{
     ],
     "name": "bidOnAuction",
     "outputs": [],
-    "payable": true,
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   }
 ]

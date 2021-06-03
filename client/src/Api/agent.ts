@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { INft } from "../Models/Nft";
 import { IUser } from "../Models/User";
+import { IAuction } from "../Models/Auction";
 
 const apiURL = "";
 
@@ -44,6 +45,7 @@ const sleep = (ms: number) => (response: AxiosResponse) =>
     setTimeout(() => resolve(response), ms)
   );
 
+
 const requests = {
   get: (url: string) => 
     axios
@@ -67,22 +69,37 @@ const requests = {
       .then(responseBody),
 };
 
+
 const User = {
   get: (id: number) => requests.get(`/user/get/${id}`),
   create: (user: IUser) => requests.post("/user/create", user),
   update: (user: IUser) => requests.put(`/user/update`, user),
-  delete: (id: number) => requests.del(`/user/delete${id}`)
+  delete: (id: number) => requests.del(`/user/delete/${id}`)
 }
 
 const Nft = {
   getAll: (payload?: any) => requests.post(`/nft/get/all`, payload),
-  get: (id: number) => requests.get(`/nft/get/?id=${id}`),
+  get: (id: number) => requests.get(`/nft/get/${id}`),
   create: (nft: INft, id: string) => requests.post(`/nft/create/${id}`, nft),
-  update: (nft: INft) => requests.put("/nft", nft),
-  delete: (id: number) => requests.del(`/${id}`)
+  update: (nft: INft) => requests.put("/nft/update", nft),
+  delete: (id: number) => requests.del(`nft/delete/${id}`)
+}
+
+const Auction = {
+  getAll: (payload?: any) => requests.post(`/auction/get/all`, payload),
+  get: (id: number) => requests.get(`/auction/get/${id}`),
+  create: (user: IAuction, id: string) => requests.post(`/auction/create/${id}`, user),
+  update: (user: IAuction) => requests.put(`/auction/update`, user),
+  delete: (id: number) => requests.del(`/auction/delete/${id}`)
+}
+
+const Price = {
+  get: () => requests.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc'),
 }
 
 export default {
   User,
-  Nft
+  Nft,
+  Price,
+  Auction
 }

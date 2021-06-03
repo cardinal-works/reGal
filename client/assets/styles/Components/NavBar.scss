@@ -1,98 +1,59 @@
-.navbar {
-  // padding: 15px 10px 15px 10px;
+.nav-container {
+	display: flex;
+	background-color: #161616 !important;
+	margin: 50px 100px 20px 100px;
+	justify-content:space-between;
+	align-items: center;
+	align-content: flex-start;
 
-  background: transparent;
-  font-family: "Majesti-Banner-BoldItalic", sans-serif;
-  padding: 5px 40px 30px 40px;
-  margin-left: auto;
-  margin-right: auto;
-  margin: 0% 2% 0% 2%;
-  animation: fadeIn linear forwards 2s;
-    -webkit-animation: fadeIn linear forwards 2s;
-    -moz-animation: fadeIn linear forwards 2s;
-    -o-animation: fadeIn linear forwards 2s;
-    -ms-animation: fadeIn linear forwards 2s;
-.navbar-collapse {
-  justify-content: space-between;
+	.regal-brand {
+		.r-text {
+			font-size: 50px;
+			font-family: $primary-font;
+		}
+	}
+	.nav-links {
+		font-size: 1.55em;
+		.nav-link {
+		}
+	}
+
+	.connect-button {
+		border-color: white;
+		padding-top: 3px;
+		color: white;
+		&:hover {
+			background: white;
+			color: black;
+			border-color: white;
+		}
+	}
+
+	.create-button {
+			padding-top: 3px;
+			padding-bottom: 3px;
+			border-color: white;
+			color: white;
+			&:hover {
+				background: white;
+				color: black;
+				border-color: white;
+			}
+	}
+	.profile-nav-container {
+		display: flex;
+		align-items: flex-end;
+		margin-bottom: 10px;
+		.profile-link-nav {
+			padding: 0px;
+			margin: 0px;
+			// display: flex;
+			// align-items: center;
+			.profile-link-image {
+				max-height: 40px;
+				object-fit: cover;
+				width: auto;
+			}
+		}
+	}
 }
-
-.navbar-toggler {
-  justify-content: flex-end;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.profile-container {
-  flex-wrap: none;
-  padding: 5px;
-  justify-content: flex-end;
-  align-items: baseline;
-  @media (min-width: 760px) { justify-content: space-between; }
-  @media (max-width: 760px) { justify-content: baseline !important; flex-direction: column-reverse !important; align-items: flex-start; }
-}
-
-  .nav-profile-image-link {
-    .profile-link-nav {
-      .user-profile-name {
-      text-decoration: none !important;
-      }
-      a {
-      text-decoration: none !important;
-      }
-    }
-  }
-
-
-  &:hover {
-    .nav-animation {
-      transition: all 0.1s linear;
-      transform: scale(3.5);
-      text-transform: uppercase;
-      font-weight: bold;
-    }
-  }
-
-
-
-  .nav-profile-image {
-    color: white;
-    border-radius: 150px;
-    opacity: 100%;
-    height: 70px;
-    object-fit:cover;
-		border: solid 2px white;
-		box-shadow: 0px 0px 20px rgb(97, 97, 97);
-    transition: 1s;
-    &:hover {
-
-      display: inline-block;
-      animation: pulse;
-      transition: 1s ease-in-out;
-      animation-duration: 2s;
-      animation-iteration-count: infinite;
-    }
-  }
-
-
-  .nav-top {
-
-      .nav-link {
-      color: #ffffff !important;
-      opacity: 0;
-      margin: 5px 10px 0 10px;
-      font-size: 20px;
-      animation: fadeIn linear forwards 2s;
-      -webkit-animation: fadeIn linear forwards 2s;
-      -moz-animation: fadeIn linear forwards 2s;
-      -o-animation: fadeIn linear forwards 2s;
-      -ms-animation: fadeIn linear forwards 2s;
-      &:hover {
-        color: $primary !important;
-      }
-    }
-  }
-}
-
-
-
-

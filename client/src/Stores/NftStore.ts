@@ -15,6 +15,7 @@ class NftStore {
 
     @action loadNfts = async (payload?: any) => {
         this.loadingInitial = true;
+        this.nftRegistry.clear();
         try {
             let response = await agent.Nft.getAll(payload);
             runInAction(() => {
@@ -32,14 +33,15 @@ class NftStore {
     }
 
     @action loadNft = async (id: number) => {
+        this.nft = null;
         try {
             let res = await agent.Nft.get(id);
             runInAction(() => {
                 if(res) {
-                    this.nft = res;
+                    this.nft = res[0];
                 }
             })
-            return res;
+            return res[0];
         } catch (error) {
             console.log("Error: ", error);
         }
@@ -54,7 +56,7 @@ class NftStore {
             runInAction(() => {
                 if(response) {    
                     this.submitting = false;
-                    this.nft = {...response}
+                    this.nft = response
                 }
             })
             return response;
@@ -74,6 +76,7 @@ class NftStore {
                 if(response) {
                     this.nft = response
                     this.submitting = false;
+                    this.nftRegistry.set(response._id, response);
                 }
             })
             return response;

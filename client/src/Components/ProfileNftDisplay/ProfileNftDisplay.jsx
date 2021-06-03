@@ -6,6 +6,7 @@ const ProfileNftDisplay = ({
   likes,
   comments,
   image,
+  nft_id,
   id,
   bid,
   title,
@@ -17,7 +18,9 @@ const ProfileNftDisplay = ({
   return (
     <Fragment>
       <Card className="profile-card">
-        <Card.Img className="profile-card-img"  src={image} style={{borderRadius: "15px"}} />
+        <Link to={`/details/${nft_id}`}>
+        <Card.Img className="profile-card-img" src={image}  />
+        </Link>
       </Card>
     </Fragment>
   );

@@ -1,12 +1,19 @@
 .footer {
-  background: #c75f67!important;
+  // background: #c75f67!important;
+  position: relative;
+  // margin-top: 300px;
+  /* negative value of footer height */
+  height: 200px;
+  clear: both;
+	background-color: #161616 !important;
 
 
   .footer-nav {
     align-items: center;
     justify-content: center;
     padding-bottom: 15px;
-    color: black;
+    color: white;
+    background-color: transparent;
     .footer-logo {
       margin-top: 4px;
     }
@@ -21,7 +28,7 @@
 
     button {
       margin-bottom: 10px;
-      color: black;
+      color: rgb(255, 255, 255);
     }
   }
     
