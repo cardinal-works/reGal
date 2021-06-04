@@ -45,11 +45,12 @@ const OnboardingButton = (props) => {
 			setAccounts(newAccounts);
 		}
 		if (MetaMaskOnboarding.isMetaMaskInstalled()) {
-			window.ethereum.request({ method: 'eth_requestAccounts' }).then((res) => handleNewAccounts);
-			window.ethereum.on('accountsChanged', handleNewAccounts);
-			return () => {
-				window.ethereum.off('accountsChanged', handleNewAccounts);
-			};
+			// window.ethereum.request({ method: 'eth_requestAccounts' }).then((res) => handleNewAccounts);
+			// window.ethereum.on('accountsChanged', handleNewAccounts);
+			// return () => {
+				// window.ethereum.off('accountsChanged', handleNewAccounts);
+        // window.location.reload()
+			// };
 		}
 	}, []);
 
@@ -57,7 +58,7 @@ const OnboardingButton = (props) => {
 		if (MetaMaskOnboarding.isMetaMaskInstalled()) {
 			window.ethereum.request({ method: 'eth_requestAccounts' }).then((newAccounts) => {
 				setAccounts(newAccounts);
-				// window.location.reload()
+				window.location.reload()
 			});
 		} else {
 			onboarding.current.startOnboarding();
