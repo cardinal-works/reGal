@@ -3,11 +3,12 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 // ** COMPONENTS
 import NftDisplay from '../../Components/NftDisplay/NftDisplay';
-import { Col, Container, Row, Dropdown, CardDeck } from 'react-bootstrap';
+import { Col, Container, Row, Dropdown, CardDeck, Image } from 'react-bootstrap';
 // ** STATE
 import { observer } from 'mobx-react-lite';
 import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
+
 
 const Explore = () => {
 	const userStore = useContext(UserStore);
