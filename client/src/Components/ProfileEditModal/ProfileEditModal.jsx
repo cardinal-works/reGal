@@ -103,7 +103,7 @@ const ProfileEditModal = (props) => {
 								<Col lg={12} md={4} className="profile-preview">
 									<Image
 										className="profile-banner-image"
-										src={user.thumbnail_image}
+										src={user.profile_image}
 									/>
 								</Col>
 								<Col lg={12} className="profile-preview-bio text-start">

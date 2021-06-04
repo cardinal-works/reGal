@@ -99,7 +99,7 @@ export interface IUser {
 			tags: [{ _id: string; name: string; popularity: number }];
 		}
 	];
-	watching: [
+	starred: [
 		{
 			_id: string;
 			title: string;
