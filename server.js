@@ -47,10 +47,10 @@ app.use(express.urlencoded({
 
 app.use(express.json());
 
-app.use(express.static(path.resolve(__dirname, 'client')));
-
 if (process.env.NODE_ENV === "production") { 
     app.use(express.static("client/build"));
+} else {
+  app.use(express.static(path.resolve(__dirname, 'client')));
 }
 
 const routes = require('./routes');

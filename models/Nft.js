@@ -13,7 +13,7 @@ const NftSchema = new Schema({
         required: true
     },
     creator_id: {
-        type: Number,
+        type: String,
         required: true
     },
     creator_name: {
@@ -45,7 +45,7 @@ const NftSchema = new Schema({
     previous_sold: {
         type: Array,
         defaut: [0],
-        required: true
+        required: false
     },
     thumbnail_image: {
         type: String,
