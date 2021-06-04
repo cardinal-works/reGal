@@ -101,7 +101,7 @@ const SignUp = (props) => {
 							<Col md={12} className="text-center pb-3 mb-3 pt-1"></Col>
 							<Col className="text-center pb-3 pt-3">
 								<small>
-									*If you have never used cyptocurrency or interacted with a blockchain website, click
+									*If you've never used cyptocurrency or interacted with a decentralized website, click
 									<a href="#"> here</a> for a quick guide to get started.
 								</small>
 							</Col>
@@ -109,7 +109,7 @@ const SignUp = (props) => {
 					</Toast.Body>
 				</Toast>
 			)}
-			{!window.selectedAddress && (
+			{window.ethereum && !window.selectedAddress && (
 				<Fragment>
 					<Toast show={true} animation={false} className="toast-1 mx-auto mb-2 pb-2">
 						<Toast.Header className="toast-1-header" closeButton={false}>
@@ -127,8 +127,8 @@ const SignUp = (props) => {
 								</Col>
 								<Col className="text-center pb-3 pt-3">
 									<small>
-										*If you have never used cyptocurrency or interacted with a blockchain website, click
-										<a href="#"> here</a> for a quick guide to get started.
+										*Never used cyptocurrency or interacted with a decentralized website? click
+										<a href="#"> here</a>
 									</small>
 								</Col>
 							</Row>

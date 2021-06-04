@@ -8,7 +8,7 @@ import mmlogo from "../../../assets/images/metamask.svg"
 
 const oData = {
   onboard_text: 'install MetaMask',
-  connect_text: [<Image width="20px" src={mmlogo}/>],
+  connect_text: [<Image className="mmlogo" width="20px" src={mmlogo}/>],
   connected_text: 'connected',
 };
 
@@ -69,27 +69,28 @@ const OnboardingButton = (props) => {
 			{buttonText === 'connected' ? (
 				<></>
 			) : (
-				<Button disabled={isDisabled} onClick={onClick} className="onboarding-button">
+				<Button disabled={isDisabled} onClick={onClick} className="mt-2 onboarding-button">
 					{buttonText}
 				</Button>
 			)}
-			{buttonText === 'connect' ? (
+			{/* {buttonText == [<Image className="mmlogo" width="20px" src={mmlogo}/>] ? ( */}
 				<Fragment>
 					<Container>
-						{/* <Row className="pt-4 mb-4 pb-4">
+						<Row className="pt-4 mb-4 pb-4">
 							<Col>
 								<Image src={MetaMaskHelp} width="200px" className="metamask-help-1"></Image>
 							</Col>
 							<Col className="pt-2" md={12}>
-								<small>nothing is happening? check the extension notifications on your browser's toolbar</small>
+								<small>nothing happening? check the extension notifications in your browser's toolbar</small>
 							</Col>
-						</Row> */}
+						</Row>
 					</Container>
 				</Fragment>
-			) : null}
+			{/* ) : null} */}
 			{redirect}
 		</Container>
 	);
 };
 
 export default OnboardingButton;
+// canyon forget bus only anger act brother fever right together kitten happy
