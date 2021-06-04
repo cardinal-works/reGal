@@ -114,9 +114,7 @@ const ProfileEditModal = (props) => {
 										<br />
 									</span>
 									<span className="text-white creator-link bio-text">
-										To edit your bio or profile picture, visit your profile page and click on the{' '}
-										<i style={{ color: '#f6a615' }} className="fad fa-pencil edit pr-1 pl-1"></i>symbol.
-										<br />
+										{user.bio}
 									</span>
 								</Col>
 							</Row>

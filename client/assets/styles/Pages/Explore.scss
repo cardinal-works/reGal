@@ -24,10 +24,10 @@
 			.sort-button-col {
 				.sort-button {
 					font-size: 1.5em !important;
-					padding: 2px 12px 2px 12px;
-					background-color: #ffffff !important;
-					color: black !important;
-					border-color: rgb(45, 45, 45) !important;
+					padding: 2px 12px 4px 12px;
+					background-color: transparent !important;
+					color: rgb(255, 255, 255) !important;
+					border: solid 1.5px white;
 				}
 			}
 		}
