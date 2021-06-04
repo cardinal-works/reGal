@@ -3,12 +3,11 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 // ** COMPONENTS
 import NftDisplay from '../../Components/NftDisplay/NftDisplay';
-import { Col, Container, Row, Dropdown, CardDeck, Image } from 'react-bootstrap';
+import { Col, Container, Row, Dropdown, CardDeck, Image, Pagination } from 'react-bootstrap';
 // ** STATE
 import { observer } from 'mobx-react-lite';
 import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
-
 
 const Explore = () => {
 	const userStore = useContext(UserStore);
@@ -43,7 +42,6 @@ const Explore = () => {
 					</Col>
 				</Row>
 				<Row className="nft-explore-rows">
-				
 					{getAllNfts.length &&
 						getAllNfts.map((nft, index) => {
 							return (
@@ -64,7 +62,15 @@ const Explore = () => {
 								</Col>
 							);
 						})}
-					
+
+					<Pagination className="pt-3 pagination-explore">
+						<Pagination.Item key={1} active>
+							{1}
+						</Pagination.Item>
+						<Pagination.Item key={2} >
+							{2}
+						</Pagination.Item>
+					</Pagination>
 				</Row>
 			</Container>
 		</div>
