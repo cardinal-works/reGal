@@ -56,9 +56,9 @@ if (process.env.NODE_ENV === "production") {
 const routes = require('./routes');
 app.use(routes);
 
-app.use((req, res, next) => {
-  res.status(404).json({ message: "Route not found" });
-})
+// app.use((req, res, next) => {
+//   res.status(404).json({ message: "Route not found" });
+// })
 
 app.get("*", function(req, res) {
   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));

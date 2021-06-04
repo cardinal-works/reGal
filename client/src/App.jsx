@@ -14,13 +14,14 @@ import ProfileSettings from './Pages/ProfileSettings';
 import ComponentWrapper from './Components/ComponentWrapper';
 import Whitepaper from './Pages/Whitepaper';
 import SignUp from './Pages/SignUp';
+import NotFound from "./Pages/NotFound";
 //CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
 	return (
-		<Switch>
-			<ComponentWrapper >
+		<ComponentWrapper >
+			<Switch>
 				<Route exact path="/" component={Explore} />
 				<Route exact path="/signup" component={SignUp} />
 				<Route exact path="/profile" component={Profile} />
@@ -44,8 +45,9 @@ const App = () => {
 				<Route exact path="/auction/:id">
 					<Auction />
 				</Route>
-			</ComponentWrapper>
-		</Switch>
+				<Route component={NotFound} />
+			</Switch>
+		</ComponentWrapper>
 	);
 };
 
