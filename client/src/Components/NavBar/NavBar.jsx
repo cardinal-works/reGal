@@ -53,11 +53,11 @@ const Navigation = () => {
 
 	return (
 		<Navbar className="nav-container" bg="dark" collapseOnSelect expand="lg" variant="dark">
-			<Navbar.Brand as={Link} to="/" className="regal-brand text-majesti font-primary pt-2">
+			<Navbar.Brand as={Link} to="/" className="regal-brand text-majesti font-primary p-0 pr-2">
 				<span className="r-text">R</span>
 			</Navbar.Brand>
-			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
-			<Navbar.Collapse id="responsive-navbar-nav">
+			<Navbar.Toggle className="mb-2" aria-controls="responsive-navbar-nav" />
+			<Navbar.Collapse className="" id="responsive-navbar-nav">
 				<Nav className="nav-links">
 					<Nav.Link as={Link} to="/">
 						explore
