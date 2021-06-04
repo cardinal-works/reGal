@@ -109,7 +109,7 @@ const SignUp = (props) => {
 					</Toast.Body>
 				</Toast>
 			)}
-			{window.ethereum && !window.selectedAddress && (
+			{window.ethereum && !window.ethereum.selectedAddress ? (
 				<Fragment>
 					<Toast show={true} animation={false} className="toast-1 mx-auto mb-2 pb-2">
 						<Toast.Header className="toast-1-header" closeButton={false}>
@@ -135,7 +135,7 @@ const SignUp = (props) => {
 						</Toast.Body>
 					</Toast>
 				</Fragment>
-			)}
+			): null}
 			{/* THE FORM MODULE THAT IS ASSOCIATED TO USER CREATION */}
 			{window.ethereum && window.ethereum.selectedAddress ? (
 				<>
