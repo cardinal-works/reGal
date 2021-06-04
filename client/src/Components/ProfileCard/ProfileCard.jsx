@@ -40,8 +40,7 @@ const ProfileCard = ({ _id, display_name, wallet_id, profile_image, profile_feat
 							<br />
 						</span>
 						<span className="text-white creator-link pt-1 bio-text">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu turpis auctor, rhoncus quam tincidunt,
-							dictum purus. In dictum eu lorem in faucibus. Praesent vitae libero ut risus malesuada tristique.
+							{user.bio}
 							<br />
 						</span>
 						<div className="profile-social-div pt-1">
@@ -54,8 +53,8 @@ const ProfileCard = ({ _id, display_name, wallet_id, profile_image, profile_feat
 						<div className="more-div text-white pb-1 ">
 							{user.wallet_id === wallet_id ? (
 								<Fragment>
-									<i className="fad fa-pencil edit pr-1"></i>
-									<i as={Button} onClick={() => setModalShow(true)} className="fas fa-cog settings"></i>
+									<i as={Button} onClick={() => setModalShow(true)} className="fad fa-pencil edit pr-2"></i>
+									<i  className="fas fa-cog settings"></i>
 								</Fragment>
 							) : (
 								<i className="far fa-ellipsis-h pl-3"></i>
