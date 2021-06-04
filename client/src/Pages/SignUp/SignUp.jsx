@@ -8,7 +8,6 @@ import UserStore from '../../Stores/UserStore';
 //Components
 import OnboardingButton from '../../Components/OnboardingButton';
 
-
 // ** BASIC USER CREATION SCHEMA ** //
 const userSchema = {
 	wallet_id: null,
@@ -24,7 +23,7 @@ const SignUp = (props) => {
 	// ** LOCAL STATE ** //
 	const [userData, setUserData] = useState(userSchema);
 	const [submitButtonText, setSubmitButtonText] = useState('Submit');
-	const [validated, setValidated] = useState(false)
+	const [validated, setValidated] = useState(false);
 
 	// ** ERROR HANDLING FOR USERS SIGNING UP WITH AN EXISTING ACCOUNT ** //
 	useEffect(() => {
@@ -99,15 +98,43 @@ const SignUp = (props) => {
 								{/* Imported module to help faciliate metamask user sign up */}
 								<OnboardingButton></OnboardingButton>
 							</Col>
+							<Col md={12} className="text-center pb-3 mb-3 pt-1"></Col>
 							<Col className="text-center pb-3 pt-3">
 								<small>
-									*If you have never used cyptocurrency or interacted with a blockchain website, click
+									*If you've never used cyptocurrency or interacted with a decentralized website, click
 									<a href="#"> here</a> for a quick guide to get started.
 								</small>
 							</Col>
 						</Row>
 					</Toast.Body>
 				</Toast>
+			)}
+			{window.ethereum && !window.selectedAddress && (
+				<Fragment>
+					<Toast show={true} animation={false} className="toast-1 mx-auto mb-2 pb-2">
+						<Toast.Header className="toast-1-header" closeButton={false}>
+							<strong className="mx-auto text-majesti font-tertiary">R</strong>
+						</Toast.Header>
+						<Toast.Body>
+							<Row className="pb-1 pt-2">
+								<Col md={12} className="h4 text-center pb-3 mb-3 pt-1">
+									Connect with MetaMask <br /> <span className=" h5"> to create an account.</span>
+								</Col>
+
+								<Col md={12} className="text-center pb-3 mb-3 pt-2">
+									{/* Imported module to help faciliate metamask user sign up */}
+									<OnboardingButton></OnboardingButton>
+								</Col>
+								<Col className="text-center pb-3 pt-3">
+									<small>
+										*Never used cyptocurrency or interacted with a decentralized website? click
+										<a href="#"> here</a>
+									</small>
+								</Col>
+							</Row>
+						</Toast.Body>
+					</Toast>
+				</Fragment>
 			)}
 			{/* THE FORM MODULE THAT IS ASSOCIATED TO USER CREATION */}
 			{window.ethereum && window.ethereum.selectedAddress ? (
@@ -121,30 +148,19 @@ const SignUp = (props) => {
 								<Row>
 									<Col md={12}>
 										<p className="text-center h4">Create Profile</p>
-										<p className="pt-4 text-center pb-2">
-											Enter your email and display name below. 
-											A preview of your profile will populate below.</p>
+										<p className="pt-4 text-center pb-2">Enter your email and display name below. A preview of your profile will populate below.</p>
 										<p className="pt-4">
-											<i className="text-white mr-2 fas fa-link"></i> 
+											<i className="text-white mr-2 fas fa-link"></i>
 											{window.ethereum.selectedAddress.slice(0, 6) + '...' + window.ethereum.selectedAddress.slice(38, 44)}
 										</p>
 										<Form validated={validated} onSubmit={(e) => handleSubmit(e)} className="text-left pb-2">
 											<Form.Group>
 												<Form.Label className="text-white">email</Form.Label>
-												<Form.Control 
-												required type="email" 
-												name="email_address" 
-												placeholder="" 
-												onChange={(e) => handleUserData(e)} />
+												<Form.Control required type="email" name="email_address" placeholder="" onChange={(e) => handleUserData(e)} />
 											</Form.Group>
 											<Form.Group>
 												<Form.Label className="text-white">display name</Form.Label>
-												<Form.Control 
-												required 
-												maxLength="15" 
-												minLength="4" 
-												name="display_name" 
-												onChange={(e) => handleUserData(e)} />
+												<Form.Control required maxLength="15" minLength="4" name="display_name" onChange={(e) => handleUserData(e)} />
 											</Form.Group>
 											<Form.Group as={Row} controlId="formHorizontalCheck">
 												<Col className="pt-2">
