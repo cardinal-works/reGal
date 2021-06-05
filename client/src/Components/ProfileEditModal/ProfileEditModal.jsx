@@ -1,7 +1,7 @@
 //Modules
 import React, { Fragment, useState, useContext, useEffect } from 'react';
-import { Container, Row, Col, Button, Modal, Toast, Image } from 'react-bootstrap';
-import { Link} from 'react-router-dom';
+import { Container, Row, Col, Button, Modal, Toast, Image, Form } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { toJS } from 'mobx';
 import ipfs from '../../ipfs';
@@ -22,18 +22,15 @@ const ProfileEditModal = (props) => {
 
 	useEffect(() => {
 		if (!window.ethereum) {
-			console.log('hello')
-			props.history.push("/signup")
-		} 
-		if (!window.ethereum.selectedAddress) {
-			props.history.push("/signup")
+			console.log('hello');
+			props.history.push('/signup');
 		}
-		loadUser(window.ethereum.selectedAddress)
+		if (!window.ethereum.selectedAddress) {
+			props.history.push('/signup');
+		}
+		loadUser(window.ethereum.selectedAddress);
 	}, []);
 
-
-
-	
 	const handleFileUpload = (file) => {
 		const reader = new FileReader();
 		reader.readAsArrayBuffer(file);
@@ -83,42 +80,55 @@ const ProfileEditModal = (props) => {
 			.catch((err) => console.log(err));
 	};
 
-
 	return (
 		<Fragment>
-			<Modal
-				{...props}
-				size="sm"
-				className="profile-edit-modal"
-				aria-labelledby="contained-modal-title-vcenter"
-				centered>
+			<Modal {...props} size="sm" className="profile-edit-modal" aria-labelledby="contained-modal-title-vcenter" centered>
 				<Modal.Body>
 					<Container className="create-container">
 						<Row className="text-center">
-						<Toast.Header className="toast-1-header" closeButton={false}>
-							<strong className="mx-auto text-majesti font-tertiary">R</strong>
-						</Toast.Header>
-						<Toast.Body>
-							<Row className="text-center mx-auto">
-								<Col lg={12} md={4} className="profile-preview">
-									<Image
-										className="profile-banner-image"
-										src={user.profile_image}
-									/>
-								</Col>
-								<Col lg={12} className="profile-preview-bio text-start">
-									<br />
-									<span className="text-white creator-link font-secondary bio-name ">
-										{' @'}
-										{user.display_name}
+							<Toast>
+							<Toast.Header className="toast-1-header" closeButton={false}>
+								<strong className="mx-auto text-majesti font-tertiary">R</strong>
+							</Toast.Header>
+							<Toast.Body>
+								<Row className="text-center mx-auto">
+									<Col lg={12} md={4} className="profile-preview">
+										<Image className="profile-banner-image" src={user.profile_image} />
+									</Col>
+									<Col lg={12} className="profile-preview-bio text-start">
 										<br />
-									</span>
-									<span className="text-white creator-link bio-text">
-										{user.bio}
-									</span>
-								</Col>
-							</Row>
-						</Toast.Body>
+										<span className="text-white creator-link font-secondary bio-name ">
+											{' @'}
+											{user.display_name}
+											<br />
+										</span>
+										<span className="text-white creator-link bio-text">{user.bio}</span>
+										<br />
+										<br />
+									</Col>
+									<Col md={12}>
+										<Form onSubmit={(e) => handleSubmit(e)} className="text-left pb-2">
+											<Form.Group>
+												<Form.Label className="text-white">email</Form.Label>
+												<Form.Control required type="email" name="email_address" placeholder="" onChange={(e) => handleUserData(e)} />
+											</Form.Group>
+											<Form.Group>
+												<Form.Label className="text-white">display name</Form.Label>
+												<Form.Control required maxLength="15" minLength="4" name="display_name" onChange={(e) => handleUserData(e)} />
+											</Form.Group>
+											<Form.Group as={Row} controlId="formHorizontalCheck">
+												<Col className="pt-2">
+													<Form.Check name="email_list" type="switch" id="custom-switch" label={<small>subscribe to newsletter</small>} onChange={(e) => handleUserData(e)} />
+												</Col>
+											</Form.Group>
+											<div className="text-center pt-4">
+												<Button type="submit">{'submit'}</Button>
+											</div>
+										</Form>
+									</Col>
+								</Row>
+							</Toast.Body>
+							</Toast>
 							{/* <Col lg={12} className="text-center mb-5 mt-4">
 								<span className="text-white font-primary text-majesti">R</span>
 							</Col>

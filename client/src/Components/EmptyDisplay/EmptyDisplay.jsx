@@ -16,9 +16,9 @@ const EmptyDisplay = ({ featured, nft }) => {
 	const { updateNft, loadNft } = nftStore;
 	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
 
-	const handleLikeNft = () => {
-		loadNft(nft_id).then((nft) => updateNft({ ...nft, likes: nft.likes + 1 }));
-	};
+	// const handleLikeNft = () => {
+	// 	loadNft(nft_id).then((nft) => updateNft({ ...nft, likes: nft.likes + 1 }));
+	// };
 
 	return (
 		<Fragment>

@@ -73,7 +73,7 @@ const NftDisplay = ({
 									{likes}
 								</span>
 								<span className="pl-1">
-									<i className="far fa-star star "></i>
+									<i className="far fa-bookmark star "></i>
 								</span>
 							</div>
 						</Col>
