@@ -76,7 +76,7 @@ const Profile = (props) => {
 							<Col className="" lg={9} md={6}>
 								<Nav fill variant="tabs" defaultActiveKey="link-0" className="profile-nft-nav">
 									<Nav.Item>
-										<Nav.Link onClick={() => setProfileTable('collection')} eventKey="link-1">
+										<Nav.Link onClick={() => setProfileTable('collection')} eventKey="link-1" active >
 											Collection
 										</Nav.Link>
 									</Nav.Item>
@@ -91,8 +91,8 @@ const Profile = (props) => {
 										</Nav.Link>
 									</Nav.Item>
 									<Nav.Item>
-										<Nav.Link onClick={() => setProfileTable('starred')} eventKey="link-4">
-											Starred
+										<Nav.Link onClick={() => setProfileTable('saved')} eventKey="link-4">
+											Saved
 										</Nav.Link>
 									</Nav.Item>
 								</Nav>
@@ -218,8 +218,8 @@ const Profile = (props) => {
 											)}
 										</Row>
 									) : null}
-									{/* STARRED TABLE */}
-									{profileTable == 'starred' ? (
+									{/* SAVED TABLE */}
+									{profileTable == 'saved' ? (
 										<Row className="pt-4 pl-2 profile-nfts-grid">
 											{user.starred ? (
 												user.starred.slice(0, 3).map((nft, i) => {
@@ -254,7 +254,7 @@ const Profile = (props) => {
 												<Col md={12} className="text-white h5">
 													{/* <EmptyDisplay nft={false}></EmptyDisplay> */}
 													<i className="h6 far fa-at user-profile pt-2"></i>
-													{user.display_name} <span className=" h6"> has not starred any collectibles</span>
+													{user.display_name} <span className=" h6"> has not saved any collectibles</span>
 												</Col>
 											)}
 										</Row>
