@@ -10,7 +10,7 @@ import UserStore from '../../Stores/UserStore';
 import { observer } from 'mobx-react-lite';
 
 const ProfileCard = ({ _id, display_name, wallet_id, profile_image, profile_featured_id, bio, profile_bg_color }) => {
-	const [modalShow, setModalShow] = useState(false);
+	const [modalShow, setModalShow] = useState(true);
 	const [editMode, setEditMode] = useState(false);
 	const userStore = useContext(UserStore);
 	const { loadUser, user, loadingInitial, submitting } = userStore;
