@@ -1,5 +1,5 @@
 .profile-container {
-    padding: 0px;
+
     .profile-nft-nav {
         border-color: #222222;
         a.nav-link.active {
@@ -32,4 +32,10 @@
 
     }
 
+    .profile-edit-row {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+    }
 }
