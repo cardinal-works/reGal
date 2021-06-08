@@ -42,8 +42,10 @@ const NftTable = ({user, profileTable}) => {
 								);
 							})
 						) : (
-							<Col xl={4} lg={5} md={12} sm={10} xs={10}>
-								<EmptyDisplay nft={true}></EmptyDisplay>
+							<Col md={12} className="text-white h5">
+								{/* <EmptyDisplay nft={false}></EmptyDisplay> */}
+								<i className="h6 far fa-at user-profile pt-2"></i>
+								{user.display_name} <span className=" h6"> hasn't minted any collectibles</span>
 							</Col>
 						)}
 					</Row>
@@ -84,7 +86,7 @@ const NftTable = ({user, profileTable}) => {
 							<Col md={12} className="text-white h5">
 								{/* <EmptyDisplay nft={false}></EmptyDisplay> */}
 								<i className="h6 far fa-at user-profile pt-2"></i>
-								{user.display_name} <span className=" h6"> has not liked any collectibles</span>
+								{user.display_name} <span className=" h6"> hasn't liked any collectibles</span>
 							</Col>
 						)}
 					</Row>
@@ -125,7 +127,7 @@ const NftTable = ({user, profileTable}) => {
 							<Col md={12} className="text-white h5">
 								{/* <EmptyDisplay nft={false}></EmptyDisplay> */}
 								<i className="h6 far fa-at user-profile pt-2"></i>
-								{user.display_name} <span className=" h6"> has not viewed any collectibles</span>
+								{user.display_name} <span className=" h6"> hasn't viewed any collectibles</span>
 							</Col>
 						)}
 					</Row>
@@ -166,7 +168,7 @@ const NftTable = ({user, profileTable}) => {
 							<Col md={12} className="text-white h5">
 								{/* <EmptyDisplay nft={false}></EmptyDisplay> */}
 								<i className="h6 far fa-at user-profile pt-2"></i>
-								{user.display_name} <span className=" h6"> has not saved any collectibles</span>
+								{user.display_name} <span className=" h6"> hasn't saved any collectibles</span>
 							</Col>
 						)}
 					</Row>
