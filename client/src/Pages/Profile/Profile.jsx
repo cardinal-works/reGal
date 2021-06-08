@@ -138,12 +138,13 @@ const Profile = (props) => {
 													<span className="spinner-border spinner-border-sm mr-2 mb-1"></span>
 												) : (
 													<input
-														accept="image/png, image/jpeg, video/mp4, image/gif, image/jpg"
+														type="file"
+														accept="image/jpeg,image/png"
 														onChange={(e) => {
 															handleFileUpload(e.target.files[0]);
 														}}
 														className="input-overlay mt-2"
-														type="file"></input>
+													/>
 												)}
 											</Col>
 											<Col md={12} className="pt-4 mt-3 pb-2 h6">

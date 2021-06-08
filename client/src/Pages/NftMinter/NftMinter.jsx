@@ -179,8 +179,7 @@ const NftMinter = () => {
 							<Button className="ipfs-button mb-1 mt-5">
 								{uploading ? <span className="spinner-border spinner-border-sm mr-2 mb-1"></span> : <i className="fad fa-cloud-upload"></i>}
 								{uploading ? <small>uploading to IPFS</small> : ''}
-								<input
-									accept="image/png, image/jpeg, video/mp4, image/gif, image/jpg"
+								<input type="file" name="images[]" accept="image/gif, image/png, image/jpeg,"
 									onChange={(e) => {
 										setUploading(true);
 										handleFileUpload(e.target.files[0]);
