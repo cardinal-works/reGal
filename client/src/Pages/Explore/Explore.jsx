@@ -63,18 +63,6 @@ const Explore = () => {
 							);
 						})}
 				</Row>
-				<Row className="mt-3 pt-2">
-					<Col className="mt-2" md={12}>
-						<Pagination className="pagination-explore">
-							<Pagination.Item key={1} active>
-								{1}
-							</Pagination.Item>
-							<Pagination.Item key={2}>{2}</Pagination.Item>
-							<Pagination.Item key={3}>{3}</Pagination.Item>
-							<Pagination.Item key={4}>{4}</Pagination.Item>
-						</Pagination>
-					</Col>
-				</Row>
 			</Container>
 		</div>
 	);

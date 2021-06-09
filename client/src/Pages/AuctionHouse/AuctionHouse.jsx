@@ -17,7 +17,7 @@ const AuctionHouse = () => {
 	const [modalShow, setModalShow] = useState(false);
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
-	const { loadNfts, getAllNfts, nftRegistry } = nftStore;
+	const { loadNfts, loadNft, getAllNfts, nft, nftRegistry } = nftStore;
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
 	let contractAddr = '0xa535e0C5Dec0a2CE862495AF88B2155D347615E3';
 	// const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
@@ -32,17 +32,18 @@ const AuctionHouse = () => {
 	}, []);
 
 	useEffect(() => {
+		loadNft(1)
 		console.log(getAllNfts);
-	}, [getAllNfts]);
+	}, []);
 
 	return (
 		<Fragment>
 			<Container className="auction-house-container mt-2" >
 				<Row className="">
 					<div className="font-secondary text-white pr-1 text-center mb-4">Your Collection</div>
-					{getAllNfts.length &&
-						getAllNfts.map((nft, index) => (
-							<Col>
+					{nft &&
+						// nft.slice(0,2).map((nft, index) => (
+							(<Col>
 								<Nav fill variant="tabs" defaultActiveKey="link-0" className="profile-nft-nav">
 									<Nav.Item>
 										<Nav.Link onClick={() => window.alert('hello')} eventKey="link-0">Collection</Nav.Link>
@@ -54,7 +55,13 @@ const AuctionHouse = () => {
 								<Container className="profile-nfts-grid" >
 									<Row className="pt-4 pl-2">
 										<Col lg={6} md={12}>
-											<NftDisplay />
+											<NftDisplay
+											thumbnail_image={nft.thumbnail_image}
+											likes={20}
+											current_bid={1.2}
+											creator={'regal_dev'}
+											title={'bungus flubber'}
+											/>
 										</Col>
 
 										<Col md={12} style={{ fontSize: '13px', color: '#f6a615' }} className="text-right pt-3">
@@ -66,7 +73,7 @@ const AuctionHouse = () => {
 									</Row>
 								</Container>
 							</Col>
-						))}
+						)}
 				</Row>
 			</Container>
 		</Fragment>

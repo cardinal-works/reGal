@@ -1,28 +1,36 @@
 //Modules
 import React, { useEffect, useState, useContext, Fragment } from 'react';
-import { Container, Row, Col, Image, Form, Button, OverlayTrigger, ToolTip, Toast, FormControl } from 'react-bootstrap';
+import { ethers } from 'ethers';
 import ipfs from '../../ipfs';
 import { Link, Redirect } from 'react-router-dom';
+//Components
+import { Container, Row, Col, Form, Button, Toast } from 'react-bootstrap';
 import NftDisplay from '../../Components/NftDisplay';
 import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
+//Utilities
 import { RegalAuction } from '../../../abi/RegalAuction_abi';
 var Buffer = require('buffer/').Buffer;
 
+//Ethereum Connectections
+//ROPSTEN 1 - DEPLOYED on JUNE/4 9PM//
+const contractAddr = '0x0AE6749E627B1BE1e50ca349380EFCd91dA7DA37';
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+const signer = provider.getSigner();
+const contract = new ethers.Contract(contractAddr, RegalAuction, signer);
+
 const NftMinter = () => {
-	const contractAddr = '0xF8915Fa980F1a44770C80500F9Bb4169b7E04D72';
-	// const contractAddr = "0xce863dD3ec9bcDEEE585660Cab63C777E1201876";
-	// const RegalAuctionContract = new ethers.eth.Contract(RegalAuction, contractAddr);
+	// USER STORE
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
-	const [userChanges, setUserChanges] = useState({});
+	//
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
 	const { createNft } = nftStore;
 	const [formList, setFormList] = useState([true, false, false, false]);
 	const [uploading, setUploading] = useState(false);
-	const [dbMetaData, setDbMetaData] = useState({
+	const [userMetaData, setUserMetaData] = useState({
 		title: '',
-		creator: '@artistName',
+		creator: '',
 		nft_description: '',
 		thumbnail_image: '',
 		tags: [],
@@ -30,7 +38,8 @@ const NftMinter = () => {
 
 	useEffect(() => {
 		loadUser(window.ethereum.selectedAddress).then((res) => {
-			setDbMetaData((prevState) => ({
+			console.log(res);
+			setUserMetaData((prevState) => ({
 				...prevState,
 				creator: res.display_name,
 				user_id: res._id,
@@ -40,28 +49,21 @@ const NftMinter = () => {
 
 	const handleMint = async () => {
 		if (user._id) {
-			const _bcMetadata = {
-				title: dbMetaData.title,
-				creator: dbMetaData.creator,
-				nft_id: dbMetaData.nft_id,
-				thumbnail_image: dbMetaData.thumbnail_image,
+			const userData = {
+				title: userMetaData.title,
+				creator: userMetaData.creator,
+				nft_id: userMetaData.nft_id,
+				thumbnail_image: userMetaData.thumbnail_image,
 			};
-			const _bcStringified = JSON.stringify(_bcMetadata);
-			const result = await ipfs.add(_bcStringified);
+			const metaData = JSON.stringify(userData);
+			const result = await ipfs.add(metaData);
 			const ipfsLink = 'https://gateway.ipfs.io/ipfs/' + result.path;
-
-			const mdResult = await RegalAuctionContract.methods
-				.createCollectible(ipfsLink)
-				.send({ from: window.ethereum.selectedAddress })
-				.then((res) =>
-					createNft(
-						{
-							...dbMetaData,
-							nft_id: res.events.Transfer.returnValues.tokenId,
-						},
-						dbMetaData.user_id
-					)
-				);
+			contract.once()
+			let tx = await contract.createCollectible(ipfsLink);
+			const reciept = await tx.wait()
+			updateUser({...user, userData})
+			// wait for the transaction to be mined
+			// const receipt = await tx.wait();
 		} else {
 			return;
 		}
@@ -70,8 +72,7 @@ const NftMinter = () => {
 	const handleInputChange = (event) => {
 		let name = event.target.name;
 		let value = event.target.value;
-		let proxy = dbMetaData;
-		setDbMetaData({ ...proxy, [name]: value });
+		setUserMetaData((prevState) => ({...prevState, [name]: value }));
 	};
 
 	const handleNftLink = (e) => {
@@ -81,22 +82,6 @@ const NftMinter = () => {
 			...prevState,
 			nftLink: value,
 		}));
-	};
-
-	const handleRenderInput = (event, bool) => {
-		event.preventDefault();
-		console.log(bool);
-		if (bool === true) {
-			setRenderInput([
-				<FormControl
-					key={'input'}
-					placeholder="https://www.dropbox.com/s/ymhg..."
-					aria-label="https://www.dropbox.com/s/ymhg..."
-					aria-describedby="basic-addon1"
-					onChange={(e) => handleNftLink(e)}
-				/>,
-			]);
-		} else setRenderInput([<div key={'empty'}></div>]);
 	};
 
 	const handleFileUpload = (file, arg) => {
@@ -117,8 +102,8 @@ const NftMinter = () => {
 		const buffer = await Buffer.from(reader.result);
 		const result = await ipfs.add(buffer);
 		const ipfsLink = 'https://gateway.ipfs.io/ipfs/' + result.path;
-		const metadata = dbMetaData;
-		setDbMetaData({ ...metadata, thumbnail_image: ipfsLink });
+		const metadata = userMetaData;
+		setUserMetaData({ ...metadata, thumbnail_image: ipfsLink });
 		setUploading(false);
 	};
 
@@ -131,12 +116,9 @@ const NftMinter = () => {
 				<Toast.Body>
 					<Row className="pb-3 pt-2">
 						<Col md={12} className="text-center pb-3 pt-2">
-							If this is your first time minting an NFT, click <a href="#">here</a> for a quick explanation on what you need
-							to know.
+							If this is your first time minting an NFT, click <a href="#">here</a> for a quick explanation on what you need to know.
 						</Col>
-						<Col className="text-center pb-3 pt-2">
-							Otherwise, choose between starting from scratch (new) or from a previous draft.
-						</Col>
+						<Col className="text-center pb-3 pt-2">Otherwise, choose between starting from scratch (new) or from a previous draft.</Col>
 					</Row>
 					<Row className="text-center">
 						<Col className="mx-auto">
@@ -166,31 +148,22 @@ const NftMinter = () => {
 				<Toast.Body>
 					<Row className="text-center">
 						<Col md={12} style={{ fontSize: '12px' }}>
-							{dbMetaData.thumbnail_image ? (
-								<NftDisplay
-									nft_id={0}
-									likes={420}
-									preview={true}
-									thumbnail_image={dbMetaData.thumbnail_image}
-									current_bid={999}
-									title={dbMetaData.title}
-									creator={user.display_name}
-								/>
+							{userMetaData.thumbnail_image ? (
+								<NftDisplay nft_id={0} likes={420} preview={true} thumbnail_image={userMetaData.thumbnail_image} current_bid={999} title={userMetaData.title} creator={user.display_name} />
 							) : null}
 						</Col>
 						<Col md={12} className="pb-4">
-							{dbMetaData.thumbnail_image ? null : <b>upload your artwork</b>}
+							{userMetaData.thumbnail_image ? null : <b>upload your artwork</b>}
 						</Col>
 						<Col className="text-center">
-							{dbMetaData.thumbnail_image ? (
+							{userMetaData.thumbnail_image ? (
 								<span>
 									doesn't look right? <br /> upload another <i className="fas fa-caret-down mt-2"></i>{' '}
 								</span>
 							) : (
 								<>
 									<span className="text-center">
-										This will be the representation of your art <b> on the blockchain</b> and the preview{' '}
-										<b>on our site. </b>
+										This will be the representation of your art <b> on the blockchain</b> and the preview <b>on our site. </b>
 									</span>
 									<span>
 										It can never be changed or deleted so choose wisely. <br /> <br />
@@ -203,15 +176,9 @@ const NftMinter = () => {
 					<Row className="mt-2">
 						<Col md={12} className="mx-auto text-center">
 							<Button className="ipfs-button mb-1 mt-5">
-								{uploading ? (
-									<span className="spinner-border spinner-border-sm mr-2 mb-1"></span>
-								) : (
-									<i className="fad fa-cloud-upload"></i>
-								)}
+								{uploading ? <span className="spinner-border spinner-border-sm mr-2 mb-1"></span> : <i className="fad fa-cloud-upload"></i>}
 								{uploading ? <small>uploading to IPFS</small> : ''}
-
-								<input
-									accept="image/png, image/jpeg, video/mp4, image/gif, image/jpg"
+								<input type="file" name="images[]" accept="image/gif, image/png, image/jpeg,"
 									onChange={(e) => {
 										setUploading(true);
 										handleFileUpload(e.target.files[0]);
@@ -227,7 +194,7 @@ const NftMinter = () => {
 							<Button className="button-prev mr-1 mt-1" onClick={() => setFormList([true, false, false, false])}>
 								<i className="fad fa-angle-double-left "></i>
 							</Button>
-							{dbMetaData.thumbnail_image.length > 1 && (
+							{userMetaData.thumbnail_image.length > 1 && (
 								<Button className="button-next ml-1 mt-1" onClick={() => setFormList([false, false, true, false])}>
 									<i className="fad fa-chevron-double-right "></i>
 								</Button>
@@ -248,15 +215,15 @@ const NftMinter = () => {
 				<Toast.Body>
 					<Row className="text-center mb-2">
 						<Col md={12}>
-							{dbMetaData.thumbnail_image ? (
+							{userMetaData.thumbnail_image ? (
 								<NftDisplay
 									nft_id={0}
 									likes={420}
-									thumbnail_image={dbMetaData.thumbnail_image}
+									thumbnail_image={userMetaData.thumbnail_image}
 									current_bid={999}
-									title={dbMetaData.title}
+									title={userMetaData.title}
 									creator={user.display_name}
-									description={dbMetaData.nft_description}
+									description={userMetaData.nft_description}
 									preview={true}
 								/>
 							) : null}
@@ -268,26 +235,11 @@ const NftMinter = () => {
 							<Form className="text-left">
 								<Form.Group>
 									<Form.Label className="text-white">title*</Form.Label>
-									<Form.Control
-										maxLength="60"
-										type="text"
-										name="title"
-										placeholder=""
-										value={dbMetaData.title}
-										onChange={handleInputChange}
-									/>
+									<Form.Control maxLength="60" type="text" name="title" placeholder="" value={userMetaData.title} onChange={handleInputChange} />
 								</Form.Group>
 								<Form.Group>
 									<Form.Label className="text-white">description*</Form.Label>
-									<Form.Control
-										maxLength="280"
-										as="textarea"
-										row={6}
-										name="nft_description"
-										placeholder=""
-										value={dbMetaData.nft_description || ''}
-										onChange={handleInputChange}
-									/>
+									<Form.Control maxLength="280" as="textarea" row={6} name="nft_description" placeholder="" value={userMetaData.nft_description || ''} onChange={handleInputChange} />
 								</Form.Group>
 								<Form.Label className="pl-1">tags</Form.Label>
 								<Form.Control type="text" placeholder="disabled" readOnly />
@@ -318,16 +270,9 @@ const NftMinter = () => {
 				<Toast.Body>
 					<Row className="text-end">
 						<Col md={12} className="mb-2">
-							{dbMetaData.thumbnail_image ? (
+							{userMetaData.thumbnail_image ? (
 								<Fragment>
-									<NftDisplay
-										nft_id={0}
-										likes={420}
-										thumbnail_image={dbMetaData.thumbnail_image}
-										current_bid={999}
-										title={dbMetaData.title}
-										creator={user.display_name}
-									/>{' '}
+									<NftDisplay nft_id={0} likes={420} thumbnail_image={userMetaData.thumbnail_image} current_bid={999} title={userMetaData.title} creator={user.display_name} />{' '}
 									<small className="text-white pb-2">note: description is only visible on the detail page</small>{' '}
 								</Fragment>
 							) : null}
@@ -337,8 +282,7 @@ const NftMinter = () => {
 						</Col>
 						<Col className="text-center">
 							<span className="text-center pt-1 pb-1">
-								Any interaction with the blockchain costs gas. If you don't want to mint (pay) it now, you can save your art
-								as a draft.
+								Any interaction with the blockchain costs gas. If you don't want to mint (pay) it now, you can save your art as a draft.
 								<br />{' '}
 							</span>
 						</Col>
@@ -349,10 +293,7 @@ const NftMinter = () => {
 								save draft
 							</Button>
 
-							<Button
-								className=" ml-1 button-mint"
-								onClick={handleMint}
-								disabled={dbMetaData.title && dbMetaData.creator && dbMetaData.nft_description ? false : true}>
+							<Button className=" ml-1 button-mint" onClick={handleMint} disabled={userMetaData.title && userMetaData.creator && userMetaData.nft_description ? false : true}>
 								mint
 							</Button>
 						</Col>
@@ -373,9 +314,25 @@ const NftMinter = () => {
 
 export default NftMinter;
 
+// const handleRenderInput = (event, bool) => {
+// 	event.preventDefault();
+// 	console.log(bool);
+// 	if (bool === true) {
+// 		setRenderInput([
+// 			<FormControl
+// 				key={'input'}
+// 				placeholder="https://www.dropbox.com/s/ymhg..."
+// 				aria-label="https://www.dropbox.com/s/ymhg..."
+// 				aria-describedby="basic-addon1"
+// 				onChange={(e) => handleNftLink(e)}
+// 			/>,
+// 		]);
+// 	} else setRenderInput([<div key={'empty'}></div>]);
+// };
+
 // <Container className="minter-container">
 // 	<Row className="user-profile-data text-center">
-// 		{dbMetaData.thumbnail_image.length == 0 ? (
+// 		{userMetaData.thumbnail_image.length == 0 ? (
 // 			<Fragment>
 // 				<Col md={6} lg={12}>
 // 					<Image
@@ -401,11 +358,11 @@ export default NftMinter;
 // 	<Row className="nft-upload-form justify-content-md-center">
 // 		<Col md={12}>
 // 			<div className="nft-upload-placeholder text-center mx-auto">
-// 				{dbMetaData.thumbnail_image && (
+// 				{userMetaData.thumbnail_image && (
 // 					<Image
 // 						className="image-border-box my-auto"
 // 						loop="infinite"
-// 						src={dbMetaData.thumbnail_image}
+// 						src={userMetaData.thumbnail_image}
 // 						alt="Nft thumbnail preview"
 // 					/>
 // 				)}
@@ -419,7 +376,7 @@ export default NftMinter;
 // 						type="text"
 // 						name="title"
 // 						placeholder="NFT Name"
-// 						value={dbMetaData.title}
+// 						value={userMetaData.title}
 // 						onChange={handleInputChange}
 // 					/>
 // 				</Form.Group>
@@ -430,7 +387,7 @@ export default NftMinter;
 // 						disabled={true}
 // 						name="creator"
 // 						placeholder="@artistName"
-// 						value={dbMetaData.creator}
+// 						value={userMetaData.creator}
 // 						onChange={handleInputChange}
 // 					/>
 // 				</Form.Group>
@@ -441,7 +398,7 @@ export default NftMinter;
 // 						row={3}
 // 						name="nft_description"
 // 						placeholder="NFT Description"
-// 						value={dbMetaData.nft_description || ''}
+// 						value={userMetaData.nft_description || ''}
 // 						onChange={handleInputChange}
 // 					/>
 // 				</Form.Group>
@@ -490,8 +447,8 @@ export default NftMinter;
 // 						className="mint-submit"
 // 						onClick={handleMint}
 // 						// disabled={
-// 						//     dbMetaData.title &&
-// 						//     dbMetaData.creator &&
+// 						//     userMetaData.title &&
+// 						//     userMetaData.creator &&
 // 						//     nft_description &&
 // 						//     nft_uri
 // 						//   ? false : true}

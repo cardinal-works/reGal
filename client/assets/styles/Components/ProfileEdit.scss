@@ -1,7 +1,15 @@
-.profile-edit-modal {
+.profile-edit-container {
+    display: flex !important;
+    justify-content: center !important;
+
+    .modal-content {
+        border: 3px solid rgb(48, 48, 48) !important; 
+
+    }
     .toast {
 		box-shadow: rgba(68, 68, 68, 0.2) 0px 0px 12px;
-		background-color: rgb(22, 22, 22);
+		background-color: rgb(33, 33, 33);
+        padding: 10px;
 		color: white;
 		.toast-header {
 			margin: 10px;
@@ -18,21 +26,13 @@
 			}
 		}
     }
-    // .text-majesti {
-    //     color: rgb(203, 203, 203);
-    //     transition: 0.5s ease-in-out;
-    //       text-shadow: 
-    //                  12px 12px 1px #949494, 
-    //                  12px 12px 1px #3f3f3f; 
-    //       &:hover {
-    //         transition: 0.5s ease-in-out;
-    //         text-shadow: 
-    //         8px 1px 1px #808080,
-    //         15px 1px 1px #555555;      
-    //       }
-    // }
+    .profile-edit-text {
+        font-size: 1.6em !important;
+        padding: 10px;
+        
+    }
 
-    .button-nft {
+    .profile-edit-submit {
             background-color: green;
 			font-weight: 600;
 			border: solid 1px green;
@@ -44,7 +44,7 @@
 			}
     }
 
-    .button-auction {
+    .cancel-back {
         background-color: rgb(116, 24, 24);
         font-weight: 600;
         border: solid 1px rgb(105, 14, 14);
@@ -63,9 +63,8 @@
         background-color: black !important;
         color: white;
     }
-    .create-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+
+    .profile-banner-image {
+        border-radius: 4px;
     }
 }
