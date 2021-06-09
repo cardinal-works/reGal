@@ -72,8 +72,7 @@ const NftMinter = () => {
 	const handleInputChange = (event) => {
 		let name = event.target.name;
 		let value = event.target.value;
-		let proxy = userMetaData;
-		setUserMetaData({ ...proxy, [name]: value });
+		setUserMetaData((prevState) => ({...prevState, [name]: value }));
 	};
 
 	const handleNftLink = (e) => {

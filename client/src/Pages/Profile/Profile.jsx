@@ -86,7 +86,7 @@ const Profile = (props) => {
 					)}
 					{!editMode && user && (
 						<Fragment>
-							<Col md={10} className="profile-page-card-nav">
+							<Col md={12} className="profile-page-card-nav">
 								<ProfileCard
 									_id={user._id}
 									profile_image={user.profile_image}
@@ -127,7 +127,7 @@ const Profile = (props) => {
 									</Toast.Header>
 									<Toast.Body>
 										<Row className="text-center mx-auto">
-											<Col md={12} className="pt-2 mt-1 pb-2 text-left h6">
+											<Col md={12} className="mt-1 pb-2 text-left h6">
 												<div className="pb-1 h5">Upload profile photo:</div>
 												<br />
 												<small>*Upload times for IPFS can vary, please be patient as your image is uploaded.</small>
@@ -140,7 +140,7 @@ const Profile = (props) => {
 													<input
 														type="file"
 														accept="image/jpeg,image/png"
-														onChange={(e) => {
+														onClick={(e) => {
 															handleFileUpload(e.target.files[0]);
 														}}
 														className="input-overlay mt-2"
@@ -163,7 +163,7 @@ const Profile = (props) => {
 														/>
 													</Form.Group>
 													<div className="text-center pt-4">
-														<Button onClick={() => console.log()} className="cancel-back mr-1">
+														<Button onClick={() => setEditMode(false)} className="cancel-back mr-1">
 															<i className="fas fa-backspace"></i>
 														</Button>
 														<Button className="ml-1 profile-edit-submit" type="submit">
