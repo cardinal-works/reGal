@@ -28,7 +28,6 @@ window.addEventListener('load', function() {
     <ParallaxProvider>
       <BrowserRouter history={history}>
         <App ethers={provider}/>
-        {/* <App/> */}
     </BrowserRouter>
     </ParallaxProvider>,
     document.getElementById('root')
