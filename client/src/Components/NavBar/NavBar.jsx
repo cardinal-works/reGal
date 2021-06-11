@@ -8,6 +8,8 @@ import history from '../../History';
 
 //Components
 import CreateModal from '../CreateModal';
+//Assets
+import R from '../../../assets/images/R.png'
 // import Web3 from 'web3';
 
 const Navigation = () => {
@@ -15,7 +17,7 @@ const Navigation = () => {
 	const [modalShow, setModalShow] = useState(false);
 	const [buttonText, setButtonText] = useState('connect');
 	const [redirect, setRedirect] = useState(<></>);
-	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
+	const { loadUser, user} = userStore;
 	// const [userHistory, setUserHistory] = useState(history)
 	// let web3 = new Web3(Web3.givenProvider || 'ws://localhost:9546');
 	const pending = false;
@@ -53,8 +55,8 @@ const Navigation = () => {
 
 	return (
 		<Navbar className="nav-container" bg="dark" collapseOnSelect expand="lg" variant="dark">
-			<Navbar.Brand as={Link} to="/" className="regal-brand text-majesti font-primary p-0 pr-2">
-				<span className="r-text">R</span>
+			<Navbar.Brand as={Link} to="/" className="regal-brand text-majesti font-primary p-0">
+				<Image src={R} width="50px"></Image>
 			</Navbar.Brand>
 			<Navbar.Toggle className="mb-2" aria-controls="responsive-navbar-nav" />
 			<Navbar.Collapse className="" id="responsive-navbar-nav">

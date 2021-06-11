@@ -9,7 +9,7 @@ import { Row, Col, Image, Button, Container, Card, ListGroup, ListGroupItem } fr
 import UserStore from '../../Stores/UserStore';
 import { observer } from 'mobx-react-lite';
 
-const ProfileCard = ({ _id, display_name, wallet_id, profile_image, profile_featured_id, bio, profile_bg_color }) => {
+const ProfileCard = ({ _id, display_name, wallet_id, profile_image, profile_featured_id, bio, profile_bg_color, }) => {
 
 	const [editMode, setEditMode] = useState(false);
 	const userStore = useContext(UserStore);
