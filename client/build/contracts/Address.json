@@ -6942,7 +6942,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-06-07T15:34:47.707Z",
+  "updatedAt": "2021-06-11T21:33:12.885Z",
   "devdoc": {
     "details": "Collection of functions related to the address type",
     "methods": {}

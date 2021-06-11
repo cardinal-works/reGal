@@ -10,21 +10,19 @@ import UserStore from '../../Stores/UserStore';
 import { observer } from 'mobx-react-lite';
 
 const ProfileCard = ({ _id, display_name, wallet_id, profile_image, profile_featured_id, bio, profile_bg_color, }) => {
-
-	const [editMode, setEditMode] = useState(false);
 	const userStore = useContext(UserStore);
 	const { loadUser, user, loadingInitial, submitting } = userStore;
 
 	useEffect(() => {
 		console.log();
 		loadUser(window.ethereum.selectedAddress);
-	}, []);
+	}, [user]);
 
 	return (
 		<Fragment>
 			<Container className="profile-page-banner-container mb-2">
 				<Row className="overlay-container pt-1">
-					<Col lg={3} md={4} className="profile-banner-image-col text-center pb-4">
+					<Col lg={12} md={4} className="profile-banner-image-col text-center pb-4">
 						<Image className="profile-banner-image" src={profile_image} />
 					</Col>
 					<Col className="symbols-container ml-2">

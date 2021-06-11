@@ -14,7 +14,7 @@ var Buffer = require('buffer/').Buffer;
 
 //Ethereum Connectections
 //ROPSTEN 1 - DEPLOYED on JUNE/4 9PM//
-const contractAddr = '0x0AE6749E627B1BE1e50ca349380EFCd91dA7DA37';
+const contractAddr = '0x3CcE849Ea42408622b2003259998102103c78994';
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner();
 const contract = new ethers.Contract(contractAddr, RegalAuction, signer);
@@ -61,7 +61,8 @@ const NftMinter = () => {
 			contract.once()
 			let tx = await contract.createCollectible(ipfsLink);
 			const reciept = await tx.wait()
-			updateUser({...user, userData})
+			let updatedUser = user.collections.push(userData)
+			updateUser(user._id, updatedUser)
 			// wait for the transaction to be mined
 			// const receipt = await tx.wait();
 		} else {

@@ -1,5 +1,4 @@
 .profile-container {
-
     .profile-nft-nav {
         border-color: #222222;
         a.nav-link.active {
@@ -25,17 +24,9 @@
         }
     }
     .profile-nfts-grid {
-        // box-shadow: rgba(255, 255, 255, 0.132) 0px 0px 10px;
         padding-bottom: 15px;
         margin-bottom: 20px;
         background-color: #222222;
 
-    }
-
-    .profile-edit-row {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
     }
 }

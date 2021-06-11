@@ -5,8 +5,7 @@ import { Link, history } from 'react-router-dom';
 //Contracts
 import ProfileCard from '../../Components/ProfileCard';
 import NftTable from '../../Components/NftTable';
-import NftDisplay from '../../Components/NftDisplay';
-import EmptyDisplay from '../../Components/EmptyDisplay';
+import ProfileEditModal from '../../Components/ProfileEditModal';
 import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
 import { observer } from 'mobx-react-lite';
@@ -17,9 +16,9 @@ var Buffer = require('buffer/').Buffer;
 
 const Profile = (props) => {
 	const userStore = useContext(UserStore);
-	const [editMode, setEditMode] = useState(false);
+	const [modalShow, setModalShow] = useState(false);
 	const [profileTable, setProfileTable] = useState('collection');
-	const [uploading, setUploading] = useState(false);
+
 	const nftStore = useContext(NftStore);
 	const { loadUser, user } = userStore;
 	const { loadNfts } = nftStore;
@@ -40,8 +39,7 @@ const Profile = (props) => {
 	}, []);
 
 	const handleFileUpload = (file) => {
-		console.log('reader');
-		setUploading(true);
+
 		const reader = new FileReader();
 		reader.readAsArrayBuffer(file);
 		reader.onloadend = () => uploadToIPFS(reader);
@@ -58,24 +56,18 @@ const Profile = (props) => {
 		setUploading(false);
 	};
 
-	const handleInput = (e) => {
-		e.preventDefault();
-		let userChange = userChanges;
-		setUserChanges((prevState) => {
-			return { ...prevState, bio: e.target.value };
-		});
-	};
 
 	return (
 		<Fragment>
 			<Container className="profile-container">
 				<Row className="profile-details-row">
-					{!editMode && user && (
+					<ProfileEditModal show={modalShow} onHide={() => setModalShow(false)} />
+					{!modalShow && user && (
 						<Col md={12} className="text-right">
 							<div className="more-div text-white pb-1 ">
 								{user.wallet_id === window.ethereum.selectedAddress ? (
 									<Fragment>
-										<i as={Button} onClick={() => setEditMode(true)} className="fad fa-pencil edit pr-2"></i>
+										<i as={Button} onClick={() => setModalShow(true)} className="fad fa-pencil edit pr-2"></i>
 										<i className="fas fa-cog settings"></i>
 									</Fragment>
 								) : (
@@ -84,7 +76,7 @@ const Profile = (props) => {
 							</div>
 						</Col>
 					)}
-					{!editMode && user && (
+					{!modalShow && user && (
 						<Fragment>
 							<Col md={12} className="profile-page-card-nav">
 								<ProfileCard
@@ -117,66 +109,6 @@ const Profile = (props) => {
 								<NftTable user={user} profileTable={profileTable} />
 							</Col>
 						</Fragment>
-					)}
-					{editMode && (
-						<Container className="profile-edit-container">
-							<Row className="profile-edit-row">
-								<Toast>
-									<Toast.Header className="toast-1-header" closeButton={false}>
-										<div className="text-center mx-auto text-majesti text-white profile-edit-text">Profile Edit</div>
-									</Toast.Header>
-									<Toast.Body>
-										<Row className="text-center mx-auto">
-											<Col md={12} className="mt-1 pb-2 text-left h6">
-												<div className="pb-1 h5">Upload profile photo:</div>
-												<br />
-												<small>*Upload times for IPFS can vary, please be patient as your image is uploaded.</small>
-											</Col>
-											<Col lg={12} md={4} className="mt-2 profile-image-preview">
-												<Image className="profile-banner-image" src={userChanges.profile_image || null} />
-												{uploading ? (
-													<span className="spinner-border spinner-border-sm mr-2 mb-1"></span>
-												) : (
-													<input
-														type="file"
-														accept="image/jpeg,image/png"
-														onClick={(e) => {
-															handleFileUpload(e.target.files[0]);
-														}}
-														className="input-overlay mt-2"
-													/>
-												)}
-											</Col>
-											<Col md={12} className="pt-4 mt-3 pb-2 h6">
-												<Form onSubmit={(e) => handleSubmit(e)} className="text-left pb-2">
-													<Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-														<Form.Label className="pb-1">Update your artist bio:</Form.Label>
-														<Form.Control
-															required
-															as="textarea"
-															name="bio"
-															minLength="1"
-															maxLength="280"
-															rows={3}
-															onChange={(e) => handleInput(e)}
-															defaultValue={userChanges.bio || null}
-														/>
-													</Form.Group>
-													<div className="text-center pt-4">
-														<Button onClick={() => setEditMode(false)} className="cancel-back mr-1">
-															<i className="fas fa-backspace"></i>
-														</Button>
-														<Button className="ml-1 profile-edit-submit" type="submit">
-															{'update'}
-														</Button>
-													</div>
-												</Form>
-											</Col>
-										</Row>
-									</Toast.Body>
-								</Toast>
-							</Row>
-						</Container>
 					)}
 				</Row>
 			</Container>
