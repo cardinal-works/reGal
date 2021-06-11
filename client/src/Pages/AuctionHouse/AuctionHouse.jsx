@@ -61,6 +61,8 @@ const AuctionHouse = () => {
 											current_bid={1.2}
 											creator={'regal_dev'}
 											title={'bungus flubber'}
+											auction={true}
+											nft_id={nft.nft_id}
 											/>
 										</Col>
 

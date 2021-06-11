@@ -24,6 +24,7 @@ const NftDisplay = ({
 	tags,
 	description,
 	preview,
+	auction,
 }) => {
 	const nftStore = useContext(NftStore);
 	const { updateNft, loadNft } = nftStore;
@@ -39,7 +40,8 @@ const NftDisplay = ({
 				<Card
 					as={Link}
 					to={{
-						pathname: `/details/${nft_id}`,
+						// pathname: `/details/${nft_id}`,
+						pathname:  auction ? `/auction/${nft_id}` : `/details/${nft_id}`,
 						state: { nft_id: Number(nft_id) },
 					}}
 					className="nft-item-card">
