@@ -7,6 +7,7 @@ import ipfs from '../../ipfs';
 var Buffer = require('buffer/').Buffer;
 
 import UserStore from '../../Stores/UserStore';
+import { set } from 'mobx';
 
 const userChangesSchema = {
 	profile_image: null,
@@ -60,17 +61,14 @@ const ProfileEditModal = (props) => {
 
 	const handleUpdateUser = (e) => {
 		e.preventDefault();
-		// if (userChanges.profile_image.length === 0) {
-		// 	setUserChanges({ ...userChanges, profile_image: user.profile_image });
-		// }
 		let newUser = { ...user, ...userChanges };
-
+		!newUser.bio ? newUser.bio = user.bio : null;
+		!newUser.profile_image ? newUser.profile_image = user.profile_image : null;
 		updateUser(newUser)
 			.then((res) => {
-				setEditMode(false);
+				// console.log(res)
 			})
 			.catch((err) => console.log(err));
-		setUserChanges(user);
 		props.onHide();
 	};
 
