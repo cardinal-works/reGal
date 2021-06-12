@@ -9,7 +9,7 @@ import history from '../../History';
 //Components
 import CreateModal from '../CreateModal';
 //Assets
-import R from '../../../assets/images/R.png'
+import R from '../../../assets/images/R1.png'
 // import Web3 from 'web3';
 
 const Navigation = () => {
@@ -55,8 +55,8 @@ const Navigation = () => {
 
 	return (
 		<Navbar className="nav-container" bg="dark" collapseOnSelect expand="lg" variant="dark">
-			<Navbar.Brand as={Link} to="/" className="regal-brand text-majesti font-primary p-0">
-				<Image src={R} width="40px"></Image>
+			<Navbar.Brand as={Link} to="/" className="regal-brand text-majesti font-primary">
+				<Image src={R} width="60px"></Image>
 			</Navbar.Brand>
 			<Navbar.Toggle className="mb-2" aria-controls="responsive-navbar-nav" />
 			<Navbar.Collapse className="" id="responsive-navbar-nav">

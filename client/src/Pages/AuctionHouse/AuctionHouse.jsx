@@ -22,7 +22,6 @@ const AuctionHouse = () => {
 	const nftStore = useContext(NftStore);
 	const { loadNfts, loadNft, getAllNfts, nft, nftRegistry } = nftStore;
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
-	let contractAddr = '0x1348862Ab87B8314beB0A99480fDd8D2F154BeB6';
 	// const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
 
 	useEffect(() => {

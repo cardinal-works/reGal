@@ -39,11 +39,10 @@ const Auction = () => {
 		const setup = async () => {
 			const provider = new ethers.providers.Web3Provider(window.ethereum);
 			const signer = provider.getSigner();
-			const contractAddress = '0x1348862Ab87B8314beB0A99480fDd8D2F154BeB6';
+			const contractAddress = '0x3604100cEBe47C4F1E34e878c5f1c8b4ED4e0a80';
 			contract.current = new ethers.Contract(contractAddress, RegalAuction, signer);
 		};
-		let NFTid = Number(params.id);
-		loadNft(NFTid);
+		loadNft(Number(params.id));
 		setup();
 	}, []);
 
@@ -75,7 +74,7 @@ const Auction = () => {
 
 			updateNft(updatedNft);
 		});
-		// 	let collections;
+		
 		loadUser(window.ethereum.selectedAddress).then((res) => {
 			console.log(toJS(res));
 			let updatedUser = toJS(res);
@@ -90,8 +89,6 @@ const Auction = () => {
 			updateUser(updatedUser);
 			// console.log()
 		});
-
-		// })
 	};
 
 	const handleInputChange = (event) => {
