@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Image, Button, Figure, Toast, Table } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
-import { AuctionRepository } from '../../../abi/AuctionRepository_abi';
+import { RegalAuction } from '../../../abi/RegalAuction_abi';
 import NftDetailDisplay from '../../Components/NftDetailDisplay';
 import ProfileCard from '../../Components/ProfileCard';
 import NftStore from '../../Stores/NftStore';

@@ -11,7 +11,7 @@ import Auction from '../Auction';
 import { toJS } from 'mobx';
 import ipfs from '../../ipfs';
 // var Buffer = require('buffer/').Buffer;
-import { AuctionRepository } from '../../../abi/AuctionRepository_abi';
+import { RegalAuction } from '../../../abi/RegalAuction_abi';
 
 const AuctionHouse = () => {
 	const [modalShow, setModalShow] = useState(false);

@@ -2,6 +2,31 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 //const Tag = required("./Tag");
+// _id: string;
+// title: string;
+// user_id: string;
+// creator_id: number;
+// creator_name: string;
+// nft_description: string;
+// nft_id: number;
+// date_mint: Date;
+// likes: number;
+// stars: number;
+// previous_sold: Array<number>;
+// thumbnail_image: string;
+// auction_mode: boolean;
+// auctions: [
+//     {
+//         seller_id: number;
+//         seller_name: string;
+//         start_date: number;
+//         asking_bid: number;
+//         end_date: number;
+//         bids: Array<number>;
+//         watchers: Array<number>;
+//     }
+// ];
+// tags: [{ _id: string; name: string; popularity: number }];
 
 const NftSchema = new Schema({
     title: {
@@ -9,10 +34,6 @@ const NftSchema = new Schema({
         required: true
     },
     user_id: {
-        type: String,
-        required: true
-    },
-    creator_id: {
         type: String,
         required: true
     },
@@ -35,12 +56,12 @@ const NftSchema = new Schema({
     likes: {
         type: Number,
         default: 0,
-        required: true
+        required: false
     },
-    stars: {
+    views: {
         type: Number,
         default: 0,
-        required: true
+        required: false
     },
     previous_sold: {
         type: Array,
@@ -54,7 +75,7 @@ const NftSchema = new Schema({
     auction_mode: {
         type: Boolean,
         default: false,
-        required: true
+        required: false, 
     },
     auctions: [{
         nft_id: {

@@ -1,6 +1,6 @@
 //Modules
-import React, { useEffect, useState, useContext, Fragment } from 'react';
-import { ethers } from 'ethers';
+import React, { useEffect, useState, useContext, Fragment, useRef } from 'react';
+import { ContractFactory, ethers } from 'ethers';
 import ipfs from '../../ipfs';
 import { Link, Redirect } from 'react-router-dom';
 //Components
@@ -12,31 +12,37 @@ import NftStore from '../../Stores/NftStore';
 import { RegalAuction } from '../../../abi/RegalAuction_abi';
 var Buffer = require('buffer/').Buffer;
 
-//Ethereum Connectections
-//ROPSTEN 1 - DEPLOYED on JUNE/4 9PM//
-const contractAddr = '0x3CcE849Ea42408622b2003259998102103c78994';
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-const signer = provider.getSigner();
-const contract = new ethers.Contract(contractAddr, RegalAuction, signer);
-
 const NftMinter = () => {
+	// CONTRACT REF
+	const contract = useRef();
 	// USER STORE
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
-	//
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
-	const { createNft } = nftStore;
+	const { createNft, loadNfts, nfts } = nftStore;
+	// LOCAL STATE
 	const [formList, setFormList] = useState([true, false, false, false]);
 	const [uploading, setUploading] = useState(false);
+	const [nftId, setNftId] = useState(1);
 	const [userMetaData, setUserMetaData] = useState({
 		title: '',
-		creator: '',
+		creator_name: '',
 		nft_description: '',
 		thumbnail_image: '',
 		tags: [],
 	});
 
 	useEffect(() => {
+		// LOAD ALL NFTS
+		loadNfts().then((res) => {
+			if (res) {
+				setNftId(res.length);
+				setUserMetaData((prevState) => {
+					return { ...prevState, nft_id: nftId };
+				});
+			}
+		});
+		// LOADING CURRENT USER
 		loadUser(window.ethereum.selectedAddress).then((res) => {
 			console.log(res);
 			setUserMetaData((prevState) => ({
@@ -45,24 +51,38 @@ const NftMinter = () => {
 				user_id: res._id,
 			}));
 		});
+		// FUNCTION TO INSTANTIATE OUR PROVIDER/SIGNER/CONTRACT
+		const setup = async () => {
+			const provider = new ethers.providers.Web3Provider(window.ethereum);
+			const signer = provider.getSigner();
+			const contractAddress = '0x65F5efd807B5aD6A9e8980d90BFAbCF4299A7D17';
+			contract.current = new ethers.Contract(contractAddress, RegalAuction, signer);
+		};
+		setup();
 	}, []);
 
 	const handleMint = async () => {
 		if (user._id) {
 			const userData = {
+				user_id: user._id,
 				title: userMetaData.title,
-				creator: userMetaData.creator,
-				nft_id: userMetaData.nft_id,
+				creator_name: user.display_name,
+				nft_id: nftId,
 				thumbnail_image: userMetaData.thumbnail_image,
+				nft_description: userMetaData.nft_description,
 			};
 			const metaData = JSON.stringify(userData);
 			const result = await ipfs.add(metaData);
 			const ipfsLink = 'https://gateway.ipfs.io/ipfs/' + result.path;
-			contract.once()
-			let tx = await contract.createCollectible(ipfsLink);
-			const reciept = await tx.wait()
-			let updatedUser = user.collections.push(userData)
-			updateUser(user._id, updatedUser)
+			console.log(contract.current);
+			let tx = await contract.current.createCollectible(ipfsLink);
+			const receipt = await tx.wait();
+			createNft(userData, user._id).then((res) => {
+				let updatedCollection = user.collections;
+				updatedCollection.push(res);
+				updateUser({ ...user, collections: updatedCollection });
+			});
+
 			// wait for the transaction to be mined
 			// const receipt = await tx.wait();
 		} else {
@@ -73,7 +93,7 @@ const NftMinter = () => {
 	const handleInputChange = (event) => {
 		let name = event.target.name;
 		let value = event.target.value;
-		setUserMetaData((prevState) => ({...prevState, [name]: value }));
+		setUserMetaData((prevState) => ({ ...prevState, [name]: value }));
 	};
 
 	const handleNftLink = (e) => {
@@ -150,7 +170,15 @@ const NftMinter = () => {
 					<Row className="text-center">
 						<Col md={12} style={{ fontSize: '12px' }}>
 							{userMetaData.thumbnail_image ? (
-								<NftDisplay nft_id={0} likes={420} preview={true} thumbnail_image={userMetaData.thumbnail_image} current_bid={999} title={userMetaData.title} creator={user.display_name} />
+								<NftDisplay
+									nft_id={0}
+									likes={420}
+									preview={true}
+									thumbnail_image={userMetaData.thumbnail_image}
+									current_bid={999}
+									title={userMetaData.title}
+									creator={user.display_name}
+								/>
 							) : null}
 						</Col>
 						<Col md={12} className="pb-4">
@@ -179,7 +207,10 @@ const NftMinter = () => {
 							<Button className="ipfs-button mb-1 mt-5">
 								{uploading ? <span className="spinner-border spinner-border-sm mr-2 mb-1"></span> : <i className="fad fa-cloud-upload"></i>}
 								{uploading ? <small>uploading to IPFS</small> : ''}
-								<input type="file" name="images[]" accept="image/gif, image/png, image/jpeg,"
+								<input
+									type="file"
+									name="images[]"
+									accept="image/gif, image/png, image/jpeg,"
 									onChange={(e) => {
 										setUploading(true);
 										handleFileUpload(e.target.files[0]);
