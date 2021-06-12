@@ -5,18 +5,18 @@ import { Link, history } from 'react-router-dom';
 import NftDisplay from '../../Components/NftDisplay';
 import EmptyDisplay from '../../Components/EmptyDisplay';
 
-const NftTable = ({user, profileTable}) => {
+const NftTable = ({ user, profileTable }) => {
 	return (
-		<div>
+
 			<Container className="">
 				{/* COLLECTION TABLE */}
 				{profileTable == 'collection' ? (
 					<Row className="pt-4 pl-2 profile-nfts-grid">
-						{user.collection ? (
-							user.collection.slice(0, 3).map((nft, i) => {
+						{user.collections ? (
+							user.collections.slice(0, 3).map((nft, i) => {
 								return (
 									<>
-										<Col key={i} xl={4} lg={5} md={12} sm={10} xs={10}>
+										<Col key={i} xl={3} lg={3} md={12} sm={10} xs={10}>
 											<NftDisplay
 												_id={nft._id}
 												title={nft.title}
@@ -34,10 +34,6 @@ const NftTable = ({user, profileTable}) => {
 												key={`profil-col-${i}`}
 											/>
 										</Col>
-										<Col md={12} style={{ fontSize: '13px', color: '#f6a615' }} className="text-right pt-3">
-											View All
-											<i style={{ fontSize: '13px', color: '#f6a615' }} className="fas fa-angle-double-right pl-2 my-auto pr-2"></i>
-										</Col>
 									</>
 								);
 							})
@@ -48,6 +44,10 @@ const NftTable = ({user, profileTable}) => {
 								{user.display_name} <span className=" h6"> hasn't minted any collectibles</span>
 							</Col>
 						)}
+						<Col md={12} style={{ fontSize: '13px', color: '#f6a615' }} className="text-right pt-3">
+							View All
+							<i style={{ fontSize: '13px', color: '#f6a615' }} className="fas fa-angle-double-right pl-2 my-auto pr-2"></i>
+						</Col>
 					</Row>
 				) : null}
 				{/* LIKED TABLE */}
@@ -134,7 +134,7 @@ const NftTable = ({user, profileTable}) => {
 				) : null}
 				{/* SAVED TABLE */}
 				{profileTable == 'saved' ? (
-					<Row className="pt-4 pl-2 profile-nfts-grid">
+					<Row className="pt-4 pl-2 profile-nfts-grid ">
 						{user.starred ? (
 							user.starred.slice(0, 3).map((nft, i) => {
 								return (
@@ -174,7 +174,6 @@ const NftTable = ({user, profileTable}) => {
 					</Row>
 				) : null}
 			</Container>
-		</div>
 	);
 };
 
