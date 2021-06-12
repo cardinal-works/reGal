@@ -19,11 +19,12 @@ const NftMinter = () => {
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
-	const { createNft, loadNfts, nfts } = nftStore;
+	const { createNft, loadNfts, nftRegistry, getAllNfts } = nftStore;
 	// LOCAL STATE
 	const [formList, setFormList] = useState([true, false, false, false]);
 	const [uploading, setUploading] = useState(false);
 	const [nftId, setNftId] = useState(1);
+	const [redirect, setRedirect] = useState(<></>)
 	const [userMetaData, setUserMetaData] = useState({
 		title: '',
 		creator_name: '',
@@ -34,14 +35,7 @@ const NftMinter = () => {
 
 	useEffect(() => {
 		// LOAD ALL NFTS
-		loadNfts().then((res) => {
-			if (res) {
-				setNftId(res.length);
-				setUserMetaData((prevState) => {
-					return { ...prevState, nft_id: nftId };
-				});
-			}
-		});
+		loadNfts()
 		// LOADING CURRENT USER
 		loadUser(window.ethereum.selectedAddress).then((res) => {
 			console.log(res);
@@ -61,13 +55,17 @@ const NftMinter = () => {
 		setup();
 	}, []);
 
+	useEffect(() => {
+		console.log(nftRegistry.size)
+	}, [nftRegistry])
+
 	const handleMint = async () => {
-		if (user._id) {
+		if (user._id && nftRegistry) {
 			const userData = {
 				user_id: user._id,
 				title: userMetaData.title,
 				creator_name: user.display_name,
-				nft_id: nftId,
+				nft_id: nftRegistry.size + 1,
 				thumbnail_image: userMetaData.thumbnail_image,
 				nft_description: userMetaData.nft_description,
 			};
@@ -81,10 +79,8 @@ const NftMinter = () => {
 				let updatedCollection = user.collections;
 				updatedCollection.push(res);
 				updateUser({ ...user, collections: updatedCollection });
+				setRedirect(<Redirect to="/profile" />)
 			});
-
-			// wait for the transaction to be mined
-			// const receipt = await tx.wait();
 		} else {
 			return;
 		}
@@ -333,10 +329,8 @@ const NftMinter = () => {
 							<Button className="button-prev mt-4" onClick={() => setFormList([false, false, true, false])}>
 								<i className="fad fa-angle-double-left"></i>
 							</Button>
-							{/* <Button className="ml-1 button-next" onClick={() => setFormList([false, false, false, true])}>
-								<i className="fad fa-chevron-double-right"></i>
-							</Button> */}
 						</Col>
+						{redirect}
 					</Row>
 				</Toast.Body>
 			</Toast>
