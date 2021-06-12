@@ -1,6 +1,6 @@
 //Modules
 import React, { useEffect, useState, useContext, Fragment, useRef } from 'react';
-import { ContractFactory, ethers } from 'ethers';
+import { ContractFactory, ethers, utils } from 'ethers';
 import ipfs from '../../ipfs';
 import { Link, Redirect } from 'react-router-dom';
 //Components
@@ -49,7 +49,7 @@ const NftMinter = () => {
 		const setup = async () => {
 			const provider = new ethers.providers.Web3Provider(window.ethereum);
 			const signer = provider.getSigner();
-			const contractAddress = '0x65F5efd807B5aD6A9e8980d90BFAbCF4299A7D17';
+			const contractAddress = '0x1348862Ab87B8314beB0A99480fDd8D2F154BeB6';
 			contract.current = new ethers.Contract(contractAddress, RegalAuction, signer);
 		};
 		setup();
@@ -75,6 +75,7 @@ const NftMinter = () => {
 			console.log(contract.current);
 			let tx = await contract.current.createCollectible(ipfsLink);
 			const receipt = await tx.wait();
+			// ethers.utils.parseTransaction(receipt)
 			createNft(userData, user._id).then((res) => {
 				let updatedCollection = user.collections;
 				updatedCollection.push(res);

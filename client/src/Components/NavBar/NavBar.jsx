@@ -56,7 +56,7 @@ const Navigation = () => {
 	return (
 		<Navbar className="nav-container" bg="dark" collapseOnSelect expand="lg" variant="dark">
 			<Navbar.Brand as={Link} to="/" className="regal-brand text-majesti font-primary p-0">
-				<Image src={R} width="50px"></Image>
+				<Image src={R} width="40px"></Image>
 			</Navbar.Brand>
 			<Navbar.Toggle className="mb-2" aria-controls="responsive-navbar-nav" />
 			<Navbar.Collapse className="" id="responsive-navbar-nav">

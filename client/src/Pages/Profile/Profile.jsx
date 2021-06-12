@@ -88,8 +88,8 @@ const Profile = (props) => {
 									profile_bg_color={user.profile_bg_color}
 									display_name={user.display_name}></ProfileCard>
 							</Col>
-							<Col className="" lg={12} md={12}>
-								<Nav fill variant="tabs" defaultActiveKey="link-1" className="profile-nft-nav">
+							<Col className="mb-1" lg={12} md={12}>
+								<Nav fill variant="tabs" defaultActiveKey="link-1" className="profile-nft-nav mt-5">
 									<Nav.Item>
 										<Nav.Link onClick={() => setProfileTable('collection')} eventKey="link-1">
 											Collection
@@ -107,6 +107,10 @@ const Profile = (props) => {
 									</Nav.Item>
 								</Nav>
 								<NftTable user={user} profileTable={profileTable} />
+								{user.collections.length > 0 && <Col md={12} style={{ fontSize: '13px', color: '#f6a615' }} className="text-right pt-1">
+							View All
+							<i style={{ fontSize: '13px', color: '#f6a615' }} className="fas fa-angle-double-right pl-2 my-auto pr-2"></i>
+						</Col>}
 							</Col>
 						</Fragment>
 					)}

@@ -2,6 +2,7 @@
 import React, { useEffect, useState, Fragment, useContext } from 'react';
 import { Container, Row, Col, Image, Nav, Card, Button, Form, FormFile } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 //Contracts
 import NftDisplay from '../../Components/NftDisplay';
 import UserStore from '../../Stores/UserStore';
@@ -15,25 +16,22 @@ import { RegalAuction } from '../../../abi/RegalAuction_abi';
 
 const AuctionHouse = () => {
 	const [modalShow, setModalShow] = useState(false);
-	const [auctionFilter, setAuctionFilter] = useState('Collections');
+	const [params, setParams] = useState(useParams());
+	const [auctionFilter, setAuctionFilter] = useState(false);
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const { loadNfts, loadNft, getAllNfts, nft, nftRegistry } = nftStore;
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
-	let contractAddr = '0xa535e0C5Dec0a2CE862495AF88B2155D347615E3';
+	let contractAddr = '0x1348862Ab87B8314beB0A99480fDd8D2F154BeB6';
 	// const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
 
 	useEffect(() => {
 		console.log(window.ethereum.selectedAddress);
 		loadUser(window.ethereum.selectedAddress).then((res) => loadNfts({ user_id: res._id }));
-		// AuctionRepositoryContract.methods
-		// 	.getAuctionsOf(window.ethereum.selectedAddress)
-		// 	.call()
-		// 	.then(res => console.log('res', res))
 	}, []);
 
 	useEffect(() => {
-		loadNft(1);
+		loadNft(Number(params.id));
 		console.log(getAllNfts);
 	}, []);
 
@@ -46,75 +44,80 @@ const AuctionHouse = () => {
 					<Col>
 						<Nav fill variant="tabs" defaultActiveKey="link-0" className="profile-nft-nav">
 							<Nav.Item>
-								<Nav.Link onClick={() => setAuctionFilter('Collections')} eventKey="link-0">Collections</Nav.Link>
+								<Nav.Link onClick={() => setAuctionFilter(false)} eventKey="link-0">
+									Collections
+								</Nav.Link>
 							</Nav.Item>
 							<Nav.Item>
-								<Nav.Link onClick={() => setAuctionFilter('Live')} eventKey="link-1">Live</Nav.Link>
+								<Nav.Link onClick={() => setAuctionFilter(true)} eventKey="link-1">
+									Live
+								</Nav.Link>
 							</Nav.Item>
 						</Nav>
-						{ auctionFilter === "Collections" ?
+						{!auctionFilter && (
 							<Container className="profile-nfts-grid">
 								<Row className="pt-4 pl-2">
-									{user && user.collections
-										? user.collections.slice(0, 3).filter(nft => nft.auction_mode === false)
-										.map((nft, i) => {
+									{user &&
+										user.collections &&
+										user.collections
+											.filter((nft) => nft.auction_mode === false)
+											.map((nft, i) => {
 												return (
-													<>
-														<Col key={i} xl={3} lg={3} md={12} sm={10} xs={10}>
-															<NftDisplay
-																_id={nft._id}
-																title={nft.title}
-																user_id={nft.user_id}
-																creator_id={nft.creator_id}
-																creator_name={nft.creator_name}
-																nft_description={nft.nft_description}
-																nft_id={nft.nft_id}
-																date_mint={nft.date_mint}
-																likes={nft.likes}
-																stars={nft.stars}
-																previous_sold={nft.previous_sold}
-																thumbnail_image={nft.thumbnail_image}
-																auction_mode={nft.auction_mode}
-																auction={true}
-															/>
-														</Col>
-													</>
+													<Col key={i + ' collections'} xl={3} lg={3} md={12} sm={10} xs={10}>
+														<NftDisplay
+															_id={nft._id}
+															title={nft.title}
+															user_id={nft.user_id}
+															creator_id={nft.creator_id}
+															creator_name={nft.creator_name}
+															nft_description={nft.nft_description}
+															nft_id={nft.nft_id}
+															date_mint={nft.date_mint}
+															likes={nft.likes}
+															stars={nft.stars}
+															previous_sold={nft.previous_sold}
+															thumbnail_image={nft.thumbnail_image}
+															auction_mode={nft.auction_mode}
+															auction={true}
+														/>
+													</Col>
 												);
-										  })
-										: null}
+											})}
 								</Row>
 							</Container>
-						: 						<Container className="profile-nfts-grid">
-						<Row className="pt-4 pl-2">
-							{user && user.collections
-								? user.collections.slice(0, 3).filter(nft => nft.auction_mode === true)
-								.map((nft, i) => {
-										return (
-											<>
-												<Col key={i} xl={3} lg={3} md={12} sm={10} xs={10}>
-													<NftDisplay
-														_id={nft._id}
-														title={nft.title}
-														user_id={nft.user_id}
-														creator_id={nft.creator_id}
-														creator_name={nft.creator_name}
-														nft_description={nft.nft_description}
-														nft_id={nft.nft_id}
-														date_mint={nft.date_mint}
-														likes={nft.likes}
-														stars={nft.stars}
-														previous_sold={nft.previous_sold}
-														thumbnail_image={nft.thumbnail_image}
-														auction_mode={nft.auction_mode}
-														auction={true}
-													/>
-												</Col>
-											</>
-										);
-								  })
-								: null}
-						</Row>
-					</Container>}
+						)}
+						{auctionFilter && (
+							<Container className="profile-nfts-grid">
+								<Row className="pt-4 pl-2">
+									{user &&
+										user.collections &&
+										user.collections
+											.filter((nft) => nft.auction_mode === true)
+											.map((nft, i) => {
+												return (
+													<Col key={i + ' live'} xl={3} lg={3} md={12} sm={10} xs={10}>
+														<NftDisplay
+															_id={nft._id}
+															title={nft.title}
+															user_id={nft.user_id}
+															creator_id={nft.creator_id}
+															creator_name={nft.creator_name}
+															nft_description={nft.nft_description}
+															nft_id={nft.nft_id}
+															date_mint={nft.date_mint}
+															likes={nft.likes}
+															stars={nft.stars}
+															previous_sold={nft.previous_sold}
+															thumbnail_image={nft.thumbnail_image}
+															auction_mode={nft.auction_mode}
+															auction={true}
+														/>
+													</Col>
+												);
+											})}
+								</Row>
+							</Container>
+						)}
 					</Col>
 				</Row>
 			</Container>

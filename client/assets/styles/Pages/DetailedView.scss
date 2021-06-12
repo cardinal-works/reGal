@@ -1,9 +1,13 @@
 .detail-container {
+    .nft-item-card {
+        border: solid 1px #161616;
+        border-radius: 6px;
+    }
 
-.nft-detail-toast {
-    // display: flex;
-    // align-items: flex-start;
-    // flex-direction: column;
+
+.explore-card-image {
+    background-color: #161616;
+    border: solid 2px #161616;
 }
 
 }

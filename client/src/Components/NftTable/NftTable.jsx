@@ -12,11 +12,11 @@ const NftTable = ({ user, profileTable }) => {
 				{/* COLLECTION TABLE */}
 				{profileTable == 'collection' ? (
 					<Row className="pt-4 pl-2 profile-nfts-grid">
-						{user.collections ? (
-							user.collections.slice(0, 3).map((nft, i) => {
+						{user.collections.length ? (
+							user.collections.map((nft, i) => {
 								return (
 									<>
-										<Col key={i} xl={3} lg={3} md={12} sm={10} xs={10}>
+										<Col key={i} xl={4} lg={5} md={12} sm={10} xs={10} key={i}>
 											<NftDisplay
 												_id={nft._id}
 												title={nft.title}
@@ -36,7 +36,7 @@ const NftTable = ({ user, profileTable }) => {
 										</Col>
 									</>
 								);
-							})
+							} ) 
 						) : (
 							<Col md={12} className="text-white h5">
 								{/* <EmptyDisplay nft={false}></EmptyDisplay> */}
@@ -44,10 +44,7 @@ const NftTable = ({ user, profileTable }) => {
 								{user.display_name} <span className=" h6"> hasn't minted any collectibles</span>
 							</Col>
 						)}
-						<Col md={12} style={{ fontSize: '13px', color: '#f6a615' }} className="text-right pt-3">
-							View All
-							<i style={{ fontSize: '13px', color: '#f6a615' }} className="fas fa-angle-double-right pl-2 my-auto pr-2"></i>
-						</Col>
+						
 					</Row>
 				) : null}
 				{/* LIKED TABLE */}
