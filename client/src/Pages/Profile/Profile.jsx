@@ -67,9 +67,9 @@ const Profile = (props) => {
 							<div className="more-div text-white pb-1 ">
 								{user.wallet_id === window.ethereum.selectedAddress ? (
 									<Fragment>
-										<i as={Button} onClick={() => setModalShow(true)} className="fad fa-pencil edit pr-2"></i>
-										<i className="fas fa-cog settings"></i>
-									</Fragment>
+										<i as={Button} onClick={() => setModalShow(true)}  style={{color: 'gold'}} className="fad fa-pencil edit pr-2"></i>
+										<i className="fas fa-cog settings" style={{color: 'grey'}} ></i>
+									</Fragment> 
 								) : (
 									<i className="far fa-ellipsis-h pl-3"></i>
 								)}

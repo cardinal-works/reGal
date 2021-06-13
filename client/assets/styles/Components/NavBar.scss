@@ -1,14 +1,16 @@
 .nav-container {
 	display: flex;
 	background-color: #161616 !important;
-	margin: 50px 60px 20px 60px;
-	justify-content:space-between;
-	align-items: flex-end;
-
+	margin: 3% 5% 3% 6%;
 	.nav-links {
 		font-size: 1.55em;
 	}
-
+	.profile-toggle {
+		background-color: transparent;
+		color: transparent;
+		border: transparent;
+		display: inline-block;
+	}
 	.connect-button {
 		border-color: white;
 		padding-top: 5px;
@@ -21,32 +23,49 @@
 		}
 	}
 
-	.create-button {
-			padding-top: 3px;
-			padding-bottom: 3px;
-			border-color: white;
-			font-weight: 600;
+	.fa-plus {
+		color: rgba(255, 255, 255, 0.808);
+		font-size: 1.5em;
+		&:hover {
 			color: white;
-			&:hover {
-				background: white;
-				color: black;
-				border-color: white;
-			}
+		}
 	}
+
+	.fa-house {
+		color: rgba(255, 255, 255, 0.74);
+		font-size: 1.5em;
+		&:hover {
+			color: white;
+		}
+	}
+
 	.profile-nav-container {
 		display: flex;
-		align-items: flex-end;
+		align-items: baseline;
+		justify-content:flex-end;
 		margin-bottom: 10px;
 		.profile-link-nav {
 			padding: 0px;
 			margin: 0px;
-			// display: flex;
-			// align-items: center;
 			.profile-link-image {
 				max-height: 50px;
 				object-fit: cover;
 				width: auto;
+				box-shadow: rgba(126, 132, 138, 0.2) 0px 8px 24px;
+				border-radius: 2px;
+				transition: .35s ease-in-out;
+				&:hover {
+					box-shadow: rgba(126, 132, 138, 0.653) 1px 1px 3px;
+					transition: .35s ease-in-out;
+				}
 			}
+		}
+		.profile-settings-nav {
+			background-color: transparent;
+		}
+		.dropdown-toggle::after {
+			color: transparent;
+			display: none;
 		}
 	}
 }

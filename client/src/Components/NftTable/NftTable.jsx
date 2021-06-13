@@ -16,7 +16,7 @@ const NftTable = ({ user, profileTable }) => {
 							user.collections.map((nft, i) => {
 								return (
 									<>
-										<Col key={i} xl={4} lg={5} md={12} sm={10} xs={10} key={i}>
+										<Col key={i} xl={3} lg={4} md={12} sm={10} xs={10} key={i}>
 											<NftDisplay
 												_id={nft._id}
 												title={nft.title}
@@ -54,7 +54,7 @@ const NftTable = ({ user, profileTable }) => {
 							user.liked_nfts.slice(0, 3).map((nft, i) => {
 								return (
 									<>
-										<Col key={i} xl={4} lg={5} md={12} sm={10} xs={10}>
+										<Col key={i} xl={3} lg={4} md={12} sm={10} xs={10}>
 											<NftDisplay
 												_id={nft._id}
 												title={nft.title}
