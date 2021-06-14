@@ -62,7 +62,7 @@ const Navigation = () => {
 					<Nav.Link as={Link} to="/">
 						explore
 					</Nav.Link>
-					<Nav.Link as={Link} to="/farm">
+					<Nav.Link as={Link} to="/bids">
 						auctions
 					</Nav.Link>
 					<Nav.Link as={Link} to="/farm">
