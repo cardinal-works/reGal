@@ -63,7 +63,7 @@ const NftDisplay = ({
 						<Card.Img className="explore-card-image" variant="top" src={thumbnail_image} />
 					)}
 				</Card>
-				<Container className="pl-1 pr-1">
+				<Container className="">
 					<Row className="overlay-container pb-1">
 						<Col md={12} className="symbols-container pt-1 pb-1 text-end">
 							<div className="likes-div">

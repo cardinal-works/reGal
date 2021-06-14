@@ -1,6 +1,6 @@
 //Modules
-import React, { useEffect, useState, useContext, Fragment } from 'react';
-import { ethers } from 'ethers';
+import React, { useEffect, useState, useContext, Fragment, useRef } from 'react';
+import { ContractFactory, ethers, utils } from 'ethers';
 import ipfs from '../../ipfs';
 import { Link, Redirect } from 'react-router-dom';
 //Components
@@ -12,31 +12,31 @@ import NftStore from '../../Stores/NftStore';
 import { RegalAuction } from '../../../abi/RegalAuction_abi';
 var Buffer = require('buffer/').Buffer;
 
-//Ethereum Connectections
-//ROPSTEN 1 - DEPLOYED on JUNE/4 9PM//
-const contractAddr = '0x0AE6749E627B1BE1e50ca349380EFCd91dA7DA37';
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-const signer = provider.getSigner();
-const contract = new ethers.Contract(contractAddr, RegalAuction, signer);
-
 const NftMinter = () => {
+	// CONTRACT REF
+	const contract = useRef();
 	// USER STORE
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
-	//
 	const { loadUser, updateUser, user, loadingInitial, submitting } = userStore;
-	const { createNft } = nftStore;
+	const { createNft, loadNfts, nftRegistry, getAllNfts } = nftStore;
+	// LOCAL STATE
 	const [formList, setFormList] = useState([true, false, false, false]);
 	const [uploading, setUploading] = useState(false);
+	const [nftId, setNftId] = useState(1);
+	const [redirect, setRedirect] = useState(<></>)
 	const [userMetaData, setUserMetaData] = useState({
 		title: '',
-		creator: '',
+		creator_name: '',
 		nft_description: '',
 		thumbnail_image: '',
 		tags: [],
 	});
 
 	useEffect(() => {
+		// LOAD ALL NFTS
+		loadNfts()
+		// LOADING CURRENT USER
 		loadUser(window.ethereum.selectedAddress).then((res) => {
 			console.log(res);
 			setUserMetaData((prevState) => ({
@@ -45,25 +45,43 @@ const NftMinter = () => {
 				user_id: res._id,
 			}));
 		});
+		// FUNCTION TO INSTANTIATE OUR PROVIDER/SIGNER/CONTRACT
+		const setup = async () => {
+			const provider = new ethers.providers.Web3Provider(window.ethereum);
+			const signer = provider.getSigner();
+			const contractAddress = '0x3604100cEBe47C4F1E34e878c5f1c8b4ED4e0a80';
+			contract.current = new ethers.Contract(contractAddress, RegalAuction, signer);
+		};
+		setup();
 	}, []);
 
+	useEffect(() => {
+		console.log(nftRegistry.size)
+	}, [nftRegistry])
+
 	const handleMint = async () => {
-		if (user._id) {
+		if (user._id && nftRegistry) {
 			const userData = {
+				user_id: user._id,
 				title: userMetaData.title,
-				creator: userMetaData.creator,
-				nft_id: userMetaData.nft_id,
+				creator_name: user.display_name,
+				nft_id: nftRegistry.size + 1,
 				thumbnail_image: userMetaData.thumbnail_image,
+				nft_description: userMetaData.nft_description,
 			};
 			const metaData = JSON.stringify(userData);
 			const result = await ipfs.add(metaData);
 			const ipfsLink = 'https://gateway.ipfs.io/ipfs/' + result.path;
-			contract.once()
-			let tx = await contract.createCollectible(ipfsLink);
-			const reciept = await tx.wait()
-			updateUser({...user, userData})
-			// wait for the transaction to be mined
-			// const receipt = await tx.wait();
+			console.log(contract.current);
+			let tx = await contract.current.createCollectible(ipfsLink);
+			const receipt = await tx.wait();
+			// ethers.utils.parseTransaction(receipt)
+			createNft(userData, user._id).then((res) => {
+				let updatedCollection = user.collections;
+				updatedCollection.push(res);
+				updateUser({ ...user, collections: updatedCollection });
+				setRedirect(<Redirect to="/profile" />)
+			});
 		} else {
 			return;
 		}
@@ -72,7 +90,7 @@ const NftMinter = () => {
 	const handleInputChange = (event) => {
 		let name = event.target.name;
 		let value = event.target.value;
-		setUserMetaData((prevState) => ({...prevState, [name]: value }));
+		setUserMetaData((prevState) => ({ ...prevState, [name]: value }));
 	};
 
 	const handleNftLink = (e) => {
@@ -149,7 +167,15 @@ const NftMinter = () => {
 					<Row className="text-center">
 						<Col md={12} style={{ fontSize: '12px' }}>
 							{userMetaData.thumbnail_image ? (
-								<NftDisplay nft_id={0} likes={420} preview={true} thumbnail_image={userMetaData.thumbnail_image} current_bid={999} title={userMetaData.title} creator={user.display_name} />
+								<NftDisplay
+									nft_id={0}
+									likes={420}
+									preview={true}
+									thumbnail_image={userMetaData.thumbnail_image}
+									current_bid={999}
+									title={userMetaData.title}
+									creator={user.display_name}
+								/>
 							) : null}
 						</Col>
 						<Col md={12} className="pb-4">
@@ -178,7 +204,10 @@ const NftMinter = () => {
 							<Button className="ipfs-button mb-1 mt-5">
 								{uploading ? <span className="spinner-border spinner-border-sm mr-2 mb-1"></span> : <i className="fad fa-cloud-upload"></i>}
 								{uploading ? <small>uploading to IPFS</small> : ''}
-								<input type="file" name="images[]" accept="image/gif, image/png, image/jpeg,"
+								<input
+									type="file"
+									name="images[]"
+									accept="image/gif, image/png, image/jpeg,"
 									onChange={(e) => {
 										setUploading(true);
 										handleFileUpload(e.target.files[0]);
@@ -301,10 +330,8 @@ const NftMinter = () => {
 							<Button className="button-prev mt-4" onClick={() => setFormList([false, false, true, false])}>
 								<i className="fad fa-angle-double-left"></i>
 							</Button>
-							{/* <Button className="ml-1 button-next" onClick={() => setFormList([false, false, false, true])}>
-								<i className="fad fa-chevron-double-right"></i>
-							</Button> */}
 						</Col>
+						{redirect}
 					</Row>
 				</Toast.Body>
 			</Toast>
@@ -313,150 +340,3 @@ const NftMinter = () => {
 };
 
 export default NftMinter;
-
-// const handleRenderInput = (event, bool) => {
-// 	event.preventDefault();
-// 	console.log(bool);
-// 	if (bool === true) {
-// 		setRenderInput([
-// 			<FormControl
-// 				key={'input'}
-// 				placeholder="https://www.dropbox.com/s/ymhg..."
-// 				aria-label="https://www.dropbox.com/s/ymhg..."
-// 				aria-describedby="basic-addon1"
-// 				onChange={(e) => handleNftLink(e)}
-// 			/>,
-// 		]);
-// 	} else setRenderInput([<div key={'empty'}></div>]);
-// };
-
-// <Container className="minter-container">
-// 	<Row className="user-profile-data text-center">
-// 		{userMetaData.thumbnail_image.length == 0 ? (
-// 			<Fragment>
-// 				<Col md={6} lg={12}>
-// 					<Image
-// 						className="profile-image"
-// 						src={user ? user.profile_image : null}
-// 						width="150px"
-// 						height="150px"></Image>
-// 				</Col>
-// 				<Col md={6} lg={12} className=" mt-3">
-// 					<span className="text-majesti text-white user-profile-name font-secondary ">
-// 						{' '}
-// 						{user ? '@' + user.display_name : '@displayname'}{' '}
-// 					</span>{' '}
-// 				</Col>
-// 				<Col md={6} lg={12} className="mt-1 ml-1">
-// 					<span className="text-primary text-center">
-// 						{user ? user.wallet_id.slice(0, 3) + '...' + user.wallet_id.slice(-3) : null}
-// 					</span>
-// 				</Col>
-// 			</Fragment>
-// 		) : null}
-// 	</Row>
-// 	<Row className="nft-upload-form justify-content-md-center">
-// 		<Col md={12}>
-// 			<div className="nft-upload-placeholder text-center mx-auto">
-// 				{userMetaData.thumbnail_image && (
-// 					<Image
-// 						className="image-border-box my-auto"
-// 						loop="infinite"
-// 						src={userMetaData.thumbnail_image}
-// 						alt="Nft thumbnail preview"
-// 					/>
-// 				)}
-// 			</div>
-// 		</Col>
-// 		<Col md={6} className="mt-4 md-offset-3 mx-auto">
-// 			<Form>
-// 				<Form.Group>
-// 					<Form.Label className="text-white">Name*</Form.Label>
-// 					<Form.Control
-// 						type="text"
-// 						name="title"
-// 						placeholder="NFT Name"
-// 						value={userMetaData.title}
-// 						onChange={handleInputChange}
-// 					/>
-// 				</Form.Group>
-// 				<Form.Group>
-// 					<Form.Label className="text-white">Artist*</Form.Label>
-// 					<Form.Control
-// 						type="text"
-// 						disabled={true}
-// 						name="creator"
-// 						placeholder="@artistName"
-// 						value={userMetaData.creator}
-// 						onChange={handleInputChange}
-// 					/>
-// 				</Form.Group>
-// 				<Form.Group>
-// 					<Form.Label className="text-white">Description*</Form.Label>
-// 					<Form.Control
-// 						as="textarea"
-// 						row={3}
-// 						name="nft_description"
-// 						placeholder="NFT Description"
-// 						value={userMetaData.nft_description || ''}
-// 						onChange={handleInputChange}
-// 					/>
-// 				</Form.Group>
-// 				<Form.Group>
-// 					<Form.File
-// 						className="text-primary"
-// 						label="Upload raw file*"
-// 						name="nft_thumbnail"
-// 						onChange={(e) => handleFileUpload(e.target.files[0])}
-// 					/>
-// 				</Form.Group>
-// 				<Form.Group>
-// 					<Form.File
-// 						className="text-primary"
-// 						label="Upload thumbnail*"
-// 						name="nft_uri"
-// 						onChange={(e) => handleFileUpload(e.target.files[0], null)}
-// 					/>
-// 				</Form.Group>
-// 				<Form.Group>
-// 					<Form.Label className="text-white">Provide Downloadable Link?</Form.Label>
-// 					<div></div>
-// 					<ToggleButtonGroup type="checkbox">
-// 						<ToggleButton
-// 							variant="success"
-// 							size={'sm'}
-// 							value={true}
-// 							onClick={(e) => {
-// 								handleRenderInput(e, true);
-// 							}}>
-// 							Yes
-// 						</ToggleButton>
-// 						<ToggleButton
-// 							variant="warning"
-// 							size={'sm'}
-// 							onClick={(e) => {
-// 								handleRenderInput(e, false);
-// 							}}>
-// 							No
-// 						</ToggleButton>
-// 					</ToggleButtonGroup>
-// 				</Form.Group>
-// 				<Form.Group>{renderInput}</Form.Group>
-// 				<Form.Group className="text-center mt-5 mb-5">
-// 					<Button
-// 						className="mint-submit"
-// 						onClick={handleMint}
-// 						// disabled={
-// 						//     userMetaData.title &&
-// 						//     userMetaData.creator &&
-// 						//     nft_description &&
-// 						//     nft_uri
-// 						//   ? false : true}
-// 					>
-// 						Mint
-// 					</Button>
-// 				</Form.Group>
-// 			</Form>
-// 		</Col>
-// 	</Row>
-// </Container>

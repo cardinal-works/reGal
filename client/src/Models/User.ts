@@ -12,6 +12,7 @@ export interface IUser {
 	twitter: string,
 	instagram: string,
 	pending_value: number;
+	bidding: Array<Object>;
 	collection: [
 		{
 			_id: string;
@@ -24,7 +25,7 @@ export interface IUser {
 			date_mint: Date;
 			likes: number;
 			stars: number;
-			previous_sold: Array<number>;
+			previous_sold: Array<Object>;
 			thumbnail_image: string;
 			auction_mode: boolean;
 			auctions: [
@@ -34,8 +35,8 @@ export interface IUser {
 					start_date: number;
 					asking_bid: number;
 					end_date: number;
-					bids: Array<number>;
-					watchers: Array<number>;
+					bids: Array<Object>;
+					watchers: Array<Object>;
 				}
 			];
 			tags: [{ _id: string; name: string; popularity: number }];
@@ -53,7 +54,7 @@ export interface IUser {
 			date_mint: Date;
 			likes: number;
 			stars: number;
-			previous_sold: Array<number>;
+			previous_sold: Array<Object>;
 			thumbnail_image: string;
 			auction_mode: boolean;
 			auctions: [
@@ -63,8 +64,8 @@ export interface IUser {
 					start_date: number;
 					asking_bid: number;
 					end_date: number;
-					bids: Array<number>;
-					watchers: Array<number>;
+					bids: Array<Object>;
+					watchers: Array<Object>;
 				}
 			];
 			tags: [{ _id: string; name: string; popularity: number }];
@@ -82,7 +83,7 @@ export interface IUser {
 			date_mint: Date;
 			likes: number;
 			stars: number;
-			previous_sold: Array<number>;
+			previous_sold: Array<Object>;
 			thumbnail_image: string;
 			auction_mode: boolean;
 			auctions: [
@@ -92,8 +93,8 @@ export interface IUser {
 					start_date: number;
 					asking_bid: number;
 					end_date: number;
-					bids: Array<number>;
-					watchers: Array<number>;
+					bids: Array<Object>;
+					watchers: Array<Object>;
 				}
 			];
 			tags: [{ _id: string; name: string; popularity: number }];
@@ -111,7 +112,7 @@ export interface IUser {
 			date_mint: Date;
 			likes: number;
 			stars: number;
-			previous_sold: Array<number>;
+			previous_sold: Array<Object>;
 			thumbnail_image: string;
 			auction_mode: boolean;
 			auctions: [
@@ -121,8 +122,8 @@ export interface IUser {
 					start_date: number;
 					asking_bid: number;
 					end_date: number;
-					bids: Array<number>;
-					watchers: Array<number>;
+					bids: Array<Object>;
+					watchers: Array<Object>;
 				}
 			];
 			tags: [{ _id: string; name: string; popularity: number }];
