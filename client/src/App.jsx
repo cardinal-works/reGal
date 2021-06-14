@@ -10,7 +10,7 @@ import NftMinter from './Pages/NftMinter';
 import Auction from './Pages/Auction';
 import AuctionHouse from './Pages/AuctionHouse';
 import DetailedView from './Pages/DetailedView';
-import ProfileSettings from './Pages/ProfileSettings';
+import Bids from './Pages/Bids';
 import ComponentWrapper from './Components/ComponentWrapper';
 import Whitepaper from './Pages/Whitepaper';
 import SignUp from './Pages/SignUp';
@@ -31,7 +31,7 @@ const App = () => {
 				<Route exact path="/auction-house">
 					<AuctionHouse />
 				</Route>
-				<Route exact path="/dashboard" component={ProfileSettings} />
+				<Route exact path="/bids" component={Bids} />
 				<Route exact path="/whitepaper" component={Whitepaper} />
 				<Route exact path="/details/:id">
 					<DetailedView />

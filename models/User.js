@@ -52,6 +52,10 @@ const UserSchema = new Schema({
 		type: Number,
 		required: false,
 	},
+	bidding: {
+		type: Array,
+		required: false,
+	},
 	profile_featured_nft: [
 		new Schema({
 			title: {

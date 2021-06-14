@@ -5,7 +5,6 @@
 .overlay-container {
 	background-color: rgb(0, 0, 0);
 	display: flex;
-	justify-content: space-around;
 	.star {
 		color: rgb(194, 171, 71);
 		font-size: 13px;
@@ -33,7 +32,7 @@
 
 .nft-item-card {
 	text-decoration: none !important;
-	padding: 5px;
+	// padding: 5px;
 	border-radius: 0px;
 	border-color: black !important;
 	background-color: black !important;

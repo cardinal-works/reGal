@@ -8,7 +8,7 @@ export interface INft {
     date_mint: Date;
     likes: number;
     views: number;
-    previous_sold: Array<number>;
+    previous_sold: Array<Object>;
     thumbnail_image: string;
     auction_mode: boolean;
     auctions: [
@@ -18,8 +18,8 @@ export interface INft {
             start_date: number;
             asking_bid: number;
             end_date: number;
-            bids: Array<number>;
-            watchers: Array<number>;
+            bids: Array<Object>;
+            watchers: Array<Object>;
         }
     ];
     tags: [{ _id: string; name: string; popularity: number }];

@@ -1,5 +1,6 @@
 .nav-container {
 	display: flex;
+	align-items: center;
 	background-color: #161616 !important;
 	margin: 3% 5% 3% 6%;
 	.nav-links {
@@ -25,15 +26,15 @@
 
 	.fa-plus {
 		color: rgba(255, 255, 255, 0.808);
-		font-size: 1.5em;
+		font-size: 1.2em;
 		&:hover {
 			color: white;
 		}
 	}
 
-	.fa-house {
+	.bids {
 		color: rgba(255, 255, 255, 0.74);
-		font-size: 1.5em;
+		font-size: 1.2em;
 		&:hover {
 			color: white;
 		}
@@ -43,7 +44,6 @@
 		display: flex;
 		align-items: baseline;
 		justify-content:flex-end;
-		margin-bottom: 10px;
 		.profile-link-nav {
 			padding: 0px;
 			margin: 0px;

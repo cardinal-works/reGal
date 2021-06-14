@@ -18,12 +18,9 @@ const Navigation = () => {
 	const [buttonText, setButtonText] = useState('connect');
 	const [redirect, setRedirect] = useState(<></>);
 	const { loadUser, user } = userStore;
-	// const [userHistory, setUserHistory] = useState(history)
-	// let web3 = new Web3(Web3.givenProvider || 'ws://localhost:9546');
 	const pending = false;
 
 	const handleConnect = () => {
-		// ** IF NO METAMASK INSTALLED ** //
 		setButtonText(<span className="spinner-border spinner-border-sm mb-1 mt-1"></span>);
 
 		if (!window.ethereum) {
@@ -57,7 +54,7 @@ const Navigation = () => {
 	return (
 		<Navbar className="nav-container" bg="dark" collapseOnSelect expand="lg" variant="dark">
 			<Navbar.Brand as={Link} to="/" className="regal-brand text-majesti font-primary">
-				<Image src={R} width="50px"></Image>
+				<Image src={R} width="40px"></Image>
 			</Navbar.Brand>
 			<Navbar.Toggle className="" aria-controls="responsive-navbar-nav" />
 			<Navbar.Collapse className="" id="responsive-navbar-nav">
@@ -79,17 +76,15 @@ const Navigation = () => {
 					{user ? (
 						<Container className="profile-nav-container" fluid style={{ padding: 0 }}>
 							<Nav.Link className="create-nav-link">
-								<div className="profile-link-nav ">
+								<div className="profile-link-nav">
 									<i as={Button} onClick={() => setModalShow(true)} className="fas fa-plus mr-2"></i>
 								</div>
 							</Nav.Link>
-							<Nav.Link className="create-nav-link">
-								<div className="profile-link-nav ">
-									<i as={Button} onClick={() => setModalShow(true)}  className="fad fa-house mr-3"></i>
-								</div>
+							<Nav.Link as={Link} to="/bids" className="create-nav-link text-center">			
+									<div className="bids">bids</div>								
 							</Nav.Link>
 							<CreateModal show={modalShow} onHide={() => setModalShow(false)} />
-							<div className="profile-link-nav ">
+							<div className="profile-link-nav ml-2">
 								<Nav.Link as={Link} to="/profile" className="">
 									<Image className="profile-link-image " src={user.profile_image} height="50px"></Image>
 								</Nav.Link>
@@ -103,7 +98,6 @@ const Navigation = () => {
 						</Fragment>
 					)}
 					{redirect}
-	
 				</Nav>
 			</Navbar.Collapse>
 			<CreateModal show={modalShow} onHide={() => setModalShow(false)} />
@@ -112,11 +106,3 @@ const Navigation = () => {
 };
 
 export default observer(Navigation);
-
-/* <Nav.Link className="create-nav-link">
-<div className="profile-link-nav ">
-<Button onClick={() => setModalShow(true)} className="create-button" variant="outline-success">
-create
-</Button>
-</div>
-</Nav.Link> */
