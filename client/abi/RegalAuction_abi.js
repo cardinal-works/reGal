@@ -61,6 +61,25 @@ export const RegalAuction = [
         {
           "indexed": false,
           "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_id",
+          "type": "uint256"
+        }
+      ],
+      "name": "CollectibleCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
           "name": "bidder",
           "type": "address"
         },
@@ -675,7 +694,7 @@ export const RegalAuction = [
       "outputs": [
         {
           "internalType": "bool",
-          "name": "success",
+          "name": "_success",
           "type": "bool"
         }
       ],

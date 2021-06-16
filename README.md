@@ -12,8 +12,9 @@ _"An nft marketplace application that is built on a decentralized framework for 
 
 - [MongoDB Compass Desktop GUI](https://www.mongodb.com/products/compass)
 - [Metamask](https://chrome.google.com/webstore/detail/nkbihfbeogaeaoehlefnkodbefgpgknn)
-- Install the ganache-cli globally 
+- Install the ganache-cli & truffle globally 
    * `npm i -g ganache-cli`
+   * `npm i -g truffle`
 
 <br/>
 

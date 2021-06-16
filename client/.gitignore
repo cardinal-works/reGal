@@ -1,2 +1,7 @@
 node_modules/
 .env
+.openzeppelin\.session
+.DS_Store
+
+client/package-lock.json
+package-lock.json

@@ -10,42 +10,44 @@ import NftMinter from './Pages/NftMinter';
 import Auction from './Pages/Auction';
 import AuctionHouse from './Pages/AuctionHouse';
 import DetailedView from './Pages/DetailedView';
-import ProfileSettings from './Pages/ProfileSettings';
+import Bids from './Pages/Bids';
 import ComponentWrapper from './Components/ComponentWrapper';
 import Whitepaper from './Pages/Whitepaper';
 import SignUp from './Pages/SignUp';
+import NotFound from "./Pages/NotFound";
 //CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const App = ({ web3 }) => {
+const App = () => {
 	return (
-		<Switch>
-			<ComponentWrapper web3={web3}>
+		<ComponentWrapper >
+			<Switch>
 				<Route exact path="/" component={Explore} />
 				<Route exact path="/signup" component={SignUp} />
 				<Route exact path="/profile" component={Profile} />
 				<Route exact path="/explore">
-					<Explore web3={web3} />
+					<Explore />
 				</Route>
 				<Route exact path="/auction-house">
-					<AuctionHouse web3={web3} />
+					<AuctionHouse />
 				</Route>
-				<Route exact path="/dashboard" component={ProfileSettings} />
+				<Route exact path="/bids" component={Bids} />
 				<Route exact path="/whitepaper" component={Whitepaper} />
 				<Route exact path="/details/:id">
-					<DetailedView web3={web3} />
+					<DetailedView />
 				</Route>
 				<Route exact path="/farm">
-					<Farm web3={web3} />
+					<Farm />
 				</Route>
 				<Route exact path="/minter">
-					<NftMinter web3={web3} />
+					<NftMinter />
 				</Route>
 				<Route exact path="/auction/:id">
-					<Auction web3={web3} />
+					<Auction />
 				</Route>
-			</ComponentWrapper>
-		</Switch>
+				<Route component={NotFound} />
+			</Switch>
+		</ComponentWrapper>
 	);
 };
 

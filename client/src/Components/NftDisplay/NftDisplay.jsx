@@ -25,6 +25,7 @@ const NftDisplay = ({
 	tags,
 	description,
 	preview,
+	auction,
 }) => {
 	const nftStore = useContext(NftStore);
 	const userStore = useContext(UserStore);
@@ -60,7 +61,8 @@ const NftDisplay = ({
 				<Card
 					as={Link}
 					to={{
-						pathname: `/details/${nft_id}`,
+						// pathname: `/details/${nft_id}`,
+						pathname:  auction ? `/auction/${nft_id}` : `/details/${nft_id}`,
 						state: { nft_id: Number(nft_id) },
 					}}
 					className="nft-item-card">
@@ -82,7 +84,7 @@ const NftDisplay = ({
 						<Card.Img className="explore-card-image" variant="top" src={thumbnail_image} />
 					)}
 				</Card>
-				<Container className="pl-1 pr-1">
+				<Container className="">
 					<Row className="overlay-container pb-1">
 						<Col md={12} className="symbols-container pt-1 pb-1 text-end">
 							<div className="likes-div">
@@ -94,7 +96,7 @@ const NftDisplay = ({
 									{likes}
 								</span>
 								<span className="pl-1">
-									<i className="far fa-star star "></i>
+									<i className="far fa-bookmark star "></i>
 								</span>
 							</div>
 						</Col>

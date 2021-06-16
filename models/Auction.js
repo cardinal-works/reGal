@@ -9,7 +9,7 @@ const AuctionSchema = new Schema({
 		required: false,
 	},
 	seller_id: {
-		type: Number,
+		type: String,
 		required: false,
 	},
 	seller_name: {

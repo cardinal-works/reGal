@@ -6,13 +6,15 @@
 @import "./Components/NavBar.scss";
 @import "./Components/NftDisplay.scss";
 @import "./Components/Footer.scss";
-@import "./Components/NftMinter.scss";
 @import "./Components/CreateModal.scss";
 @import "./Components/WhitepaperViewer.scss";
 @import "./Components/ProfileNftDisplay.scss";
 @import "./Components/WalletSupport.scss";
 @import "./Components/ProfileCard.scss";
 @import "./Components/StatsDisplay.scss";
+@import "./Components/ProfileEditModal.scss";
+@import "./Components/EmptyDisplay.scss";
+@import "./Components/NftDetailDisplay.scss";
 //Pages
 @import "./Pages/DetailedView.scss";
 @import "./Pages/AuctionHouse.scss";
@@ -21,4 +23,8 @@
 @import "./Pages/Profile.scss";
 @import "./Pages/NftMinter.scss";
 @import "./Pages/SignUp.scss";
-@import "./Pages/Farm.scss"
+@import "./Pages/Bids.scss";
+@import "./Pages/Farm.scss";
+@import "./Pages/Dashboard.scss";
+@import "./Pages/Auction.scss";
+@import "./Pages/NotFound.scss";

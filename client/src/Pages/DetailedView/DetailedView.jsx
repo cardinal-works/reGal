@@ -1,152 +1,164 @@
 //Components
-import React, { useEffect, useState, useContext, Fragment } from 'react';
+import React, { useEffect, useState, useContext, Fragment, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Row, Col, Image, Button, ListGroup, Table } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Figure, Toast, Table, Form } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
-import { AuctionRepository } from '../../../abi/AuctionRepository_abi';
+import { toJS } from 'mobx';
+import { ethers, utils } from 'ethers';
+import { RegalAuction } from '../../../abi/RegalAuction_abi';
+import NftDetailDisplay from '../../Components/NftDetailDisplay';
 import NftStore from '../../Stores/NftStore';
+import UserStore from '../../Stores/UserStore';
 import PriceStore from '../../Stores/PriceStore';
+import timeConverter from '../../Helpers/unix';
 
-const DetailedView = ({web3}) => {
+const DetailedView = () => {
+	const contract = useRef();
+	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const priceStore = useContext(PriceStore);
+
 	const [params, setParams] = useState(useParams());
+	const [bidding, setBidding] = useState(false);
 	const [currentEtherPrice, setCurrentEtherPrice] = useState();
-	const { loadNft, nft } = nftStore; 
+
+	const { updateNft, loadNft, nft } = nftStore;
+	const { updateUser, loadUser, user } = userStore;
 	const { getPrices, prices } = priceStore;
 	const [price, setPrice] = useState(0);
-	// console.log(useParams())
 
-	let contractAddr = '0x0aC149cF75Ffcbe2C9E31948055B19E489E1267b';
-	const AuctionRepositoryContract = new web3.eth.Contract(AuctionRepository, contractAddr);
-
-	useEffect(() => {
-        loadNft(params['id']);
-		getPrices()
+	useEffect(async () => {
+		loadNft(params['id']);
+		getPrices();
+		loadUser(window.ethereum.selectedAddress);
+		const setup = async () => {
+			const provider = new ethers.providers.Web3Provider(window.ethereum);
+			const signer = provider.getSigner();
+			const contractAddress = '0x3604100cEBe47C4F1E34e878c5f1c8b4ED4e0a80';
+			contract.current = new ethers.Contract(contractAddress, RegalAuction, signer);
+		};
+		setup();
 	}, []);
 
-	useEffect(() => {
-		if(prices && nft)
-		{
-			setPrice(nft.current_bid * prices['current_price']);
-		}
-	}, [prices]);
-
 	const handleBid = async (e) => {
-		e.preventDefault()
-		await AuctionRepositoryContract.methods
-			.bidOnAuction()
-			.send({ from: window.ethereum.selectedAddress })
-			.then((res) => console.log(res))
+		let updatedNft = toJS(nft);
+		let updatedUser = toJS(user);
+		let current = updatedNft.auctions.length;
 
-	}
+		let tx = {
+			// to: "0x3604100cEBe47C4F1E34e878c5f1c8b4ED4e0a80",
+			from: window.ethereum.selectedAddress,
+			value: ethers.utils.parseEther(e.target.form[0].value),
+		};
+		let bid = {
+			wallet_id: user.wallet_id,
+			value: Number(e.target.form[0].value),
+			name: user.display_name,
+			time: Date.now(),
+			end: nft.auctions[current - 1].end_date
+		};
+
+		const provider = new ethers.providers.Web3Provider(window.ethereum);
+		let txn = contract.current.placeBid(nft.nft_id, tx).then((res) => {
+			res.wait()	
+
+		updatedNft.auctions[current - 1].bids.push(bid);
+		updateNft(updatedNft);
+
+		updatedUser.bidding.push(bid);
+		updateUser(updatedUser)
+		})
+		
+
+	};
+
+	const handleArmed = () => {};
 
 	return (
-		<Container className="detailedview-container" fluid>
-			{nft && 
-                (
-					<Fragment>
-						<Row>
-							<Col className="nft-title-details text-md-center mb-2">
-								<h1 className="text-uppercase d-inline-block text-primary font-italic text-md-center text-center">
-									{nft.title}
-								</h1>
-								<span className="d-inline-block text-info ml-3 font-italic text-md-center text-center">
-									<span className="fas fa-certificate mr-1"></span>Artist verified
-								</span>
-								<span className="d-inline-block text-info ml-3 font-italic text-md-center text-center">
-									<span className="fas fa-certificate mr-1"></span>Regal Minted
-								</span>
-							</Col>
-						</Row>
-						<Row>
-							<Col className="thumbnail-image mx-auto" md={6}>
-								<Image src={nft.thumbnail_image} fluid />
-							</Col>
-							<Col className="nft-details mx-auto mt-4" md={12}>
-								<div className="bid-details text-md-center text-center">
-									<span className="text-white fas fa-circle fa-lg"></span>
-									<h2 className="text-white d-inline-block ml-2">Top Bid</h2>
-								</div>
-								<div className="nft-bids mt-2 text-md-center text-center">
-									<div className="eth-price d-inline-block">
-										<span className="fab fa-ethereum text-primary fa-lg"></span>
-										<span className="text-primary ml-1 currency-value">
-											{nft.current_bid}
-										</span>
-									</div>
-									<div className="usd-price d-inline-block ml-3">
-										<span className="fas fa-dollar-sign text-green fa-lg"></span>
-										<span className="text-primary ml-1 text-green currency-value">
-											{price}
-										</span>
-									</div>
-								</div>
-								<div className="buyer-seller mt-2 text-md-center text-center">
-									<div>
-										<span className="text-white">Minter: </span>
-										<span className="text-info">
-											@{nft.creator ? nft.creator : ''}
-										</span>
-									</div>
-									<div>
-										<span className="text-white">Owner: </span>
-										<span className="text-info">
-											@{nft.creator ? nft.creator : ''}
-										</span>
-									</div>
-								</div>
-								{/* <div className="nft-tags mt-4">
-                        <ListGroup horizontal className="text-white font-italic">
-                            {
-                                loadednft.tags && loadednft.tags.map( (tag, index) => (
-                                    <ListGroup.Item key={index}>#{tag}</ListGroup.Item>
-                                ))
-                            }
-                        </ListGroup>
-                    </div> */}
-								<p className="nft-description text-white mt-3 text-md-center text-center">
-									{nft.description}
-								</p>
-								<div className="controls-wrapper text-md-center text-center mb-5 pb-5">
-									<Button onClick={(e) => handleBid(e)} variant="outline-primary" className="btn-fix">
-										Place A Bid
+		<Fragment>
+			<Container className="detail-container">
+				<Row className="detail-nft-row  mb-2 p-5 ">
+					{nft && user && (
+						<Col md={5} className="mt-1 mb-1">
+							<NftDetailDisplay
+								_id={nft._id}
+								title={nft.title}
+								user_id={nft.user_id}
+								creator_id={nft.creator_id}
+								creator_name={user.display_name}
+								nft_description={nft.nft_description}
+								nft_id={nft.nft_id}
+								date_mint={nft.date_mint}
+								likes={nft.likes}
+								stars={nft.stars}
+								previous_sold={nft.previous_sold}
+								thumbnail_image={nft.thumbnail_image}
+								auction_mode={nft.auction_mode}
+							/>
+						</Col>
+					)}
+					{user && nft && (
+						<Col md={6} xs={12} className="mb-4 mt-3 mx-auto text-center">
+							<Image className="mb-2" width="250px" src={user.profile_image} />
+							<Col className="h4 text-white mt-2 pb-2">@{user.display_name}</Col>
+							<Col className="h6 text-white mt-2 pb-2">current bid: {nft.current_bid}</Col>
+							<Col className="h6 text-white mt-2 pb-2">asking price: {nft.current_bid}</Col>
+							<Col>
+								{!bidding ? (
+									<Button className="mt-3 " onClick={() => setBidding(true)}>
+										Place Bid
 									</Button>
-								</div>
+								) : (
+									<Form className="text-white">
+										<Form.Group controlId="bid-amt">
+											<Form.Label className="p-0">Bid Amount</Form.Label>
+											<Form.Control type="number" />
+										</Form.Group>
+										<Button onClick={(e) => handleBid(e)}>Confirm</Button>
+										<Button className="ml-1" onClick={() => setBidding(false)}>
+											Cancel
+										</Button>
+									</Form>
+								)}
 							</Col>
-						</Row>
-						{/* <Row className="mb-5 mt-3">
-                <Col md={12}>
-                    <Table responsive className="text-white text-center nft-records">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Value</th>
-                                <th>Transfered From</th>
-                                <th>Transfered To</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                           {
-                            loadedgetAllNfts.transactionHistory && loadednft.transactionHistory.map((transaction, index) => (
-                                <tr key={index}>
-                                    <td>date</td>
-                                    <td>value</td>
-                                    <td>from</td>
-                                    <td>to</td>
-                                </tr>
-                            ))
-                            } 
-                        </tbody>
-                    </Table>
-                </Col> */}
-						{/* <Col md={12} className="text-center mt-3 total-value-summary">
-                    <span className="font-italic text-white">Total Value Transferred</span><span className="text-primary font-italic ml-3">${loadedgetAllNfts.totalValue ? loadedgetAllNfts.totalValue : ""}</span>
-                </Col> */}
-						{/* </Row> */}
-					</Fragment>
-				)}
-		</Container>
+						</Col>
+					)}
+				</Row>
+				<Row>
+					<Col className=" text-white" md={12}>
+						<h5>
+							<i className="fas fa-history pb-1 h6 mr-1"></i>history
+						</h5>
+						<Table hover variant="dark" className="mt-1 mb-1 p-2">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>time</th>
+									<th>name</th>
+									<th>address</th>
+									<th>bid</th>
+								</tr>
+							</thead>
+							<tbody>
+								{nft &&
+									nft.auction_mode === true &&
+									nft.auctions[nft.auctions.length - 1].bids.map((bidder, i) => {
+										return (
+											<tr key={i}>
+												<td>{i + 1}</td>
+												<td>{Math.ceil((Date.now() - bidder.time) / 3600000) + 'h ago'}</td>
+												<td>{bidder.name}</td>
+												<td>{bidder.wallet_id}</td>
+												<td>{bidder.value} Ξ</td>
+											</tr>
+										);
+									})}
+							</tbody>
+						</Table>
+					</Col>
+				</Row>
+			</Container>
+		</Fragment>
 	);
 };
 

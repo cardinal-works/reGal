@@ -26,9 +26,9 @@ const StatsDisplay = () => {
 						</span>
 					</ListGroup.Item>
 					<ListGroup.Item >
-						stars
+						saves
 						<span className=" pl-1 stars">
-							<nobr className="mt-n1">113 <i className="fas fa-star icon-size star"></i></nobr> 
+							<nobr className="mt-n1">113 <i className="fas fa-bookmark icon-size star" ></i></nobr> 
 						</span>
 					</ListGroup.Item>
 					<ListGroup.Item>

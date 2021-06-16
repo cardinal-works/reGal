@@ -9,7 +9,7 @@ import ETH from '../../../assets/images/token-pairs/RGL-ETH.png'
 import USDT from '../../../assets/images/token-pairs/RGL-USDT.png'
 
 
-const Farm = ({ web3 }) => {
+const Farm = () => {
 	return (
 		<Fragment>
 			<Container className="regal-spaceman">

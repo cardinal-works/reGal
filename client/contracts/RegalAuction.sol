@@ -78,6 +78,7 @@ contract RegalAuction is ERC721 {
         _safeMint(msg.sender, _id);
         _setTokenURI(_id, _tokenURI);
         _regalCollectibles[_id] = RegalCollectible(payable(msg.sender), 0, _tokenURI, false, 0, 0, true);
+        emit CollectibleCreated(msg.sender, _id);
     }
 
     /**
@@ -123,7 +124,11 @@ contract RegalAuction is ERC721 {
             return true;
     }
 
-    function endAuction(uint256 _id) public payable onlyOwner(_id) onlyOnSale(_id) onlyAfter(_id) returns (bool success) {
+    function endAuction(uint256 _id) public payable 
+            onlyOwner(_id) 
+            onlyOnSale(_id) 
+            onlyAfter(_id) 
+            returns (bool success) {
         // the auction's owner should be allowed to withdraw the highestBindingBid
         RegalCollectible memory collectible = _regalCollectibles[_id];  
         bidding storage collectibleBid = bid[_id];
@@ -183,7 +188,9 @@ contract RegalAuction is ERC721 {
         return (id, collectible.minbid, collectible.tokenURI, collectibleBid.currentHighestBid);
     }
     
-    
+
+    event CollectibleCreated(address, uint256 _id);
+
     
     modifier onlyAfter(uint256 id) {
         RegalCollectible memory collectible = _regalCollectibles[id];

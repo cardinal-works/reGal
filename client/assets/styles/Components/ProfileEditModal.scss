@@ -1,0 +1,80 @@
+.profile-edit-modal {
+	background-color: black !important;
+	.modal-content {
+		border: solid 1px rgb(167, 167, 167);
+		border-radius: 2px;
+		background-color: #161616 !important;
+		color: white;
+	}
+	box-shadow: rgba(68, 68, 68, 0.2) 0px 0px 12px;
+	background-color: rgb(33, 33, 33);
+	padding: 10px;
+	color: white;
+	.toast-header {
+		margin: 10px;
+		border-radius: 0px;
+		background-color: rgb(0, 0, 0);
+		strong {
+			color: white;
+			font-weight: 900;
+			font-size: 2em !important;
+		}
+		small {
+			font-weight: 700;
+			font-size: 13px;
+		}
+	}
+
+	.profile-edit-text {
+		font-size: 0.9em !important;
+	}
+
+	.input-overlay {
+		opacity: 0%;
+		position: absolute;
+		top: 248px;
+		right: -80px;
+		z-index: 99;
+	}
+	.upload-button {
+		border-radius: 5px;
+		background-color: transparent;
+		// align-self: center;
+		margin-left: 2vh;
+		z-index: -4;
+	}
+
+
+	.profile-edit-submit {
+		background-color: green;
+		font-weight: 600;
+		border: solid 1px green;
+		color: rgb(255, 255, 255);
+		&:hover {
+			background-color: rgba(255, 255, 255, 0);
+			transition: 0.25s ease-in-out;
+			color: rgb(255, 255, 255);
+		}
+	}
+
+	.cancel-back {
+		background-color: rgb(116, 24, 24);
+		font-weight: 600;
+		border: solid 1px rgb(105, 14, 14);
+		color: rgb(255, 255, 255);
+		&:hover {
+			background-color: rgba(255, 255, 255, 0);
+			transition: 0.25s ease-in-out;
+			color: rgb(255, 255, 255);
+		}
+	}
+
+	.profile-banner-image {
+		object-fit: cover;
+		width: 24vh;
+		min-height: 24vh;
+		max-height: 24vh;
+		border-radius: 2px;
+		outline-color: black !important;
+	}
+}

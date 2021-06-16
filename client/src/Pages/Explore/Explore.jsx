@@ -3,13 +3,13 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 // ** COMPONENTS
 import NftDisplay from '../../Components/NftDisplay/NftDisplay';
-import { Col, Container, Row, Dropdown, CardDeck } from 'react-bootstrap';
+import { Col, Container, Row, Dropdown, CardDeck, Image, Pagination } from 'react-bootstrap';
 // ** STATE
 import { observer } from 'mobx-react-lite';
 import UserStore from '../../Stores/UserStore';
 import NftStore from '../../Stores/NftStore';
 
-const Explore = (web3) => {
+const Explore = () => {
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 	const { loadUser } = userStore;
@@ -17,23 +17,6 @@ const Explore = (web3) => {
 
 	useEffect(async () => {
 		loadNfts();
-		// let userAddress;
-		// if (window.ethereum) {
-		// 	await window.ethereum
-		// 		.request({ method: 'eth_accounts' })
-		// 		.then((res) => {
-		// 			userAddress = res;
-		// 			loadUser(userAddress[0]);
-		// 		})
-		// 		.catch((error) => {
-		// 			if (error.code === 4001) {
-		// 				console.log('Please connect to MetaMask.');
-		// 			} else {
-		// 				console.error(error);
-		// 			}
-		// 		});
-		// }
-		// return;
 	}, []);
 
 	return (
@@ -59,7 +42,6 @@ const Explore = (web3) => {
 					</Col>
 				</Row>
 				<Row className="nft-explore-rows">
-				
 					{getAllNfts.length &&
 						getAllNfts.map((nft, index) => {
 							return (
@@ -80,7 +62,6 @@ const Explore = (web3) => {
 								</Col>
 							);
 						})}
-					
 				</Row>
 			</Container>
 		</div>
