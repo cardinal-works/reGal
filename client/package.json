@@ -48,6 +48,7 @@
     "react-particles-js": "^3.4.1",
     "react-router-dom": "^5.2.0",
     "react-scroll-parallax": "^2.3.5",
+    "react-tabs": "^3.2.2",
     "react-test-renderer": "^17.0.2",
     "solc": "^0.8.3",
     "timers": "^0.1.1",

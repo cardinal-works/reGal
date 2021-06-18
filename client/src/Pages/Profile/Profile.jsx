@@ -12,6 +12,7 @@ import { observer } from 'mobx-react-lite';
 import { toJS } from 'mobx';
 import ipfs from '../../ipfs';
 var Buffer = require('buffer/').Buffer;
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 //Media
 
 const Profile = (props) => {
@@ -23,6 +24,7 @@ const Profile = (props) => {
 	const { loadUser, user } = userStore;
 	const { loadNfts } = nftStore;
 	const [userChanges, setUserChanges] = useState();
+	const [activeTab, setActiveTab] = useState(0);
 
 	useEffect(() => {
 		if (!window.ethereum) {
@@ -46,7 +48,6 @@ const Profile = (props) => {
 	};
 
 	const uploadToIPFS = async (reader) => {
-		console.log('ipfs');
 		const buffer = await Buffer.from(reader.result);
 		const result = await ipfs.add(buffer);
 		const ipfsLink = 'https://gateway.ipfs.io/ipfs/' + result.path;
@@ -62,7 +63,7 @@ const Profile = (props) => {
 			<Container className="profile-container">
 				<Row className="profile-details-row">
 					<ProfileEditModal show={modalShow} onHide={() => setModalShow(false)} />
-					{!modalShow && user && (
+					{user && (
 						<Col md={12} className="text-right">
 							<div className="more-div text-white pb-1 ">
 								{user.wallet_id === window.ethereum.selectedAddress ? (
@@ -76,7 +77,7 @@ const Profile = (props) => {
 							</div>
 						</Col>
 					)}
-					{!modalShow && user && (
+					{user && (
 						<Fragment>
 							<Col md={12} className="profile-page-card-nav">
 								<ProfileCard
@@ -88,29 +89,37 @@ const Profile = (props) => {
 									profile_bg_color={user.profile_bg_color}
 									display_name={user.display_name}></ProfileCard>
 							</Col>
-							<Col className="mb-1" lg={12} md={12}>
-								<Nav fill variant="tabs" defaultActiveKey="link-1" className="profile-nft-nav mt-5">
-									<Nav.Item>
-										<Nav.Link onClick={() => setProfileTable('collection')} eventKey="link-1">
-											Collection
-										</Nav.Link>
-									</Nav.Item>
-									<Nav.Item>
-										<Nav.Link onClick={() => setProfileTable('liked_nfts')} eventKey="link-2">
-											Liked
-										</Nav.Link>
-									</Nav.Item>
-									<Nav.Item>
-										<Nav.Link onClick={() => setProfileTable('recently_viewed_nfts')} eventKey="link-3">
-											Recently Viewed
-										</Nav.Link>
-									</Nav.Item>
-								</Nav>
-								<NftTable user={user} profileTable={profileTable} />
-								{user.collections.length > 0 && <Col md={12} style={{ fontSize: '13px', color: '#f6a615' }} className="text-right pt-1">
-							View All
-							<i style={{ fontSize: '13px', color: '#f6a615' }} className="fas fa-angle-double-right pl-2 my-auto pr-2"></i>
-						</Col>}
+							<Col className="mb-1" md={12}>
+								<Tabs
+									className="mt-5 text-center"
+									selectedIndex={activeTab}
+									onSelect={(index) => setActiveTab(index)}
+								>
+									<TabList>
+										<Tab>Collection</Tab>
+										<Tab>Saved</Tab>
+										<Tab>Liked</Tab>
+										<Tab>Recently Viewed</Tab>
+									</TabList>
+									<TabPanel>
+										<NftTable type={"created"} data={user.collections} />
+									</TabPanel>
+									<TabPanel>
+										<NftTable type={"bookmarked"} data={user.saved_nfts} />
+									</TabPanel>
+									<TabPanel>
+										<NftTable type={"liked"} data={user.liked_nfts} />
+									</TabPanel>
+									<TabPanel>
+										<NftTable type={"viewed"} data={user.recently_viewed_nfts} />
+									</TabPanel>
+								</Tabs>
+								{
+									<Col md={12} style={{ fontSize: '13px', color: '#f6a615' }} className="text-right pt-1">
+										View All
+										<i style={{ fontSize: '13px', color: '#f6a615' }} className="fas fa-angle-double-right pl-2 my-auto pr-2"></i>
+									</Col>
+								}
 							</Col>
 						</Fragment>
 					)}

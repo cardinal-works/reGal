@@ -1,152 +1,98 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, Row, Col, Nav, Image, Button, Form, FormFile, Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
 import { Link, history } from 'react-router-dom';
 
 import NftDisplay from '../../Components/NftDisplay';
 import EmptyDisplay from '../../Components/EmptyDisplay';
 
-const NftTable = ({ user, profileTable }) => {
+//STORE
+import NftStore from '../../Stores/NftStore';
+import UserStore from '../../Stores/UserStore';
+
+const NftTable = ({ type, data }) => {
+
+	const nftStore = useContext(NftStore);
+	const userStore = useContext(UserStore);
+
+	const { loadNfts, isNftLiked, isNftBookmarked, updateNftLikes } = nftStore;
+	const { user, updateUserBookmarks, updateUserInStore } = userStore;
+
+	const [nfts, setNfts] = useState([])
+
+	useEffect(() => {
+		loadNfts({
+			"_id": { "$in": data}
+		}).then( response => {
+			setNfts(response)
+		})
+	}, []);
+
+	const handleLikeNft = (id) => {
+		let action = isNftLiked(user, id) ? "disLike" : "Like";
+		updateNftLikes({
+			action,
+			nftId: id,
+			userId: user._id
+		}).then( response => {
+			if(response)
+			{
+				updateUserInStore(response.user);
+			}
+		})
+	};
+
+	const handleBookmarkNft = (id) => {
+		let action = isNftBookmarked(user, id) ? "remove" : "add";
+		updateUserBookmarks({
+			action,
+			nftId: id,
+			userId: user._id
+		}).then( response => {
+			if(response)
+			{
+				updateUserInStore(response);
+			}
+		})
+	};
+
 	return (
-
 			<Container className="">
-				{/* COLLECTION TABLE */}
-				{profileTable == 'collection' ? (
-					<Row className="pt-4 pl-2 profile-nfts-grid">
-						{user.collections.length ? (
-							user.collections.map((nft, i) => {
-								return (
-									<>
-										<Col key={i} xl={3} lg={4} md={4} sm={10} xs={10} key={i}>
-											<NftDisplay
-												_id={nft._id}
-												title={nft.title}
-												user_id={nft.user_id}
-												creator_id={nft.creator_id}
-												creator_name={nft.creator_name}
-												nft_description={nft.nft_description}
-												nft_id={nft.nft_id}
-												date_mint={nft.date_mint}
-												likes={nft.likes}
-												stars={nft.stars}
-												previous_sold={nft.previous_sold}
-												thumbnail_image={nft.thumbnail_image}
-												auction_mode={nft.auction_mode}
-												key={`profil-col-${i}`}
-											/>
-										</Col>
-									</>
-								);
-							} ) 
-						) : (
-							<Col md={12} className="text-white h5">
-								{/* <EmptyDisplay nft={false}></EmptyDisplay> */}
-								<i className="h6 far fa-at user-profile pt-2"></i>
-								{user.display_name} <span className=" h6"> hasn't minted any collectibles</span>
+				<Row className="pt-4 pl-2 profile-nfts-grid">
+					{
+					nfts.length 
+					?
+						nfts.map((nft, i) => (
+							<Col key={i} xl={3} lg={4} md={4} sm={10} xs={10} key={i}>
+								<NftDisplay
+									_id={nft._id}
+									title={nft.title}
+									user_id={nft.user_id}
+									creator_id={nft.creator_id}
+									creator_name={nft.creator_name}
+									nft_description={nft.nft_description}
+									nft_id={nft.nft_id}
+									date_mint={nft.date_mint}
+									likes={nft.likes}
+									stars={nft.stars}
+									previous_sold={nft.previous_sold}
+									thumbnail_image={nft.thumbnail_image}
+									auction_mode={nft.auction_mode}
+									isLiked={user ? isNftLiked(user, nft._id) : false}
+									isBookmarked={user ? isNftBookmarked(user, nft._id) : false}
+									handleLikeNft={handleLikeNft}
+									handleBookmarkNft={handleBookmarkNft}
+									key={`profil-col-${i}`}
+								/>
 							</Col>
-						)}
-						
-					</Row>
-				) 
-				:
-				profileTable == 'liked_nfts' ? (
-					<Row className="pt-4 pl-2 profile-nfts-grid">
-						{user.liked_nfts.length ? (
-							user.liked_nfts.slice(0, 3).map((nft, i) => (
-
-								<Col key={i} lg={4} md={4} sm={10} xs={10} className="text-center">
-									<NftDisplay
-										_id={nft._id}
-										title={nft.title}
-										user_id={nft.user_id}
-										creator_id={nft.creator_id}
-										creator_name={nft.creator_name}
-										nft_description={nft.nft_description}
-										nft_id={nft.nft_id}
-										date_mint={nft.date_mint}
-										likes={nft.likes}
-										stars={nft.stars}
-										previous_sold={nft.previous_sold}
-										thumbnail_image={nft.thumbnail_image}
-										auction_mode={nft.auction_mode}
-										key={`profil-col-${i}`}
-									/>
-								</Col>
-							))
-						) : (
-							<Col md={12} className="text-white h5">
-								{/* <EmptyDisplay nft={false}></EmptyDisplay> */}
-								<i className="h6 far fa-at user-profile pt-2"></i>
-								{user.display_name} <span className=" h6"> hasn't liked any collectibles</span>
-							</Col>
-						)}
-					</Row>
-				) 
-				: 
-				profileTable == 'recently_viewed_nfts' ? (
-					<Row className="pt-4 pl-2 profile-nfts-grid">
-						{user.recently_viewed_nfts.length ? (
-							user.recently_viewed_nfts.map((nft, i) =>  (
-								<Col key={i} md={4} sm={10} xs={10}>
-									<NftDisplay
-										_id={nft._id}
-										title={nft.title}
-										user_id={nft.user_id}
-										creator_id={nft.creator_id}
-										creator_name={nft.creator_name}
-										nft_description={nft.nft_description}
-										nft_id={nft.nft_id}
-										date_mint={nft.date_mint}
-										likes={nft.likes}
-										stars={nft.stars}
-										previous_sold={nft.previous_sold}
-										thumbnail_image={nft.thumbnail_image}
-										auction_mode={nft.auction_mode}
-										key={`profil-col-${i}`}
-									/>
-								</Col>
-							))
-						) : (
-							<Col md={12} className="text-white h5">
-								{/* <EmptyDisplay nft={false}></EmptyDisplay> */}
-								<i className="h6 far fa-at user-profile pt-2"></i>
-								{user.display_name} <span className=" h6"> hasn't viewed any collectibles</span>
-							</Col>
-						)}
-					</Row>
-				) 
-				: 
-				profileTable == 'saved' ? (
-					<Row className="pt-4 pl-2 profile-nfts-grid ">
-						{user.starred ? (
-							user.starred.slice(0, 3).map((nft, i) => (
-								<Col key={i} xl={4} lg={5} md={12} sm={10} xs={10}>
-									<NftDisplay
-										_id={nft._id}
-										title={nft.title}
-										user_id={nft.user_id}
-										creator_id={nft.creator_id}
-										creator_name={nft.creator_name}
-										nft_description={nft.nft_description}
-										nft_id={nft.nft_id}
-										date_mint={nft.date_mint}
-										likes={nft.likes}
-										stars={nft.stars}
-										previous_sold={nft.previous_sold}
-										thumbnail_image={nft.thumbnail_image}
-										auction_mode={nft.auction_mode}
-										key={`profil-col-${i}`}
-									/>
-								</Col>
-							))
-						) : (
-							<Col md={12} className="text-white h5">
-								{/* <EmptyDisplay nft={false}></EmptyDisplay> */}
-								<i className="h6 far fa-at user-profile pt-2"></i>
-								{user.display_name} <span className=" h6"> hasn't saved any collectibles</span>
-							</Col>
-						)}
-					</Row>
-				) : null}
+						))
+					:
+						<Col md={12} className="text-white h5">
+							{/* <EmptyDisplay nft={false}></EmptyDisplay> */}
+							<span className=" h6">{`You have not ${type} any NFT's`}</span>
+						</Col>
+					}
+					
+				</Row>
 			</Container>
 	);
 };

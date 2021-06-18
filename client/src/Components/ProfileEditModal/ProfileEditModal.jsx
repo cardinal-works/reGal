@@ -75,8 +75,15 @@ const ProfileEditModal = (props) => {
 	return (
 		<Fragment>
 			{user ? (
-				<Modal {...props} className="profile-edit-modal" aria-labelledby="contained-modal-title-vcenter" size={'sm'} centered>
-					<Modal.Header className="toast-1-header text-center" closeButton={false}>
+				<Modal
+					{...props} 
+					className="profile-edit-modal" 
+					aria-labelledby="contained-modal-title-vcenter" 
+					size={'md'} 
+					centered
+					backdrop="static"
+				>
+					<Modal.Header className="toast-1-header text-center" closeButton>
 						<Modal.Title className="" id="contained-modal-title-vcenter">
 							<div className="text-white profile-edit-text">Profile Edit</div>
 						</Modal.Title>
@@ -108,8 +115,8 @@ const ProfileEditModal = (props) => {
 								</Fragment>
 							)}
 						</Col>
-						<Col md={12} className="pt-4 mt-3 pb-2 h6 text-center">
-							<Form onSubmit={(e) => handleSubmit(e)} className="text-center pb-2">
+						<Col md={12} className="pt-4 mt-3 h6 text-center">
+							<Form onSubmit={(e) => handleSubmit(e)} className="text-center mb-2">
 								<Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
 									<Form.Label className="pb-1">Update your artist bio:</Form.Label>
 									<Form.Control required as="textarea" name="bio" minLength="1" maxLength="280" rows={3} onChange={(e) => handleInput(e)} defaultValue={user.bio} />

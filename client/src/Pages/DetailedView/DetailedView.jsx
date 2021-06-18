@@ -176,7 +176,7 @@ const DetailedView = () => {
 					)}
 				</Row>
 				<Row>
-					<Col className=" text-white" md={12}>
+					<Col className=" text-white" md={12} >
 						<h5>
 							<i className="fas fa-history pb-1 h6 mr-1"></i>history
 						</h5>
@@ -206,6 +206,11 @@ const DetailedView = () => {
 									})}
 							</tbody>
 						</Table>
+					</Col>
+				</Row>
+				<Row>
+					<Col md={12}>
+						
 					</Col>
 				</Row>
 			</Container>
