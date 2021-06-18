@@ -74,16 +74,17 @@ const NftDisplay = ({
 								</span>
 								{
 									user ?
+									<>
 										<span className="likes-text text-white pl-1 pointer" onClick={() => handleLikeNft(_id)}>
 											<i className={`mx-auto heart pr-1 fa-heart ${isLiked ? "fas" : "far"}`} style={{ color: '#d20000' }}></i>
 											{likes}
 										</span>
+										<span className="pl-1 pointer" onClick={() => handleBookmarkNft(_id)}>
+											<i className={`fa-bookmark star ${isBookmarked ? "fas" : "far"}`}></i>
+										</span>
+									</>
 									: null
 								}
-								
-								<span className="pl-1 pointer" onClick={() => handleBookmarkNft(_id)}>
-									<i className={`fa-bookmark star ${isBookmarked ? "fas" : "far"}`}></i>
-								</span>
 							</div>
 						</Col>
 						<Col md={12} className=" text-start pt-1">

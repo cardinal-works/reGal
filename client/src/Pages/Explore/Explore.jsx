@@ -13,8 +13,8 @@ const Explore = () => {
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
 
-	const { user, updateUserInStore, updateUserBookmarks, updateUserRecentViews } = userStore;
-	const { loadNfts, loadNftByParams, getAllNfts, updateNftLikes } = nftStore;
+	const { user, updateUserInStore, updateUserBookmarks } = userStore;
+	const { loadNfts, loadNftByParams, getAllNfts, updateNftLikes, isNftBookmarked, isNftLiked } = nftStore;
 
 	useEffect(async () => {
 		loadNfts();
@@ -25,78 +25,32 @@ const Explore = () => {
 	}
 
 	const handleLikeNft = (id) => {
-		if(isNftLiked(id))
-		{
-			updateNftLikes({
-				action: "disLike",
-				nftId: id,
-				userId: user._id
-			}).then( response => {
-				if(response)
-				{
-					updateUserInStore(response.user);
-				}
-			})
-		} 
-		else 
-		{
-			updateNftLikes({
-				action: "Like",
-				nftId: id,
-				userId: user._id
-			}).then( response => {
-				if(response)
-				{
-					updateUserInStore(response.user);
-				}
-			})
-		}
+		let action = isNftLiked(user, id) ? "disLike" : "Like";
+		updateNftLikes({
+			action,
+			nftId: id,
+			userId: user._id
+		}).then( response => {
+			if(response)
+			{
+				updateUserInStore(response.user);
+			}
+		})
 	};
 
 	const handleBookmarkNft = (id) => {
-		if(isNftBookmarked(id))
-		{
-			updateUserBookmarks({
-				action: "remove",
-				nftId: id,
-				userId: user._id
-			}).then( response => {
-				if(response)
-				{
-					updateUserInStore(response);
-				}
-			})
-		} 
-		else 
-		{
-			updateUserBookmarks({
-				action: "add",
-				nftId: id,
-				userId: user._id
-			}).then( response => {
-				if(response)
-				{
-					updateUserInStore(response);
-				}
-			})
-		}
+		let action = isNftBookmarked(user, id) ? "remove" : "add";
+		updateUserBookmarks({
+			action,
+			nftId: id,
+			userId: user._id
+		}).then( response => {
+			if(response)
+			{
+				updateUserInStore(response);
+			}
+		})
 	};
-
-	const isNftLiked = (id) => {
-		let found = user.liked_nfts.find( n => n == id);
-		if(found) {
-			return true;
-		}
-		return false;
-	}
-
-	const isNftBookmarked = (id) => {
-		let found = user.saved_nfts.find( n => n == id);
-		if(found) {
-			return true;
-		}
-		return false;
-	}
 
 	return (
 		<div className="gradiant-background">
@@ -137,8 +91,8 @@ const Explore = () => {
 										creator={nft.creator_name}
 										date_mint={nft.date_mint}
 										tags={nft.tags}
-										isLiked={user ? isNftLiked(nft._id) : false}
-										isBookmarked={ user ? isNftBookmarked(nft._id) : false}
+										isLiked={user ? isNftLiked(user, nft._id) : false}
+										isBookmarked={ user ? isNftBookmarked(user, nft._id) : false}
 										handleLikeNft={handleLikeNft}
 										handleBookmarkNft={handleBookmarkNft}
 									/>

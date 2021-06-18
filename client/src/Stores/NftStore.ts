@@ -2,6 +2,7 @@ import { observable, action, configure, runInAction, computed } from "mobx";
 import { createContext, SyntheticEvent, ChangeEvent } from "react";
 import { INft } from "../Models/Nft";
 import agent from "../Api/agent";
+import { IUser } from "../Models/User";
 
 class NftStore {
     @observable nftRegistry = new Map<string, INft>();
@@ -124,6 +125,28 @@ class NftStore {
             return error.message;
         }
     }
+
+    @action isNftLiked = (user: IUser, id: string) => {
+        if(user && user.liked_nfts.length)
+        {
+            let found = user.liked_nfts.find( n => n == id);
+            if(found) {
+                return true;
+            }
+        }
+		return false;
+	}
+
+	@action isNftBookmarked = (user: IUser, id: string) => {
+        if(user && user.saved_nfts.length)
+        {
+            let found = user.saved_nfts.find( n => n == id);
+            if(found) {
+                return true;
+            }
+        }
+		return false;
+	}
 }
 
 export default createContext( new NftStore());
