@@ -2,6 +2,7 @@ import { observable, action, configure, runInAction, computed } from "mobx";
 import { createContext, SyntheticEvent, ChangeEvent } from "react";
 import { INft } from "../Models/Nft";
 import agent from "../Api/agent";
+import { IUser } from "../Models/User";
 
 class NftStore {
     @observable nftRegistry = new Map<string, INft>();
@@ -23,10 +24,9 @@ class NftStore {
                     response.forEach((nft: INft) => {
                         this.nftRegistry.set(nft._id, nft);
                     })
-                   
                 }
-                return response
             })
+            return response;
         } catch (error) {
             console.log("Error: ", error);
         }
@@ -47,9 +47,26 @@ class NftStore {
         }
     }
 
+    @action loadNftByParams = async (payload: any) => {
+        this.loadingInitial = true;
+        this.nftRegistry.clear();
+        try {
+            let response = await agent.Nft.sort(payload);
+            runInAction(() => {
+                if(response) {
+                    response.forEach((nft: INft) => {
+                        this.nftRegistry.set(nft._id, nft);
+                    })
+                   
+                }
+            })
+            return response;
+        } catch (error) {
+            console.log("Error: ", error);
+        }
+    }
+
     @action createNft = async (nft: INft, id: string) => {
-        console.log("Nft: ", nft);
-        console.log("Id: ", id)
         this.submitting = true;
         try {
             let response = await agent.Nft.create(nft, id);
@@ -87,6 +104,48 @@ class NftStore {
             return error.message;
         }
     }
+
+    @action updateNftLikes = async (action: object) => {
+        this.submitting = true;
+        try {
+            let response = await agent.Nft.updateLikes(action);
+            runInAction(() => {
+                if(response && response.nft) {
+                    this.nft = response.nft
+                    this.submitting = false;
+                    this.nftRegistry.set(response.nft._id, response.nft);
+                }
+            })
+            return response;
+        } catch (error) {
+            runInAction(() => {
+                this.submitting = false;
+            });
+            return error.message;
+        }
+    }
+
+    @action isNftLiked = (user: IUser, id: string) => {
+        if(user && user.liked_nfts.length)
+        {
+            let found = user.liked_nfts.find( n => n == id);
+            if(found) {
+                return true;
+            }
+        }
+		return false;
+	}
+
+	@action isNftBookmarked = (user: IUser, id: string) => {
+        if(user && user.saved_nfts.length)
+        {
+            let found = user.saved_nfts.find( n => n == id);
+            if(found) {
+                return true;
+            }
+        }
+		return false;
+	}
 }
 
 export default createContext( new NftStore());

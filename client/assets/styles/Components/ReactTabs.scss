@@ -1,0 +1,21 @@
+.react-tabs__tab-list {
+    margin-bottom: 0;
+    .react-tabs__tab {
+        border-radius: 0;
+        border-color: #aaa;
+        background-color: #222222;
+        color: #fff;
+        width: 150px;
+        font-size: 15px;
+        &.react-tabs__tab--selected {
+            background-color: #fff;
+            color: #000;
+        }
+    }
+}
+
+.react-tabs__tab-panel {
+    .profile-nfts-grid{
+        min-height: 352px!important;
+    }
+}

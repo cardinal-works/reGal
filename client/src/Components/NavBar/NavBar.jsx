@@ -20,6 +20,26 @@ const Navigation = () => {
 	const { loadUser, user } = userStore;
 	const pending = false;
 
+	useEffect(() => {
+		if (window.ethereum) {
+			window.ethereum
+				.request({ method: 'eth_requestAccounts' })
+				.then((res) => {
+					loadUser(res[0]).then((res) => {
+						if (res === undefined) {
+							setButtonText('connect');
+							return setRedirect(<Redirect to="/signup" />);
+						} 
+						else {
+							setButtonText('connect');
+							// return setRedirect(<Redirect to="/profile" />);
+						}
+					});
+				})
+				.catch(() => setButtonText('connect'));
+		}
+	}, [])
+
 	const handleConnect = () => {
 		setButtonText(<span className="spinner-border spinner-border-sm mb-1 mt-1"></span>);
 
@@ -35,15 +55,12 @@ const Navigation = () => {
 				.then((res) => {
 					loadUser(res[0]).then((res) => {
 						if (res === undefined) {
-							setTimeout(() => {
-								setButtonText('connect');
-								return setRedirect(<Redirect to="/signup" />);
-							}, 1000);
-						} else {
-							setTimeout(() => {
-								setButtonText('connect');
-								return setRedirect(<Redirect to="/profile" />);
-							}, 1000);
+							setButtonText('connect');
+							return setRedirect(<Redirect to="/signup" />);
+						} 
+						else {
+							setButtonText('connect');
+							// return setRedirect(<Redirect to="/profile" />);
 						}
 					});
 				})

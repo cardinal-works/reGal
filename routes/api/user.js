@@ -16,6 +16,16 @@ router.route("/create").post(userController.create);
 // @access Public
 router.route("/update").put(userController.update);
 
+// @route PUT api/user/update/bookmarks
+// @desc Update user bookmarks
+// @access Public
+router.route("/update/bookmarks").put(userController.updateBookmarks);
+
+// @route PUT api/user/update/recentviews
+// @desc Update users recently viewed nfts
+// @access Public
+router.route("/update/recentviews").put(userController.updateRecentlyViewed);
+
 // @route DELETE api/user/delete
 // @desc Remove user from database
 // @access Public

@@ -6,7 +6,7 @@ import CornerRibbon from 'react-corner-ribbon';
 import Countdown from 'react-countdown';
 import { Row, Col, Image, Button, Container, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 // ** STORE
-import NftStore from '../../Stores/NftStore';
+import UserStore from "../../Stores/UserStore";
 import { observer } from 'mobx-react-lite';
 
 const NftDisplay = ({
@@ -25,14 +25,16 @@ const NftDisplay = ({
 	description,
 	preview,
 	auction,
+	isLiked,
+	isBookmarked,
+	handleLikeNft,
+	handleBookmarkNft
 }) => {
-	const nftStore = useContext(NftStore);
-	const { updateNft, loadNft } = nftStore;
-	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
 
-	const handleLikeNft = () => {
-		loadNft(nft_id).then((nft) => updateNft({ ...nft, likes: nft.likes + 1 }));
-	};
+	const userStore = useContext(UserStore);
+	const { user } = userStore;
+
+	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
 
 	return (
 		<Fragment>
@@ -70,13 +72,19 @@ const NftDisplay = ({
 								<span className="text-white pr-2 text-green" style={{ fontWeight: '900' }}>
 									{current_bid}Ξ
 								</span>
-								<span className="likes-text text-white pl-1">
-									<i className="fas fa-heart mx-auto heart pr-1" style={{ color: '#d20000', fontWeight: '900' }}></i>
-									{likes}
-								</span>
-								<span className="pl-1">
-									<i className="far fa-bookmark star "></i>
-								</span>
+								{
+									user ?
+									<>
+										<span className="likes-text text-white pl-1 pointer" onClick={() => handleLikeNft(_id)}>
+											<i className={`mx-auto heart pr-1 fa-heart ${isLiked ? "fas" : "far"}`} style={{ color: '#d20000' }}></i>
+											{likes}
+										</span>
+										<span className="pl-1 pointer" onClick={() => handleBookmarkNft(_id)}>
+											<i className={`fa-bookmark star ${isBookmarked ? "fas" : "far"}`}></i>
+										</span>
+									</>
+									: null
+								}
 							</div>
 						</Col>
 						<Col md={12} className=" text-start pt-1">

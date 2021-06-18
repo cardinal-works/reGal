@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { INft } from "../Models/Nft";
 import { IUser } from "../Models/User";
 import { IAuction } from "../Models/Auction";
+import { action } from "mobx";
 
 const apiURL = "";
 
@@ -74,14 +75,18 @@ const User = {
   get: (id: number) => requests.get(`/user/get/${id}`),
   create: (user: IUser) => requests.post("/user/create", user),
   update: (user: IUser) => requests.put(`/user/update`, user),
-  delete: (id: number) => requests.del(`/user/delete/${id}`)
+  updateBookmarks: (action: object) => requests.put("/user/update/bookmarks", action),
+  updateRecentViews: (action: object) => requests.put("/user/update/recentviews", action),
+  delete: (id: number) => requests.del(`/user/delete/${id}`),
 }
 
 const Nft = {
   getAll: (payload?: any) => requests.post(`/nft/get/all`, payload),
   get: (id: number) => requests.get(`/nft/get/${id}`),
+  sort: (payload: any) => requests.post(`/nft/get/sorted`, payload),
   create: (nft: INft, id: string) => requests.post(`/nft/create/${id}`, nft),
   update: (nft: INft) => requests.put("/nft/update", nft),
+  updateLikes: (action: object) => requests.put("/nft/update/likes", action),
   delete: (id: number) => requests.del(`nft/delete/${id}`)
 }
 

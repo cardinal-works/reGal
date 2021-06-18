@@ -22,8 +22,8 @@ const DetailedView = () => {
 	const [bidding, setBidding] = useState(false);
 	const [currentEtherPrice, setCurrentEtherPrice] = useState();
 
-	const { updateNft, loadNft, nft } = nftStore;
-	const { updateUser, loadUser, user } = userStore;
+	const { updateNft, loadNft, nft, isNftBookmarked, isNftLiked, updateNftLikes } = nftStore;
+	const { updateUser, loadUser, user, updateUserRecentViews, updateUserInStore, updateUserBookmarks } = userStore;
 	const { getPrices, prices } = priceStore;
 	const [price, setPrice] = useState(0);
 
@@ -39,6 +39,53 @@ const DetailedView = () => {
 		};
 		setup();
 	}, []);
+
+	useEffect(() => {
+		if(nft && user && !isRecentlyViewed())
+		{
+			updateUserRecentViews({
+				userId: user._id,
+				nftId: nft._id
+			}).then( response => {
+				if(response)
+				{
+					updateUserInStore(response);
+				}
+			})
+		}
+	}, [nft])
+
+	const isRecentlyViewed = () => {
+		return user.recently_viewed_nfts.find( nft => nft._id == nft);
+	}
+
+	const handleLikeNft = (id) => {
+		let action = isNftLiked(user, id) ? "disLike" : "Like";
+		updateNftLikes({
+			action,
+			nftId: nft._id,
+			userId: user._id
+		}).then( response => {
+			if(response)
+			{
+				updateUserInStore(response.user);
+			}
+		})
+	};
+
+	const handleBookmarkNft = (id) => {
+		let action = isNftBookmarked(user, id) ? "remove" : "add";
+		updateUserBookmarks({
+			action,
+			nftId: nft_id,
+			userId: user._id
+		}).then( response => {
+			if(response)
+			{
+				updateUserInStore(response);
+			}
+		})
+	};
 
 	const handleBid = async (e) => {
 		let updatedNft = toJS(nft);
@@ -94,6 +141,10 @@ const DetailedView = () => {
 								previous_sold={nft.previous_sold}
 								thumbnail_image={nft.thumbnail_image}
 								auction_mode={nft.auction_mode}
+								isNftBookmarked={user ? isNftBookmarked(user, nft._id) : false}
+								isNftLiked={user ? isNftLiked(user, nft._id) : false}
+								handleLikeNft={handleLikeNft}
+								handleBookmarkNft={handleBookmarkNft}
 							/>
 						</Col>
 					)}
@@ -125,7 +176,7 @@ const DetailedView = () => {
 					)}
 				</Row>
 				<Row>
-					<Col className=" text-white" md={12}>
+					<Col className=" text-white" md={12} >
 						<h5>
 							<i className="fas fa-history pb-1 h6 mr-1"></i>history
 						</h5>
@@ -155,6 +206,11 @@ const DetailedView = () => {
 									})}
 							</tbody>
 						</Table>
+					</Col>
+				</Row>
+				<Row>
+					<Col md={12}>
+						
 					</Col>
 				</Row>
 			</Container>

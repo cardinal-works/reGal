@@ -89,7 +89,10 @@ module.exports = {
     headers: { 'Access-Control-Allow-Origin': '*' },
     historyApiFallback: true,
     inline: true,
-    proxy: { "/api": { target: 'http://localhost:3000', secure: false}
+    proxy: { 
+      "/api": { 
+        target: 'http://localhost:3000', secure: false
+      }
     },
   },
   plugins: [

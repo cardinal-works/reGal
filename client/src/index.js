@@ -8,7 +8,8 @@ import history from "./History";
 import { ethers } from "ethers"
 import truffleConfig from "../truffle-config";
 //CSS
-import "../assets/fonts/Majesti-Banner/Majesti-Banner-BoldItalic.otf"
+import "../assets/fonts/Majesti-Banner/Majesti-Banner-BoldItalic.otf";
+import 'react-tabs/style/react-tabs.css';
 import "../assets/styles/Custom.scss";
 
 // var web3Location = `http://localhost:${truffleConfig.networks.regal.port}`;
