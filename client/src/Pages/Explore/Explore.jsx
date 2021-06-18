@@ -12,12 +12,91 @@ import NftStore from '../../Stores/NftStore';
 const Explore = () => {
 	const userStore = useContext(UserStore);
 	const nftStore = useContext(NftStore);
-	const { loadUser } = userStore;
-	const { loadNfts, getAllNfts } = nftStore;
+
+	const { user, updateUserInStore, updateUserBookmarks, updateUserRecentViews } = userStore;
+	const { loadNfts, loadNftByParams, getAllNfts, updateNftLikes } = nftStore;
 
 	useEffect(async () => {
 		loadNfts();
 	}, []);
+
+	const sortNfts = (payload) => {
+		loadNftByParams(payload);
+	}
+
+	const handleLikeNft = (id) => {
+		if(isNftLiked(id))
+		{
+			updateNftLikes({
+				action: "disLike",
+				nftId: id,
+				userId: user._id
+			}).then( response => {
+				if(response)
+				{
+					updateUserInStore(response.user);
+				}
+			})
+		} 
+		else 
+		{
+			updateNftLikes({
+				action: "Like",
+				nftId: id,
+				userId: user._id
+			}).then( response => {
+				if(response)
+				{
+					updateUserInStore(response.user);
+				}
+			})
+		}
+	};
+
+	const handleBookmarkNft = (id) => {
+		if(isNftBookmarked(id))
+		{
+			updateUserBookmarks({
+				action: "remove",
+				nftId: id,
+				userId: user._id
+			}).then( response => {
+				if(response)
+				{
+					updateUserInStore(response);
+				}
+			})
+		} 
+		else 
+		{
+			updateUserBookmarks({
+				action: "add",
+				nftId: id,
+				userId: user._id
+			}).then( response => {
+				if(response)
+				{
+					updateUserInStore(response);
+				}
+			})
+		}
+	};
+
+	const isNftLiked = (id) => {
+		let found = user.liked_nfts.find( n => n == id);
+		if(found) {
+			return true;
+		}
+		return false;
+	}
+
+	const isNftBookmarked = (id) => {
+		let found = user.saved_nfts.find( n => n == id);
+		if(found) {
+			return true;
+		}
+		return false;
+	}
 
 	return (
 		<div className="gradiant-background">
@@ -32,11 +111,11 @@ const Explore = () => {
 								sort
 							</Dropdown.Toggle>
 							<Dropdown.Menu>
-								<Dropdown.Item href="#/action-1">Most Liked</Dropdown.Item>
-								<Dropdown.Item href="#/action-3">Most Recent</Dropdown.Item>
-								<Dropdown.Item href="#/action-3">Highest Current Bid</Dropdown.Item>
-								<Dropdown.Item href="#/action-3">Lowest Current Bid</Dropdown.Item>
-								<Dropdown.Item href="#/action-3">Recently Sold</Dropdown.Item>
+								<Dropdown.Item onClick={() => sortNfts({field: "likes", sort: -1, limit: 20})} >Most Liked</Dropdown.Item>
+								<Dropdown.Item onClick={() => sortNfts({field: "date_mint", sort: -1, limit: 20})} >Most Recent</Dropdown.Item>
+								<Dropdown.Item onClick={() => sortNfts({field: "current_price", sort: -1, limit: 20})} >Highest Current Bid</Dropdown.Item>
+								<Dropdown.Item onClick={() => sortNfts({field: "likes", sort: 1, limit: 20})} >Lowest Current Bid</Dropdown.Item>
+								<Dropdown.Item onClick={() => sortNfts({field: "likes", sort: 1, limit: 20})} >Recently Sold</Dropdown.Item>
 							</Dropdown.Menu>
 						</Dropdown>
 					</Col>
@@ -55,9 +134,13 @@ const Explore = () => {
 										title={nft.title}
 										auction_startDate={nft.auction_startDate}
 										auction_duration={nft.auction_duration}
-										creator={nft.creator}
+										creator={nft.creator_name}
 										date_mint={nft.date_mint}
 										tags={nft.tags}
+										isLiked={user ? isNftLiked(nft._id) : false}
+										isBookmarked={ user ? isNftBookmarked(nft._id) : false}
+										handleLikeNft={handleLikeNft}
+										handleBookmarkNft={handleBookmarkNft}
 									/>
 								</Col>
 							);

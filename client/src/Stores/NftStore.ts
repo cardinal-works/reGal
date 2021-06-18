@@ -47,9 +47,26 @@ class NftStore {
         }
     }
 
+    @action loadNftByParams = async (payload: any) => {
+        this.loadingInitial = true;
+        this.nftRegistry.clear();
+        try {
+            let response = await agent.Nft.sort(payload);
+            runInAction(() => {
+                if(response) {
+                    response.forEach((nft: INft) => {
+                        this.nftRegistry.set(nft._id, nft);
+                    })
+                   
+                }
+                return response;
+            })
+        } catch (error) {
+            console.log("Error: ", error);
+        }
+    }
+
     @action createNft = async (nft: INft, id: string) => {
-        console.log("Nft: ", nft);
-        console.log("Id: ", id)
         this.submitting = true;
         try {
             let response = await agent.Nft.create(nft, id);
@@ -77,6 +94,26 @@ class NftStore {
                     this.nft = response
                     this.submitting = false;
                     this.nftRegistry.set(response._id, response);
+                }
+            })
+            return response;
+        } catch (error) {
+            runInAction(() => {
+                this.submitting = false;
+            });
+            return error.message;
+        }
+    }
+
+    @action updateNftLikes = async (action: object) => {
+        this.submitting = true;
+        try {
+            let response = await agent.Nft.updateLikes(action);
+            runInAction(() => {
+                if(response && response.nft) {
+                    this.nft = response.nft
+                    this.submitting = false;
+                    this.nftRegistry.set(response.nft._id, response.nft);
                 }
             })
             return response;

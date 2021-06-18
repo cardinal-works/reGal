@@ -1,4 +1,5 @@
 const Nft = require("../models/Nft");
+const User = require("../models/User");
 
 module.exports = {
   getAll: function (req, res, next) {
@@ -18,6 +19,18 @@ module.exports = {
         return res.status(400).send({ message: "Nft not found" });
       }
     });
+  },
+  sort: function (req, res, next) {
+    Nft.find().sort({[req.body.field]: req.body.sort}).limit(req.body.limit).then((nfts) => {
+      if(nfts)
+      {
+        return res.status(200).send(nfts);
+      } 
+      else 
+      {
+        return res.status(400).send({ message: "No results found" });
+      }
+    })
   },
   create: function (req, res, next) {
     console.log({ ...req.body, user_id: req.params.id })
@@ -45,6 +58,43 @@ module.exports = {
         return res.status(200).send(response);
       }
     );
+  },
+  updateLikes: function (req, res, next) {
+    const counter = req.body.action === 'Like' ? 1 : -1;
+    Nft.findByIdAndUpdate(req.body.nftId, {$inc: {likes: counter}}, {new: true}, (err, response) => {
+        if(err)
+        {
+          return res.status(500).send(err);
+        }
+        if(counter == 1)
+        {
+          User.findByIdAndUpdate(
+            req.body.userId, 
+            { $push: { liked_nfts: req.body.nftId } }, 
+            { new: true }, 
+            ( err, user ) => {
+              if(err)
+              {
+                return res.status(500).send(err);
+              }
+              return res.status(200).send({user, nft: response});
+            })
+        }
+        else
+        {
+          User.findByIdAndUpdate(
+            req.body.userId, 
+            { $pull: { liked_nfts: req.body.nftId } },
+            { new: true }, 
+            ( err, user ) => {
+              if(err)
+              {
+                return res.status(500).send(err);
+              }
+              return res.status(200).send({user, nft: response});
+            })
+        }
+    });
   },
   delete: function (req, res, next) {
     Nft.findByIdAndRemove(req.params.id, (err, response) => {

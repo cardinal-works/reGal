@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import CornerRibbon from 'react-corner-ribbon';
 import Countdown from 'react-countdown';
 import { Row, Col, Image, Button, Container, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
-// ** STORE
+// ** STORES
 import NftStore from '../../Stores/NftStore';
+import UserStore from '../../Stores/UserStore';
 import { observer } from 'mobx-react-lite';
 
 const NftDetailDisplay = ({
@@ -26,12 +27,31 @@ const NftDetailDisplay = ({
 	preview,
 }) => {
 	const nftStore = useContext(NftStore);
+	const userStore = useContext(UserStore);
+
 	const { updateNft, loadNft } = nftStore;
+	const { user, updateUserRecentViews, updateUserInStore } = userStore;
+
 	const [currentEtherPrice, setCurrentEtherPrice] = useState(null);
 
-	const handleLikeNft = () => {
-		loadNft(nft_id).then((nft) => updateNft({ ...nft, likes: nft.likes + 1 }));
-	};
+	useEffect(() => {
+		if(user && !isRecentlyViewed())
+		{
+			updateUserRecentViews({
+				userId: user._id,
+				nftId: _id
+			}).then( response => {
+				if(response)
+				{
+					updateUserInStore(response);
+				}
+			})
+		}
+	},[]);
+
+	const isRecentlyViewed = () => {
+		return user.recently_viewed_nfts.find( nft => _id == nft);
+	}
 
 	return (
 		<Fragment>

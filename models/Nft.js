@@ -31,6 +31,10 @@ const NftSchema =  new Schema({
             default: 0,
             required: true,
         },
+        comments: {
+            type: Array,
+            required: false
+        },
         views: {
             type: Number,
             default: 0,

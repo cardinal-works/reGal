@@ -67,6 +67,48 @@ class UserStore {
             return error.message;
         }
     }
+
+    @action updateUserBookmarks = async (action: object) => {
+        this.submitting = true;
+        try {
+            let response = await agent.User.updateBookmarks(action);
+            runInAction(() => {
+                if(response) {
+                    this.user = response
+                    this.submitting = false;
+                }
+            })
+            return response;
+        } catch (error) {
+            runInAction(() => {
+                this.submitting = false;
+            });
+            return error.message;
+        }
+    }
+
+    @action updateUserRecentViews = async (action: object) => {
+        this.submitting = true;
+        try {
+            let response = await agent.User.updateRecentViews(action);
+            runInAction(() => {
+                if(response) {
+                    this.user = response
+                    this.submitting = false;
+                }
+            })
+            return response;
+        } catch (error) {
+            runInAction(() => {
+                this.submitting = false;
+            });
+            return error.message;
+        }
+    }
+
+    @action updateUserInStore = (user: IUser) => {
+        this.user = user;
+    }
 }
 
 export default createContext( new UserStore());
