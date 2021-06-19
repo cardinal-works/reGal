@@ -25,10 +25,12 @@ class NftStore {
                         this.nftRegistry.set(nft._id, nft);
                     })
                 }
+                this.loadingInitial = false;
             })
             return response;
         } catch (error) {
             console.log("Error: ", error);
+            this.loadingInitial = false;
         }
     }
 

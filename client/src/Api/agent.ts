@@ -41,22 +41,22 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-// const sleep = (ms: number) => (response: AxiosResponse) =>
-//   new Promise<AxiosResponse>(resolve =>
-//     setTimeout(() => resolve(response), ms)
-//   );
+const sleep = (ms: number) => (response: AxiosResponse) =>
+  new Promise<AxiosResponse>(resolve =>
+    setTimeout(() => resolve(response), ms)
+  );
 
 
 const requests = {
   get: (url: string) => 
     axios
       .get(url, { headers })
-      // .then(sleep(1000))
+      //.then(sleep(1000))
       .then(responseBody),
   post: (url: string, body: {}) =>
     axios
       .post(url, body, { headers })
-      // .then(sleep(1000))
+      //.then(sleep(1000))
       .then(responseBody),
   put: (url: string, body: {}) =>
     axios

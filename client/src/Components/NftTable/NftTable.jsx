@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Container, Row, Col, Nav, Image, Button, Form, FormFile, Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
+import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { Link, history } from 'react-router-dom';
 
 import NftDisplay from '../../Components/NftDisplay';
@@ -14,7 +14,7 @@ const NftTable = ({ type, data }) => {
 	const nftStore = useContext(NftStore);
 	const userStore = useContext(UserStore);
 
-	const { loadNfts, isNftLiked, isNftBookmarked, updateNftLikes } = nftStore;
+	const { loadNfts, isNftLiked, isNftBookmarked, updateNftLikes, loadingInitial } = nftStore;
 	const { user, updateUserBookmarks, updateUserInStore } = userStore;
 
 	const [nfts, setNfts] = useState([])
@@ -59,6 +59,10 @@ const NftTable = ({ type, data }) => {
 			<Container className="">
 				<Row className="pt-4 pl-2 profile-nfts-grid">
 					{
+					loadingInitial 
+					?
+					<Spinner animation="grow" className="mx-auto" />
+					:
 					nfts.length 
 					?
 						nfts.map((nft, i) => (
